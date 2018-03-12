@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore", "AspNetCore\AspNetCore.csproj", "{17F7BFDC-8D22-4B88-B8E9-22E580CAFF69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularWebpack", "AngularWebpack\AngularWebpack.csproj", "{84EE0055-8F78-4711-BB1A-19EB7FEFE6FA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowToBeatNPM_1", "HowToBeatNPM_1\HowToBeatNPM_1.csproj", "{42D67FC6-5CBF-4942-BE9E-6819590DCCF7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowToBeatNPM_2", "HowToBeatNPM_2\HowToBeatNPM_2.csproj", "{E302F3B7-3C2B-4685-8F90-38348BF41BFF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowToBeatNPM_3", "HowToBeatNPM_3\HowToBeatNPM_3.csproj", "{DA6847FA-4B5B-4845-A6D8-3A5023EDEA54}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17F7BFDC-8D22-4B88-B8E9-22E580CAFF69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17F7BFDC-8D22-4B88-B8E9-22E580CAFF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17F7BFDC-8D22-4B88-B8E9-22E580CAFF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17F7BFDC-8D22-4B88-B8E9-22E580CAFF69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84EE0055-8F78-4711-BB1A-19EB7FEFE6FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84EE0055-8F78-4711-BB1A-19EB7FEFE6FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84EE0055-8F78-4711-BB1A-19EB7FEFE6FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84EE0055-8F78-4711-BB1A-19EB7FEFE6FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42D67FC6-5CBF-4942-BE9E-6819590DCCF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42D67FC6-5CBF-4942-BE9E-6819590DCCF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42D67FC6-5CBF-4942-BE9E-6819590DCCF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42D67FC6-5CBF-4942-BE9E-6819590DCCF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E302F3B7-3C2B-4685-8F90-38348BF41BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E302F3B7-3C2B-4685-8F90-38348BF41BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E302F3B7-3C2B-4685-8F90-38348BF41BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E302F3B7-3C2B-4685-8F90-38348BF41BFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA6847FA-4B5B-4845-A6D8-3A5023EDEA54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA6847FA-4B5B-4845-A6D8-3A5023EDEA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA6847FA-4B5B-4845-A6D8-3A5023EDEA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA6847FA-4B5B-4845-A6D8-3A5023EDEA54}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6357A476-D109-46B4-9E03-C0F134D1C4FF}
+	EndGlobalSection
+EndGlobal
