@@ -2,10 +2,8 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
 @*<ejs-calendar id="calendar"></ejs-calendar>*@
 @*<ejs-datepicker id="datepicker"></ejs-datepicker>*@
-
 <script>
     function actionFailure(args)
     {
@@ -15,11 +13,9 @@
         span.innerHTML = 'Server exception: ' + args['exception'];
     }
 </script>
-
-<ejs-grid id="Grid133" dataSource=@ViewBag.datasource allowPaging="true">
+@*<ejs-grid id="Grid133" dataSource=@ViewBag.datasource allowPaging="true">
     <e-grid-pagesettings pageSize="3"></e-grid-pagesettings>
 </ejs-grid>
-
 <br />
 <br />
 <br />
@@ -27,10 +23,9 @@
 <br />
 <br />
 <br />
-<br />
-
+<br />*@
 <ejs-grid id="Grid"
-          dataSource="ViewBag.datasource"
+          dataSource="(List<Record>)ViewBag.datasource"
           allowPaging="true"
           allowReordering="true"
           allowResizing="true"
@@ -52,13 +47,13 @@
                        width="120"
                        isPrimaryKey="true"
                        validationRules="@(new {required = true})"></e-grid-column>
-        <e-grid-column @*dataSource="ViewBag.Customers" *@
-                       template="#templateCuId"
+        <e-grid-column dataSource="ViewBag.Customers"
+                       template="#templateCustomers"
                        headerText="Custumers"
                        textAlign="Center"
                        width="150"
                        validationRules="@(new {required = true})"
-                       editType="dropdownedit"></e-grid-column>
+                       allowEditing="false"></e-grid-column>
         <e-grid-column field="OrderDate"
                        headerText=" Order Date"
                        format="yMd"
@@ -85,20 +80,30 @@
     </e-grid-columns>
 </ejs-grid>
 
-
 @*https://ej2.syncfusion.com/16.1.24/aspnet/documentation/grid/how-to.html?syntax=tag
-https://aspdotnetcore.syncfusion.com/Grid/ColumnTemplate#/material
-https://help.syncfusion.com/aspnet-core/gettingstarted/getting-started-2-0
-https://metanit.com/sharp/aspnet5/7.2.php
-https://docs.microsoft.com/en-us/aspnet/core/client-side/using-gulp
-https://codeburst.io/how-to-use-webpack-in-asp-net-core-projects-a-basic-react-template-sample-25a3681a5fc2
-https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc*@
+    https://aspdotnetcore.syncfusion.com/Grid/ColumnTemplate#/material
+    https://help.syncfusion.com/aspnet-core/gettingstarted/getting-started-2-0
+    https://metanit.com/sharp/aspnet5/7.2.php
+    https://docs.microsoft.com/en-us/aspnet/core/client-side/using-gulp
+    https://codeburst.io/how-to-use-webpack-in-asp-net-core-projects-a-basic-react-template-sample-25a3681a5fc2
+    https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc*@
 
-<script type="text/x-template" id="templateCuId">
-    <div style="background-color:azure">
-        ${Customers}
+
+
+
+<script type="text/x-template" id="templateCustomers">
+
+        @*<ejs-grid dataSource="customers">
+
+            </ejs-grid>*@
+
+        @*@{
+                var x = data.Customers;
+            }*@
+
+        @*${Customers[0].LastName}*@
         @*${Customers.Aggregate(new StringBuilder(), (sb, c) => sb.Append(c.Id.ToString()+",")).ToString()}*@
-    </div>
+
 </script>
 
 
@@ -134,8 +139,8 @@ https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5f
     }
 </script>
 
-
 <style type="text/css" class="cssStyles">
+
     .detailtable td
     {
         font-size: 13px;
@@ -154,7 +159,6 @@ https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5f
         box-shadow: inset 0 0 1px #e0e0e0, inset 0 0 14px rgba(0, 0, 0, 0.2);
     }
 </style>
-
 <script type="text/x-template" id="detailtemplate">
     @*<table class="detailtable" style="width:100%">
         <colgroup>
@@ -186,12 +190,10 @@ https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5f
             </tbody>
         </table>*@
 
-
-
-    <ejs-grid dataSource="Customers"
+    @*<ejs-grid dataSource="Customers"
               allowReordering="true"
               allowResizing="true"
-              allowSorting="true">
+              allowSorting="true">*@
         @*<e-grid-columns>
                 <e-grid-column field="Id"
                                headerText="ID"
@@ -207,13 +209,11 @@ https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5f
                                headerText="FirstName"
                                width="120"></e-grid-column>
             </e-grid-columns>*@
-    </ejs-grid>
+    @*</ejs-grid>*@
 </script>
 
 
-
-
-
+@*<br />
 <br />
 <br />
 <br />
@@ -221,22 +221,17 @@ https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5f
 <br />
 <br />
 <br />
-<br />
-
-
 
 
 <ejs-button id="generate" content="generate"></ejs-button>
 <div id="popup"></div>
 <div id="performanceTime"></div>
-
 <ejs-grid id="VirtualGrid"
           height="600"
           dataBound="hide"
           enableColumnVirtualization="true"
           enableVirtualization="true"
           actionFailure="actionFailure">
-
     <e-grid-columns>
         <e-grid-column field="Field1"
                        headerText="PlayerName"
@@ -359,7 +354,6 @@ https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5f
                        width="130"></e-grid-column>
     </e-grid-columns>
 </ejs-grid>
-
 <script>
     var virtualData = [], date1 = null, date2 = null, flag = true;
     var names = ['hardire', 'abramjo01', 'aubucch01', 'Hook', 'Rumpelstiltskin', 'Belle', 'Emma', 'Regina', 'Aurora', 'Elsa',
@@ -448,10 +442,7 @@ https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5f
         }
     }
 
-</script>
-
-
-
+</script>*@
 
 
 
