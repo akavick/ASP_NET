@@ -1,0 +1,29 @@
+﻿@model GuestResponse
+
+@{
+    ViewBag.Title = "Thanks";
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+<div class="text-center">
+    <h1>Thanks, @Model.Name!</h1>
+    <p>
+        <div>@Model.Email</div>
+        <div>@Model.Phone</div>
+        <h2>
+            @if (Model.WillAttend == true)
+            {
+                @:=);
+            }
+            else if (Model.WillAttend == false)
+            {
+                @:=(
+            }
+        </h2>
+    </p>
+    <p>
+        Click <a class="nav-link" asp-action="ShowResponses">here</a> to see who is coming
+    </p>
+</div>
