@@ -14,8 +14,6 @@ namespace RazorPages.Pages
     {
         public List<Record> Records;
 
-        Grid Grid;
-
 
         public void OnGet()
         {
@@ -60,7 +58,9 @@ namespace RazorPages.Pages
                    
                           return new Record
                           {
-                              OrderId = i
+                              Id = i - 1
+                              ,
+                              OrderId = i + 1000
                               ,
                               Freight = r.NextDouble() * 1000.0
                               ,
@@ -79,11 +79,8 @@ namespace RazorPages.Pages
                       })
                       .ToList();
 
-            //Grid = Component.;
-            //Grid.DataSource = new List<Record>();
-            //var bytes = Encoding.UTF8.GetBytes("WOOOOOOOOOOOHOOOOOOOOOOOOOO!");
-            //PageContext.HttpContext.Response.Body.Write(bytes, 0, bytes.Length);
-            //PageContext.HttpContext.Response.Body.Flush();
+            
+
         }
     }
 }
