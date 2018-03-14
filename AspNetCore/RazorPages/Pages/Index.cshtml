@@ -1,0 +1,212 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<script>
+    function actionFailure(args)
+    {
+        var span = document.createElement('span');
+        this.element.parentNode.insertBefore(span, this.element);
+        span.style.color = '#FF0000';
+        span.innerHTML = 'Server exception: ' + args['exception'];
+    }
+</script>
+
+
+<ejs-grid id="Grid" 
+          dataSource="Model.Records"
+          allowPaging="true"
+          allowReordering="true"
+          allowResizing="true"
+          allowSorting="true"
+          showColumnMenu="true"
+          allowGrouping="true"
+          toolbar="@(new List<string> { "Add", "Edit" , "Delete" , "Update" , "Cancel" })"
+          detailTemplate="#detailtemplate"
+          actionFailure="actionFailure">
+    <e-grid-editSettings allowAdding="true"
+                         allowDeleting="true"
+                         allowEditing="true"
+                         mode="Normal"></e-grid-editSettings>
+    <e-grid-pagesettings pageCount="5"></e-grid-pagesettings>
+    <e-grid-columns>
+        <e-grid-column field="OrderId"
+                       headerText="Order ID"
+                       textAlign="Center"
+                       width="120"
+                       isPrimaryKey="true"
+                       validationRules="@(new {required = true})"></e-grid-column>
+        <e-grid-column field="Customers"
+                       template="#templateCustomers"
+                       headerText="Custumers"
+                       textAlign="Center"
+                       width="150"
+                       validationRules="@(new {required = true})"
+                       allowEditing="false"></e-grid-column>
+        @*<e-grid-column field="Customers"
+            template="#templateCustomers"
+            headerText="Custumers"
+            textAlign="Center"
+            width="150"
+            validationRules="@(new {required = true})"
+            allowEditing="false"></e-grid-column>*@
+        <e-grid-column field="OrderDate"
+                       headerText=" Order Date"
+                       format="yMd"
+                       width="130"
+                       validationRules="@(new {required = true})"
+                       editType="datepickeredit"></e-grid-column>
+        <e-grid-column field="Freight"
+                       headerText="Freight"
+                       format="C2"
+                       width="120"
+                       validationRules="@(new {required = true})"
+                       editType="numericedit"></e-grid-column>
+        <e-grid-column field="ShippedDate"
+                       headerText="Shipped Date"
+                       format="yMd"
+                       width="140"
+                       validationRules="@(new {required = true})"
+                       editType="datepickeredit"></e-grid-column>
+        <e-grid-column field="ShipCountry"
+                       headerText="Ship Country"
+                       width="150"
+                       validationRules="@(new {required = true})"
+                       editType="dropdownedit"></e-grid-column>
+    </e-grid-columns>
+</ejs-grid>
+
+@*https://ej2.syncfusion.com/16.1.24/aspnet/documentation/grid/how-to.html?syntax=tag
+    https://aspdotnetcore.syncfusion.com/Grid/ColumnTemplate#/material
+    https://help.syncfusion.com/aspnet-core/gettingstarted/getting-started-2-0
+    https://metanit.com/sharp/aspnet5/7.2.php
+    https://docs.microsoft.com/en-us/aspnet/core/client-side/using-gulp
+    https://codeburst.io/how-to-use-webpack-in-asp-net-core-projects-a-basic-react-template-sample-25a3681a5fc2
+    https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc*@
+
+
+
+
+<script type="text/x-template" id="templateCustomers">
+
+    @*<ejs-grid dataSource="customers">
+
+        </ejs-grid>*@
+
+    @*@{
+            var x = data.Customers;
+        }*@
+
+    @*${Customers[0].LastName}*@
+    @*${Customers.Aggregate(new StringBuilder(), (sb, c) => sb.Append(c.Id.ToString()+",")).ToString()}*@
+
+</script>
+
+
+<script>
+    function actionComplete(args)
+    {
+        if (args.requestType === 'reorder')
+        {
+            var dropdown = document.getElementById("column").ej2_instances[0],
+                grid = document.getElementById("Grid").ej2_instances[0];
+            var field = (dropdown.value),
+                index = grid.getColumnIndexByField(field);
+
+            document.getElementById("columnIndex").ej2_instances[0].value = index;
+        }
+    }
+
+    function columnChange(args)
+    {
+        var grid = document.getElementById("Grid").ej2_instances[0];
+        var field = this.value;
+        var index = grid.getColumnIndexByField(field);
+        document.getElementById("columnIndex").ej2_instances[0].value = index;
+    }
+
+    function indexChange(args)
+    {
+        var grid = document.getElementById("Grid").ej2_instances[0],
+            dropdown = document.getElementById("column").ej2_instances[0];
+        var field = (dropdown.value);
+        var toColumnIndex = this.value;
+        grid.reorderColumns(field, (grid.columns[toColumnIndex]).field);
+    }
+</script>
+
+<style type="text/css" class="cssStyles">
+
+    .detailtable td
+    {
+        font-size: 13px;
+        padding: 4px;
+        max-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .photo
+    {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        box-shadow: inset 0 0 1px #e0e0e0, inset 0 0 14px rgba(0, 0, 0, 0.2);
+    }
+</style>
+<script type="text/x-template" id="detailtemplate">
+    @*<table class="detailtable" style="width:100%">
+        <colgroup>
+            <col style="width:35%" />
+            <col style="width:35%" />
+            <col style="width:30%" />
+        </colgroup>
+        <tbody>
+            <tr>
+                <td rowspan="4" style="text-align: center;">*@
+    @*<img class="photo" src="/scripts/Images/Employees/${EmployeeID}.png" alt="${EmployeeID}" />*@
+    @*<span style="font-weight: 600; font-size:70px">${Cust.LastName[0]}${Cust.FirstName[0]}</span>
+                    </td>
+                    <td>
+                        <span style="font-weight: 500;">CustomerId: </span> ${Cust.Id}
+                    </td>
+                    <td>
+                        <span style="font-weight: 500;">DateOfBirth: </span> ${Cust.DateOfBirth.toLocaleDateString()}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span style="font-weight: 500;">LastName: </span> ${Cust.LastName}
+                    </td>
+                    <td>
+                        <span style="font-weight: 500;">FirstName: </span> ${Cust.FirstName}
+                    </td>
+                </tr>
+            </tbody>
+        </table>*@
+
+    @*<ejs-grid dataSource="Customers"
+        allowReordering="true"
+        allowResizing="true"
+        allowSorting="true">*@
+    @*<e-grid-columns>
+            <e-grid-column field="Id"
+                           headerText="ID"
+                           width="120"></e-grid-column>
+            <e-grid-column field="DateOfBirth"
+                           headerText="DateOfBirth"
+                           format="yMd"
+                           width="120"></e-grid-column>
+            <e-grid-column field="LastName"
+                           headerText="LastName"
+                           width="120"></e-grid-column>
+            <e-grid-column field="FirstName"
+                           headerText="FirstName"
+                           width="120"></e-grid-column>
+        </e-grid-columns>*@
+    @*</ejs-grid>*@
+</script>

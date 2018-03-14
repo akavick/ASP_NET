@@ -32,6 +32,10 @@ namespace HowToBeatNPM_1.Controllers
     {
         public IActionResult Index()
         {
+            //HttpContext.Response.Body.;
+
+
+
             var r = new Random();
 
             var letters = Enumerable
