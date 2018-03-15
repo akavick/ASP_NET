@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace RazorPages.Classes
+namespace HowToBeatNPM_1.Classes
 {
     public class Record
     {

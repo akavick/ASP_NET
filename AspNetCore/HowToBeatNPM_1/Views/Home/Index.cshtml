@@ -25,7 +25,7 @@
 <br />
 <br />*@
 <ejs-grid id="Grid"
-          dataSource="(List<Record>)ViewBag.datasource"
+          dataSource="(List<HowToBeatNPM_1.Classes.Record>)ViewBag.datasource"
           allowPaging="true"
           allowReordering="true"
           allowResizing="true"
@@ -47,7 +47,7 @@
                        width="120"
                        isPrimaryKey="true"
                        validationRules="@(new {required = true})"></e-grid-column>
-        <e-grid-column dataSource="ViewBag.Customers"
+        <e-grid-column 
                        template="#templateCustomers"
                        headerText="Custumers"
                        textAlign="Center"

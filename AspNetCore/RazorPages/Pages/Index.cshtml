@@ -1,10 +1,11 @@
 ﻿@page
+@using System.Text
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
-
+@(Html.Label("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"));
 
 
 <script>
@@ -17,6 +18,9 @@
     }
 </script>
 
+@{
+    Write("sfsfsdf");
+}
 
 <ejs-grid id="Grid"
           dataSource="Model.Records"
@@ -35,9 +39,14 @@
                          mode="Normal"></e-grid-editSettings>
     <e-grid-pagesettings pageCount="5"></e-grid-pagesettings>
     <e-grid-columns>
-        <e-grid-column field="Id"
-                       isPrimaryKey="true"
-                       visible="false"></e-grid-column>
+        <e-grid-column field="RecordId"
+                       headerText=""
+                       width="30"
+                       maxWidth="60"></e-grid-column>
+        @*<e-grid-column template="${index}"
+            headerText=""
+            width="30"
+            maxWidth="60"></e-grid-column>*@
         <e-grid-column field="OrderId"
                        headerText="Order ID"
                        textAlign="Center"
@@ -51,7 +60,7 @@
                        validationRules="@(new {required = true})"
                        allowEditing="false"></e-grid-column>
         <e-grid-column field="OrderDate"
-                       headerText=" Order Date"
+                       headerText="Order Date"
                        format="yMd"
                        width="130"
                        validationRules="@(new {required = true})"
@@ -94,25 +103,40 @@
 @*<ejs-grid id="gggggggggggg"></ejs-grid>*@
 
 <script type="text/x-template" id="templateCustomers">
-    <div></div>
 
     @{
         int x = 0;
     }
 
-    @x=;
+    @*{{if RecordId < 3}}
+        <div>${RecordId}</div>*@
+
+    @{
+        for (int i = 0; i < 3; i++)
+        {
+            @:Hi @i
+        }
+    }
+
+    @Html.Raw("<span>Hello World</span>")
+
+    ${Customers}
 
 
     @{
+        int length = Model.Records[x].Customers.Count;
+        var str = Model.Records[x].Customers
+            .Aggregate(new StringBuilder(), (sb, c) => sb.Append(--length > 0 ? $"{c.Id}, " : $"{c.Id}"))
+            .ToString();
+        <div>@str</div>
 
-
-        foreach (var customer in Model.Records[x].Customers)
-        {
-            <div>@customer.Id</div>
-            @*<div>@customer.LastName</div>
-                <div>@customer.FirstName</div>
-                <div>@customer.DateOfBirth</div>*@
-        }
+        @*foreach (var customer in Model.Records[x].Customers)
+            {
+                <div>@customer.Id</div>
+                <div>@customer.LastName</div>
+                    <div>@customer.FirstName</div>
+                    <div>@customer.DateOfBirth</div>
+            }*@
 
         //<div>@this.__Syncfusion_EJ2_Grids_Grid.Width</div>
 
@@ -122,6 +146,7 @@
     @*<ejs-grid id="gggg + @Model.Records[1].Id" dataSource="@Model.Records[1].Customers">
         </ejs-grid>*@
 </script>
+
 
 @*<script type="text/javascript">
         function template(args)
@@ -182,8 +207,9 @@
         box-shadow: inset 0 0 1px #e0e0e0, inset 0 0 14px rgba(0, 0, 0, 0.2);
     }
 </style>
+
 <script type="text/x-template" id="detailtemplate">
-    @*<table class="detailtable" style="width:100%">
+    <table class="detailtable" style="width:100%">
         <colgroup>
             <col style="width:35%" />
             <col style="width:35%" />
@@ -191,27 +217,26 @@
         </colgroup>
         <tbody>
             <tr>
-                <td rowspan="4" style="text-align: center;">*@
-    @*<img class="photo" src="/scripts/Images/Employees/${EmployeeID}.png" alt="${EmployeeID}" />*@
-    @*<span style="font-weight: 600; font-size:70px">${Cust.LastName[0]}${Cust.FirstName[0]}</span>
-                    </td>
-                    <td>
-                        <span style="font-weight: 500;">CustomerId: </span> ${Cust.Id}
-                    </td>
-                    <td>
-                        <span style="font-weight: 500;">DateOfBirth: </span> ${Cust.DateOfBirth.toLocaleDateString()}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <span style="font-weight: 500;">LastName: </span> ${Cust.LastName}
-                    </td>
-                    <td>
-                        <span style="font-weight: 500;">FirstName: </span> ${Cust.FirstName}
-                    </td>
-                </tr>
-            </tbody>
-        </table>*@
+                <td rowspan="4" style="text-align: center;">
+                    <span style="font-weight: 600; font-size:70px">${RecordId}-${OrderId}</span>
+                </td>
+                <td>
+                    <span style="font-weight: 500;">Ship Country: </span> ${ShipCountry}
+                </td>
+                <td>
+                    <span style="font-weight: 500;">Order Date: </span> ${OrderDate.toLocaleDateString()}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span style="font-weight: 500;">Freight: </span> ${Freight}
+                </td>
+                <td>
+                    <span style="font-weight: 500;">Shipped Date: </span> ${ShippedDate.toLocaleDateString()}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
     @*<ejs-grid dataSource="Customers"
         allowReordering="true"
@@ -236,7 +261,7 @@
 </script>
 
 
-@(Html.Label("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"));
+
 
 @*<script type="text/x-jsrender" id="columnTemplate">
 

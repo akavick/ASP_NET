@@ -4,6 +4,6 @@
   "private": true,
   "devDependencies":
   {
-    "@syncfusion/ej2": "^16.1.26"
+    "@syncfusion/ej2": "~16.1.29"
   }
 }
