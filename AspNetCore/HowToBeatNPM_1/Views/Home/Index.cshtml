@@ -1,11 +1,10 @@
-﻿@using HowToBeatNPM_1.Controllers
+﻿@using System.Collections.ObjectModel
 @using System.Text
 @using HowToBeatNPM_1.Classes
+@using Syncfusion.EJ2
 @{
     ViewData["Title"] = "Home Page";
 }
-
-@(Html.Label("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"));
 
 <script>
     function actionFailure(args)
@@ -20,9 +19,133 @@
 @{
     Write("sfsfsdf");
 }
+@*dataSource="ViewBag.DataSource"
+detailTemplate="#detailtemplate"
+insertUrl="/Home/Insert" updateUrl="/Home/Update" removeUrl="/Home/Delete"
+url="/Home/UrlDatasource"  batchUrl="/Home/BatchUpdate" adaptor="UrlAdaptor"*@
 
-<ejs-grid id="Grid"
-          dataSource="ViewBag.DataSource"
+
+@{
+    var grid = Html.EJS()
+        .Grid("RazorGrid")
+        //.DataSource((ObservableCollection<Record>) ViewBag.DataSource)
+        .DataSource(dm =>
+        {
+            dm.BatchUrl("/Home/BatchUpdate")
+              .Adaptor("UrlAdaptor")
+              .Url("/Home/UrlDatasource");
+        })
+        //.DetailTemplate("#detailtemplate")
+        .Columns(col =>
+        {
+            col.Field("RecordId")
+               .HeaderText("RID")
+               .IsPrimaryKey(true)
+               .Width("100")
+               .Add();
+            col.Template("${index}")
+               .HeaderText("Index")
+               .Width("100")
+               .Add();
+            col.Field("OrderId")
+               .HeaderText("RID")
+               //.IsPrimaryKey(true)
+               .Width("120")
+               .ValidationRules(new {required = "true"})
+               .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+               .Add();
+            //col.Template("#templateCustomers")
+            //   //.Field("Customers")
+            //   .HeaderText("Customers")
+            //   .Width("150")
+            //   .ValidationRules(new {required = "true"})
+            //   .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+            //   .Add();
+            col.Field("Freight")
+               .HeaderText("Freight")
+               .Width("120")
+               .Format("C2")
+               .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Right)
+               .EditType("numericedit")
+               .Add();
+            col.Field("OrderDate")
+               .HeaderText("Order Date")
+               .Width("130")
+               .ValidationRules(new {required = "true"})
+               .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+               .Format("yMd")
+               .EditType("datepickeredit")
+               .Add();
+            col.Field("ShippedDate")
+               .HeaderText("Shipped Date")
+               .Width("130")
+               .ValidationRules(new {required = "true"})
+               .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+               .Format("yMd")
+               .EditType("datepickeredit")
+               .Add();
+            col.Field("ShipCountry")
+               .HeaderText("Ship Country")
+               .Width("150")
+               .ValidationRules(new {required = "true"})
+               .EditType("dropdownedit")
+               .Add();
+        })
+        .AllowPaging()
+        .AllowFiltering()
+        .AllowSorting()
+        .AllowReordering()
+        .AllowResizing()
+        .AllowGrouping()
+        .ShowColumnMenu()
+        .PageSettings(page => page.PageCount(5))
+        .EditSettings(edit =>
+        {
+            edit.AllowAdding(true)
+                .AllowEditing(true)
+                .AllowDeleting(true)
+                .Mode(Syncfusion.EJ2.Grids.EditMode.Batch);
+        })
+        .Toolbar(new List<string> {"Add", "Edit", "Delete", "Update", "Cancel"})
+        .ActionFailure("actionFailure");
+}
+
+@(grid.Render())
+
+
+
+
+<script id='dropdown' type="text/template">
+        <select class="e-control e-dropdownlist">
+            <option value="1" selected="selected">Order Placed</option>
+            <option value="2">Processing</option>
+            <option value="3">Delivered</option>
+        </select>
+    </script>
+
+<script>
+    function dropdown(args) {
+        var ele = args.cell.querySelector('select');
+        var drop = new ej.dropdowns.DropDownList({ popupHeight: 150, popupWidth: 150 });
+        drop.appendTo(ele);
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<e-datamanager json="((IEnumerable<object>)ViewBag.DataSource).ToArray()" batchUrl="/Home/BatchUpdate" adaptor="JsonAdaptor"></e-datamanager>*@
+@*<ejs-grid dataSource="ViewBag.DataSource"
+            id="HelperGrid"
           allowPaging="true"
           allowReordering="true"
           allowResizing="true"
@@ -30,60 +153,58 @@
           showColumnMenu="true"
           allowGrouping="true"
           toolbar="@(new List<string> {"Add", "Edit", "Delete", "Update", "Cancel"})"
-          detailTemplate="#detailtemplate"
           actionFailure="actionFailure">
     <e-grid-editSettings allowAdding="true"
                          allowDeleting="true"
                          allowEditing="true"
                          mode="Batch"></e-grid-editSettings>
-    <e-datamanager data="ViewBag.DataSource" insertUrl="/Home/Insert" updateUrl="/Home/Update" removeUrl="/Home/Delete"></e-datamanager>
+    
     <e-grid-pagesettings pageCount="5"></e-grid-pagesettings>
     <e-grid-columns>
         <e-grid-column field="RecordId"
-                       headerText=""
-                       width="30"
-                       maxWidth="60"></e-grid-column>
-        @*<e-grid-column template="${index}"
-            headerText=""
-            width="30"
-            maxWidth="60"></e-grid-column>*@
-        <e-grid-column field="OrderId"
-                       headerText="Order ID"
-                       textAlign="Center"
-                       width="120"
-                       validationRules="@(new {required = true})"></e-grid-column>
-        <e-grid-column field="Customers"
-                       template="#templateCustomers"
-                       headerText="Custumers"
-                       textAlign="Center"
-                       width="150"
-                       validationRules="@(new {required = true})"
-                       allowEditing="false"></e-grid-column>
-        <e-grid-column field="OrderDate"
-                       headerText="Order Date"
-                       format="yMd"
-                       width="130"
-                       validationRules="@(new {required = true})"
-                       editType="datepickeredit"></e-grid-column>
-        <e-grid-column field="Freight"
-                       headerText="Freight"
-                       format="C2"
-                       width="120"
-                       validationRules="@(new {required = true})"
-                       editType="numericedit"></e-grid-column>
-        <e-grid-column field="ShippedDate"
-                       headerText="Shipped Date"
-                       format="yMd"
-                       width="140"
-                       validationRules="@(new {required = true})"
-                       editType="datepickeredit"></e-grid-column>
-        <e-grid-column field="ShipCountry"
-                       headerText="Ship Country"
-                       width="150"
-                       validationRules="@(new {required = true})"
-                       editType="dropdownedit"></e-grid-column>
-    </e-grid-columns>
-</ejs-grid>
+                       isPrimaryKey="true"
+                    headerText=""
+                    width="30"
+                    maxWidth="60"></e-grid-column>
+    <e-grid-column template="${index}"
+                    headerText=""
+                    width="30"
+                    maxWidth="60"></e-grid-column>
+    <e-grid-column field="OrderId"
+                    headerText="Order ID"
+                    textAlign="Center"
+                    width="120"
+                    validationRules="@(new {required = true})"></e-grid-column>
+<e-grid-column template="#templateCustomers"
+                headerText="Custumers"
+                textAlign="Center"
+                width="150"
+                allowEditing="false"></e-grid-column>
+    <e-grid-column field="OrderDate"
+                    headerText="Order Date"
+                    format="yMd"
+                    width="130"
+                    validationRules="@(new {required = true})"
+                    editType="datepickeredit"></e-grid-column>
+    <e-grid-column field="Freight"
+                    headerText="Freight"
+                    format="C2"
+                    width="120"
+                    validationRules="@(new {required = true})"
+                    editType="numericedit"></e-grid-column>
+    <e-grid-column field="ShippedDate"
+                    headerText="Shipped Date"
+                    format="yMd"
+                    width="140"
+                    validationRules="@(new {required = true})"
+                    editType="datepickeredit"></e-grid-column>
+    <e-grid-column field="ShipCountry"
+                    headerText="Ship Country"
+                    width="150"
+                    validationRules="@(new {required = true})"
+                    editType="dropdownedit"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>*@
 
 @*
     https://help.syncfusion.com/aspnet-core/grid/columns?cs-save-lang=1&cs-lang=razor
@@ -100,9 +221,12 @@
     https://codeburst.io/how-to-use-webpack-in-asp-net-core-projects-a-basic-react-template-sample-25a3681a5fc2
     https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc*@
 
-@*<ejs-grid id="gggggggggggg"></ejs-grid>*@
+
 
 <script type="text/x-template" id="templateCustomers">
+
+    @*@Html.EJS().Grid("as23").Render()*@
+
 
     @{
         int x = 0;
@@ -111,20 +235,20 @@
     @*{{if RecordId < 3}}
         <div>${RecordId}</div>*@
 
-    @{
+    @*@{
         for (int i = 0; i < 3; i++)
         {
             @:Hi @i
         }
-    }
+    }*@
 
-    @Html.Raw("<span>Hello World</span>")
+    @Html.Raw("<span>Hello, </span>")
 
     ${Customers}
 
 
     @{
-        var list = (List<Record>)ViewBag.DataSource;
+        var list = (ObservableCollection<Record>)ViewBag.DataSource;
         int length = list[x].Customers.Count;
         var str = list[x].Customers
             .Aggregate(new StringBuilder(), (sb, c) => sb.Append(--length > 0 ? $"{c.Id}, " : $"{c.Id}"))
@@ -239,53 +363,4 @@
         </tbody>
     </table>
 
-    @*<ejs-grid dataSource="Customers"
-        allowReordering="true"
-        allowResizing="true"
-        allowSorting="true">*@
-    @*<e-grid-columns>
-            <e-grid-column field="Id"
-                           headerText="ID"
-                           width="120"></e-grid-column>
-            <e-grid-column field="DateOfBirth"
-                           headerText="DateOfBirth"
-                           format="yMd"
-                           width="120"></e-grid-column>
-            <e-grid-column field="LastName"
-                           headerText="LastName"
-                           width="120"></e-grid-column>
-            <e-grid-column field="FirstName"
-                           headerText="FirstName"
-                           width="120"></e-grid-column>
-        </e-grid-columns>*@
-    @*</ejs-grid>*@
 </script>
-
-
-
-
-@*<script type="text/x-jsrender" id="columnTemplate">
-
-        {{if EmployeeID<3}}
-
-        <input type="text" class="rating" value="3" />
-
-        {{else EmployeeID>2 && EmployeeID<5}}
-
-        <input type="text" class="rating" value="3" />
-
-        {{else EmployeeID>4}}
-
-        <input type="text" class="rating" value="5" />
-
-        {{/if}}
-    </script>*@
-
-@*@{
-        var g = new Grid();
-        g.DataSource = Model.Records;
-        var con = this.BodyContent?.ToString();
-        var c = this.Content("<div>Hello</div>");
-        this.Html.
-    }*@
-

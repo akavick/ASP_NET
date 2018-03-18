@@ -1,5 +1,6 @@
 ﻿@page
 @using System.Text
+@using Syncfusion.EJ2
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -21,6 +22,9 @@
 @{
     Write("sfsfsdf");
 }
+
+
+@*@Html.EJS().*@
 
 <ejs-grid id="Grid"
           dataSource="Model.Records"

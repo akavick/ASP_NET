@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using HowToBeatNPM_1.Classes;
@@ -8,7 +9,8 @@ namespace HowToBeatNPM_1.Repositories
 {
     public static class Repository
     {
-        public static List<Record> Records { get; }
+        public static ObservableCollection<Record> Records { get; }
+        public static int CurrentRecordId { get; private set; }
 
         static Repository()
         {
@@ -42,7 +44,7 @@ namespace HowToBeatNPM_1.Repositories
                             })
                             .ToList();
 
-            Records = Enumerable
+            Records = new ObservableCollection<Record>(Enumerable
                       .Range(1, 100)
                       .Select(i =>
                       {
@@ -53,6 +55,8 @@ namespace HowToBeatNPM_1.Repositories
 
                           return new Record
                           {
+                              RecordId = ++CurrentRecordId
+                              ,
                               OrderId = i + 1000
                               ,
                               Freight = r.NextDouble() * 1000.0
@@ -71,12 +75,14 @@ namespace HowToBeatNPM_1.Repositories
                           };
                       })
                       .OrderBy(rec => r.Next())
-                      .Select((rec, i) =>
-                      {
-                          rec.RecordId = i + 1;
-                          return rec;
-                      })
-                      .ToList();
+                      .ToList());
+
+            Records.CollectionChanged += Records_CollectionChanged;
+        }
+
+        private static void Records_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            
         }
     }
 }
