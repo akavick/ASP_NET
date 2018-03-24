@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowToBeatNPM_2", "HowToBeat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowToBeatNPM_3", "HowToBeatNPM_3\HowToBeatNPM_3.csproj", "{DA6847FA-4B5B-4845-A6D8-3A5023EDEA54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPages", "RazorPages\RazorPages.csproj", "{30814315-408E-4DB5-9204-5EC8364A6089}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorPages", "RazorPages\RazorPages.csproj", "{30814315-408E-4DB5-9204-5EC8364A6089}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridTest_001", "GridTest_001\GridTest_001.csproj", "{AF781299-73A8-4921-A1DB-8AA9A1631924}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{30814315-408E-4DB5-9204-5EC8364A6089}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30814315-408E-4DB5-9204-5EC8364A6089}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30814315-408E-4DB5-9204-5EC8364A6089}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF781299-73A8-4921-A1DB-8AA9A1631924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF781299-73A8-4921-A1DB-8AA9A1631924}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF781299-73A8-4921-A1DB-8AA9A1631924}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF781299-73A8-4921-A1DB-8AA9A1631924}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
