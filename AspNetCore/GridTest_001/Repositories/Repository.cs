@@ -11,6 +11,7 @@ namespace GridTest_001.Repositories
     {
         public static ObservableCollection<Person> Persons { get; }
         public static int CurrentPersonId { get; private set; }
+        public static int ProduceId() => ++CurrentPersonId;
 
         static Repository()
         {
@@ -25,7 +26,7 @@ namespace GridTest_001.Repositories
                           .Range(1, 20)
                           .Select(i => new Person
                           {
-                              Id = ++CurrentPersonId,
+                              Id = ProduceId(),
                               FirstName = letters.OrderBy(l => r.Next())
                                                  .Take(r.Next(3, 11))
                                                  .Aggregate(new StringBuilder(), (sb, c) => sb.Append(c))

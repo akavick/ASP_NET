@@ -23,26 +23,28 @@
         //.DataSource((List<Person>) ViewBag.DataSource)
         .DataSource(dm =>
         {
-            dm.BatchUrl("/Home/BatchUpdate")
+            dm
+              .BatchUrl("/Home/BatchUpdate")
+              .CrudUrl("/Home/CrudUpdate")
               .Adaptor("UrlAdaptor")
               .Url("/Home/UrlDatasource");
         })
         //.DetailTemplate("#detailtemplate")
         .Columns(col =>
         {
-            col.Field("id")
+            col.Field("Id")
                .HeaderText("ID")
                .IsPrimaryKey(true)
                .Width("100")
                .AllowEditing(false)
                .Visible(false)
                .Add();
-            col.Field("firstName")
+            col.Field("FirstName")
                .HeaderText("First Name")
                .Width("150")
                .ValidationRules(new { required = "true" })
                .Add();
-            col.Field("lastName")
+            col.Field("LastName")
                .HeaderText("Last Name")
                .Width("150")
                .ValidationRules(new { required = "true" })
@@ -61,113 +63,18 @@
             edit.AllowAdding(true)
                 .AllowEditing(true)
                 .AllowDeleting(true)
-                .Mode(Syncfusion.EJ2.Grids.EditMode.Batch);
+                .Mode
+                (
+                      Syncfusion.EJ2.Grids.EditMode
+                                            .Batch
+                                            //.Normal
+                );
         })
         .Toolbar(new List<string> { "Add", "Edit", "Delete", "Update", "Cancel" })
         .ActionFailure("actionFailure");
 }
 
 @(grid.Render())
-
-
-
-
-
-
-@*<e-datamanager json="((IEnumerable<object>)ViewBag.DataSource).ToArray()" batchUrl="/Home/BatchUpdate" adaptor="JsonAdaptor"></e-datamanager>*@
-@*<ejs-grid dataSource="ViewBag.DataSource"
-                id="HelperGrid"
-              allowPaging="true"
-              allowReordering="true"
-              allowResizing="true"
-              allowSorting="true"
-              showColumnMenu="true"
-              allowGrouping="true"
-              toolbar="@(new List<string> {"Add", "Edit", "Delete", "Update", "Cancel"})"
-              actionFailure="actionFailure">
-        <e-grid-editSettings allowAdding="true"
-                             allowDeleting="true"
-                             allowEditing="true"
-                             mode="Batch"></e-grid-editSettings>
-
-        <e-grid-pagesettings pageCount="5"></e-grid-pagesettings>
-        <e-grid-columns>
-            <e-grid-column field="RecordId"
-                           isPrimaryKey="true"
-                        headerText=""
-                        width="30"
-                        maxWidth="60"></e-grid-column>
-        <e-grid-column template="${index}"
-                        headerText=""
-                        width="30"
-                        maxWidth="60"></e-grid-column>
-        <e-grid-column field="OrderId"
-                        headerText="Order ID"
-                        textAlign="Center"
-                        width="120"
-                        validationRules="@(new {required = true})"></e-grid-column>
-    <e-grid-column template="#templateCustomers"
-                    headerText="Custumers"
-                    textAlign="Center"
-                    width="150"
-                    allowEditing="false"></e-grid-column>
-        <e-grid-column field="OrderDate"
-                        headerText="Order Date"
-                        format="yMd"
-                        width="130"
-                        validationRules="@(new {required = true})"
-                        editType="datepickeredit"></e-grid-column>
-        <e-grid-column field="Freight"
-                        headerText="Freight"
-                        format="C2"
-                        width="120"
-                        validationRules="@(new {required = true})"
-                        editType="numericedit"></e-grid-column>
-        <e-grid-column field="ShippedDate"
-                        headerText="Shipped Date"
-                        format="yMd"
-                        width="140"
-                        validationRules="@(new {required = true})"
-                        editType="datepickeredit"></e-grid-column>
-        <e-grid-column field="ShipCountry"
-                        headerText="Ship Country"
-                        width="150"
-                        validationRules="@(new {required = true})"
-                        editType="dropdownedit"></e-grid-column>
-            </e-grid-columns>
-        </ejs-grid>*@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

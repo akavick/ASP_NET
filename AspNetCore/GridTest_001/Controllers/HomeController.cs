@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GridTest_001.Models;
 using GridTest_001.Repositories;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace GridTest_001.Controllers
 {
@@ -28,16 +30,58 @@ namespace GridTest_001.Controllers
 
 
 
+        #region Source
 
-
-
-        public ActionResult BatchUpdate([FromBody]SubmitValue myObject)
+        public class GridControlValue
         {
-            if (myObject.Changed != null && myObject.Changed.Count > 0)
+            public int Skip { get; set; }
+            public int Take { get; set; }
+            public bool RequiresCounts { get; set; }
+        }
+
+
+
+        public IActionResult UrlDatasource([FromBody]GridControlValue gcv)
+        {
+            var dataSource = Repository.Persons.ToList();
+            var res = dataSource.Skip(gcv.Skip)
+                                .Take(gcv.Take)
+                                .ToList();
+
+            var urlDatasource = gcv.RequiresCounts
+                                    ? Json(new { result = res, count = dataSource.Count })
+                                    : Json(dataSource);
+            return urlDatasource;
+        }
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+        #region BATCH
+
+        public class BatchSubmitValue
+        {
+            public List<Person> Added { get; set; }
+            public List<Person> Changed { get; set; }
+            public List<Person> Deleted { get; set; }
+            public object Key { get; set; }
+        }
+
+        public IActionResult BatchUpdate([FromBody]BatchSubmitValue bsv)
+        {
+            if (bsv.Changed != null && bsv.Changed.Count > 0)
             {
-                foreach (var person in myObject.Changed)
+                foreach (var person in bsv.Changed)
                 {
-                    Person val = Repository.Persons.FirstOrDefault(p => p.Id == person.Id);
+                    var val = Repository.Persons.FirstOrDefault(p => p.Id == person.Id);
                     if (val != null)
                     {
                         val.Id = person.Id;
@@ -47,75 +91,76 @@ namespace GridTest_001.Controllers
                 }
             }
 
-            if (myObject.Added != null && myObject.Added.Count > 0)
+            if (bsv.Added != null && bsv.Added.Count > 0)
             {
-                foreach (var person in myObject.Added)
+                foreach (var person in bsv.Added)
                 {
+                    person.Id = Repository.ProduceId();
                     Repository.Persons.Insert(0, person);
                 }
             }
 
-            if (myObject.Deleted != null && myObject.Deleted.Count > 0)
+            if (bsv.Deleted != null && bsv.Deleted.Count > 0)
             {
-                foreach (var person in myObject.Deleted)
+                foreach (var person in bsv.Deleted)
                 {
                     Repository.Persons.Remove(Repository.Persons.FirstOrDefault(p => p.Id == person.Id));
                 }
             }
 
-            var data = Repository.Persons;
-            return Json(data);
+
+            var dataSource = Repository.Persons.ToList();
+            return Json(new { result = dataSource, count = dataSource.Count });
         }
 
+        #endregion
 
 
-        public class SubmitValue
+
+
+
+
+
+
+
+
+
+        #region Standart
+
+        public IActionResult Insert([FromBody]Person value)
         {
-            public List<Person> Added { get; set; }
-            public List<Person> Changed { get; set; }
-            public List<Person> Deleted { get; set; }
+            return Json(value);
+        }
+        public IActionResult Update([FromBody]Person value)
+        {
+            return Json(value);
+        }
+        public IActionResult Delete([FromBody]Person value)
+        {
+            return Json(value);
+        }
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+        #region CRUD
+
+        public class CrudSubmitValue
+        {
+
             public object Key { get; set; }
+            public string Action { get; set; }
         }
 
-
-
-
-
-
-        public IActionResult UrlDatasource([FromBody]dynamic dm)
-        {
-            var dataSource = Repository.Persons;
-            var res = dataSource.Skip((int)dm.skip)
-                                .Take((int)dm.take)
-                                .ToArray();
-
-            return (bool)dm.requiresCounts
-                       ? Json(new { Result = res, dataSource.Count })
-                       : Json(dataSource);
-        }
-
-        public class DataResult
-        {
-            public List<Person> Result { get; set; }
-            public int Count { get; set; }
-        }
-
-
-        public ActionResult Insert([FromBody]Person value)
-        {
-            return Json(value);
-        }
-        public ActionResult Update([FromBody]Person value)
-        {
-            return Json(value);
-        }
-        public ActionResult Delete([FromBody]Person value)
-        {
-            return Json(value);
-        }
-
-
-        public ActionResult CrudUpdate([FromBody]dynamic value, string action)
+        public IActionResult CrudUpdate([FromBody]dynamic crudSubmitValue)
         {
             //if (action == "update")
             //{
@@ -132,8 +177,10 @@ namespace GridTest_001.Controllers
 
             //return Json(value, JsonRequestBehavior.AllowGet);
 
-            return null;
+            return Json(crudSubmitValue);
         }
+
+        #endregion
 
 
 
