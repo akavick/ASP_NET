@@ -25,3 +25,5 @@ namespace QSharpApplication001
         }
     }
 }
+
+//https://habrahabr.ru/company/microsoft/blog/351622/
