@@ -3,19 +3,20 @@
     open Microsoft.Quantum.Primitive;
     open Microsoft.Quantum.Canon;
 
-    operation BellTest (count : Int, initial: Result) : (Int,Int)
+    operation BellTest2 (count : Int, initial: Result) : (Int,Int)
     {
         body
         {
             mutable numOnes = 0;
-            using (qubits = Qubit[1])
+            using (qubits = Qubit[2])
             {
                 for (test in 1..count)
                 {
                     Set (initial, qubits[0]);
+                    Set (Zero, qubits[1]);
 
-                    X(qubits[0]);//NOT
-                    H(qubits[0]);//Адамар (суперпозиция)
+                    H(qubits[0]);
+                    CNOT(qubits[0],qubits[1]);
                     let res = M (qubits[0]);
 
                     // Count the number of ones we saw:
@@ -24,7 +25,9 @@
                         set numOnes = numOnes + 1;
                     }
                 }
+
                 Set(Zero, qubits[0]);
+                Set(Zero, qubits[1]);
             }
             // Return number of times we saw a |0> and number of times we saw a |1>
             return (count-numOnes, numOnes);
