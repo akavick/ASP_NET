@@ -23,8 +23,7 @@
         //.DataSource((List<Person>) ViewBag.DataSource)
         .DataSource(dm =>
         {
-            dm
-              .BatchUrl("/Home/BatchUpdate")
+            dm.BatchUrl("/Home/BatchUpdate")
               .CrudUrl("/Home/CrudUpdate")
               .Adaptor("UrlAdaptor")
               .Url("/Home/UrlDatasource");
