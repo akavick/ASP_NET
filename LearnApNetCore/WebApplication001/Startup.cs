@@ -17,7 +17,8 @@ namespace WebApplication001
 
 	public class Startup
 	{
-		IHostingEnvironment _env;
+	    private string _nl = Environment.NewLine;
+	    private readonly IHostingEnvironment _env;
 
 
 
@@ -46,9 +47,11 @@ namespace WebApplication001
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory lf)
 		{
+            //https://metanit.com/sharp/aspnet5/2.2.php
+
             //lf.AddConsole(LogLevel.Debug, true);
 
-		    lf.AddEventSourceLogger();
+            lf.AddEventSourceLogger();
 
             if (env.IsDevelopment())
 			{
@@ -70,14 +73,9 @@ namespace WebApplication001
 
 			app.UseMvcWithDefaultRoute();
 
-			//app.Run(async (context) =>
-			//{
-			//    await context.Response.WriteAsync($"{_env == env}");
-			//});
-
 			var x = 0;
 
-			void Quad(HttpContext context)
+			void quad(HttpContext context)
 			{
 				if (context.Request.Path.Value != "/favicon.ico") //Chrome struggling
 				{
@@ -88,25 +86,27 @@ namespace WebApplication001
 
 			app.Use(async (context, next) =>
 			{
-				Quad(context);
+				quad(context);
 
 				if (next != null)
 				{
 					await next.Invoke();
 				}
 
-				Quad(context);
+				quad(context);
 			});
 
 			app.Run(async context =>
 			{
-				Quad(context);
+				quad(context);
 
 				await context.Response.WriteAsync($"Result: {x}");
 
-				Quad(context);
+				quad(context);
 
-				await Task.FromResult<object>(null);
+			    await context.Response.WriteAsync($"{_nl}{_env == env}");
+
+                await Task.FromResult<object>(null);
 			});
 		}
 
