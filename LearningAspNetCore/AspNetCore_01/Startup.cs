@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -73,9 +76,6 @@ namespace AspNetCore_01
 
             app.UseMvcWithDefaultRoute();
 
-            //app.UseMiddleware<MyMiddleware>("hello");
-            app.UseTestMiddleware("hello"); // расширение
-
             var x = 0;
             var firstRun = true;
 
@@ -95,6 +95,10 @@ namespace AspNetCore_01
 
                     increment(context);
 
+                    await context.Response.WriteAsync(MethodBase.GetCurrentMethod().Name.Div());
+                    await context.Response.WriteAsync(GetCaller().Div());
+                    await context.Response.WriteAsync(GetCurrentMethod().Div());
+
                     if (next != null)
                     {
                         await next.Invoke();
@@ -106,6 +110,9 @@ namespace AspNetCore_01
 
             useIncrement();
             useIncrement();
+
+            var validToken = "123";
+            app.UseToken(validToken);
 
             app.Run(async context =>
             {
@@ -121,7 +128,9 @@ namespace AspNetCore_01
 
                 firstRun = false;
 
-                await Task.FromResult<object>(null);
+                await context.Response.WriteAsync("<h1>End</h1>");
+
+                //await Task.FromResult<object>(null);
             });
         }
 
@@ -129,20 +138,18 @@ namespace AspNetCore_01
 
 
 
-
-
         private static void Index(IApplicationBuilder app)
         {
-            app.Run(async context => await context.Response.WriteAsync("Index"));
+            app.Run(async context => await context.Response.WriteAsync("Index".Header()));
         }
 
 
 
 
 
-        private static void About(IApplicationBuilder app)
+        private static void About(IApplicationBuilder about)
         {
-            app.Run(async context => await context.Response.WriteAsync("About"));
+            about.Run(async context => await context.Response.WriteAsync("About".Header()));
         }
 
 
@@ -156,6 +163,28 @@ namespace AspNetCore_01
                 await context.Response.WriteAsync("id is equal to 5");
             });
         }
+
+
+
+
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public string GetCurrentMethod()
+        {
+            var currentMethod = new StackTrace().GetFrame(1).GetMethod().Name;
+
+            return currentMethod;
+        }
+
+
+
+
+
+        public string GetCaller([CallerMemberName] string memberName = "")
+        {
+            return memberName;
+        }
+
     }
 
 }
