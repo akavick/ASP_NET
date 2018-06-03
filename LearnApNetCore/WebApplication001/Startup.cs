@@ -15,38 +15,39 @@ using Microsoft.Extensions.Logging;
 namespace WebApplication001
 {
 
-	public class Startup
-	{
-	    private string _nl = Environment.NewLine;
-	    private readonly IHostingEnvironment _env;
+    public class Startup
+    {
+        private readonly string _nl = Environment.NewLine;
+        private readonly IHostingEnvironment _env;
 
 
 
 
 
-		public Startup(IHostingEnvironment env)
-		{
-			_env = env;
-		}
+        public Startup(IHostingEnvironment env)
+        {
+            _env = env;
+        }
 
 
 
 
 
-		// This method gets called by the runtime. Use this method to add services to the container.
-		// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-		public void ConfigureServices(IServiceCollection services)
-		{
-			services.AddMvc();
-		}
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc();
+            //services.Add(,)
+        }
 
 
 
 
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory lf)
-		{
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory lf)
+        {
             //https://metanit.com/sharp/aspnet5/2.2.php
 
             //lf.AddConsole(LogLevel.Debug, true);
@@ -54,61 +55,79 @@ namespace WebApplication001
             lf.AddEventSourceLogger();
 
             if (env.IsDevelopment())
-			{
-				app.UseDeveloperExceptionPage();
-			    app.UseDatabaseErrorPage();
-			    app.UseBrowserLink();
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+                app.UseBrowserLink();
             }
 
-			app.Map("/home", home =>
-			{
-				home.Map("/index", Index);
-				home.MapWhen(c => c.Request.Path.Value.Contains("/about"), About);
-			});
+            app.Map("/home", home =>
+            {
+                home.Map("/index", Index);
+                home.MapWhen(c => c.Request.Path.Value.Contains("/about"), About);
+            });
 
-			app.UseStaticFiles();
+            // например http://localhost:55234/?id=5 или http://localhost:55234/product?id=5&name=phone, 
+            app.MapWhen(context => context.Request.Query.ContainsKey("id") && context.Request.Query["id"] == "5", HandleId);
 
-			// установка аутентификации пользователя на основе куки
-			app.UseAuthentication();
+            app.UseStaticFiles();
 
-			app.UseMvcWithDefaultRoute();
+            // установка аутентификации пользователя на основе куки
+            app.UseAuthentication();
 
-			var x = 0;
+            app.UseMvcWithDefaultRoute();
 
-			void quad(HttpContext context)
-			{
-				if (context.Request.Path.Value != "/favicon.ico") //Chrome struggling
-				{
-					++x;
-				}
-			}
+            //app.UseMiddleware<MyMiddleware>();
+            app.UseMyMiddleware(); // расширение
 
+            var x = 0;
+            var firstRun = true;
 
-			app.Use(async (context, next) =>
-			{
-				quad(context);
+            void increment(HttpContext context)
+            {
+                if (!firstRun && context.Request.Path.Value != "/favicon.ico") //Chrome struggling
+                {
+                    ++x;
+                }
+            }
 
-				if (next != null)
-				{
-					await next.Invoke();
-				}
+            void useIncrement()
+            {
+                app.Use(async (context, next) =>
+                {
+                    //https://metanit.com/sharp/aspnet5/2.3.php
 
-				quad(context);
-			});
+                    increment(context);
 
-			app.Run(async context =>
-			{
-				quad(context);
+                    if (next != null)
+                    {
+                        await next.Invoke();
+                    }
 
-				await context.Response.WriteAsync($"Result: {x}");
+                    //increment(context); // ! продолжаем здесь после Run
+                });
+            }
 
-				quad(context);
+            useIncrement();
+            useIncrement();
 
-			    await context.Response.WriteAsync($"{_nl}{_env == env}");
+            app.Run(async context =>
+            {
+                increment(context);
+
+                //await Task.Delay(3000); // можно поставить задержку
+
+                await context.Response.WriteAsync($"Result: {x}");
+
+                //await context.Response.WriteAsync($"{_nl}{_env == env}");
+
+                await context.Response.WriteAsync($"{_nl}{firstRun}");
+
+                firstRun = false;
 
                 await Task.FromResult<object>(null);
-			});
-		}
+            });
+        }
 
 
 
@@ -116,28 +135,34 @@ namespace WebApplication001
 
 
 
-		private static void Index(IApplicationBuilder app)
-		{
-			app.Run(async context => await context.Response.WriteAsync("Index"));
-		}
+        private static void Index(IApplicationBuilder app)
+        {
+            app.Run(async context => await context.Response.WriteAsync("Index"));
+        }
 
 
 
 
 
-		private static void About(IApplicationBuilder app)
-		{
-			app.Run(async context => await context.Response.WriteAsync("About"));
-		}
+        private static void About(IApplicationBuilder app)
+        {
+            app.Run(async context => await context.Response.WriteAsync("About"));
+        }
 
 
 
 
 
+        private static void HandleId(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("id is equal to 5");
+            });
+        }
 
 
 
-
-	}
+    }
 
 }
