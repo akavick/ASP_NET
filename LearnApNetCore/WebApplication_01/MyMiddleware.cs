@@ -9,10 +9,10 @@ using Microsoft.AspNetCore.Http;
 
 
 
-namespace WebApplication001
+namespace WebApplication_01
 {
 
-    public class MyMiddleware : IMiddleware
+    public class MyMiddleware/* : IMiddleware*/
     {
         private readonly RequestDelegate _next;
         private readonly string _pattern;
@@ -21,7 +21,7 @@ namespace WebApplication001
 
 
 
-        public MyMiddleware(RequestDelegate next, string pattern)
+        public MyMiddleware(RequestDelegate next, string pattern = "")
         {
             _next = next;
             _pattern = pattern ?? "";

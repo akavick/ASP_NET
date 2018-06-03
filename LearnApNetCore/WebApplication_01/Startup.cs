@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 
 
-namespace WebApplication001
+namespace WebApplication_01
 {
 
     public class Startup
@@ -52,7 +52,7 @@ namespace WebApplication001
 
             //lf.AddConsole(LogLevel.Debug, true);
 
-            lf.AddEventSourceLogger();
+            //lf.AddEventSourceLogger();
 
             if (env.IsDevelopment())
             {
@@ -77,8 +77,8 @@ namespace WebApplication001
 
             app.UseMvcWithDefaultRoute();
 
-            //app.UseMiddleware<MyMiddleware>();
-            app.UseMyMiddleware(); // расширение
+            //app.UseMiddleware<MyMiddleware>("hello");
+            app.UseMyMiddleware("hello"); // расширение
 
             var x = 0;
             var firstRun = true;
