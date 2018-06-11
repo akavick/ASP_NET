@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -75,6 +75,11 @@ namespace AspNetCore_01
             app.UseAuthentication();
 
             app.UseMvcWithDefaultRoute();
+
+            // https://metanit.com/sharp/aspnet5/2.18.php
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseMiddleware<AuthenticationMiddleware>();
+            app.UseMiddleware<RoutingMiddleware>();
 
             var x = 0;
             var firstRun = true;
