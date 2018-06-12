@@ -52,6 +52,7 @@ namespace AspNetCore_01
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             var builder = WebHost.CreateDefaultBuilder(args)
+                                 //.UseWebRoot("static")   // установка папки static (вместо wwwroot)
                                  .UseStartup<Startup>();
 
             return builder;
