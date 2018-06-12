@@ -53,7 +53,10 @@ namespace AspNetCore_01
         {
             //https://metanit.com/sharp/aspnet5/2.2.php
 
-            //lf.AddConsole(LogLevel.Debug, true);
+            //lf.AddConsole(LogLevel.Debug, true); // https://metanit.com/sharp/aspnet5/2.10.php
+
+            //lf.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt"));
+            //var logger = lf.CreateLogger("FileLogger");
 
             //lf.AddEventSourceLogger();
 
@@ -158,6 +161,12 @@ namespace AspNetCore_01
 
             app.Run(async context =>
             {
+                // создаем объект логгера
+                var logger = lf.CreateLogger("RequestInfoLogger");
+                // пишем на консоль информацию
+                logger.LogInformation("Processing request {0}", context.Request.Path);
+
+
                 //increment(context);
 
                 //await Task.Delay(3000); // можно поставить задержку

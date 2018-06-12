@@ -53,6 +53,7 @@ namespace AspNetCore_01
         {
             var builder = WebHost.CreateDefaultBuilder(args)
                                  //.UseWebRoot("static")   // установка папки static (вместо wwwroot)
+                                 .ConfigureLogging(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Trace))
                                  .UseStartup<Startup>();
 
             return builder;

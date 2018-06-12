@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Logging;
 
 
 
@@ -33,6 +34,18 @@ namespace AspNetCore_01
         {
             return $"<h{number}>{val}</h{number}>";
         }
+
+
+
+
+
+        public static ILoggerFactory AddFile(this ILoggerFactory factory, string filePath)
+        {
+            factory.AddProvider(new FileLoggerProvider(filePath));
+
+            return factory;
+        }
+
     }
 
 
