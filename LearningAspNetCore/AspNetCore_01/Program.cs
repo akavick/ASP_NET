@@ -41,23 +41,34 @@ namespace AspNetCore_01
             //host.Run();
 
 
-            CreateWebHostBuilder(args).Build()
-                                      .Run();
+
+
+            var webHost = new WebHostBuilder()
+                          .UseKestrel()
+                          .UseContentRoot(Directory.GetCurrentDirectory())
+                          .ConfigureAppConfiguration((hostingContext, config) =>
+                          {
+                              var env = hostingContext.HostingEnvironment;
+
+                              config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                                    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+
+                              config.AddEnvironmentVariables();
+                          })
+                          //.UseWebRoot("static")   // установка папки static (вместо wwwroot)
+                          //.ConfigureLogging(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Trace))
+                          .ConfigureLogging((hostingContext, logging) =>
+                          {
+                              logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                              logging.AddConsole();
+                              logging.AddDebug();
+                          })
+                          .UseStartup<Startup>()
+                          .Build();
+
+            webHost.Run();
         }
 
-
-
-
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
-        {
-            var builder = WebHost.CreateDefaultBuilder(args)
-                                 //.UseWebRoot("static")   // установка папки static (вместо wwwroot)
-                                 .ConfigureLogging(loggingBuilder => loggingBuilder.SetMinimumLevel(LogLevel.Trace))
-                                 .UseStartup<Startup>();
-
-            return builder;
-        }
     }
 
 }
