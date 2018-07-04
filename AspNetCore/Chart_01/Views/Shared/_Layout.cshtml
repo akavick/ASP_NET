@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Syncfusion.EJ2
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -42,6 +44,7 @@
 
     <div class="container body-content">
         @RenderBody()
+        @RenderSection("ControlsSection", required: false)
         <hr />
         <footer>
             <p>&copy; 2018 - Chart_01</p>
@@ -68,6 +71,9 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+    
+    @*<ejs-scripts></ejs-scripts>*@
+    @Html.EJS().ScriptManager()
 
     @RenderSection("Scripts", required: false)
 </body>

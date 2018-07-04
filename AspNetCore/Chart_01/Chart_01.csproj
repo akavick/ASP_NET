@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Syncfusion.EJ2" Version="16.2.0.41" />
+    <PackageReference Include="Syncfusion.EJ2.JavaScript" Version="16.2.0.41" />
   </ItemGroup>
 
 </Project>
