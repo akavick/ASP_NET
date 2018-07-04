@@ -9,15 +9,15 @@
     {
         var reportServerUrlString = "http://localhost/ReportServer";
         var reportPath =
-            "/InsuranceReport/ListsForInsuranceCompany"
-            //"/OS/ForDeliveryByGroupAndRoom"
+            //"/InsuranceReport/ListsForInsuranceCompany"
+            "/OS/ForDeliveryByGroupAndRoom"
             ;
 
         ReportViewer1.ServerReport.ReportServerUrl = new Uri(reportServerUrlString);
         ReportViewer1.ServerReport.ReportPath = reportPath;
 
-        //var parameters = new List<ReportParameter> {new ReportParameter("vOrderDate", DateTime.Now.ToString())};
-        //ReportViewer1.ServerReport.SetParameters(parameters);
+        var parameters = new List<ReportParameter> {new ReportParameter("vOrderDate", DateTime.Now.ToString())};
+        ReportViewer1.ServerReport.SetParameters(parameters);
 
         base.OnLoad(e);
     }

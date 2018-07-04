@@ -1,6 +1,26 @@
-﻿@{
+﻿@using MvcReportViewer
+@{
     Layout = null;
     ViewBag.Title = "Home Page";
-    Html.RenderPartial("WebForm1");
 }
 
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        html, body {
+            height:100%;
+        }
+    </style>
+</head>
+    <body>
+        @(
+            Html.MvcReportViewer("/OS/ForDeliveryByGroupAndRoom")
+                .ReportServerUrl("http://localhost/ReportServer")
+                .ProcessingMode(Microsoft.Reporting.WebForms.ProcessingMode.Remote)
+                .ReportParameters(new { vOrderDate = DateTime.Now.ToString() })
+                .Attributes(new { width = 900, height = 900 })
+        )
+    </body>
+</html>
