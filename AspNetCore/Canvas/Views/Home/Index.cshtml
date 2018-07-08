@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Canvas</title>
+</head>
+<body style = "margin: 0;">
+    
+    <canvas id="Canvas" style="display: block;">Your browser is not supported</canvas>
+    
+    <script>
+
+        let canv = document.getElementById("Canvas");
+        let context = canv.getContext("2d");
+
+        canv.width = window.innerWidth;
+        canv.height = window.innerHeight;
+
+        //code
+
+        let x = 50;
+        let y = 50;
+        let h = 200;
+        let w = 300;
+        let d = 1;
+
+        setInterval(function()
+        {
+            context.fillStyle = "white";
+            context.fillRect(0, 0, canv.width, canv.height);
+
+            context.fillStyle = "magenta";
+            context.fillRect(x + w >= canv.width ? x-- : x++, y + h >= canv.height ? y-- : y++, w, h);
+        }, 10);
+
+    </script>
+
+</body>
+</html>
