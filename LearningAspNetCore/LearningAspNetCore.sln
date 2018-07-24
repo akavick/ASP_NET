@@ -25,9 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore_03", "AspNetCore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop01", "Shop01\Shop01.csproj", "{87BA0C57-FF3C-42FB-9E56-5900A8104BAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore_04", "AspNetCore_04\AspNetCore_04.csproj", "{19FD4182-502C-4377-9D09-ADC32AEF903C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore_04", "AspNetCore_04\AspNetCore_04.csproj", "{19FD4182-502C-4377-9D09-ADC32AEF903C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore_05", "AspNetCore_05\AspNetCore_05.csproj", "{4AFD5B98-7BEF-4E1A-BF6E-E194662FB9B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore_05", "AspNetCore_05\AspNetCore_05.csproj", "{4AFD5B98-7BEF-4E1A-BF6E-E194662FB9B2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SortPaginateFilter", "SortPaginateFilter\SortPaginateFilter.csproj", "{018437B6-15F0-4A45-9F99-615EAFC12E98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{4AFD5B98-7BEF-4E1A-BF6E-E194662FB9B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AFD5B98-7BEF-4E1A-BF6E-E194662FB9B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AFD5B98-7BEF-4E1A-BF6E-E194662FB9B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{018437B6-15F0-4A45-9F99-615EAFC12E98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{018437B6-15F0-4A45-9F99-615EAFC12E98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{018437B6-15F0-4A45-9F99-615EAFC12E98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{018437B6-15F0-4A45-9F99-615EAFC12E98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
