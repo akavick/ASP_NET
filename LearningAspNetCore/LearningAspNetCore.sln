@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore_02", "AspNetCore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore_03", "AspNetCore_03\AspNetCore_03.csproj", "{265D4329-C048-4DAB-9313-D288AB840956}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop01", "Shop01\Shop01.csproj", "{87BA0C57-FF3C-42FB-9E56-5900A8104BAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop01", "Shop01\Shop01.csproj", "{87BA0C57-FF3C-42FB-9E56-5900A8104BAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SortPaginateFilter", "SortPaginateFilter\SortPaginateFilter.csproj", "{6D022A22-F816-40AA-80D9-762F57700FBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{87BA0C57-FF3C-42FB-9E56-5900A8104BAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87BA0C57-FF3C-42FB-9E56-5900A8104BAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87BA0C57-FF3C-42FB-9E56-5900A8104BAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D022A22-F816-40AA-80D9-762F57700FBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D022A22-F816-40AA-80D9-762F57700FBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D022A22-F816-40AA-80D9-762F57700FBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D022A22-F816-40AA-80D9-762F57700FBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
