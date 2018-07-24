@@ -1,0 +1,16 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+</head>
+<body>
+    <p>@await Component.InvokeAsync("BestPhone")</p>
+    <p>@await Component.InvokeAsync("PhonesList", new { maxprice = 55000 })</p>
+    <p>@await Component.InvokeAsync("PhonesList", new { maxprice = 60000, minprice=20000 })</p>
+</body>
+</html>
