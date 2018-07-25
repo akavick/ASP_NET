@@ -13,19 +13,37 @@ using SortPaginateFilter.Models;
 
 namespace SortPaginateFilter.Context
 {
+
+
+
+
+
     public class UsersContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Company> Companies { get; set; }
-        public UsersContext(DbContextOptions<UsersContext> options)
-            : base(options)
+
+
+
+
+
+        public UsersContext(DbContextOptions<UsersContext> options) : base(options)
         {
             CheckDatabase();
         }
+
+
+
+
 
         private void CheckDatabase()
         {
             Database.EnsureCreated();
         }
     }
+
+
+
+
+
 }

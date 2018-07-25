@@ -40,7 +40,7 @@ namespace SortPaginateFilter.Controllers
 
         public async Task<IActionResult> Index(int? company, string name, int page = 1, SortState sortOrder = SortState.NameAsc)
         {
-            int pageSize = 3;
+            var pageSize = 100;
 
             //фильтрация
             IQueryable<User> users = db.Users.Include(x => x.Company);
@@ -89,7 +89,7 @@ namespace SortPaginateFilter.Controllers
             var items = await users.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
             // формируем модель представления
-            IndexViewModel viewModel = new IndexViewModel
+            var viewModel = new IndexViewModel
             {
                 PageViewModel = new PageViewModel(count, page, pageSize),
                 SortViewModel = new SortViewModel(sortOrder),
@@ -99,6 +99,49 @@ namespace SortPaginateFilter.Controllers
 
             return View(viewModel);
         }
+
+
+
+
+
+
+        //public virtual async Task<ienumerable<t>> PaginationAsync(int pageSize, int pageNumber, string fieldName, string sort)
+        //{
+        //    try
+        //    {
+        //        if (sort == "DESC")
+        //        {
+        //            return await _dbSet.OrderByDescending(x => EF.Property<object>(x, fieldName)).Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToListAsync();
+        //        }
+        //        else
+        //        {
+        //            return await _dbSet.OrderBy((x) => EF.Property<object>(x, fieldName)).Skip(pageSize * (pageNumber - 1)).Take(pageSize).ToListAsync();
+        //        }
+        //    }
+        //    catch (InvalidOperationException)
+        //    {
+        //        return null;
+        //    }
+        //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
