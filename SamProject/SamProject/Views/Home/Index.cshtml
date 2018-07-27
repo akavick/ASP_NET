@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@*<div>
+    <ejs-calendar id="calendar"></ejs-calendar>
+</div>*@
+
+@{
+    var lines = new
+    {
+        width = 0.0001
+    };
+
+    var border = new Syncfusion.EJ2.Charts.ChartBorder
+    {
+        Width = 0,
+        Color = "transparent"
+    };
+}
+
+
+<ejs-chart id = "splineContainer"
+           load = "window.onChartLoad"
+           title = "Mobile Game Market by Country">
+
+    <e-chart-primaryxaxis majorGridLines = "lines"
+                          labelIntersectAction = "Rotate45"
+                          valueType = "Category"></e-chart-primaryxaxis>
+    <e-chart-primaryyaxis minimum = "0"
+                          maximum = "500"
+                          interval = "100"
+                          title = "Sales"
+                          labelFormat = "{value}B"
+                          majorTickLines = "lines"
+                          lineStyle = "lines"></e-chart-primaryyaxis>
+    
+    <e-series-collection>
+        
+        <e-series dataSource = "ViewBag.dataSource"
+                  xName = "x"
+                  yName = "y"
+                  name = "UK"
+                  width = "2"
+                  opacity = "1"
+                  type = "@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
+        <e-series dataSource = "ViewBag.dataSource1"
+                  xName = "x"
+                  yName = "y"
+                  name = "Germany"
+                  width = "2"
+                  opacity = "1"
+                  type = "@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
+        <e-series dataSource = "ViewBag.dataSource2"
+                  xName = "x"
+                  yName = "y"
+                  name = "France"
+                  width = "2"
+                  opacity = "1"
+                  type = "@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
+        <e-series dataSource = "ViewBag.dataSource3"
+                  xName = "x"
+                  yName = "y"
+                  name = "Italy"
+                  width = "2"
+                  opacity = "1"
+                  type = "@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
+    
+    </e-series-collection>
+    
+    <e-chart-tooltipsettings enable = "true"></e-chart-tooltipsettings>
+    <e-chart-legendsettings toggleVisibility = "true"></e-chart-legendsettings>
+
+    <e-chart-chartarea>
+        <e-chartarea-border width = "0.0001"></e-chartarea-border>
+    </e-chart-chartarea>
+
+</ejs-chart>
