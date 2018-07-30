@@ -22,50 +22,37 @@
 
 <ejs-chart id = "splineContainer"
            load = "window.onChartLoad"
-           title = "Mobile Game Market by Country">
+           title = "распределение занятости">
 
     <e-chart-primaryxaxis majorGridLines = "lines"
                           labelIntersectAction = "Rotate45"
                           valueType = "Category"></e-chart-primaryxaxis>
     <e-chart-primaryyaxis minimum = "0"
-                          maximum = "500"
-                          interval = "100"
-                          title = "Sales"
-                          labelFormat = "{value}B"
+                          maximum = "2"
+                          interval = "0.25"
+                          title = "занятость"
+                          labelFormat = "{value} ставки"
                           majorTickLines = "lines"
                           lineStyle = "lines"></e-chart-primaryyaxis>
     
     <e-series-collection>
         
-        <e-series dataSource = "ViewBag.dataSource"
-                  xName = "x"
-                  yName = "y"
-                  name = "UK"
-                  width = "2"
-                  opacity = "1"
-                  type = "@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
-        <e-series dataSource = "ViewBag.dataSource1"
-                  xName = "x"
-                  yName = "y"
-                  name = "Germany"
-                  width = "2"
-                  opacity = "1"
-                  type = "@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
-        <e-series dataSource = "ViewBag.dataSource2"
-                  xName = "x"
-                  yName = "y"
-                  name = "France"
-                  width = "2"
-                  opacity = "1"
-                  type = "@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
-        <e-series dataSource = "ViewBag.dataSource3"
-                  xName = "x"
-                  yName = "y"
-                  name = "Italy"
-                  width = "2"
-                  opacity = "1"
-                  type = "@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
-    
+        @{
+            var name = "rate ";
+            var counter = 1;
+        }
+
+        @foreach (var list in ViewBag.dataSource)
+        {
+            <e-series dataSource = "list"
+                      xName = "x"
+                      yName = "y"
+                      name = "@(name + counter++)"
+                      width = "2"
+                      opacity = "1"
+                      type = "@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
+        }
+
     </e-series-collection>
     
     <e-chart-tooltipsettings enable = "true"></e-chart-tooltipsettings>
