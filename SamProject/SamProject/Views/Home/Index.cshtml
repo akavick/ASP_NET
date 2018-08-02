@@ -2,64 +2,9 @@
     ViewData["Title"] = "Home Page";
 }
 
-@*<div>
-    <ejs-calendar id="calendar"></ejs-calendar>
-</div>*@
-
-@{
-    var lines = new
-    {
-        width = 0.0001
-    };
-
-    var border = new Syncfusion.EJ2.Charts.ChartBorder
-    {
-        Width = 0,
-        Color = "transparent"
-    };
-}
+<div>
+    <a asp-action="Form" asp-controller="Home" style="font-size:40px">Form</a>
+    <a asp-action="Grid" asp-controller="Home" style="font-size:40px">Form</a>
+</div>
 
 
-<ejs-chart id = "splineContainer"
-           load = "window.onChartLoad"
-           title = "распределение занятости">
-
-    <e-chart-primaryxaxis majorGridLines = "lines"
-                          labelIntersectAction = "Rotate45"
-                          valueType = "Category"></e-chart-primaryxaxis>
-    <e-chart-primaryyaxis minimum = "0"
-                          maximum = "2"
-                          interval = "0.25"
-                          title = "занятость"
-                          labelFormat = "{value} ставки"
-                          majorTickLines = "lines"
-                          lineStyle = "lines"></e-chart-primaryyaxis>
-    
-    <e-series-collection>
-        
-        @{
-            var name = "rate ";
-            var counter = 1;
-        }
-
-        @foreach (var list in ViewBag.dataSource)
-        {
-            <e-series dataSource = "list"
-                      xName = "x"
-                      yName = "y"
-                      name = "@(name + counter++)"
-                      width = "2"
-                      opacity = "1"
-                      type = "@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
-        }
-
-    </e-series-collection>
-    
-    <e-chart-tooltipsettings enable = "true"></e-chart-tooltipsettings>
-    <e-chart-legendsettings toggleVisibility = "true"></e-chart-legendsettings>
-
-    <e-chart-chartarea>
-        <e-chartarea-border width = "0.0001"></e-chartarea-border>
-    </e-chart-chartarea>
-
-</ejs-chart>

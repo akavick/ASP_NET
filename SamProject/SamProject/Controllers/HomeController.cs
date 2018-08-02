@@ -6,70 +6,202 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SamProject.Models;
 
+
+
+
+
 namespace SamProject.Controllers
 {
+
+
+
+
+
+    public class ChartData
+    {
+        public string Name { get; set; }
+        public string Color { get; set; }
+        public object[] DataSource { get; set; }
+    }
+
+
+
+
+
+
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Form()
         {
-            const double interval = 0.25;
-            const double max = 2.0;
-            var maxIntervals = (int)(max / interval);
-            const string name = "date ";
-            var chart = new List<List<StackedColumnChartData>>();
-            var rand = new Random();
+            var date = new DateTime(2018, 7, 1);
 
-            for (int i = 1; i <= 10; i++)
+
+            var columnChart = new[]
             {
-                var column = new List<StackedColumnChartData>();
-                var intervalsCount = rand.Next(maxIntervals + 1);
-
-                for (int j = 1; j <= intervalsCount; j++)
+                new ChartData
                 {
-                    var val = new StackedColumnChartData {x = name + j, y = interval};
-                    column.Add(val);
-                }
+                    Name = "base",
+                    Color = "black",
+                    DataSource = new object[]
+                    {
+                        new {x = date.AddDays(0), y = 0.0},
+                        new {x = date.AddDays(1), y = 0.0},
+                        new {x = date.AddDays(2), y = 0.0},
+                        new {x = date.AddDays(3), y = 0.0},
+                        new {x = date.AddDays(4), y = 0.0},
+                        new {x = date.AddDays(5), y = 0.0},
+                        new {x = date.AddDays(6), y = 0.0},
+                        new {x = date.AddDays(7), y = 0.0},
+                        new {x = date.AddDays(8), y = 0.0},
+                        new {x = date.AddDays(9), y = 0.0},
+                    }
+                },
+                new ChartData
+                {
+                    Name = "project #1",
+                    Color = "green",
+                    DataSource = new object[]
+                    {
+                        new {x = date.AddDays(0), y = 0.5},
+                        new {x = date.AddDays(1), y = 0.5},
+                        new {x = date.AddDays(2), y = 0.5},
+                        new {x = date.AddDays(3), y = 0.5},
+                        new {x = date.AddDays(4), y = 0.5},
+                        new {x = date.AddDays(5), y = 0.5},
+                        new {x = date.AddDays(6), y = 0.5},
+                        new {x = date.AddDays(7), y = 0.5},
+                    }
+                },
+                new ChartData
+                {
+                    Name = "project #1 Internal",
+                    Color = "gray",
+                    DataSource = new object[]
+                    {
+                        new {x = date.AddDays(8), y = 0.25},
+                        new {x = date.AddDays(9), y = 0.25},
+                    }
+                },
+                new ChartData
+                {
+                    Name = "project #2",
+                    Color = "yellow",
+                    DataSource = new object[]
+                    {
+                        new {x = date.AddDays(1), y = 0.25},
+                        new {x = date.AddDays(2), y = 0.25},
+                        new {x = date.AddDays(3), y = 0.25},
+                        new {x = date.AddDays(4), y = 0.25},
+                    }
+                },
+                new ChartData
+                {
+                    Name = "project #3",
+                    Color = "orange",
+                    DataSource = new object[]
+                    {
+                        new {x = date.AddDays(3), y = 0.25},
+                        new {x = date.AddDays(4), y = 0.25},
+                        new {x = date.AddDays(5), y = 0.25},
+                        new {x = date.AddDays(6), y = 0.25},
+                        new {x = date.AddDays(7), y = 0.25},
+                        new {x = date.AddDays(8), y = 0.25},
+                        new {x = date.AddDays(9), y = 0.25},
+                    }
+                },
+                new ChartData
+                {
+                    Name = "project #4",
+                    Color = "red",
+                    DataSource = new object[]
+                    {
+                        new {x = date.AddDays(4), y = 0.25},
+                    }
+                },
+            };
 
-                chart.Add(column);
-            }
+
+            var lineChart = new[]
+            {
+                new ChartData
+                {
+                    Name = "",
+                    Color = "black",
+                    DataSource = new object[]
+                    {
+                        new {x = 0.0, y = 1.0},
+                        new {x = 1.0, y = 1.0},
+                        new {x = 2.0, y = 1.0},
+                        new {x = 3.0, y = 1.0},
+                        new {x = 4.0, y = 1.0},
+                        new {x = 5.0, y = 1.0},
+                        new {x = 6.0, y = 1.0},
+                        new {x = 7.0, y = 1.0},
+                        new { x = 8.0, y = 1.0 },// переход вертикальный
+                        new {x = 8.0, y = 0.5},
+                        new {x = 9.0, y = 0.5},
+                        new {x = 10.0, y = 0.5},
+                    }
+                },
+            };
 
 
-            //List<StackedColumnChartData> chartData1 = new List<StackedColumnChartData>
-            //{
-            //new StackedColumnChartData { x = "2014", y = 111.1 },
-            //new StackedColumnChartData { x = "2015", y = 127.3 },
-            //new StackedColumnChartData { x = "2016", y = 143.4 },
-            //new StackedColumnChartData { x = "2017", y = 159.9 }
-            //};
+            var areaChart = new[]
+            {
+                new ChartData
+                {
+                    Name = "",
+                    Color = "gray",
+                    DataSource = new object[]
+                    {
+                        new {x = 0.0, y = 1.0},
+                        new {x = 1.0, y = 1.0},
+                        new {x = 2.0, y = 1.0},
+                        new {x = 3.0, y = 1.0},
+                    }
+                },
+                new ChartData
+                {
+                    Name = "",
+                    Color = "gray",
+                    DataSource = new object[]
+                    {
+                        new {x = 7.0, y = 1.0},
+                        new {x = 8.0, y = 1.0},
+                    }
+                },
+            };
 
-            //List<StackedColumnChartData> chartData2 = new List<StackedColumnChartData>
-            //{
-            //    new StackedColumnChartData { x= "2014", y= 76.9 },
-            //    new StackedColumnChartData { x= "2015", y= 99.5 },
-            //    new StackedColumnChartData { x= "2016", y= 121.7 },
-            //    new StackedColumnChartData { x= "2017", y= 142.5 }
-            //};
 
-            //List<StackedColumnChartData> chartData3 = new List<StackedColumnChartData>
-            //{
-            //    new StackedColumnChartData { x= "2014", y= 66.1 },
-            //    new StackedColumnChartData { x= "2015", y= 79.3 },
-            //    new StackedColumnChartData { x= "2016", y= 91.3 },
-            //    new StackedColumnChartData { x= "2017", y= 102.4 }
-            //};
+            ViewBag.ColumnsDataSource = columnChart;
+            ViewBag.LineDataSource = lineChart;
+            ViewBag.AreaDataSource = areaChart;
 
-            //List<StackedColumnChartData> chartData4 = new List<StackedColumnChartData>
-            //{
-            //    new StackedColumnChartData { x= "2014", y= 34.1 },
-            //    new StackedColumnChartData { x= "2015", y= 38.2 },
-            //    new StackedColumnChartData { x= "2016", y= 44.0 },
-            //    new StackedColumnChartData { x= "2017", y= 51.6 }
-            //};
-
-            ViewBag.dataSource = chart;
 
             return View();
         }
+
+
+
+
+
+        public IActionResult Grid()
+        {
+            return View();
+        }
+
+
+
+
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+
+
+
 
         public IActionResult About()
         {
@@ -78,6 +210,10 @@ namespace SamProject.Controllers
             return View();
         }
 
+
+
+
+
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
@@ -85,23 +221,28 @@ namespace SamProject.Controllers
             return View();
         }
 
+
+
+
+
         public IActionResult Privacy()
         {
             return View();
         }
 
+
+
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }
 
 
 
-    public class StackedColumnChartData
-    {
-        public string x;
-        public double y;
-    }
+
+
 }

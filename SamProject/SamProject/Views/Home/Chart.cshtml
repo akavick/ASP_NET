@@ -1,0 +1,116 @@
+﻿@using SamProject.Controllers
+
+
+
+<script>
+
+    function chartMouseClick(obj)
+    {
+        console.log(obj.target);
+    }
+
+</script>
+
+@{
+    var lines = new
+    {
+        width = 0.0001
+    };
+
+    var border = new Syncfusion.EJ2.Charts.ChartBorder
+    {
+        Width = 0,
+        Color = "transparent"
+    };
+}
+
+
+<ejs-chart id="splineContainer"
+           load="window.onChartLoad"
+           title="распределение занятости"
+           chartMouseClick="chartMouseClick"
+           width="800"
+           height="400">
+
+    <e-chart-primaryxaxis majorGridLines="lines"
+                          labelIntersectAction="Rotate45"
+                          valueType="DateTime"
+                          labelFormat="dd MMM"></e-chart-primaryxaxis>
+
+    <e-chart-primaryyaxis minimum="0"
+                          maximum="2"
+                          interval="0.25"
+                          title="ставка"
+                          labelFormat="{value}"
+                          majorTickLines="lines"
+                          lineStyle="lines"></e-chart-primaryyaxis>
+
+    <e-chart-axes>
+        <e-chart-axis id="lineAxis"
+                      name="lineAxis"
+                      valueType="Double"
+                      majorGridLines="lines"
+                      interval="1.0"
+                      maximum="10.0"
+                      minimum="0.0"
+                      visible="false"></e-chart-axis>
+    </e-chart-axes>
+
+    <e-series-collection>
+
+        @foreach (ChartData list in ViewBag.ColumnsDataSource)
+        {
+            <e-series dataSource="list.DataSource"
+                      xName="x"
+                      yName="y"
+                      name="@(list.Name)"
+                      width="2"
+                      opacity="1"
+                      fill="@(list.Color)"
+                      legendShape="@(list.Name == "base" ? Syncfusion.EJ2.Charts.LegendShape.Diamond : Syncfusion.EJ2.Charts.LegendShape.SeriesType)"
+                      type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
+        }
+
+        @foreach (ChartData area in ViewBag.AreaDataSource)
+        {
+            <e-series dataSource="area.DataSource"
+                      name="@(area.Name)"
+                      xName="x"
+                      opacity="0.5"
+                      width="2"
+                      yName="y"
+                      type="@Syncfusion.EJ2.Charts.ChartSeriesType.Area"
+                      xAxisName="lineAxis"
+                      fill="@(area.Color)">
+                <e-series-border color="transparent"></e-series-border>
+            </e-series>
+        }
+
+        @foreach (ChartData line in ViewBag.LineDataSource)
+        {
+            <e-series dataSource="line.DataSource"
+                      name="@(line.Name)"
+                      xName="x"
+                      width="2"
+                      opacity="1"
+                      yName="y"
+                      fill="@(line.Color)"
+                      type="@Syncfusion.EJ2.Charts.ChartSeriesType.Line"
+                      xAxisName="lineAxis"
+                      enableTooltip="false">
+                @*<e-series-marker visible = "true"
+                    height = "10"
+                    width = "10"></e-series-marker>*@
+            </e-series>
+        }
+
+    </e-series-collection>
+
+    <e-chart-tooltipsettings enable="true"></e-chart-tooltipsettings>
+    <e-chart-legendsettings toggleVisibility="true"></e-chart-legendsettings>
+
+    <e-chart-chartarea>
+        <e-chartarea-border width="0.0001"></e-chartarea-border>
+    </e-chart-chartarea>
+
+</ejs-chart>
