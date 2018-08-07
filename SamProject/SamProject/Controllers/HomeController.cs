@@ -137,7 +137,6 @@ namespace SamProject.Controllers
                         new {x = 5.0, y = 1.0},
                         new {x = 6.0, y = 1.0},
                         new {x = 7.0, y = 1.0},
-                        new { x = 8.0, y = 1.0 },// переход вертикальный
                         new {x = 8.0, y = 0.5},
                         new {x = 9.0, y = 0.5},
                         new {x = 10.0, y = 0.5},

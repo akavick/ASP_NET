@@ -2,60 +2,203 @@
 
 
 
+
+
+<script>
+
+    function onSeriesClick(e)
+    {
+        console.log(kendo.format("Series click :: {0} ({1}): {2}", e.series.name, e.category, e.value));
+    }
+
+    function onSeriesHover(e)
+    {
+        console.log(kendo.format("Series hover :: {0} ({1}): {2}", e.series.name, e.category, e.value));
+    }
+
+    function onDataBound(e)
+    {
+        console.log("Data bound");
+    }
+
+    function onAxisLabelClick(e)
+    {
+        console.log(kendo.format("Axis label click :: {0} axis : {1}", e.axis.type, e.text));
+    }
+
+    function onPlotAreaClick(e)
+    {
+        console.log(kendo.format("Plot area click :: {0} : {1:N0}", e.category, e.value));
+    }
+
+    function onPlotAreaHover(e)
+    {
+        console.log(kendo.format("Plot area hover :: {0} : {1:N0}", e.category, e.value));
+    }
+
+    function onRender(e)
+    {
+        console.log("Render");
+    }
+
+    function onLegendItemClick(e)
+    {
+        console.log(kendo.format("Legend item click :: {0}", e.text));
+    }
+
+    function onLegendItemHover(e)
+    {
+        console.log(kendo.format("Legend item hover :: {0}", e.text));
+    }
+
+    function onDragStart(e)
+    {
+        console.log("Drag start");
+    }
+
+    function onDrag(e)
+    {
+        console.log("Drag");
+    }
+
+    function onDragEnd(e)
+    {
+        console.log("Drag end");
+    }
+
+    function onZoomStart(e)
+    {
+        console.log("Zoom start");
+    }
+
+    function onZoom(e)
+    {
+        console.log(kendo.format("Zoom :: {0}", e.delta));
+
+        // Prevent scrolling
+        e.originalEvent.preventDefault();
+    }
+
+    function onZoomEnd(e)
+    {
+        console.log("Zoom end");
+    }
+
+</script>
+
+
+
+
+
 <div class="demo-section k-content wide">
 
-    @(Html.Kendo().Chart()
-                        .Name("chart")
-                        //.Title("")
-                        .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
-                        .Series(series =>
-                        {
-                            foreach (ChartData list in ViewBag.ColumnsDataSource)
-                            {
-                                series
-                                    .Column(list.DataSource)
-                                    .Stack(true)
-                                    .Color(list.Color)
-                                    .Name(list.Name)
-                                    ;
-                            }
+    @(Html.Kendo()
+                  .Chart()
+                  .Name("chart")
+                  .Zoomable(true)
+                  .HtmlAttributes(new { width = "100%", height = "100%" })
+                  .Title("")
+                  .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
+                  .Series(series =>
+                  {
+                      foreach (ChartData list in ViewBag.ColumnsDataSource)
+                      {
+                          series
+                              .Column(list.DataSource)
+                              .Stack(true)
+                              .Color(list.Color)
+                              .Name(list.Name)
+                              .DynamicHeight(true)
+                              .DynamicSlope(true);
+                      }
 
-                            foreach (ChartData area in ViewBag.AreaDataSource)
-                            {
+                      foreach (ChartData area in ViewBag.AreaDataSource)
+                      {
+                          series
+                              .Area(area.DataSource)
+                              .Line(line => line.Style(ChartSeriesLineStyle.Step))
+                              .Markers(m => m.Visible(false).Size(0))
+                              .Color(area.Color)
+                              .Name(area.Name)
+                              .Opacity(0.5)
+                              .Tooltip(t => t.Visible(false))
+                              .VisibleInLegend(false)
+                              .DynamicHeight(true)
+                              .DynamicSlope(true);
+                      }
 
-                            }
+                      foreach (ChartData line in ViewBag.LineDataSource)
+                      {
+                          series
+                              .Line(line.DataSource)
+                              .Style(ChartSeriesStyle.Step)
+                              .Markers(m => m.Visible(false).Size(0))
+                              .Color(line.Color)
+                              .Name(line.Name)
+                              .Tooltip(t => t.Visible(false))
+                              .VisibleInLegend(false)
+                              .DynamicHeight(true)
+                              .DynamicSlope(true);
+                      }
 
-                            foreach (ChartData line in ViewBag.LineDataSource)
-                            {
+                  })
+                  .CategoryAxis(axis => axis.Name("dateAxis")
+                                            .Categories((string[])ViewBag.Dates)
+                                            .BaseUnit(ChartAxisBaseUnit.Days)
+                  // Align the first two value axes to the left
+                  // and the last two to the right.
+                  //
+                  // Right alignment is done by specifying a
+                  // crossing value greater than or equal to
+                  // the number of categories.
+                  //.AxisCrossingValue(0, 0, 10, 10)
+                  )
 
-                            }
+                  .ValueAxis(axis => axis.Numeric()
+                                         .Name("rateAxis")
+                                         .Title("ставка")
+                                         .Min(0.0)
+                                         .Max(2.0)
+                                         .MajorUnit(0.25))
 
-                        })
-                        .CategoryAxis(axis => axis.Name("dateAxis").Type(ChartCategoryAxisType.Date)
-                            // Align the first two value axes to the left
-                            // and the last two to the right.
-                            //
-                            // Right alignment is done by specifying a
-                            // crossing value greater than or equal to
-                            // the number of categories.
-                            //.AxisCrossingValue(0, 0, 10, 10)
-                        )
-                        .ValueAxis(axis => axis.Numeric().Name("rateAxis").Title("ставка").Min(0.0).Max(2.0).MajorUnit(0.25))
-    //.ValueAxis(axis => axis
-    //    .Numeric("km")
-    //        .Title("km")
-    //        .Min(0).Max(161).MajorUnit(32)
-    //)
-    //.ValueAxis(axis => axis
-    //    .Numeric("mpg")
-    //        .Title("miles per gallon")
-    //        .Color("#642381")
-    //)
-    //.ValueAxis(axis => axis
-    //    .Numeric("l100km")
-    //        .Title("liters per 100km")
-    //        .Color("#e5388a")
-    //)
+                  .Tooltip(tooltip => tooltip.Visible(true)
+                                             .Template("#= series.name #: #= value #"))
+                  .Events(events => events
+                      .SeriesClick("onSeriesClick")
+                  //.SeriesHover("onSeriesHover")
+                  //.DataBound("onDataBound")
+                  //.AxisLabelClick("onAxisLabelClick")
+                  //.PlotAreaClick("onPlotAreaClick")
+                  //.PlotAreaHover("onPlotAreaHover")
+                  //.Render("onRender")
+                  //.LegendItemClick("onLegendItemClick")
+                  //.LegendItemHover("onLegendItemHover")
+                  //.DragStart("onDragStart")
+                  //.Drag("onDrag")
+                  //.DragEnd("onDragEnd")
+                  //.ZoomStart("onZoomStart")
+                  //.Zoom("onZoom")
+                  //.ZoomEnd("onZoomEnd")
+                  )
+
     )
 </div>
 
+
+
+
+
+<script>
+
+    $(document).ready(function ()
+    {
+        var chart = $("#chart").data("kendoChart");
+        var series = chart.options.series;
+
+        series[0].gap = 0.75;
+        series[0].spacing = 0.1;
+
+        chart.redraw();
+    });
+
+</script>
