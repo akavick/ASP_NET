@@ -109,7 +109,8 @@
                               .Color(list.Color)
                               .Name(list.Name)
                               .DynamicHeight(true)
-                              .DynamicSlope(true);
+                              .DynamicSlope(true)
+                              .Border(b => b.Width(0));
                       }
 
                       foreach (ChartData area in ViewBag.AreaDataSource)
