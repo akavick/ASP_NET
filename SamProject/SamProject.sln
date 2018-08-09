@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamProject", "SamProject\Sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamProjectTelerik", "SamProjectTelerik\SamProjectTelerik.csproj", "{A579250E-EE61-48B8-ABD3-543603A72F15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExtremeAspNetCoreApp1", "DevExtremeAspNetCoreApp1\DevExtremeAspNetCoreApp1.csproj", "{FE016890-0A57-4ED9-B388-61606CEDD942}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{A579250E-EE61-48B8-ABD3-543603A72F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A579250E-EE61-48B8-ABD3-543603A72F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A579250E-EE61-48B8-ABD3-543603A72F15}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE016890-0A57-4ED9-B388-61606CEDD942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE016890-0A57-4ED9-B388-61606CEDD942}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE016890-0A57-4ED9-B388-61606CEDD942}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE016890-0A57-4ED9-B388-61606CEDD942}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
