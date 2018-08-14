@@ -31,6 +31,14 @@ namespace SamProject.Controllers
 
     public class HomeController : Controller
     {
+        public IActionResult Create(dynamic obj)
+        {
+            return Ok();
+        }
+
+
+
+
         public IActionResult Form()
         {
             var date = new DateTime(2018, 7, 1);

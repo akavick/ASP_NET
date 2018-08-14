@@ -2,35 +2,154 @@
     ViewData["Title"] = "Form";
 }
 
-<div>
-    Заявка
-</div>
 
-<form>
-    <div class="container">
+
+<form asp-action="Create" asp-controller="Home" asp-antiforgery="true" class="needs-validation w-100">
+
+    <div>
+
+        <h4 class="mb-3">Заявка</h4>
 
         <div class="row">
-            <div class="col">
-                <div style="width: 200px; height: 300px; border: 1px solid black">
 
-                </div>
-            </div>
-            <div class="col">
-                <div style="width: 200px; height: 300px; border: 1px solid black">
+            <div class="col-md-4" style="border:1px solid black">
 
+                <div class="row">
+                    <small class="col-md-2 text-muted">Номер</small>
+                    <div class="col-md-10">3</div>
                 </div>
+
+                <div class="row mb-3">
+                    <small class="col-md-2 text-muted">Статус</small>
+                    <div class="col-md-10">Создание запроса</div>
+                </div>
+
+                <div class="mb-3">
+                    <small class="text-muted">
+                        <label>Проект</label>
+                    </small>
+                    <select style="width: 90%" class="form-control">
+                        <option value="1">1stquad</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <small class="text-muted">Заказчик</small>
+                    <div>1stQuad Solutions GmbH</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <small class="text-muted">Подразделение</small>
+                        <div>PC09</div>
+                    </div>
+                    <div class="col-md-6">
+                        <small class="text-muted">Рынок</small>
+                        <div>DE</div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <small class="text-muted">SMD</small>
+                        <div>Сидоренко Александр</div>
+                    </div>
+                    <div class="col-md-6">
+                        <small class="text-muted">Руководитель проекта</small>
+                        <div>Лесогорова Ольга Леонидовна</div>
+                    </div>
+                </div>
+
             </div>
-            <div class="col">
-                <div style="width: 500px; height: 300px;">
+
+            <div class="col-md-4" style="border:1px solid black">
+                
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <small class="text-muted">Начало</small>
+                        <input type="date" name="beginDate" value="2018-07-04"  class="form-control"/>
+                    </div>
+                    <div class="col-md-3">
+                        <small class="text-muted">Завершение</small>
+                        <input type="date" name="endDate" value="2018-07-11"  class="form-control"/>
+                    </div>
+                    <div class="col-md-3">
+                        <small class="text-muted">Ставка</small>
+                        <input type="number" name="rate" value="0.25"  class="form-control"/>
+                    </div>
+                    <div class="col-md-3">
+                        <small class="text-muted">Количество часов</small>
+                        <input type="number" name="hours" value="12"  class="form-control"/>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <small class="text-muted">
+                        <label>Кандидат</label>
+                    </small>
+                    <select style="width: 90%" class="form-control">
+                        <option value="1">Адамович Кирилл Михайлович</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <small class="text-muted">
+                        <label>Специальность</label>
+                    </small>
+                    <select style="width: 90%" class="form-control">
+                        <option value="1"></option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <small class="text-muted">
+                        <label>Квалификация</label>
+                    </small>
+                    <select style="width: 90%" class="form-control">
+                        <option value="1"></option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="col-md-4" style="border:1px solid black">
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <input type="checkbox" name="setPeriod" value="Задать период" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        <input type="date" name="periodStart" value="2018-07-01" class="form-control" />
+                        <span> - </span>
+                        <input type="date" name="periodEnd" value="2018-07-11" class="form-control" />
+                    </div>
+                    <div class="col-md-2">
+                        <div>Детализация по:</div>
+                    </div>
+                    <div class="col-md-3">
+                        <select style="width: 90%" class="form-control">
+                            <option value="1">Дням</option>
+                            <option value="1">Неделям</option>
+                            <option value="1">Месяцам</option>
+                            <option value="1">Годам</option>
+                            <option value="1">Столетиям</option>
+                            <option value="1">Вечности</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input type="checkbox" name="onPeriod" value="На период действия заявки"  class="form-control" />
+                </div>
+                <div class="mb-3">
                     <partial name="Chart" />
                 </div>
             </div>
+
         </div>
 
         <br />
         <div>Описание</div>
         <div class="row">
-            <div class="col">
+            <div class="col" style="border:1px solid black">
                 <textarea style="width:100%;"></textarea>
             </div>
         </div>
@@ -38,14 +157,43 @@
         <br />
         <div>Новый комментарий</div>
         <div class="row">
-            <div class="col">
+            <div class="col" style="border:1px solid black">
                 <textarea style="width:100%;"></textarea>
             </div>
         </div>
 
+        <div class="row">
+            <div class="col" style="border:1px solid black">
+                <input type="submit" value="Save" />
+            </div>
+        </div>
+
+
     </div>
 </form>
 
+@*@model TagHelpersStudyApp.Models.Phone
 
+    <h2>Добавление телефона</h2>
+
+    <form asp-action="Create" asp-controller="Home" asp-antiforgery="true">
+        <div>
+            <div>
+                <label asp-for="Name"></label>
+                <input type="text" asp-for="Name" />
+            </div>
+            <div>
+                <label asp-for="Price"></label>
+                <input asp-for="Price" />
+            </div>
+            <div>
+                <label asp-for="CompanyId"></label>
+                <select asp-for="CompanyId" asp-items="ViewBag.Companies"></select>
+            </div>
+            <div>
+                <input type="submit" value="Save" />
+            </div>
+        </div>
+    </form>*@
 
 
