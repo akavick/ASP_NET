@@ -43,11 +43,10 @@
     <e-chart-primaryxaxis majorGridLines="lines"
                           labelIntersectAction="Rotate45"
                           valueType="DateTime"
-                          skeleton="Ed"
-                          edgeLabelPlacement="Shift"
-                          intervalType="Days"
                           maximum="ViewBag.EndDate"
                           minimum="ViewBag.StartDate"
+                          edgeLabelPlacement="Shift"
+                          intervalType="Days"
                           labelFormat="dd MMM"></e-chart-primaryxaxis>
 
     <e-chart-primaryyaxis minimum="0"
@@ -64,13 +63,13 @@
                       valueType="Double"
                       majorGridLines="lines"
                       interval="1.0"
-                      maximum="10.0"
-                      minimum="0.0"
-                      visible="false"></e-chart-axis>
+                      maximum="10.5"
+                      minimum="-0.5"
+                      visible="true"></e-chart-axis>
     </e-chart-axes>
 
     <e-series-collection>
-        
+
         @foreach (ChartData list in ViewBag.ColumnsDataSource)
         {
             <e-series dataSource="list.DataSource"
@@ -95,7 +94,8 @@
                       yName="y"
                       type="@Syncfusion.EJ2.Charts.ChartSeriesType.StepArea"
                       fill="@(area.Color)"
-                      xAxisName="lineAxis"> @*  *@
+                      xAxisName="lineAxis">
+                @*  *@
                 <e-series-border color="transparent"></e-series-border>
             </e-series>
         }
@@ -123,8 +123,8 @@
     <e-chart-tooltipsettings enable="true"></e-chart-tooltipsettings>
     <e-chart-legendsettings toggleVisibility="true"
                             position="Bottom">
-                            @*location="location">*@
-                            @*alignment="Center">*@
+        @*location="location">*@
+        @*alignment="Center">*@
     </e-chart-legendsettings>
 
     <e-chart-chartarea>

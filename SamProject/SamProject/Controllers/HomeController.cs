@@ -46,24 +46,6 @@ namespace SamProject.Controllers
 
             var columnChart = new[]
             {
-                //new ChartData
-                //{
-                //    Name = "base",
-                //    Color = "black",
-                //    DataSource = new object[]
-                //    {
-                //        new {x = date.AddDays(0), y = 0.0},
-                //        new {x = date.AddDays(1), y = 0.0},
-                //        new {x = date.AddDays(2), y = 0.0},
-                //        new {x = date.AddDays(3), y = 0.0},
-                //        new {x = date.AddDays(4), y = 0.0},
-                //        new {x = date.AddDays(5), y = 0.0},
-                //        new {x = date.AddDays(6), y = 0.0},
-                //        new {x = date.AddDays(7), y = 0.0},
-                //        new {x = date.AddDays(8), y = 0.0},
-                //        new {x = date.AddDays(9), y = 0.0},
-                //    }
-                //},
                 new ChartData
                 {
                     Name = "project #1",
@@ -179,34 +161,6 @@ namespace SamProject.Controllers
                 },
             };
 
-
-
-            //var areaChart = new[]
-            //{
-            //    new ChartData
-            //    {
-            //        Name = "",
-            //        Color = "gray",
-            //        DataSource = new object[]
-            //        {
-            //            new {x = date.AddDays(0), y = 1.0},
-            //            new {x = date.AddDays(1), y = 1.0},
-            //            new {x = date.AddDays(2), y = 1.0},
-            //        }
-            //    },
-            //    new ChartData
-            //    {
-            //        Name = "",
-            //        Color = "gray",
-            //        DataSource = new object[]
-            //        {
-            //            new {x = date.AddDays(7), y = 1.0},
-            //        }
-            //    },
-            //};
-
-
-
             ViewBag.StartDate = date.AddDays(-1);
             ViewBag.EndDate = date.AddDays(10);
             ViewBag.ColumnsDataSource = columnChart;
@@ -223,6 +177,11 @@ namespace SamProject.Controllers
 
         public IActionResult Grid()
         {
+
+            //var order = OrderDetails.GetAllRecords();
+
+            //ViewBag.GridDataSource = order;
+
             return View();
         }
 
