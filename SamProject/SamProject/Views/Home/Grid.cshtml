@@ -2,27 +2,72 @@
 
 
 <ejs-grid id="Grid"
-          dataSource=@ViewBag.GridDataSource 
+          dataSource="@ViewBag.GridDataSource" 
           allowPaging="true"
           allowReordering="true"
           allowResizing="true"
           allowSorting="true"
           showColumnMenu="true"
           allowGrouping="true"
+          allowFiltering="true"
+          allowMultiSorting="true"
+          allowExcelExport="true"
+          allowPdfExport="true"
+          allowRowDragAndDrop="true"
+          enableAltRow="true"
+
+          allowSelection="true"
           
-          >
+          pageSettings="new Syncfusion.EJ2.Grids.GridPageSettings{PageSize = 20}"
+          allowTextWrap="true">
 
     <e-grid-columns>
         <e-grid-column field="Id"
+                       visible="false"></e-grid-column>
+        <e-grid-column field="Number"
                        headerText="Номер"
-                       textAlign="Left"
-                       width="25"></e-grid-column>
+                       width="30"
+                       ></e-grid-column>
+        <e-grid-column field="ApplicationStatusString"
+                       headerText="Статус"
+                       width="50"
+                       ></e-grid-column>
         <e-grid-column field="Project.Name"
                        headerText="Проект"
-                       width="150"></e-grid-column>
-        <e-grid-column field="Project.Client.Name"
-                       headerText="Заказчик"
-                       width="150"></e-grid-column>
-        @*<e-grid-column field="OrderDate" headerText="Order Date" width="130" textAlign="Right" format="yMd"></e-grid-column>*@
+                       width="50"
+                       ></e-grid-column>
+        <e-grid-column field="SpecialtyString"
+                       headerText="Специальность"
+                       width="50"
+                       ></e-grid-column>
+        <e-grid-column field="QualificationString"
+                       headerText="Квалификация"
+                       width="40"
+                       ></e-grid-column>
+        <e-grid-column field="Rate"
+                       headerText="Ставка"
+                       width="30"
+                       ></e-grid-column>
+        <e-grid-column field="Candidate.FullName"
+                       headerText="Кандидат"
+                       width="50"></e-grid-column>
+        <e-grid-column field="BeginDate"
+                       headerText="Начало"
+                       width="40"
+                       format="yMd"
+                       ></e-grid-column>
+        <e-grid-column field="EndDate"
+                       headerText="Завершение"
+                       width="40"
+                       format="yMd"
+                       ></e-grid-column>
+        <e-grid-column field="ProjectManager.FullName"
+                       headerText="Руководитель проекта"
+                       width="50"
+                       ></e-grid-column>
+        <e-grid-column field="Smd.FullName"
+                       headerText="SMD"
+                       width="50"
+                       ></e-grid-column>
     </e-grid-columns>
 </ejs-grid>

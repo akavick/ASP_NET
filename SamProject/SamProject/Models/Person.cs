@@ -13,7 +13,7 @@
         public string PatronymicName { get; set; }
         public Specialty Specialty { get; set; }
         public Qualification Qualification { get; set; }
-        public string Fullname => $"{LastName} {FirstName} {PatronymicName}";
+        public string FullName => $"{LastName} {FirstName} {PatronymicName}";
         public string FullInfo => $"{LastName} {FirstName} {PatronymicName}, {Qualification.String()} {Specialty.String()}";
     }
 

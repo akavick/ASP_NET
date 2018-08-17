@@ -18,9 +18,9 @@ namespace SamProject.Models
         public ApplicationStatus ApplicationStatus { get; set; }
         public string ApplicationStatusString => ApplicationStatus.String();
         public Specialty Specialty { get; set; }
-        public string SpecialtyString { get; set; }
+        public string SpecialtyString => Specialty.String();
         public Qualification Qualification { get; set; }
-        public string QualificationString { get; set; }
+        public string QualificationString => Qualification.String();
         public Project Project { get; set; }
         public Person ProjectManager { get; set; }
         public Person Smd { get; set; }

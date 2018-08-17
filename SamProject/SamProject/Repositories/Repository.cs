@@ -18,56 +18,90 @@ namespace SamProject.Repositories
 
     public class Repository
     {
+        private static Random _random;
         private static Person[] _people;
         private static Client[] _clients;
         private static Project[] _projects;
         private static Application[] _applications;
+        private static decimal[] _rates;
+
 
 
 
 
         static Repository()
         {
-            _people = new[]
-            {
-                new Person{},
-                new Person{},
-                new Person{},
-                new Person{},
-                new Person{},
-                new Person{},
-                new Person{},
-                new Person{},
-                new Person{},
-                new Person{},
-            };
+            var applicationStatusesCount = Enum.GetValues(typeof(ApplicationStatus)).Length;
+            var qualificationsCount = Enum.GetValues(typeof(Qualification)).Length;
+            var specialtiesCount = Enum.GetValues(typeof(Specialty)).Length;
+            var startDate = new DateTime(2017, 1, 1);
+            var endDate = new DateTime(2020, 12, 31);
+            var daysSpan = (endDate - startDate).Days;
+            const int peopleCount = 100;
+            const int clientsCount = 10;
+            const int projectsCount = 20;
+            const int applicationsCount = 200;
 
-            _clients = new[]
-            {
-                new Client { Id = 1, Name = "Client # 1" },
-                new Client { Id = 2, Name = "Client # 2" },
-                new Client { Id = 3, Name = "Client # 3" },
-                new Client { Id = 4, Name = "Client # 4" },
-                new Client { Id = 5, Name = "Client # 5" },
-            };
+            _random = new Random();
 
-            _projects = new[]
-            {
-                new Project { Id = 1, Name = "Project # 1", Client = _clients[3] },
-                new Project { Id = 2, Name = "Project # 2", Client = _clients[1] },
-                new Project { Id = 3, Name = "Project # 3", Client = _clients[4] },
-                new Project { Id = 4, Name = "Project # 4", Client = _clients[0] },
-                new Project { Id = 5, Name = "Project # 5", Client = _clients[2] },
-            };
+            _rates = new[] { 0.25m, 0.5m, 0.75m, 1.0m, 1.25m, 1.5m, 1.75m, 2.0m };
 
-            _applications = new[]
-            {
-                new Application {Id = 1, Project = _projects[4]},
-                new Application {Id = 2, Project = _projects[0]},
-                new Application {Id = 3, Project = _projects[3]},
-                new Application {Id = 4, Project = _projects[1]},
-                new Application {Id = 5, Project = _projects[2]},
-            };
+            _people = 
+                Enumerable.Range(1, peopleCount)
+                          .Select(i => new Person
+                          {
+                              Id = i,
+                              Qualification = (Qualification)_random.Next(qualificationsCount),
+                              Specialty = (Specialty)_random.Next(specialtiesCount),
+                              FirstName = $"Firstname{i}",
+                              LastName = $"Lastname{i}",
+                              PatronymicName = $"Patronymicname{i}"
+                          })
+                          .ToArray();
+
+            _clients = 
+                Enumerable.Range(1, clientsCount)
+                          .Select(i => new Client
+                          {
+                              Id = i,
+                              Name = $"Client # {i}"
+                          })
+                          .ToArray();
+
+            _projects = 
+                Enumerable.Range(1, projectsCount)
+                          .Select(i => new Project
+                          {
+                              Id = i,
+                              Name = $"Project # {i}",
+                              Client = _clients[_random.Next(_clients.Length)]
+                          })
+                          .ToArray();
+
+            _applications = 
+                Enumerable.Range(1, applicationsCount)
+                          .Select(i =>
+                          {
+                              var bd = startDate.AddDays(_random.Next(daysSpan));
+                              var ed = bd.AddDays(_random.Next((endDate - bd).Days + 1));
+
+                              return new Application
+                              {
+                                  Id = i,
+                                  Number = i + 1000000,
+                                  ApplicationStatus = (ApplicationStatus) _random.Next(applicationStatusesCount),
+                                  Project = _projects[_random.Next(_projects.Length)],
+                                  Qualification = (Qualification) _random.Next(qualificationsCount),
+                                  Specialty = (Specialty) _random.Next(specialtiesCount),
+                                  Rate = _rates[_random.Next(_rates.Length)],
+                                  Candidate = _people[_random.Next(_people.Length)],
+                                  ProjectManager = _people[_random.Next(_people.Length)],
+                                  Smd = _people[_random.Next(_people.Length)],
+                                  BeginDate = bd,
+                                  EndDate = ed
+                              };
+                          })
+                          .ToArray();
         }
 
 

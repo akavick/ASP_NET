@@ -29,11 +29,16 @@ namespace SamProject.Models
         {
             switch (qualification)
             {
-                case Qualification.Junior: return "Junior";
-                case Qualification.Staff: return "Staff";
-                case Qualification.Middle: return "Middle";
-                case Qualification.Senior: return "Senior";
-                default: throw new ArgumentOutOfRangeException(nameof(qualification), qualification, null);
+                case Qualification.Junior:
+                    return "Junior";
+                case Qualification.Staff:
+                    return "Staff";
+                case Qualification.Middle:
+                    return "Middle";
+                case Qualification.Senior:
+                    return "Senior";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(qualification), qualification, null);
             }
         }
     }

@@ -28,10 +28,14 @@ namespace SamProject.Models
         {
             switch (specialty)
             {
-                case Specialty.Developer: return "Developer";
-                case Specialty.Architect: return "Architect";
-                case Specialty.HtmlCoder: return "HTML Coder";
-                default: throw new ArgumentOutOfRangeException(nameof(specialty), specialty, null);
+                case Specialty.Developer:
+                    return "Developer";
+                case Specialty.Architect:
+                    return "Architect";
+                case Specialty.HtmlCoder:
+                    return "HTML Coder";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(specialty), specialty, null);
             }
         }
     }

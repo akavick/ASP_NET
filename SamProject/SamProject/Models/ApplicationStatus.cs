@@ -24,14 +24,18 @@ namespace SamProject.Models
 
     public static class ApplicationStatusExtensions
     {
-        public static string String(this ApplicationStatus application)
+        public static string String(this ApplicationStatus applicationStatus)
         {
-            switch (application)
+            switch (applicationStatus)
             {
-                case ApplicationStatus.New:return "Создание запроса";
-                case ApplicationStatus.Approved:return "Утверждена";
-                case ApplicationStatus.Revoked:return "Отозвана";
-                default:throw new ArgumentOutOfRangeException(nameof(application), application, null);
+                case ApplicationStatus.New:
+                    return "Создание запроса";
+                case ApplicationStatus.Approved:
+                    return "Утверждена";
+                case ApplicationStatus.Revoked:
+                    return "Отозвана";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(applicationStatus), applicationStatus, null);
             }
         }
     }
