@@ -1,4 +1,4 @@
-﻿@using SamProject.Controllers
+﻿@using SamProject.Models
 
 
 
@@ -11,6 +11,8 @@
 
 </script>
 
+
+
 @{
     var lines = new
     {
@@ -22,7 +24,14 @@
         Width = 0,
         Color = "transparent"
     };
+
+    var location = new
+    {
+        x = 300,
+        y = 300
+    };
 }
+
 
 
 <ejs-chart id="splineContainer"
@@ -34,6 +43,10 @@
     <e-chart-primaryxaxis majorGridLines="lines"
                           labelIntersectAction="Rotate45"
                           valueType="DateTime"
+                          maximum="ViewBag.EndDate"
+                          minimum="ViewBag.StartDate"
+                          edgeLabelPlacement="Shift"
+                          intervalType="Days"
                           labelFormat="dd MMM"></e-chart-primaryxaxis>
 
     <e-chart-primaryyaxis minimum="0"
@@ -50,8 +63,8 @@
                       valueType="Double"
                       majorGridLines="lines"
                       interval="1.0"
-                      maximum="10.0"
-                      minimum="0.0"
+                      maximum="10.5"
+                      minimum="-0.5"
                       visible="false"></e-chart-axis>
     </e-chart-axes>
 
@@ -66,8 +79,9 @@
                       width="2"
                       opacity="1"
                       fill="@(list.Color)"
-                      legendShape="@(list.Name == "base" ? Syncfusion.EJ2.Charts.LegendShape.Diamond : Syncfusion.EJ2.Charts.LegendShape.SeriesType)"
-                      type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
+                      legendShape="@(Syncfusion.EJ2.Charts.LegendShape.SeriesType)"
+                      type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn">
+            </e-series>
         }
 
         @foreach (ChartData area in ViewBag.AreaDataSource)
@@ -78,9 +92,10 @@
                       opacity="0.5"
                       width="2"
                       yName="y"
-                      type="@Syncfusion.EJ2.Charts.ChartSeriesType.Area"
-                      xAxisName="lineAxis"
-                      fill="@(area.Color)">
+                      type="@Syncfusion.EJ2.Charts.ChartSeriesType.StepArea"
+                      fill="@(area.Color)"
+                      xAxisName="lineAxis">
+                @*  *@
                 <e-series-border color="transparent"></e-series-border>
             </e-series>
         }
@@ -106,7 +121,11 @@
     </e-series-collection>
 
     <e-chart-tooltipsettings enable="true"></e-chart-tooltipsettings>
-    <e-chart-legendsettings toggleVisibility="true" position="Left"></e-chart-legendsettings>
+    <e-chart-legendsettings toggleVisibility="true"
+                            position="Bottom">
+        @*location="location">*@
+        @*alignment="Center">*@
+    </e-chart-legendsettings>
 
     <e-chart-chartarea>
         <e-chartarea-border width="0.0001"></e-chartarea-border>

@@ -13,6 +13,12 @@
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Home\FormSyncfusion.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptTarget>ES2015</TypeScriptTarget>
     <TypeScriptJSXEmit>None</TypeScriptJSXEmit>

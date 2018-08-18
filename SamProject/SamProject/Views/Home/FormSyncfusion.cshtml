@@ -16,7 +16,8 @@
 
         <div class="row">
 
-            <div class="col-md-4">
+            <div class="col-md-4"
+                 style="border-right: 1px solid gray;">
 
                 <div class="row">
                     <small class="col-md-2 text-muted">Номер</small>
@@ -68,7 +69,8 @@
 
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4"
+                 style="border-right: 1px solid gray;">
 
                 <div class="row mb-3">
                     <div class="col-md-6">
@@ -233,28 +235,27 @@
                 <input type="button"
                        name="but1"
                        value="Назад"
-                       class="btn btn-primary"
-                       style="margin-bottom:3px;" />
+                       class="btn btn-primary" 
+                       style="margin-bottom:3px;"/>
 
                 <input type="submit"
                        name="save"
                        value="Отправить"
                        class="btn btn-primary"
-                       style="margin-bottom:3px;" />
+                       style="margin-bottom:3px;"/>
 
                 <input type="button"
                        name="but2"
                        value="Одобрить"
                        class="btn btn-primary"
-                       style="margin-bottom:3px;" />
+                       style="margin-bottom:3px;"/>
 
 
                 <input type="button"
                        name="but3"
                        value="Черновик"
                        class="btn btn-primary"
-                       style="margin-bottom:3px;" />
-            </div>
+                       style="margin-bottom:3px;"/></div>
 
         </div>
 
@@ -262,28 +263,5 @@
     </div>
 </form>
 
-@*@model TagHelpersStudyApp.Models.Phone
-
-    <h2>Добавление телефона</h2>
-
-    <form asp-action="Create" asp-controller="Home" asp-antiforgery="true">
-        <div>
-            <div>
-                <label asp-for="Name"></label>
-                <input type="text" asp-for="Name" />
-            </div>
-            <div>
-                <label asp-for="Price"></label>
-                <input asp-for="Price" />
-            </div>
-            <div>
-                <label asp-for="CompanyId"></label>
-                <select asp-for="CompanyId" asp-items="ViewBag.Companies"></select>
-            </div>
-            <div>
-                <input type="submit" value="Save" />
-            </div>
-        </div>
-    </form>*@
 
 
