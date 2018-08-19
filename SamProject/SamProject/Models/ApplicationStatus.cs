@@ -14,8 +14,9 @@ namespace SamProject.Models
     public enum ApplicationStatus
     {
         New = 0,
-        Approved = 1,
-        Revoked = 2,
+        OnApproval = 1,
+        Approved = 2,
+        Revoked = 4,
     }
 
 
@@ -34,6 +35,8 @@ namespace SamProject.Models
                     return "Утверждена";
                 case ApplicationStatus.Revoked:
                     return "Отозвана";
+                case ApplicationStatus.OnApproval:
+                    return "На утверждении RM";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(applicationStatus), applicationStatus, null);
             }

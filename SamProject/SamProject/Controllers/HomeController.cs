@@ -29,33 +29,36 @@ namespace SamProject.Controllers
 
 
 
-        private void SetFormData()
+        private async Task SetFormData()
         {
-            var date = new DateTime(2018, 7, 1);
+            await Task.Run(() =>
+            {
+                var date = new DateTime(2018, 7, 1);
 
-            ViewBag.StartDate = date.AddDays(-1);
-            ViewBag.EndDate = date.AddDays(10);
-            ViewBag.ColumnsDataSource = Repository.GetColumnsData(date);
-            ViewBag.LineDataSource = Repository.GetLineData(date);
-            ViewBag.AreaDataSource = Repository.GetAreaData(date);
+                ViewBag.StartDate = date.AddDays(-1);
+                ViewBag.EndDate = date.AddDays(10);
+                ViewBag.ColumnsDataSource = Repository.GetColumnsData(date);
+                ViewBag.LineDataSource = Repository.GetLineData(date);
+                ViewBag.AreaDataSource = Repository.GetAreaData(date);
+            });
         }
 
 
 
 
 
-        private void SetGridData()
+        private async Task SetGridData()
         {
-            ViewBag.GridDataSource = Repository.GetGridData();
+            await Task.Run(() => ViewBag.GridDataSource = Repository.GetGridData());
         }
 
 
 
 
 
-        public IActionResult Form()
+        public async Task<IActionResult> Form()
         {
-            SetFormData();
+            await SetFormData();
 
             return View();
         }
@@ -64,9 +67,9 @@ namespace SamProject.Controllers
 
 
 
-        public IActionResult FormSyncfusion()
+        public async Task<IActionResult> FormSyncfusion()
         {
-            SetFormData();
+            await SetFormData();
 
             return View();
         }
@@ -75,9 +78,9 @@ namespace SamProject.Controllers
 
 
 
-        public IActionResult Grid()
+        public async Task<IActionResult> Grid()
         {
-            SetGridData();
+            await SetGridData();
 
             return View();
         }

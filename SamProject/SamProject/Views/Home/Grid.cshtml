@@ -2,7 +2,7 @@
 
 
 <ejs-grid id="Grid"
-          dataSource="@ViewBag.GridDataSource" 
+          dataSource="@ViewBag.GridDataSource"
           allowPaging="true"
           allowReordering="true"
           allowResizing="true"
@@ -15,59 +15,74 @@
           allowPdfExport="true"
           allowRowDragAndDrop="true"
           enableAltRow="true"
-
           allowSelection="true"
           
+          
+          
           pageSettings="new Syncfusion.EJ2.Grids.GridPageSettings{PageSize = 20}"
-          allowTextWrap="true">
+          filterSettings="new Syncfusion.EJ2.Grids.GridFilterSettings{Mode = Syncfusion.EJ2.Grids.FilterBarMode.Immediate,ImmediateModeDelay = 200.0}">
+
+    @*
+                allowTextWrap="true"
+        textWrapSettings="new Syncfusion.EJ2.Grids.GridTextWrapSettings{WrapMode = Syncfusion.EJ2.Grids.WrapMode.Content}"
+        searchSettings="new Syncfusion.EJ2.Grids.GridSearchSettings{}"
+
+
+
+    *@
 
     <e-grid-columns>
         <e-grid-column field="Id"
                        visible="false"></e-grid-column>
         <e-grid-column field="Number"
                        headerText="Номер"
-                       width="30"
-                       ></e-grid-column>
+                       width="30"></e-grid-column>
         <e-grid-column field="ApplicationStatusString"
                        headerText="Статус"
-                       width="50"
-                       ></e-grid-column>
+                       width="50"></e-grid-column>
         <e-grid-column field="Project.Name"
                        headerText="Проект"
-                       width="50"
-                       ></e-grid-column>
+                       width="50"></e-grid-column>
         <e-grid-column field="SpecialtyString"
                        headerText="Специальность"
-                       width="50"
-                       ></e-grid-column>
+                       width="50"></e-grid-column>
         <e-grid-column field="QualificationString"
                        headerText="Квалификация"
-                       width="40"
-                       ></e-grid-column>
+                       width="40"></e-grid-column>
         <e-grid-column field="Rate"
                        headerText="Ставка"
-                       width="30"
-                       ></e-grid-column>
+                       width="30"></e-grid-column>
         <e-grid-column field="Candidate.FullName"
                        headerText="Кандидат"
                        width="50"></e-grid-column>
         <e-grid-column field="BeginDate"
                        headerText="Начало"
                        width="40"
-                       format="yMd"
-                       ></e-grid-column>
+                       format="yMd"></e-grid-column>
         <e-grid-column field="EndDate"
                        headerText="Завершение"
                        width="40"
-                       format="yMd"
-                       ></e-grid-column>
+                       format="yMd"></e-grid-column>
         <e-grid-column field="ProjectManager.FullName"
                        headerText="Руководитель проекта"
-                       width="50"
-                       ></e-grid-column>
+                       width="50"></e-grid-column>
         <e-grid-column field="Smd.FullName"
                        headerText="SMD"
-                       width="50"
-                       ></e-grid-column>
+                       width="50"></e-grid-column>
     </e-grid-columns>
 </ejs-grid>
+
+
+
+@section Scripts
+{ 
+    
+    <script>
+
+        $(document).ready(function() {
+            $("#Grid_colmenu_AutoFitAll").click();
+        });
+
+    </script>
+
+}
