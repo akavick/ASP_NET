@@ -16,7 +16,7 @@ namespace SamProject.Models
         New = 0,
         OnApproval = 1,
         Approved = 2,
-        Revoked = 4,
+        Revoked = 3,
     }
 
 

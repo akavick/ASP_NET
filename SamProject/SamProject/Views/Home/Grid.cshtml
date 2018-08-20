@@ -1,4 +1,22 @@
-﻿
+﻿@{
+    var filterOperators = new [] {new{ @operator = "contains" }};
+    var customAttributes = new {@class = "customcss" };
+
+    List<object> filterColumns = new List<object>();
+    filterColumns.Add(new { field = "ApplicationStatusString", matchCase = false, @operator = "contains" });
+
+}
+
+
+<style>
+    .e-grid .e-headercell .customcss
+    {
+        background-color: #2382c3;
+        color: white;
+        font-family: 'Bell MT';
+        font-size: 20px;
+    }
+</style>
 
 
 <ejs-grid id="Grid"
@@ -16,24 +34,16 @@
           allowRowDragAndDrop="true"
           enableAltRow="true"
           allowSelection="true"
-          
-          
-          
-          pageSettings="new Syncfusion.EJ2.Grids.GridPageSettings{PageSize = 20}"
-          filterSettings="new Syncfusion.EJ2.Grids.GridFilterSettings{Mode = Syncfusion.EJ2.Grids.FilterBarMode.Immediate,ImmediateModeDelay = 200.0}">
+          toolbar="@(new List<string> { "Search" })">
 
-    @*
-                allowTextWrap="true"
-        textWrapSettings="new Syncfusion.EJ2.Grids.GridTextWrapSettings{WrapMode = Syncfusion.EJ2.Grids.WrapMode.Content}"
-        searchSettings="new Syncfusion.EJ2.Grids.GridSearchSettings{}"
+    <e-grid-pagesettings pageSize="10.0"
+                         pageSizes="@(new [] { "5", "10", "20", "All" })"></e-grid-pagesettings>
 
-
-
-    *@
+    <e-grid-filterSettings mode="Immediate"
+                           immediateModeDelay="200.0"
+                           type="FilterBar"></e-grid-filterSettings>
 
     <e-grid-columns>
-        <e-grid-column field="Id"
-                       visible="false"></e-grid-column>
         <e-grid-column field="Number"
                        headerText="Номер"
                        width="30"></e-grid-column>
@@ -75,13 +85,13 @@
 
 
 @section Scripts
-{ 
-    
+{
+
     <script>
 
-        $(document).ready(function() {
-            $("#Grid_colmenu_AutoFitAll").click();
-        });
+
+        console.log($("#Grid"));
+
 
     </script>
 
