@@ -40,6 +40,10 @@ namespace SamProject.Controllers
                 ViewBag.ColumnsDataSource = Repository.GetColumnsData(date);
                 ViewBag.LineDataSource = Repository.GetLineData(date);
                 ViewBag.AreaDataSource = Repository.GetAreaData(date);
+
+                ViewBag.RatesDataSource = Repository.Rates;
+                ViewBag.ProjectsDataSource = Repository.Projects;
+                ViewBag.CandidatesDataSource = Repository.People;
             });
         }
 
@@ -49,7 +53,7 @@ namespace SamProject.Controllers
 
         private async Task SetGridData()
         {
-            await Task.Run(() => ViewBag.GridDataSource = Repository.GetGridData());
+            await Task.Run(() => ViewBag.GridDataSource = Repository.Applications());
         }
 
 
@@ -59,8 +63,9 @@ namespace SamProject.Controllers
         public async Task<IActionResult> Form()
         {
             await SetFormData();
+            await SetGridData();
 
-            return View();
+            return View(Repository.Applications().First());
         }
 
 

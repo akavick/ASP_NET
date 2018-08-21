@@ -2,7 +2,7 @@
     ViewData["Title"] = "Form";
 }
 
-
+@model Application
 
 <form asp-action="Create"
       asp-controller="Home"
@@ -12,36 +12,30 @@
 
     <div>
 
-        <h4 class="mb-3">Заявка</h4>
+        <h4 class="mb-3">Заявка #<span style="color:cornflowerblue">@Model.Number</span> Статус: <span style="color:cornflowerblue">@Model.ApplicationStatusString</span></h4>
 
         <div class="row">
 
             <div class="col-md-4">
 
-                <div class="row">
-                    <small class="col-md-2 text-muted">Номер</small>
-                    <div class="col-md-10">3</div>
-                </div>
-
-                <div class="row mb-3">
-                    <small class="col-md-2 text-muted">Статус</small>
-                    <div class="col-md-10">Создание запроса</div>
-                </div>
-
                 <div class="mb-3">
                     <small class="text-muted">
                         <label>Проект</label>
                     </small>
-                    <select class="form-control">
-                        <option value="1">1stquad</option>
-                        <option value="2">2ndquad</option>
-                        <option value="3">3rdquad</option>
-                    </select>
+                    <ejs-combobox id="Projects"
+                                  placeholder="Select a project"
+                                  popupHeight="200px"
+                                  dataSource="@ViewBag.ProjectsDataSource"
+                                  value="@Model.Project.Id"
+                                  text="@Model.Project.Name">
+                        <e-combobox-fields text="Name"
+                                           value="Id"></e-combobox-fields>
+                    </ejs-combobox>
                 </div>
 
                 <div class="mb-3">
                     <small class="text-muted">Заказчик</small>
-                    <div>1stQuad Solutions GmbH</div>
+                    <div>@Model.Project.Client.Name</div>
                 </div>
 
                 <div class="row mb-3">
@@ -58,11 +52,11 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <small class="text-muted">SMD</small>
-                        <div>Сидоренко Александр</div>
+                        <div>@Model.Smd.FullName</div>
                     </div>
                     <div class="col-md-6">
                         <small class="text-muted">Руководитель проекта</small>
-                        <div>Лесогорова Ольга Леонидовна</div>
+                        <div>@Model.ProjectManager.FullName</div>
                     </div>
                 </div>
 
@@ -73,40 +67,38 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <small class="text-muted">Начало</small>
-                        <input type="date"
-                               name="beginDate"
-                               value="2018-07-04"
-                               class="form-control" />
+                        <ejs-datepicker id="beginDate"
+                                        placeholder="Choose a Date"
+                                        value="@Model.BeginDate"
+                                        format="dd-MM-yyyy"
+                                        change="beginDateChange"></ejs-datepicker>
                     </div>
                     <div class="col-md-6">
                         <small class="text-muted">Завершение</small>
-                        <input type="date"
-                               name="endDate"
-                               value="2018-07-11"
-                               class="form-control" />
+                        <ejs-datepicker id="endDate"
+                                        placeholder="Choose a Date"
+                                        value="@Model.EndDate"
+                                        format="dd-MM-yyyy"
+                                        change="endDateChange"></ejs-datepicker>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <small class="text-muted">Ставка</small>
-                        <select name="rate"
-                                class="form-control">
-                            <option value="1">0.25</option>
-                            <option value="1">0.5</option>
-                            <option value="1">0.75</option>
-                            <option value="1">1</option>
-                            <option value="1">1.25</option>
-                            <option value="1">1.5</option>
-                            <option value="1">1.75</option>
-                            <option value="1">2</option>
-                        </select>
+                        <ejs-dropdownlist id="Rates"
+                                          dataSource="@ViewBag.RatesDataSource"
+                                          placeholder="Select a rate"
+                                          popupHeight="220px"
+                                          value="@Model.Rate"></ejs-dropdownlist>
                     </div>
                     <div class="col-md-6">
                         <small class="text-muted">Количество часов</small>
-                        <input type="number"
-                               name="hours"
-                               value="12"
-                               class="form-control" />
+                        <ejs-numerictextbox id="Hours"
+                                            showSpinButton="false"
+                                            value="@(((Model.EndDate - Model.BeginDate).Days + 1) * Model.Rate * 8)"
+                                            readonly="true"
+                                            format="n"
+                                            Type="text"></ejs-numerictextbox>
                     </div>
                 </div>
 
@@ -114,9 +106,16 @@
                     <small class="text-muted">
                         <label>Кандидат</label>
                     </small>
-                    <select class="form-control">
-                        <option value="1">Адамович Кирилл Михайлович</option>
-                    </select>
+                    <ejs-combobox id="Candidates"
+                                  placeholder="Select a candidate"
+                                  popupHeight="200px"
+                                  dataSource="@ViewBag.CandidatesDataSource"
+                                  value="@Model.Candidate.Id"
+                                  text="@Model.Candidate.FullName">
+                        <e-combobox-fields groupBy="SpecialtyString"
+                                           text="FullName"
+                                           value="Id"></e-combobox-fields>
+                    </ejs-combobox>
                 </div>
 
                 <div class="mb-3">
@@ -148,35 +147,6 @@
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox"
-                                   class="custom-control-input"
-                                   id="setPeriod"
-                                   name="setPeriod"
-                                   value="optional">
-                            <label class="custom-control-label"
-                                   for="setPeriod">Задать период</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <input type="date"
-                               name="periodStart"
-                               value="2018-07-01"
-                               class="form-control" />
-                    </div>
-
-                    @*<span> - </span>*@
-
-                    <div class="col-md-4">
-                        <input type="date"
-                               name="periodEnd"
-                               value="2018-07-11"
-                               class="form-control" />
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-4">
                         <div>Детализация по:</div>
                     </div>
                     <div class="col-md-8">
@@ -190,21 +160,12 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="mb-3">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox"
-                               id="onPeriod"
-                               name="onPeriod"
-                               value="optional"
-                               class="custom-control-input" />
-                        <label for="onPeriod"
-                               class="custom-control-label">На период действия заявки</label>
+                
+                <div>Новый комментарий</div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <textarea style="width: 100%;"></textarea>
                     </div>
-                </div>
-
-                <div class="mb-3">
-                    @*<partial name="Chart" />*@
                 </div>
 
             </div>
@@ -213,8 +174,83 @@
 
         <br />
 
+        @*CHART*@
         <div class="row">
-            <partial name="Chart" />
+            <div class="col">
+                <partial name="Chart" />
+            </div>
+        </div>
+
+        <br />
+
+        @*GRID*@
+        <div class="row">
+
+            <div class="col">
+                <ejs-grid id="Grid"
+                          dataSource="@ViewBag.GridDataSource"
+                          allowPaging="true"
+                          allowReordering="true"
+                          allowResizing="true"
+                          allowSorting="true"
+                          showColumnMenu="true"
+                          allowGrouping="true"
+                          allowFiltering="true"
+                          allowMultiSorting="true"
+                          allowExcelExport="true"
+                          allowPdfExport="true"
+                          allowRowDragAndDrop="true"
+                          enableAltRow="true"
+                          allowSelection="true"
+                          toolbar="@(new List<string> {"Search"})">
+
+                    <e-grid-pagesettings pageSize="10.0"
+                                         pageSizes="@(new[] {"5", "10", "20", "All"})"></e-grid-pagesettings>
+
+                    <e-grid-filterSettings mode="Immediate"
+                                           immediateModeDelay="200.0"
+                                           type="FilterBar"></e-grid-filterSettings>
+
+                    <e-grid-columns>
+                        <e-grid-column field="Number"
+                                       headerText="Номер"
+                                       width="30"></e-grid-column>
+                        <e-grid-column field="ApplicationStatusString"
+                                       headerText="Статус"
+                                       width="50"></e-grid-column>
+                        <e-grid-column field="Project.Name"
+                                       headerText="Проект"
+                                       width="50"></e-grid-column>
+                        <e-grid-column field="SpecialtyString"
+                                       headerText="Специальность"
+                                       width="50"></e-grid-column>
+                        <e-grid-column field="QualificationString"
+                                       headerText="Квалификация"
+                                       width="40"></e-grid-column>
+                        <e-grid-column field="Rate"
+                                       headerText="Ставка"
+                                       width="30"></e-grid-column>
+                        <e-grid-column field="Candidate.FullName"
+                                       headerText="Кандидат"
+                                       width="50"></e-grid-column>
+                        <e-grid-column field="BeginDate"
+                                       headerText="Начало"
+                                       width="40"
+                                       format="yMd"></e-grid-column>
+                        <e-grid-column field="EndDate"
+                                       headerText="Завершение"
+                                       width="40"
+                                       format="yMd"></e-grid-column>
+                        <e-grid-column field="ProjectManager.FullName"
+                                       headerText="Руководитель проекта"
+                                       width="50"></e-grid-column>
+                        <e-grid-column field="Smd.FullName"
+                                       headerText="SMD"
+                                       width="50"></e-grid-column>
+                    </e-grid-columns>
+                </ejs-grid>
+            </div>
+
         </div>
 
         <br />
@@ -227,12 +263,6 @@
         </div>
 
         <br />
-        <div>Новый комментарий</div>
-        <div class="row">
-            <div class="col">
-                <textarea style="width: 100%;"></textarea>
-            </div>
-        </div>
 
         <div class="row">
 
@@ -243,11 +273,11 @@
                        class="btn btn-primary"
                        style="margin-bottom:3px;" />
 
-                <input type="submit"
+                @*<input type="submit"
                        name="save"
                        value="Отправить"
                        class="btn btn-primary"
-                       style="margin-bottom:3px;" />
+                       style="margin-bottom:3px;" />*@
 
                 <input type="button"
                        name="but2"
@@ -265,33 +295,26 @@
 
         </div>
 
-
-
     </div>
 </form>
 
-@*@model TagHelpersStudyApp.Models.Phone
 
-    <h2>Добавление телефона</h2>
 
-    <form asp-action="Create" asp-controller="Home" asp-antiforgery="true">
-        <div>
-            <div>
-                <label asp-for="Name"></label>
-                <input type="text" asp-for="Name" />
-            </div>
-            <div>
-                <label asp-for="Price"></label>
-                <input asp-for="Price" />
-            </div>
-            <div>
-                <label asp-for="CompanyId"></label>
-                <select asp-for="CompanyId" asp-items="ViewBag.Companies"></select>
-            </div>
-            <div>
-                <input type="submit" value="Save" />
-            </div>
-        </div>
-    </form>*@
+
+
+
+<script>
+
+    function beginDateChange(a, b, c, d, e)
+    {
+        console.log("bd");   
+    }
+
+    function endDateChange(a, b, c, d, e)
+    {
+        console.log("ed");
+    }
+
+</script>
 
 

@@ -2,16 +2,24 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div>
-    <div>
+<style>
+    html, body, mainBodyDiv
+    {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; flex-direction: column;">
+    <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
         <a asp-action="Form" asp-controller="Home" style="font-size: 40px">Form</a>
     </div>
     @*<div>
         <a asp-action="FormSyncfusion" asp-controller="Home" style="font-size: 40px">FormSyncfusion</a>
     </div>*@
-    <div>
+    @*<div>
         <a asp-action="Grid" asp-controller="Home" style="font-size: 40px">Grid</a>
-    </div>
+    </div>*@
 </div>
 
 

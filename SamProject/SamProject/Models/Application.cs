@@ -14,7 +14,7 @@ namespace SamProject.Models
     public class Application
     {
         public int Id { get; set; }
-        public int Number { get; set; }
+        public string Number { get; set; }
         public ApplicationStatus ApplicationStatus { get; set; }
         public string ApplicationStatusString => ApplicationStatus.String();
         public Specialty Specialty { get; set; }
@@ -28,6 +28,8 @@ namespace SamProject.Models
         public decimal Rate { get; set; }
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string Department { get; set; }
+        public string Market { get; set; }
     }
 
 

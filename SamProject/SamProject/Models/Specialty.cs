@@ -16,6 +16,8 @@ namespace SamProject.Models
         Developer = 0,
         Architect = 1,
         HtmlCoder = 2,
+        Pm = 3,
+        Smd = 4
     }
 
 
@@ -34,6 +36,10 @@ namespace SamProject.Models
                     return "Architect";
                 case Specialty.HtmlCoder:
                     return "HTML Coder";
+                case Specialty.Pm:
+                    return "Project Manager";
+                case Specialty.Smd:
+                    return "Senior Manager Delivery";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(specialty), specialty, null);
             }
