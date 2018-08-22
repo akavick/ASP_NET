@@ -1,5 +1,6 @@
 ﻿@using SamProject.Models
 
+@model Application
 
 
 <script>
@@ -38,13 +39,14 @@
            load="window.onChartLoad"
            chartMouseClick="chartMouseClick"
            width="100%"
-           height="300">
+           height="300"
+           >
 
     <e-chart-primaryxaxis majorGridLines="lines"
                           labelIntersectAction="Rotate45"
                           valueType="DateTime"
-                          maximum="ViewBag.EndDate"
-                          minimum="ViewBag.StartDate"
+                          maximum="Model.BeginDate.AddDays(-1)"
+                          minimum="Model.EndDate.AddDays(1)"
                           edgeLabelPlacement="Shift"
                           intervalType="Days"
                           labelFormat="dd MMM"></e-chart-primaryxaxis>
@@ -63,58 +65,54 @@
                       valueType="Double"
                       majorGridLines="lines"
                       interval="1.0"
-                      maximum="10.5"
+                      maximum="(Model.EndDate.AddDays(1) - Model.BeginDate).Days + 0.5"
                       minimum="-0.5"
                       visible="false"></e-chart-axis>
     </e-chart-axes>
 
     <e-series-collection>
 
-        @foreach (ChartData list in ViewBag.ColumnsDataSource)
+        @foreach (ChartData<DateTime> chartData in ViewBag.ColumnsDataSource)
         {
-            <e-series dataSource="list.DataSource"
-                      xName="x"
-                      yName="y"
-                      name="@(list.Name)"
+            <e-series dataSource="chartData.DataSource"
+                      xName="X"
+                      yName="Y"
+                      name="@(chartData.Name)"
                       width="2"
                       opacity="1"
-                      fill="@(list.Color)"
+                      fill="@(chartData.Color)"
                       legendShape="@(Syncfusion.EJ2.Charts.LegendShape.SeriesType)"
                       type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn">
             </e-series>
         }
 
-        @foreach (ChartData area in ViewBag.AreaDataSource)
-        {
-            <e-series dataSource="area.DataSource"
-                      name="@(area.Name)"
-                      xName="x"
-                      opacity="0.5"
-                      width="2"
-                      yName="y"
-                      type="@Syncfusion.EJ2.Charts.ChartSeriesType.StepArea"
-                      fill="@(area.Color)"
-                      xAxisName="lineAxis">
-                @*  *@
-                <e-series-border color="transparent"></e-series-border>
-            </e-series>
-        }
+        @*@foreach (ChartData chartData in ViewBag.AreaDataSource)
+            {
+                <e-series dataSource="chartData.DataSource"
+                          name="@(chartData.Name)"
+                          xName="x"
+                          opacity="0.5"
+                          width="2"
+                          yName="y"
+                          type="@Syncfusion.EJ2.Charts.ChartSeriesType.StepArea"
+                          fill="@(chartData.Color)"
+                          xAxisName="lineAxis">
+                    <e-series-border color="transparent"></e-series-border>
+                </e-series>
+            }*@
 
-        @foreach (ChartData line in ViewBag.LineDataSource)
+        @foreach (ChartData<double> chartData in ViewBag.LineDataSource)
         {
-            <e-series dataSource="line.DataSource"
-                      name="@(line.Name)"
-                      xName="x"
+            <e-series dataSource="chartData.DataSource"
+                      name="@(chartData.Name)"
+                      xName="X"
+                      yName="Y"
                       width="2"
                       opacity="1"
-                      yName="y"
-                      fill="@(line.Color)"
+                      fill="@(chartData.Color)"
                       type="@Syncfusion.EJ2.Charts.ChartSeriesType.StepLine"
                       xAxisName="lineAxis"
                       enableTooltip="false">
-                @*<e-series-marker visible = "true"
-                    height = "10"
-                    width = "10"></e-series-marker>*@
             </e-series>
         }
 

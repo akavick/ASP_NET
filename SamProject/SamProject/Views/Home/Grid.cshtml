@@ -1,6 +1,6 @@
-﻿@{
-    var filterOperators = new [] {new{ @operator = "contains" }};
-    var customAttributes = new {@class = "customcss" };
+﻿@*@{
+    var filterOperators = new[] { new { @operator = "contains" } };
+    var customAttributes = new { @class = "customcss" };
 
     List<object> filterColumns = new List<object>();
     filterColumns.Add(new { field = "ApplicationStatusString", matchCase = false, @operator = "contains" });
@@ -16,7 +16,7 @@
         font-family: 'Bell MT';
         font-size: 20px;
     }
-</style>
+</style>*@
 
 
 <ejs-grid id="Grid"
@@ -34,10 +34,10 @@
           allowRowDragAndDrop="true"
           enableAltRow="true"
           allowSelection="true"
-          toolbar="@(new List<string> { "Search" })">
+          toolbar="@(new List<string> {"Search"})">
 
     <e-grid-pagesettings pageSize="10.0"
-                         pageSizes="@(new [] { "5", "10", "20", "All" })"></e-grid-pagesettings>
+                         pageSizes="@(new[] {"5", "10", "20", "All"})"></e-grid-pagesettings>
 
     <e-grid-filterSettings mode="Immediate"
                            immediateModeDelay="200.0"
@@ -84,8 +84,8 @@
 
 
 
-@section Scripts
-{
+@*@section Scripts
+    {
 
     <script>
 
@@ -95,4 +95,4 @@
 
     </script>
 
-}
+}*@

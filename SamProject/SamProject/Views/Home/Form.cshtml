@@ -19,9 +19,17 @@
             <div class="col-md-4">
 
                 <div class="mb-3">
-                    <small class="text-muted">
-                        <label>Проект</label>
-                    </small>
+                    <small class="text-muted">Проект</small>
+
+                    @*<ejs-tooltip id="ProjectTooltip" content="#ProjectInfoAccordionContent" position="BottomCenter" showTipPointer="true">
+                            <e-content-template>
+                                <small class="text-muted">
+                                    <label>Проект</label>
+                                </small>
+
+                            </e-content-template>
+                        </ejs-tooltip>*@
+
                     <ejs-combobox id="Projects"
                                   placeholder="Select a project"
                                   popupHeight="200px"
@@ -34,35 +42,44 @@
                 </div>
 
                 <div class="mb-3">
-                    <small class="text-muted">Заказчик</small>
-                    <div>@Model.Project.Client.Name</div>
+                    <ejs-accordion id="ProjectInfoAccordion">
+                        <e-accordion-accordionitems>
+                            <e-accordion-accordionitem expanded="false"
+                                                       header="Информация о проекте"
+                                                       content="#ProjectInfoAccordionContent">
+                            </e-accordion-accordionitem>
+                        </e-accordion-accordionitems>
+                    </ejs-accordion>
                 </div>
 
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <small class="text-muted">Подразделение</small>
-                        <div>PC09</div>
+                <div id="ProjectInfoAccordionContent" style="display:none">
+                    <div class="mb-3">
+                        <small class="text-muted">Заказчик</small>
+                        <div>@Model.Project.Client.Name</div>
                     </div>
-                    <div class="col-md-6">
-                        <small class="text-muted">Рынок</small>
-                        <div>DE</div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <small class="text-muted">Подразделение</small>
+                            <div>PC09</div>
+                        </div>
+                        <div class="col-md-6">
+                            <small class="text-muted">Рынок</small>
+                            <div>DE</div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <small class="text-muted">SMD</small>
+                            <div>@Model.Smd.FullName</div>
+                        </div>
+                        <div class="col-md-6">
+                            <small class="text-muted">Руководитель проекта</small>
+                            <div>@Model.ProjectManager.FullName</div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <small class="text-muted">SMD</small>
-                        <div>@Model.Smd.FullName</div>
-                    </div>
-                    <div class="col-md-6">
-                        <small class="text-muted">Руководитель проекта</small>
-                        <div>@Model.ProjectManager.FullName</div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="col-md-4">
 
                 <div class="row mb-3">
                     <div class="col-md-6">
@@ -103,9 +120,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <small class="text-muted">
-                        <label>Кандидат</label>
-                    </small>
+                    <small class="text-muted">Кандидат</small>
                     <ejs-combobox id="Candidates"
                                   placeholder="Select a candidate"
                                   popupHeight="200px"
@@ -119,54 +134,59 @@
                 </div>
 
                 <div class="mb-3">
-                    <small class="text-muted">
-                        <label>Специальность</label>
-                    </small>
-                    <select class="form-control">
-                        <option value="1">Программист</option>
-                        <option value="2">Программизд</option>
-                    </select>
+                    <ejs-accordion id="CandidateInfoAccordion">
+                        <e-accordion-accordionitems>
+                            <e-accordion-accordionitem expanded="false"
+                                                       header="Требования к кандидату"
+                                                       content="#CandidateInfo">
+                            </e-accordion-accordionitem>
+                        </e-accordion-accordionitems>
+                    </ejs-accordion>
                 </div>
 
-                <div class="mb-3">
-                    <small class="text-muted">
-                        <label>Квалификация</label>
-                    </small>
-                    <select class="form-control">
-                        <option value="1">Бог</option>
-                        <option value="2">Сеньор</option>
-                        <option value="3">Мидл</option>
-                        <option value="4">Джуниор</option>
-                        <option value="5">Отстой</option>
-                    </select>
+                <div id="CandidateInfo" style="display:none">
+                    <div class="mb-3">
+                        <small class="text-muted">Специальность</small>
+                        <ejs-dropdownlist id="Specialties"
+                                          dataSource="@ViewBag.SpecialtiesDataSource"
+                                          placeholder="Select a specialty"
+                                          value="@Model.SpecialtyString"
+                                          popupHeight="220px"></ejs-dropdownlist>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-muted">Квалификация</small>
+                        <ejs-dropdownlist id="Qualifications"
+                                          dataSource="@ViewBag.QualificationsDataSource"
+                                          placeholder="Select a qualification"
+                                          value="@Model.QualificationString"
+                                          popupHeight="220px"></ejs-dropdownlist>
+                    </div>
+
+                    <div class="mb-3">
+                        <small class="text-muted">Описание</small>
+                        <textarea style="width: 100%;"></textarea>
+                    </div>
                 </div>
 
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-8">
 
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <div>Детализация по:</div>
-                    </div>
-                    <div class="col-md-8">
-                        <select class="form-control">
-                            <option value="1">Дням</option>
-                            <option value="1">Неделям</option>
-                            <option value="1">Месяцам</option>
-                            <option value="1">Годам</option>
-                            <option value="1">Столетиям</option>
-                            <option value="1">Вечности</option>
-                        </select>
-                    </div>
+                <div class="mb-3">
+                    <small class="text-muted">Новый комментарий</small>
+                    <textarea style="width: 100%;"></textarea>
+                    <input type="button"
+                           name="butSendComment"
+                           value="Отправить"
+                           class="btn btn-primary" />
                 </div>
-                
-                <div>Новый комментарий</div>
-                <div class="row mb-3">
-                    <div class="col">
-                        <textarea style="width: 100%;"></textarea>
-                    </div>
+
+                <div class="mb-3">
+                    <partial name="CommentsGrid" />
                 </div>
+
+
 
             </div>
 
@@ -175,9 +195,20 @@
         <br />
 
         @*CHART*@
+
         <div class="row">
             <div class="col">
                 <partial name="Chart" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1">
+                <small class="text-muted">Детализация по:</small>
+                <ejs-dropdownlist id="Detailization"
+                                  dataSource="@ViewBag.DetailizationDataSource"
+                                  value="@(((string[]) ViewBag.DetailizationDataSource)[0])"
+                                  popupHeight="220px"></ejs-dropdownlist>
             </div>
         </div>
 
@@ -185,82 +216,25 @@
 
         @*GRID*@
         <div class="row">
-
             <div class="col">
-                <ejs-grid id="Grid"
-                          dataSource="@ViewBag.GridDataSource"
-                          allowPaging="true"
-                          allowReordering="true"
-                          allowResizing="true"
-                          allowSorting="true"
-                          showColumnMenu="true"
-                          allowGrouping="true"
-                          allowFiltering="true"
-                          allowMultiSorting="true"
-                          allowExcelExport="true"
-                          allowPdfExport="true"
-                          allowRowDragAndDrop="true"
-                          enableAltRow="true"
-                          allowSelection="true"
-                          toolbar="@(new List<string> {"Search"})">
+                <ejs-accordion id="GridAccordion">
+                    <e-accordion-accordionitems>
+                        <e-accordion-accordionitem expanded="false"
+                                                   header="Пересекающиеся заявки"
+                                                   content="#CrossingGridDiv">
+                        </e-accordion-accordionitem>
+                    </e-accordion-accordionitems>
+                </ejs-accordion>
 
-                    <e-grid-pagesettings pageSize="10.0"
-                                         pageSizes="@(new[] {"5", "10", "20", "All"})"></e-grid-pagesettings>
-
-                    <e-grid-filterSettings mode="Immediate"
-                                           immediateModeDelay="200.0"
-                                           type="FilterBar"></e-grid-filterSettings>
-
-                    <e-grid-columns>
-                        <e-grid-column field="Number"
-                                       headerText="Номер"
-                                       width="30"></e-grid-column>
-                        <e-grid-column field="ApplicationStatusString"
-                                       headerText="Статус"
-                                       width="50"></e-grid-column>
-                        <e-grid-column field="Project.Name"
-                                       headerText="Проект"
-                                       width="50"></e-grid-column>
-                        <e-grid-column field="SpecialtyString"
-                                       headerText="Специальность"
-                                       width="50"></e-grid-column>
-                        <e-grid-column field="QualificationString"
-                                       headerText="Квалификация"
-                                       width="40"></e-grid-column>
-                        <e-grid-column field="Rate"
-                                       headerText="Ставка"
-                                       width="30"></e-grid-column>
-                        <e-grid-column field="Candidate.FullName"
-                                       headerText="Кандидат"
-                                       width="50"></e-grid-column>
-                        <e-grid-column field="BeginDate"
-                                       headerText="Начало"
-                                       width="40"
-                                       format="yMd"></e-grid-column>
-                        <e-grid-column field="EndDate"
-                                       headerText="Завершение"
-                                       width="40"
-                                       format="yMd"></e-grid-column>
-                        <e-grid-column field="ProjectManager.FullName"
-                                       headerText="Руководитель проекта"
-                                       width="50"></e-grid-column>
-                        <e-grid-column field="Smd.FullName"
-                                       headerText="SMD"
-                                       width="50"></e-grid-column>
-                    </e-grid-columns>
-                </ejs-grid>
+                <div id="CrossingGridDiv" style="display: none;">
+                    <partial name="Grid"/>
+                </div>
             </div>
-
         </div>
 
         <br />
 
-        <div>Описание</div>
-        <div class="row">
-            <div class="col">
-                <textarea style="width: 100%;"></textarea>
-            </div>
-        </div>
+
 
         <br />
 
@@ -273,11 +247,11 @@
                        class="btn btn-primary"
                        style="margin-bottom:3px;" />
 
-                @*<input type="submit"
+                <input type="button"
                        name="save"
                        value="Отправить"
                        class="btn btn-primary"
-                       style="margin-bottom:3px;" />*@
+                       style="margin-bottom:3px;" />
 
                 <input type="button"
                        name="but2"
@@ -307,7 +281,7 @@
 
     function beginDateChange(a, b, c, d, e)
     {
-        console.log("bd");   
+        console.log("bd");
     }
 
     function endDateChange(a, b, c, d, e)

@@ -22,18 +22,20 @@ namespace SamProject.Repositories
         private static Person[] _people;
         private static Client[] _clients;
         private static Project[] _projects;
+        private static Comment[] _comments;
         private static Application[] _applications;
         private static decimal[] _rates;
+        private static List<ChartData<DateTime>> _columnChartData;
 
 
 
 
-
-        public static Person[] People => _people;
-        public static Client[] Clients => _clients;
-        public static Project[] Projects => _projects;
-        public static decimal[] Rates => _rates;
-        public static IEnumerable<Application> Applications() => _applications;
+        public static IEnumerable<Comment> Comments => _comments;
+        public static IEnumerable<Person> People => _people;
+        public static IEnumerable<Client> Clients => _clients;
+        public static IEnumerable<Project> Projects => _projects;
+        public static IEnumerable<decimal> Rates => _rates;
+        public static IEnumerable<Application> Applications => _applications;
 
 
 
@@ -41,19 +43,6 @@ namespace SamProject.Repositories
 
         static Repository()
         {
-            //var applicationStatusesCount = Enum.GetValues(typeof(ApplicationStatus)).Length;
-            //var qualificationsCount = Enum.GetValues(typeof(Qualification)).Length;
-            //var specialtiesCount = Enum.GetValues(typeof(Specialty)).Length;
-            //var startDate = new DateTime(2017, 1, 1);
-            //var endDate = new DateTime(2020, 12, 31);
-            //var daysSpan = (endDate - startDate).Days;
-            //const int peopleCount = 100;
-            //const int clientsCount = 10;
-            //const int projectsCount = 20;
-            //const int applicationsCount = 200;
-
-            //_random = new Random();
-
             _rates = new[] { 0.25m, 0.5m, 0.75m, 1.0m, 1.25m, 1.5m, 1.75m, 2.0m };
 
             _clients =
@@ -108,6 +97,47 @@ namespace SamProject.Repositories
                 new Application{ Id = 21, Number = "7832", Department = "PC09", Market = "DE", ApplicationStatus = ApplicationStatus.Approved, Project = _projects[2], Candidate = _people[0], ProjectManager = _people[2], Smd = _people[5], Specialty = Specialty.Developer, Qualification = Qualification.Staff,  Rate = _rates[0], BeginDate = new DateTime(2018, 7, 27), EndDate = new DateTime(2018, 7, 30)  },
                 new Application{ Id = 22, Number = "7949", Department = "PC09", Market = "DE", ApplicationStatus = ApplicationStatus.Approved, Project = _projects[0], Candidate = _people[0], ProjectManager = _people[1], Smd = _people[5], Specialty = Specialty.Developer, Qualification = Qualification.Staff,  Rate = _rates[0], BeginDate = new DateTime(2018, 8, 8),  EndDate = new DateTime(2018, 8, 9)   },
             };
+
+            var commentContent = "Длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем";
+
+            _comments = new[]
+            {
+                new Comment{ Id = 1,  Content = commentContent, Person = _people[1], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 2,  Content = commentContent, Person = _people[2], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 3,  Content = commentContent, Person = _people[3], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 4,  Content = commentContent, Person = _people[4], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 5,  Content = commentContent, Person = _people[4], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 6,  Content = commentContent, Person = _people[5], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 7,  Content = commentContent, Person = _people[4], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 8,  Content = commentContent, Person = _people[2], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 9,  Content = commentContent, Person = _people[1], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 10, Content = commentContent, Person = _people[4], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 11, Content = commentContent, Person = _people[2], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 12, Content = commentContent, Person = _people[5], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 13, Content = commentContent, Person = _people[2], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 14, Content = commentContent, Person = _people[5], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 15, Content = commentContent, Person = _people[2], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 16, Content = commentContent, Person = _people[3], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 17, Content = commentContent, Person = _people[3], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 18, Content = commentContent, Person = _people[3], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 19, Content = commentContent, Person = _people[1], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+                new Comment{ Id = 20, Content = commentContent, Person = _people[1], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
+            };
+
+            #region random
+
+            //var applicationStatusesCount = Enum.GetValues(typeof(ApplicationStatus)).Length;
+            //var qualificationsCount = Enum.GetValues(typeof(Qualification)).Length;
+            //var specialtiesCount = Enum.GetValues(typeof(Specialty)).Length;
+            //var startDate = new DateTime(2017, 1, 1);
+            //var endDate = new DateTime(2020, 12, 31);
+            //var daysSpan = (endDate - startDate).Days;
+            //const int peopleCount = 100;
+            //const int clientsCount = 10;
+            //const int projectsCount = 20;
+            //const int applicationsCount = 200;
+
+            //_random = new Random();
 
             //_people = 
             //    Enumerable.Range(1, peopleCount)
@@ -165,79 +195,55 @@ namespace SamProject.Repositories
             //                  };
             //              })
             //              .ToArray();
+
+            #endregion
         }
 
 
 
 
 
-        public static IEnumerable<ChartData> GetColumnsData(DateTime date)
+        public static IEnumerable<ChartData<DateTime>> GetColumnsData(Application application)
         {
-            var columnChart = new[]
-            {
-                new ChartData
-                {
-                    Name = "project #1",
-                    Color = "green",
-                    DataSource = new object[]
-                    {
-                        new {x = date.AddDays(0), y = 0.5},
-                        new {x = date.AddDays(1), y = 0.5},
-                        new {x = date.AddDays(2), y = 0.5},
-                        new {x = date.AddDays(3), y = 0.5},
-                        new {x = date.AddDays(4), y = 0.5},
-                        new {x = date.AddDays(5), y = 0.5},
-                        new {x = date.AddDays(6), y = 0.5},
-                        new {x = date.AddDays(7), y = 0.5},
-                    }
-                },
-                new ChartData
-                {
-                    Name = "project #1 Internal",
-                    Color = "gray",
-                    DataSource = new object[]
-                    {
-                        new {x = date.AddDays(8), y = 0.25},
-                        new {x = date.AddDays(9), y = 0.25},
-                    }
-                },
-                new ChartData
-                {
-                    Name = "project #2",
-                    Color = "yellow",
-                    DataSource = new object[]
-                    {
-                        new {x = date.AddDays(1), y = 0.25},
-                        new {x = date.AddDays(2), y = 0.25},
-                        new {x = date.AddDays(3), y = 0.25},
-                        new {x = date.AddDays(4), y = 0.25},
-                    }
-                },
-                new ChartData
-                {
-                    Name = "project #3",
-                    Color = "orange",
-                    DataSource = new object[]
-                    {
-                        new {x = date.AddDays(3), y = 0.25},
-                        new {x = date.AddDays(4), y = 0.25},
-                        new {x = date.AddDays(5), y = 0.25},
-                        new {x = date.AddDays(6), y = 0.25},
-                        new {x = date.AddDays(7), y = 0.25},
-                        new {x = date.AddDays(8), y = 0.25},
-                        new {x = date.AddDays(9), y = 0.25},
-                    }
-                },
-                new ChartData
-                {
-                    Name = "project #4",
-                    Color = "red",
-                    DataSource = new object[]
-                    {
-                        new {x = date.AddDays(4), y = 0.25},
-                    }
-                },
-            };
+            var colors = new[] { "green", "gray", "yellow", "orange", "red", };
+
+            var columnChart =
+                _applications.Where(app => app.BeginDate >= application.BeginDate && app.EndDate <= application.EndDate)
+                             .GroupBy(app => app.Project)
+                             .Select((appGroup, i) =>
+                             {
+                                 var source =
+                                     appGroup.SelectMany(innerApp =>
+                                             {
+                                                 var currentDate = innerApp.BeginDate;
+                                                 var dates = new List<DateTime> { currentDate };
+
+                                                 while (currentDate != innerApp.EndDate)
+                                                 {
+                                                     currentDate = currentDate.AddDays(1);
+                                                     dates.Add(currentDate);
+                                                 }
+
+                                                 var data =
+                                                     dates.Select(d => new ChartPoint<DateTime> { X = d, Y = (double)innerApp.Rate })
+                                                          .ToArray();
+
+                                                 return data;
+                                             })
+                                             .ToArray();
+
+                                 var chartData = new ChartData<DateTime>
+                                 {
+                                     Name = appGroup.Key.Name,
+                                     Color = colors[i],
+                                     DataSource = source
+                                 };
+
+                                 return chartData;
+                             })
+                             .ToList();
+
+            _columnChartData = columnChart;
 
             return columnChart;
         }
@@ -246,63 +252,56 @@ namespace SamProject.Repositories
 
 
 
-        public static IEnumerable<ChartData> GetAreaData(DateTime date = new DateTime())
+        public static IEnumerable<ChartData<double>> GetLineData(Application application)
         {
-            var areaChart = new[]
+            if (_columnChartData is null)
             {
-                new ChartData
-                {
-                    Name = "",
-                    Color = "gray",
-                    DataSource = new object[]
-                    {
-                        new {x = 0.0, y = 1.0},
-                        new {x = 1.0, y = 1.0},
-                        new {x = 2.0, y = 1.0},
-                        new {x = 3.0, y = 1.0},
-                    }
-                },
-                new ChartData
-                {
-                    Name = "",
-                    Color = "gray",
-                    DataSource = new object[]
-                    {
-                        new {x = 7.0, y = 1.0},
-                        new {x = 8.0, y = 1.0},
-                    }
-                },
-            };
-
-            return areaChart;
-        }
+                GetColumnsData(application); //todo return
+            }
 
 
+            var linedata =
+                _columnChartData.SelectMany(cd => cd.DataSource)
+                                .GroupBy(ds => ds.X)
+                                .Select((dsGroup, i) => new ChartPoint<double>
+                                {
+                                    X = i,
+                                    Y = dsGroup.Sum(ds => ds.Y)
+                                })
+                                .ToArray();
+
+            linedata.Where(cp => cp.X > 90 && cp.X < 101)
+                    .ToList()
+                    .ForEach(cp => cp.Y -= 0.25);
+
+            linedata.Where(cp => cp.X > 140 && cp.X < 151)
+                    .ToList()
+                    .ForEach(cp => cp.Y -= 0.5);
+
+            linedata.Where(cp => cp.X > 30 && cp.X < 51)
+                    .ToList()
+                    .ForEach(cp => cp.Y = 0.0);
+
+            linedata.Where(cp => cp.X > 190 && cp.X < 201)
+                    .ToList()
+                    .ForEach(cp => cp.Y = 0.0);
+
+            linedata.Where(cp => cp.X > 250 && cp.X < 271)
+                    .ToList()
+                    .ForEach(cp => cp.Y = 0.0);
+
+            linedata.Where(cp => cp.X > 330)
+                    .ToList()
+                    .ForEach(cp => cp.Y += 0.25);
 
 
-
-        public static IEnumerable<ChartData> GetLineData(DateTime date = new DateTime())
-        {
             var lineChart = new[]
             {
-                new ChartData
+                new ChartData<double>
                 {
                     Name = "",
                     Color = "black",
-                    DataSource = new object[]
-                    {
-                        new {x = 0.0, y = 1.0},
-                        new {x = 1.0, y = 1.0},
-                        new {x = 2.0, y = 1.0},
-                        new {x = 3.0, y = 1.0},
-                        new {x = 4.0, y = 1.0},
-                        new {x = 5.0, y = 1.0},
-                        new {x = 6.0, y = 1.0},
-                        new {x = 7.0, y = 1.0},
-                        new {x = 8.0, y = 0.5},
-                        new {x = 9.0, y = 0.5},
-                        new {x = 10.0, y = 0.5},
-                    }
+                    DataSource = linedata
                 },
             };
 
@@ -313,7 +312,7 @@ namespace SamProject.Repositories
 
 
 
-        
+
 
 
 

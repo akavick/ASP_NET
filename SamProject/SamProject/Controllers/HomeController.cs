@@ -29,18 +29,29 @@ namespace SamProject.Controllers
 
 
 
-        private async Task SetFormData()
+        private async Task SetFormData(Application app)
         {
             await Task.Run(() =>
             {
                 var date = new DateTime(2018, 7, 1);
 
-                ViewBag.StartDate = date.AddDays(-1);
-                ViewBag.EndDate = date.AddDays(10);
-                ViewBag.ColumnsDataSource = Repository.GetColumnsData(date);
-                ViewBag.LineDataSource = Repository.GetLineData(date);
-                ViewBag.AreaDataSource = Repository.GetAreaData(date);
+                ViewBag.StartDate = app.BeginDate.AddDays(-1);
+                ViewBag.EndDate = app.EndDate.AddDays(1);
+                ViewBag.ColumnsDataSource = Repository.GetColumnsData(app);
+                ViewBag.LineDataSource = Repository.GetLineData(app);
+                //ViewBag.AreaDataSource = Repository.GetAreaData(app);
 
+                ViewBag.SpecialtiesDataSource = Enum.GetValues(typeof(Specialty))
+                                                    .Cast<Specialty>()
+                                                    .Select(s => s.String())
+                                                    .ToArray();
+
+                ViewBag.QualificationsDataSource = Enum.GetValues(typeof(Qualification))
+                                                       .Cast<Qualification>()
+                                                       .Select(s => s.String())
+                                                       .ToArray();
+
+                ViewBag.DetailizationDataSource = new[] { "Дням", "Неделям", "Месяцам", "Годам", };
                 ViewBag.RatesDataSource = Repository.Rates;
                 ViewBag.ProjectsDataSource = Repository.Projects;
                 ViewBag.CandidatesDataSource = Repository.People;
@@ -53,7 +64,9 @@ namespace SamProject.Controllers
 
         private async Task SetGridData()
         {
-            await Task.Run(() => ViewBag.GridDataSource = Repository.Applications());
+            await Task.Run(() => ViewBag.GridDataSource = Repository.Applications);
+            await Task.Run(() => ViewBag.CommentsGridDataSource = Repository.Comments);
+
         }
 
 
@@ -62,32 +75,12 @@ namespace SamProject.Controllers
 
         public async Task<IActionResult> Form()
         {
-            await SetFormData();
+            var app = Repository.Applications.First();
+
+            await SetFormData(app);
             await SetGridData();
 
-            return View(Repository.Applications().First());
-        }
-
-
-
-
-
-        public async Task<IActionResult> FormSyncfusion()
-        {
-            await SetFormData();
-
-            return View();
-        }
-
-
-
-
-
-        public async Task<IActionResult> Grid()
-        {
-            await SetGridData();
-
-            return View();
+            return View(app);
         }
 
 

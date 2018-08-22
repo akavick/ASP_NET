@@ -1,15 +1,21 @@
-﻿namespace SamProject.Models
+﻿using System;
+
+
+
+
+
+namespace SamProject.Models
 {
 
 
 
 
 
-    public class ChartData
+    public class ChartData<T>
     {
         public string Name { get; set; }
         public string Color { get; set; }
-        public object[] DataSource { get; set; }
+        public ChartPoint<T>[] DataSource { get; set; }
     }
 
 
