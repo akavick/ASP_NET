@@ -4,20 +4,36 @@
 
 @model Application
 
+<div class="row mb-3">
+    <div class="col-md-1">
+        <small class="text-muted">Заявка</small>
+        <ejs-dropdownlist id="Applications"
+                          dataSource="@ViewBag.ApplicationsDataSource"
+                          value="@Model.Id"
+                          popupHeight="220px"
+                          change="ddlApplicationsChange">
+            <e-dropdownlist-fields text="Number"
+                                   value="Id"></e-dropdownlist-fields>
+        </ejs-dropdownlist>
+    </div>
+</div>
+
+<hr />
+
 <form asp-action="Create"
       asp-controller="Home"
       asp-antiforgery="true"
       class="needs-validation w-100">
 
+    @*      style="border:1px solid blue; border-radius:10px;"*@
 
     <div>
+        <h4 class="mb-3">
+            Заявка #<span style="color: cornflowerblue">@Model.Number</span> Статус: <span style="color: cornflowerblue">@Model.ApplicationStatusString</span>
+        </h4>
 
-        <h4 class="mb-3">Заявка #<span style="color:cornflowerblue">@Model.Number</span> Статус: <span style="color:cornflowerblue">@Model.ApplicationStatusString</span></h4>
-
-        <div class="row">
-
+        <div class="row mb-3">
             <div class="col-md-4">
-
                 <div class="mb-3">
                     <small class="text-muted">Проект</small>
 
@@ -52,7 +68,8 @@
                     </ejs-accordion>
                 </div>
 
-                <div id="ProjectInfoAccordionContent" style="display:none">
+                <div id="ProjectInfoAccordionContent"
+                     style="display: none">
                     <div class="mb-3">
                         <small class="text-muted">Заказчик</small>
                         <div>@Model.Project.Client.Name</div>
@@ -109,7 +126,7 @@
                                           value="@Model.Rate"></ejs-dropdownlist>
                     </div>
                     <div class="col-md-6">
-                        <small class="text-muted">Количество часов</small>
+                        <small class="text-muted">Часов</small>
                         <ejs-numerictextbox id="Hours"
                                             showSpinButton="false"
                                             value="@(((Model.EndDate - Model.BeginDate).Days + 1) * Model.Rate * 8)"
@@ -144,7 +161,8 @@
                     </ejs-accordion>
                 </div>
 
-                <div id="CandidateInfo" style="display:none">
+                <div id="CandidateInfo"
+                     style="display: none">
                     <div class="mb-3">
                         <small class="text-muted">Специальность</small>
                         <ejs-dropdownlist id="Specialties"
@@ -168,11 +186,9 @@
                         <textarea style="width: 100%;"></textarea>
                     </div>
                 </div>
-
             </div>
 
             <div class="col-md-8">
-
                 <div class="mb-3">
                     <small class="text-muted">Новый комментарий</small>
                     <textarea style="width: 100%;"></textarea>
@@ -185,36 +201,15 @@
                 <div class="mb-3">
                     <partial name="CommentsGrid" />
                 </div>
-
-
-
             </div>
-
         </div>
 
-        <br />
-
-        @*CHART*@
-
-        <div class="row">
+        <div class="row mb-3">
             <div class="col">
                 <partial name="Chart" />
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-1">
-                <small class="text-muted">Детализация по:</small>
-                <ejs-dropdownlist id="Detailization"
-                                  dataSource="@ViewBag.DetailizationDataSource"
-                                  value="@(((string[]) ViewBag.DetailizationDataSource)[0])"
-                                  popupHeight="220px"></ejs-dropdownlist>
-            </div>
-        </div>
-
-        <br />
-
-        @*GRID*@
         <div class="row">
             <div class="col">
                 <ejs-accordion id="GridAccordion">
@@ -226,20 +221,50 @@
                     </e-accordion-accordionitems>
                 </ejs-accordion>
 
-                <div id="CrossingGridDiv" style="display: none;">
-                    <partial name="Grid"/>
+                <div id="CrossingGridDiv"
+                     style="display: none;">
+                    <partial name="Grid" />
                 </div>
             </div>
         </div>
 
-        <br />
-
-
-
-        <br />
-
         <div class="row">
+            <div class="col">
+                <ejs-accordion id="AmRateApplicationsGridAccordion">
+                    <e-accordion-accordionitems>
+                        <e-accordion-accordionitem expanded="false"
+                                                   header="Заявления на ставку за период"
+                                                   content="#AmRateApplicationsCrossingGridDiv">
+                        </e-accordion-accordionitem>
+                    </e-accordion-accordionitems>
+                </ejs-accordion>
 
+                <div id="AmRateApplicationsCrossingGridDiv"
+                     style="display: none;">
+                    <partial name="AmRateApplicationsGrid" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <ejs-accordion id="AmOZSApplicationsGridAccordion">
+                    <e-accordion-accordionitems>
+                        <e-accordion-accordionitem expanded="false"
+                                                   header="Заявления на ОЗС за период"
+                                                   content="#AmOZSApplicationsCrossingGridDiv">
+                        </e-accordion-accordionitem>
+                    </e-accordion-accordionitems>
+                </ejs-accordion>
+
+                <div id="AmOZSApplicationsCrossingGridDiv"
+                     style="display: none;">
+                    <partial name="AmOZSApplicationsGrid" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
             <div class="col">
                 <input type="button"
                        name="but1"
@@ -266,9 +291,7 @@
                        class="btn btn-primary"
                        style="margin-bottom:3px;" />
             </div>
-
         </div>
-
     </div>
 </form>
 
@@ -279,14 +302,37 @@
 
 <script>
 
-    function beginDateChange(a, b, c, d, e)
+
+
+    function beginDateChange(obj)
     {
         console.log("bd");
     }
 
-    function endDateChange(a, b, c, d, e)
+    function endDateChange(obj)
     {
         console.log("ed");
+    }
+
+    function ddlApplicationsChange(app)
+    {
+
+        console.log("ddlApplicationsChange");
+
+        let str = "@(Url.Action("Form", "Home"))";
+
+        window.location.href = str + "/?appid=" + app.itemData.Id;
+
+        @*$.ajax({
+            method: "POST",
+            url: "@Url.Action("ChangeForm", "Home")",
+            dataType: "json",
+            data: {appId: app.itemData.Id}
+            })
+            .done(function( msg ) {
+                alert( "Data Saved: " + msg );
+            });*@
+
     }
 
 </script>

@@ -18,7 +18,7 @@ namespace SamProject.Repositories
 
     public class Repository
     {
-        private static Random _random;
+        private static readonly Random _random;
         private static Person[] _people;
         private static Client[] _clients;
         private static Project[] _projects;
@@ -43,7 +43,8 @@ namespace SamProject.Repositories
 
         static Repository()
         {
-            _rates = new[] { 0.25m, 0.5m, 0.75m, 1.0m, 1.25m, 1.5m, 1.75m, 2.0m };
+            _random = new Random();
+            _rates = new [] { 0.25m, 0.5m, 0.75m, 1.0m, 1.25m, 1.5m, 1.75m, 2.0m };
 
             _clients =
                 Enumerable.Range(1, 4)
@@ -54,7 +55,7 @@ namespace SamProject.Repositories
                           })
                           .ToArray();
 
-            _people = new[]
+            _people = new []
             {
                 new Person{ Id = 1, FirstName = "Владимир",  LastName = "Храмцов",      PatronymicName = "Валентинович",   Specialty = Specialty.Developer, Qualification = Qualification.Senior },
                 new Person{ Id = 2, FirstName = "Александр", LastName = "Пригорницкий", PatronymicName = "Владимирович",   Specialty = Specialty.Pm,        Qualification = Qualification.Staff  },
@@ -64,7 +65,7 @@ namespace SamProject.Repositories
                 new Person{ Id = 6, FirstName = "Александр", LastName = "Сидоренко",    PatronymicName = "Иванович",       Specialty = Specialty.Smd,       Qualification = Qualification.Staff  },
             };
 
-            _projects = new[]
+            _projects = new []
             {
                 new Project{ Id = 1, Name = "SocialVOYCE",       Client = _clients[0], Department = "PC09", Market = "DE" },
                 new Project{ Id = 2, Name = "Telemovil_Presale", Client = _clients[1], Department = "PC09", Market = "DE" },
@@ -72,7 +73,7 @@ namespace SamProject.Repositories
                 new Project{ Id = 4, Name = "moweb_presale",     Client = _clients[3], Department = "PC09", Market = "DE" },
             };
 
-            _applications = new[]
+            _applications = new []
             {
                 new Application{ Id = 1,  Number = "6801", Department = "PC09", Market = "DE", ApplicationStatus = ApplicationStatus.Approved, Project = _projects[0], Candidate = _people[0], ProjectManager = _people[1], Smd = _people[5], Specialty = Specialty.Developer, Qualification = Qualification.Staff,  Rate = _rates[3], BeginDate = new DateTime(2018, 1, 1),  EndDate = new DateTime(2018, 12, 31) },
                 new Application{ Id = 2,  Number = "6898", Department = "PC09", Market = "DE", ApplicationStatus = ApplicationStatus.Approved, Project = _projects[1], Candidate = _people[0], ProjectManager = _people[4], Smd = _people[4], Specialty = Specialty.Developer, Qualification = Qualification.Senior, Rate = _rates[0], BeginDate = new DateTime(2018, 1, 8),  EndDate = new DateTime(2018, 1, 8)   },
@@ -98,105 +99,16 @@ namespace SamProject.Repositories
                 new Application{ Id = 22, Number = "7949", Department = "PC09", Market = "DE", ApplicationStatus = ApplicationStatus.Approved, Project = _projects[0], Candidate = _people[0], ProjectManager = _people[1], Smd = _people[5], Specialty = Specialty.Developer, Qualification = Qualification.Staff,  Rate = _rates[0], BeginDate = new DateTime(2018, 8, 8),  EndDate = new DateTime(2018, 8, 9)   },
             };
 
-            var commentContent = "Длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем";
-
-            _comments = new[]
-            {
-                new Comment{ Id = 1,  Content = commentContent, Person = _people[1], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 2,  Content = commentContent, Person = _people[2], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 3,  Content = commentContent, Person = _people[3], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 4,  Content = commentContent, Person = _people[4], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 5,  Content = commentContent, Person = _people[4], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 6,  Content = commentContent, Person = _people[5], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 7,  Content = commentContent, Person = _people[4], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 8,  Content = commentContent, Person = _people[2], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 9,  Content = commentContent, Person = _people[1], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 10, Content = commentContent, Person = _people[4], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 11, Content = commentContent, Person = _people[2], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 12, Content = commentContent, Person = _people[5], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 13, Content = commentContent, Person = _people[2], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 14, Content = commentContent, Person = _people[5], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 15, Content = commentContent, Person = _people[2], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 16, Content = commentContent, Person = _people[3], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 17, Content = commentContent, Person = _people[3], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 18, Content = commentContent, Person = _people[3], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 19, Content = commentContent, Person = _people[1], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-                new Comment{ Id = 20, Content = commentContent, Person = _people[1], DateTimeOfPosting = DateTime.Now, DateTimeOfModify = DateTime.Now },
-            };
-
-            #region random
-
-            //var applicationStatusesCount = Enum.GetValues(typeof(ApplicationStatus)).Length;
-            //var qualificationsCount = Enum.GetValues(typeof(Qualification)).Length;
-            //var specialtiesCount = Enum.GetValues(typeof(Specialty)).Length;
-            //var startDate = new DateTime(2017, 1, 1);
-            //var endDate = new DateTime(2020, 12, 31);
-            //var daysSpan = (endDate - startDate).Days;
-            //const int peopleCount = 100;
-            //const int clientsCount = 10;
-            //const int projectsCount = 20;
-            //const int applicationsCount = 200;
-
-            //_random = new Random();
-
-            //_people = 
-            //    Enumerable.Range(1, peopleCount)
-            //              .Select(i => new Person
-            //              {
-            //                  Id = i,
-            //                  Qualification = (Qualification)_random.Next(qualificationsCount),
-            //                  Specialty = (Specialty)_random.Next(specialtiesCount),
-            //                  FirstName = $"Firstname{i}",
-            //                  LastName = $"Lastname{i}",
-            //                  PatronymicName = $"Patronymicname{i}"
-            //              })
-            //              .ToArray();
-
-            //_clients = 
-            //    Enumerable.Range(1, clientsCount)
-            //              .Select(i => new Client
-            //              {
-            //                  Id = i,
-            //                  Name = $"Client # {i}"
-            //              })
-            //              .ToArray();
-
-            //_projects = 
-            //    Enumerable.Range(1, projectsCount)
-            //              .Select(i => new Project
-            //              {
-            //                  Id = i,
-            //                  Name = $"Project # {i}",
-            //                  Client = _clients[_random.Next(_clients.Length)]
-            //              })
-            //              .ToArray();
-
-            //_applications =
-            //    Enumerable.Range(1, applicationsCount)
-            //              .Select(i =>
-            //              {
-            //                  var bd = startDate.AddDays(_random.Next(daysSpan));
-            //                  var ed = bd.AddDays(_random.Next((endDate - bd).Days + 1));
-
-            //                  return new Application
-            //                  {
-            //                      Id = i,
-            //                      Number = (i + 1000000).ToString(),
-            //                      ApplicationStatus = (ApplicationStatus)_random.Next(applicationStatusesCount),
-            //                      Project = _projects[_random.Next(_projects.Length)],
-            //                      Qualification = (Qualification)_random.Next(qualificationsCount),
-            //                      Specialty = (Specialty)_random.Next(specialtiesCount),
-            //                      Rate = _rates[_random.Next(_rates.Length)],
-            //                      Candidate = _people[_random.Next(_people.Length)],
-            //                      ProjectManager = _people[_random.Next(_people.Length)],
-            //                      Smd = _people[_random.Next(_people.Length)],
-            //                      BeginDate = bd,
-            //                      EndDate = ed
-            //                  };
-            //              })
-            //              .ToArray();
-
-            #endregion
+            _comments = Enumerable.Range(1, 20)
+                                  .Select(i => new Comment
+                                  {
+                                      Id = i,
+                                      Content = "Длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем",
+                                      Person = _people[_random.Next(1, _people.Length)],
+                                      DateTimeOfPosting = DateTime.Now,
+                                      DateTimeOfModify = DateTime.Now
+                                  })
+                                  .ToArray();
         }
 
 
@@ -205,10 +117,16 @@ namespace SamProject.Repositories
 
         public static IEnumerable<ChartData<DateTime>> GetColumnsData(Application application)
         {
-            var colors = new[] { "green", "gray", "yellow", "orange", "red", };
+            var colors = new [] { "green", "gray", "yellow", "orange", "red", };
 
             var columnChart =
-                _applications.Where(app => app.BeginDate >= application.BeginDate && app.EndDate <= application.EndDate)
+                _applications.Where(app => app.Id == application.Id 
+                                           || app.BeginDate >= application.BeginDate && app.EndDate <= application.EndDate 
+                                           || application.BeginDate >= app.BeginDate && application.EndDate <= app.EndDate
+                                           || application.EndDate >= app.BeginDate && application.EndDate <= app.EndDate
+                                           || app.EndDate >= application.BeginDate && app.EndDate <= application.EndDate
+                                           || application.BeginDate <= app.EndDate && application.BeginDate >= app.BeginDate
+                                           || app.BeginDate <= application.EndDate && app.BeginDate >= application.BeginDate)
                              .GroupBy(app => app.Project)
                              .Select((appGroup, i) =>
                              {
@@ -270,29 +188,32 @@ namespace SamProject.Repositories
                                 })
                                 .ToArray();
 
-            linedata.Where(cp => cp.X > 90 && cp.X < 101)
-                    .ToList()
-                    .ForEach(cp => cp.Y -= 0.25);
+            if (application.Id == 1)
+            {
+                linedata.Where(cp => cp.X > 90 && cp.X < 101)
+                        .ToList()
+                        .ForEach(cp => cp.Y -= 0.25);
 
-            linedata.Where(cp => cp.X > 140 && cp.X < 151)
-                    .ToList()
-                    .ForEach(cp => cp.Y -= 0.5);
+                linedata.Where(cp => cp.X > 140 && cp.X < 151)
+                        .ToList()
+                        .ForEach(cp => cp.Y -= 0.5);
 
-            linedata.Where(cp => cp.X > 30 && cp.X < 51)
-                    .ToList()
-                    .ForEach(cp => cp.Y = 0.0);
+                linedata.Where(cp => cp.X > 30 && cp.X < 51)
+                        .ToList()
+                        .ForEach(cp => cp.Y = 0.0);
 
-            linedata.Where(cp => cp.X > 190 && cp.X < 201)
-                    .ToList()
-                    .ForEach(cp => cp.Y = 0.0);
+                linedata.Where(cp => cp.X > 190 && cp.X < 201)
+                        .ToList()
+                        .ForEach(cp => cp.Y = 0.0);
 
-            linedata.Where(cp => cp.X > 250 && cp.X < 271)
-                    .ToList()
-                    .ForEach(cp => cp.Y = 0.0);
+                linedata.Where(cp => cp.X > 250 && cp.X < 271)
+                        .ToList()
+                        .ForEach(cp => cp.Y = 0.0);
 
-            linedata.Where(cp => cp.X > 330)
-                    .ToList()
-                    .ForEach(cp => cp.Y += 0.25);
+                linedata.Where(cp => cp.X > 330)
+                        .ToList()
+                        .ForEach(cp => cp.Y += 0.25);
+            }
 
 
             var lineChart = new[]
@@ -313,14 +234,34 @@ namespace SamProject.Repositories
 
 
 
+        public static IEnumerable<Application> GetCrossingGridData(Application app)
+        {
+ 
+            return _applications.Where(a => 1==1).ToArray();
+        }
 
 
 
 
 
 
+        private static bool AreApplicationsCrossing(Application app1, Application app2)
+        {
+            bool LeftCross()
+            {
+                return true;
+            }
 
 
+
+            return app1.Id == app2.Id
+                   || app1.BeginDate >= app2.BeginDate && app1.EndDate <= app2.EndDate
+                   || app2.BeginDate >= app1.BeginDate && app2.EndDate <= app1.EndDate
+                   || app2.EndDate >= app1.BeginDate && app2.EndDate <= app1.EndDate
+                   || app1.EndDate >= app2.BeginDate && app1.EndDate <= app2.EndDate
+                   || app2.BeginDate <= app1.EndDate && app2.BeginDate >= app1.BeginDate
+                   || app1.BeginDate <= app2.EndDate && app1.BeginDate >= app2.BeginDate;
+        }
     }
 
 
