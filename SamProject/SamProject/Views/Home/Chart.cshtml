@@ -1,6 +1,5 @@
-﻿@using SamProject.Models
+﻿@model Application
 
-@model Application
 
 
 <script>
@@ -47,7 +46,8 @@
                           minimum="Model?.EndDate.AddDays(1)"
                           edgeLabelPlacement="Shift"
                           intervalType="Days"
-                          labelFormat="dd MMM"></e-chart-primaryxaxis>
+                          labelFormat="dd MMM"
+                          enableAutoIntervalOnZooming="true"></e-chart-primaryxaxis>
 
     <e-chart-primaryyaxis minimum="0"
                           maximum="2"
@@ -55,29 +55,14 @@
                           title="ставка"
                           labelFormat="{value}"
                           majorTickLines="lines"
-                          lineStyle="lines"
-    
-                          enableAutoIntervalOnZooming="true"></e-chart-primaryyaxis>
-
-    <e-chart-axes>
-        <e-chart-axis id="lineAxis"
-                      name="lineAxis"
-                      valueType="Double"
-                      majorGridLines="lines"
-                      interval="1.0"
-                      maximum="(Model?.EndDate.AddDays(1) - Model?.BeginDate)?.Days + 0.5"
-                      minimum="-0.5"
-                      visible="false"
-        
-                      enableAutoIntervalOnZooming="true" ></e-chart-axis>
-    </e-chart-axes>
+                          lineStyle="lines"></e-chart-primaryyaxis>
 
     <e-series-collection>
 
         @foreach (ChartData<DateTime> chartData in ViewBag.ColumnsDataSource)
         {
             <e-series dataSource="chartData.DataSource"
-                      columnWidth="0.5"
+                      columnWidth="0.75"
                       xName="X"
                       yName="Y"
                       name="@(chartData.Name)"
@@ -85,26 +70,10 @@
                       opacity="1"
                       fill="@(chartData.Color)"
                       legendShape="@(Syncfusion.EJ2.Charts.LegendShape.SeriesType)"
-                      type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn">
-            </e-series>
+                      type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
         }
 
-        @*@foreach (ChartData chartData in ViewBag.AreaDataSource)
-            {
-                <e-series dataSource="chartData.DataSource"
-                          name="@(chartData.Name)"
-                          xName="x"
-                          opacity="0.5"
-                          width="2"
-                          yName="y"
-                          type="@Syncfusion.EJ2.Charts.ChartSeriesType.StepArea"
-                          fill="@(chartData.Color)"
-                          xAxisName="lineAxis">
-                    <e-series-border color="transparent"></e-series-border>
-                </e-series>
-            }*@
-
-        @foreach (ChartData<double> chartData in ViewBag.LineDataSource)
+        @foreach (ChartData<DateTime> chartData in ViewBag.LineDataSource)
         {
             <e-series dataSource="chartData.DataSource"
                       name="@(chartData.Name)"
@@ -114,9 +83,7 @@
                       opacity="1"
                       fill="@(chartData.Color)"
                       type="@Syncfusion.EJ2.Charts.ChartSeriesType.StepLine"
-                      xAxisName="lineAxis"
-                      enableTooltip="false">
-            </e-series>
+                      enableTooltip="false"></e-series>
         }
 
     </e-series-collection>
@@ -124,8 +91,7 @@
     <e-chart-zoomsettings enableMouseWheelZooming="true"
                           enablePinchZooming="true"
                           mode="X"
-                          enableScrollbar="true"
-                          enablePan="true"></e-chart-zoomsettings>
+                          enableScrollbar="true"></e-chart-zoomsettings>
 
     <e-chart-margin bottom="10"
                     top="10"
@@ -135,10 +101,7 @@
     <e-chart-tooltipsettings enable="true"></e-chart-tooltipsettings>
 
     <e-chart-legendsettings toggleVisibility="true"
-                            position="Bottom">
-        @*location="location">*@
-        @*alignment="Center">*@
-    </e-chart-legendsettings>
+                            position="Bottom"></e-chart-legendsettings>
 
     <e-chart-chartarea>
         <e-chartarea-border width="0.0001"></e-chartarea-border>

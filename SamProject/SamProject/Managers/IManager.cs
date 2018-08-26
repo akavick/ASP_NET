@@ -14,7 +14,7 @@ namespace SamProject.Managers
     public interface IManager
     {
         Task<IEnumerable<ChartData<DateTime>>> GetColumnsDataAsync(Application application);
-        Task<IEnumerable<ChartData<double>>> GetLineDataAsync(Application application);
+        Task<IEnumerable<ChartData<DateTime>>> GetLineDataAsync(Application application);
         Task<IEnumerable<Application>> GetCrossingGridDataAsync(Application app);
         Task<IEnumerable<Comment>> GetCommentsAsync();
         Task<IEnumerable<Person>> GetPeopleAsync();

@@ -7,7 +7,7 @@
 
         <small class="text-muted">Начало</small>
         <ejs-datepicker id="beginDate"
-                        placeholder="Choose a Date"
+                        placeholder="Выберите дату"
                         value="@Model?.BeginDate"
                         format="dd-MM-yyyy"
                         change="beginDateChange"
@@ -20,7 +20,7 @@
 
         <small class="text-muted">Завершение</small>
         <ejs-datepicker id="endDate"
-                        placeholder="Choose a Date"
+                        placeholder="Выберите дату"
                         value="@Model?.EndDate"
                         format="dd-MM-yyyy"
                         change="endDateChange"
@@ -38,7 +38,7 @@
         <small class="text-muted">Ставка</small>
         <ejs-dropdownlist id="Rates"
                           dataSource="@ViewBag.RatesDataSource"
-                          placeholder="Select a rate"
+                          placeholder="Выберите ставку"
                           popupHeight="220px"
                           value="@Model?.Rate"
                           readonly="@(Model != null)"

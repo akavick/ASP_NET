@@ -17,7 +17,7 @@ namespace SamProject.Managers
     {
         private readonly IRepository _repository;
         private List<ChartData<DateTime>> _columnChartData;
-        private List<ChartData<double>> _lineChartData;
+        private List<ChartData<DateTime>> _lineChartData;
 
 
 
@@ -34,10 +34,10 @@ namespace SamProject.Managers
 
         private bool AreApplicationsCrossing(Application app1, Application app2)
         {
-            bool LeftCross()
-            {
-                return true;
-            }
+            //bool LeftCross()
+            //{
+            //    return true;
+            //}
 
 
 
@@ -84,14 +84,23 @@ namespace SamProject.Managers
                                            }
 
                                            var data =
-                                           dates.Select(d => new ChartPoint<DateTime> { X = d, Y = (double)innerApp.Rate })
-                                                .ToArray();
+                                               dates.Select(d => new ChartPoint<DateTime>
+                                                    {
+                                                        X = d,
+                                                        Y = (double)innerApp.Rate
+                                                    })
+                                                    .ToArray();
 
                                            return data;
                                        })
-                                               .ToArray();
+                                       .ToList();
 
-                                   var chartData = new ChartData<DateTime> { Name = appGroup.Key.Name, Color = colors[i], DataSource = source };
+                                   var chartData = new ChartData<DateTime>
+                                   {
+                                       Name = appGroup.Key.Name,
+                                       Color = colors[i],
+                                       DataSource = source
+                                   };
 
                                    return chartData;
                                })
@@ -107,7 +116,7 @@ namespace SamProject.Managers
 
 
 
-        public async Task<IEnumerable<ChartData<double>>> GetLineDataAsync(Application application)
+        public async Task<IEnumerable<ChartData<DateTime>>> GetLineDataAsync(Application application)
         {
             if (_columnChartData is null)
             {
@@ -119,8 +128,27 @@ namespace SamProject.Managers
                 var linedata =
                     _columnChartData.SelectMany(cd => cd.DataSource)
                                     .GroupBy(ds => ds.X)
-                                    .Select((dsGroup, i) => new ChartPoint<double> { X = i, Y = dsGroup.Sum(ds => ds.Y) })
-                                    .ToArray();
+                                    .Select(dsGroup => new ChartPoint<DateTime>
+                                    {
+                                        X = dsGroup.Key.AddHours(-12),
+                                        Y = dsGroup.Sum(ds => ds.Y)
+                                    })
+                                    .ToList();
+
+                if (application.EndDate.Date > linedata.Last().X.Date)
+                {
+                    linedata.Add(new ChartPoint<DateTime>
+                    {
+                        X = application.EndDate.Date.AddHours(12),
+                        Y = linedata.Last().Y
+                    });
+                }
+
+
+
+#region main app
+
+
 
                 //if (application.Id == 1)
                 //{
@@ -150,7 +178,19 @@ namespace SamProject.Managers
                 //}
 
 
-                var lineChart = new List<ChartData<double>> { new ChartData<double> { Name = "", Color = "black", DataSource = linedata }, };
+
+#endregion
+
+
+                var lineChart = new List<ChartData<DateTime>>
+                {
+                    new ChartData<DateTime>
+                    {
+                        Name = "",
+                        Color = "black",
+                        DataSource = linedata
+                    },
+                };
 
                 _lineChartData = lineChart;
 

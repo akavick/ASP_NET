@@ -1,16 +1,19 @@
-﻿<div class="mb-0" style="display: flex;">
+﻿<div class="mb-1" style="display: flex;">
 
     <div style="margin-right: 10px; width: 100%;">
         <small class="text-muted">Новый комментарий</small>
-        <textarea class="e-input" style="width: 100%;"></textarea>
+        <div class="e-input-group">
+            <input class="e-input" 
+                   placeholder="Введите комментарий"
+                   type="text"/>
+        </div>
     </div>
 
     <div style="display: flex; flex-direction: column; justify-content: flex-end;">
         <ejs-button id="SendCommentButton"
                     content="Отправить"
                     isPrimary="true"
-                    type="button"
-                    style="margin-bottom: 6px;"></ejs-button>
+                    type="button"></ejs-button>
     </div>
 
 </div>
@@ -23,9 +26,9 @@
               allowResizing="true"
               allowPdfExport="true"
               allowTextWrap="true"
-              height="245">
+              height="257">
         
-        @*<e-grid-textwrapsettings wrapMode="Content"></e-grid-textwrapsettings>*@
+        <e-grid-textwrapsettings wrapMode="Content"></e-grid-textwrapsettings>
 
         <e-grid-columns>
             <e-grid-column field="Content"

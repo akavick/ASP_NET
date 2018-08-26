@@ -1,10 +1,32 @@
-﻿@{
+﻿@model Application
+
+@{
     ViewData["Title"] = "Form";
+
+    var elementDisplay = Model is null
+                             ? "none"
+                             : "block";
 }
 
-@model Application
+
+
+
+<style>
+
+    .gradientlyHr
+    {
+        border: 0;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    }
+
+</style>
+
+
 
 <partial name="DemoMenu" />
+
+<hr class="gradientlyHr" />
 
 <form id="MainForm"
       asp-action="Create"
@@ -14,6 +36,8 @@
 
     <div>
         <partial name="ApplicationHeader" />
+
+        <hr class="gradientlyHr" />
 
         <div class="row mb-3">
             <div class="col-md-4">
@@ -27,11 +51,15 @@
             </div>
         </div>
 
-        <div class="row mb-3">
+        <hr class="gradientlyHr" />
+
+        <div class="row mb-3" style="display:@elementDisplay">
             <div class="col">
                 <partial name="Chart" />
             </div>
         </div>
+
+        <hr class="gradientlyHr" style="display:@elementDisplay" />
 
         <div class="row">
             <div class="col">

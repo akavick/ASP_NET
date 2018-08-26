@@ -6,7 +6,7 @@
 
     <small class="text-muted">Кандидат</small>
     <ejs-combobox id="Candidates"
-                  placeholder="Select a candidate"
+                  placeholder="Выберите кандидата"
                   popupHeight="200px"
                   dataSource="@ViewBag.CandidatesDataSource"
                   value="@Model?.Candidate?.Id"
@@ -45,7 +45,7 @@
         <small class="text-muted">Специальность</small>
         <ejs-dropdownlist id="Specialties"
                           dataSource="@ViewBag.SpecialtiesDataSource"
-                          placeholder="Select a specialty"
+                          placeholder="Выберите специальность"
                           value="@Model?.SpecialtyString"
                           popupHeight="220px"
                           readonly="@(Model != null)"
@@ -56,7 +56,7 @@
         <small class="text-muted">Квалификация</small>
         <ejs-dropdownlist id="Qualifications"
                           dataSource="@ViewBag.QualificationsDataSource"
-                          placeholder="Select a qualification"
+                          placeholder="Выберите квалификацию"
                           value="@Model?.QualificationString"
                           popupHeight="220px"
                           readonly="@(Model != null)"
@@ -65,12 +65,14 @@
 
     <div class="mb-0">
         <small class="text-muted">Описание</small>
-        <textarea class="e-input"
-                  style="width: 100%;"
-                  @(Model != null ? "readonly" : "")
-                  @(Model != null ? "disabled" : "")>
-
-</textarea>
+        <div class="e-input-group">
+            <input class="e-input" 
+                   placeholder="@(Model != null ? "" : "Введите описание")" 
+                   type="text"  
+                   @(Model != null ? "readonly" : "")
+                   @(Model != null ? "disabled" : "")
+                   value="@Model?.CandidateDescription"/>
+        </div>
     </div>
 
 </div>

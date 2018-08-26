@@ -29,6 +29,7 @@ namespace SamProject.Models
         public DateTime EndDate { get; set; }
         public string Department { get; set; }
         public string Market { get; set; }
+        public string CandidateDescription { get; set; }
 
 
         public string ApplicationStatusString => ApplicationStatus.String();

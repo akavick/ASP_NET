@@ -38,7 +38,7 @@ namespace SamProject.Controllers
 
         public async Task<IActionResult> Create(dynamic obj)
         {
-            return Ok();
+            return await Task.Run(() => Ok());
         }
 
 
@@ -125,7 +125,7 @@ namespace SamProject.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View();
+            return await Task.Run(() => View());
         }
 
 
@@ -134,7 +134,7 @@ namespace SamProject.Controllers
 
         public async Task<IActionResult> Privacy()
         {
-            return View();
+            return await Task.Run(() => View());
         }
 
 
@@ -144,9 +144,12 @@ namespace SamProject.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> Error()
         {
-            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            return await Task.Run(() =>
+            {
+                var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
 
-            return View(errorViewModel);
+                return View(errorViewModel);
+            });
         }
 
 
