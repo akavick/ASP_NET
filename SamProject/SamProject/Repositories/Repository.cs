@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 using SamProject.Models;
 
@@ -16,26 +15,26 @@ namespace SamProject.Repositories
 
 
 
-    public class Repository
+    public class Repository : IRepository
     {
-        private static readonly Random _random;
-        private static Person[] _people;
-        private static Client[] _clients;
-        private static Project[] _projects;
-        private static Comment[] _comments;
-        private static Application[] _applications;
-        private static decimal[] _rates;
-        private static List<ChartData<DateTime>> _columnChartData;
+        private static readonly Random _random = new Random();
+        private static readonly Person[] _people;
+        private static readonly Client[] _clients;
+        private static readonly Project[] _projects;
+        private static readonly Comment[] _comments;
+        private static readonly Application[] _applications;
+        private static readonly decimal[] _rates;
+        
 
 
 
 
-        public static IEnumerable<Comment> Comments => _comments;
-        public static IEnumerable<Person> People => _people;
-        public static IEnumerable<Client> Clients => _clients;
-        public static IEnumerable<Project> Projects => _projects;
-        public static IEnumerable<decimal> Rates => _rates;
-        public static IEnumerable<Application> Applications => _applications;
+        public IEnumerable<Comment> Comments => _comments;
+        public IEnumerable<Person> People => _people;
+        public IEnumerable<Client> Clients => _clients;
+        public IEnumerable<Project> Projects => _projects;
+        public IEnumerable<decimal> Rates => _rates;
+        public IEnumerable<Application> Applications => _applications;
 
 
 
@@ -43,7 +42,6 @@ namespace SamProject.Repositories
 
         static Repository()
         {
-            _random = new Random();
             _rates = new [] { 0.25m, 0.5m, 0.75m, 1.0m, 1.25m, 1.5m, 1.75m, 2.0m };
 
             _clients =
@@ -99,134 +97,17 @@ namespace SamProject.Repositories
                 new Application{ Id = 22, Number = "7949", Department = "PC09", Market = "DE", ApplicationStatus = ApplicationStatus.Approved, Project = _projects[0], Candidate = _people[0], ProjectManager = _people[1], Smd = _people[5], Specialty = Specialty.Developer, Qualification = Qualification.Staff,  Rate = _rates[0], BeginDate = new DateTime(2018, 8, 8),  EndDate = new DateTime(2018, 8, 9)   },
             };
 
-            _comments = Enumerable.Range(1, 20)
-                                  .Select(i => new Comment
-                                  {
-                                      Id = i,
-                                      Content = "Длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем",
-                                      Person = _people[_random.Next(1, _people.Length)],
-                                      DateTimeOfPosting = DateTime.Now,
-                                      DateTimeOfModify = DateTime.Now
-                                  })
-                                  .ToArray();
-        }
-
-
-
-
-
-        public static IEnumerable<ChartData<DateTime>> GetColumnsData(Application application)
-        {
-            var colors = new [] { "green", "gray", "yellow", "orange", "red", };
-
-            var columnChart =
-                _applications.Where(app => app.Id == application.Id 
-                                           || app.BeginDate >= application.BeginDate && app.EndDate <= application.EndDate 
-                                           || application.BeginDate >= app.BeginDate && application.EndDate <= app.EndDate
-                                           || application.EndDate >= app.BeginDate && application.EndDate <= app.EndDate
-                                           || app.EndDate >= application.BeginDate && app.EndDate <= application.EndDate
-                                           || application.BeginDate <= app.EndDate && application.BeginDate >= app.BeginDate
-                                           || app.BeginDate <= application.EndDate && app.BeginDate >= application.BeginDate)
-                             .GroupBy(app => app.Project)
-                             .Select((appGroup, i) =>
-                             {
-                                 var source =
-                                     appGroup.SelectMany(innerApp =>
-                                             {
-                                                 var currentDate = innerApp.BeginDate;
-                                                 var dates = new List<DateTime> { currentDate };
-
-                                                 while (currentDate != innerApp.EndDate)
-                                                 {
-                                                     currentDate = currentDate.AddDays(1);
-                                                     dates.Add(currentDate);
-                                                 }
-
-                                                 var data =
-                                                     dates.Select(d => new ChartPoint<DateTime> { X = d, Y = (double)innerApp.Rate })
-                                                          .ToArray();
-
-                                                 return data;
-                                             })
-                                             .ToArray();
-
-                                 var chartData = new ChartData<DateTime>
-                                 {
-                                     Name = appGroup.Key.Name,
-                                     Color = colors[i],
-                                     DataSource = source
-                                 };
-
-                                 return chartData;
-                             })
-                             .ToList();
-
-            _columnChartData = columnChart;
-
-            return columnChart;
-        }
-
-
-
-
-
-        public static IEnumerable<ChartData<double>> GetLineData(Application application)
-        {
-            if (_columnChartData is null)
-            {
-                GetColumnsData(application); //todo return
-            }
-
-
-            var linedata =
-                _columnChartData.SelectMany(cd => cd.DataSource)
-                                .GroupBy(ds => ds.X)
-                                .Select((dsGroup, i) => new ChartPoint<double>
-                                {
-                                    X = i,
-                                    Y = dsGroup.Sum(ds => ds.Y)
-                                })
-                                .ToArray();
-
-            if (application.Id == 1)
-            {
-                linedata.Where(cp => cp.X > 90 && cp.X < 101)
-                        .ToList()
-                        .ForEach(cp => cp.Y -= 0.25);
-
-                linedata.Where(cp => cp.X > 140 && cp.X < 151)
-                        .ToList()
-                        .ForEach(cp => cp.Y -= 0.5);
-
-                linedata.Where(cp => cp.X > 30 && cp.X < 51)
-                        .ToList()
-                        .ForEach(cp => cp.Y = 0.0);
-
-                linedata.Where(cp => cp.X > 190 && cp.X < 201)
-                        .ToList()
-                        .ForEach(cp => cp.Y = 0.0);
-
-                linedata.Where(cp => cp.X > 250 && cp.X < 271)
-                        .ToList()
-                        .ForEach(cp => cp.Y = 0.0);
-
-                linedata.Where(cp => cp.X > 330)
-                        .ToList()
-                        .ForEach(cp => cp.Y += 0.25);
-            }
-
-
-            var lineChart = new[]
-            {
-                new ChartData<double>
-                {
-                    Name = "",
-                    Color = "black",
-                    DataSource = linedata
-                },
-            };
-
-            return lineChart;
+            _comments = 
+                Enumerable.Range(1, 20)
+                          .Select(i => new Comment
+                          {
+                              Id = i,
+                              Content = "Длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем, длинный комментарий, оставленный пользователем",
+                              Person = _people[_random.Next(1, _people.Length)],
+                              DateTimeOfPosting = DateTime.Now,
+                              DateTimeOfModify = DateTime.Now
+                          })
+                          .ToArray();
         }
 
 
@@ -234,34 +115,6 @@ namespace SamProject.Repositories
 
 
 
-        public static IEnumerable<Application> GetCrossingGridData(Application app)
-        {
- 
-            return _applications.Where(a => 1==1).ToArray();
-        }
-
-
-
-
-
-
-        private static bool AreApplicationsCrossing(Application app1, Application app2)
-        {
-            bool LeftCross()
-            {
-                return true;
-            }
-
-
-
-            return app1.Id == app2.Id
-                   || app1.BeginDate >= app2.BeginDate && app1.EndDate <= app2.EndDate
-                   || app2.BeginDate >= app1.BeginDate && app2.EndDate <= app1.EndDate
-                   || app2.EndDate >= app1.BeginDate && app2.EndDate <= app1.EndDate
-                   || app1.EndDate >= app2.BeginDate && app1.EndDate <= app2.EndDate
-                   || app2.BeginDate <= app1.EndDate && app2.BeginDate >= app1.BeginDate
-                   || app1.BeginDate <= app2.EndDate && app1.BeginDate >= app2.BeginDate;
-        }
     }
 
 

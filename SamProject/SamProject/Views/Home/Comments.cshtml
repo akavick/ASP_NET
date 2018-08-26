@@ -1,0 +1,58 @@
+﻿<div class="mb-0" style="display: flex;">
+
+    <div style="margin-right: 10px; width: 100%;">
+        <small class="text-muted">Новый комментарий</small>
+        <textarea class="e-input" style="width: 100%;"></textarea>
+    </div>
+
+    <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+        <ejs-button id="SendCommentButton"
+                    content="Отправить"
+                    isPrimary="true"
+                    type="button"
+                    style="margin-bottom: 6px;"></ejs-button>
+    </div>
+
+</div>
+
+<div class="mb-0">
+
+    <ejs-grid id="CommentsGrid"
+              dataSource="@ViewBag.CommentsGridDataSource"
+              allowReordering="true"
+              allowResizing="true"
+              allowPdfExport="true"
+              allowTextWrap="true"
+              height="245">
+        
+        @*<e-grid-textwrapsettings wrapMode="Content"></e-grid-textwrapsettings>*@
+
+        <e-grid-columns>
+            <e-grid-column field="Content"
+                           headerText="Комментарий"
+                           width="100"></e-grid-column>
+            <e-grid-column field="Person.FullName"
+                           headerText="Автор"
+                           width="40"></e-grid-column>
+            <e-grid-column field="DateTimeOfPosting"
+                           headerText="Оставлен"
+                           width="15"
+                           format="yMd"></e-grid-column>
+            <e-grid-column field="DateTimeOfModify"
+                           headerText="Изменён"
+                           width="15"
+                           format="yMd"></e-grid-column>
+        </e-grid-columns>
+    </ejs-grid>
+
+</div>
+
+
+
+
+
+<script>
+
+    document.getElementById("SendCommentButton").onclick = () => { alert("Демо-режим"); };
+
+</script>

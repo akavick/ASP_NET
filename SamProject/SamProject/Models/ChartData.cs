@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 
 
@@ -15,7 +16,7 @@ namespace SamProject.Models
     {
         public string Name { get; set; }
         public string Color { get; set; }
-        public ChartPoint<T>[] DataSource { get; set; }
+        public IEnumerable<ChartPoint<T>> DataSource { get; set; }
     }
 
 

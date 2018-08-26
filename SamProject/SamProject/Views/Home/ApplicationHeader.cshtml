@@ -1,0 +1,7 @@
+﻿@model Application
+
+
+
+<h4 class="mb-3">
+    Заявка #<span style="color: #317ab9">@(Model?.Number ?? "0000")</span> Статус: <span style="color: #317ab9">@(Model?.ApplicationStatusString ?? ApplicationStatus.New.String())</span>
+</h4>

@@ -4,203 +4,26 @@
 
 @model Application
 
-<div class="row mb-3">
-    <div class="col-md-1">
-        <small class="text-muted">Заявка</small>
-        <ejs-dropdownlist id="Applications"
-                          dataSource="@ViewBag.ApplicationsDataSource"
-                          value="@Model.Id"
-                          popupHeight="220px"
-                          change="ddlApplicationsChange">
-            <e-dropdownlist-fields text="Number"
-                                   value="Id"></e-dropdownlist-fields>
-        </ejs-dropdownlist>
-    </div>
-</div>
+<partial name="DemoMenu" />
 
-<hr />
-
-<form asp-action="Create"
+<form id="MainForm"
+      asp-action="Create"
       asp-controller="Home"
       asp-antiforgery="true"
       class="needs-validation w-100">
 
-    @*      style="border:1px solid blue; border-radius:10px;"*@
-
     <div>
-        <h4 class="mb-3">
-            Заявка #<span style="color: cornflowerblue">@Model.Number</span> Статус: <span style="color: cornflowerblue">@Model.ApplicationStatusString</span>
-        </h4>
+        <partial name="ApplicationHeader" />
 
         <div class="row mb-3">
             <div class="col-md-4">
-                <div class="mb-3">
-                    <small class="text-muted">Проект</small>
-
-                    @*<ejs-tooltip id="ProjectTooltip" content="#ProjectInfoAccordionContent" position="BottomCenter" showTipPointer="true">
-                            <e-content-template>
-                                <small class="text-muted">
-                                    <label>Проект</label>
-                                </small>
-
-                            </e-content-template>
-                        </ejs-tooltip>*@
-
-                    <ejs-combobox id="Projects"
-                                  placeholder="Select a project"
-                                  popupHeight="200px"
-                                  dataSource="@ViewBag.ProjectsDataSource"
-                                  value="@Model.Project.Id"
-                                  text="@Model.Project.Name">
-                        <e-combobox-fields text="Name"
-                                           value="Id"></e-combobox-fields>
-                    </ejs-combobox>
-                </div>
-
-                <div class="mb-3">
-                    <ejs-accordion id="ProjectInfoAccordion">
-                        <e-accordion-accordionitems>
-                            <e-accordion-accordionitem expanded="false"
-                                                       header="Информация о проекте"
-                                                       content="#ProjectInfoAccordionContent">
-                            </e-accordion-accordionitem>
-                        </e-accordion-accordionitems>
-                    </ejs-accordion>
-                </div>
-
-                <div id="ProjectInfoAccordionContent"
-                     style="display: none">
-                    <div class="mb-3">
-                        <small class="text-muted">Заказчик</small>
-                        <div>@Model.Project.Client.Name</div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <small class="text-muted">Подразделение</small>
-                            <div>PC09</div>
-                        </div>
-                        <div class="col-md-6">
-                            <small class="text-muted">Рынок</small>
-                            <div>DE</div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <small class="text-muted">SMD</small>
-                            <div>@Model.Smd.FullName</div>
-                        </div>
-                        <div class="col-md-6">
-                            <small class="text-muted">Руководитель проекта</small>
-                            <div>@Model.ProjectManager.FullName</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <small class="text-muted">Начало</small>
-                        <ejs-datepicker id="beginDate"
-                                        placeholder="Choose a Date"
-                                        value="@Model.BeginDate"
-                                        format="dd-MM-yyyy"
-                                        change="beginDateChange"></ejs-datepicker>
-                    </div>
-                    <div class="col-md-6">
-                        <small class="text-muted">Завершение</small>
-                        <ejs-datepicker id="endDate"
-                                        placeholder="Choose a Date"
-                                        value="@Model.EndDate"
-                                        format="dd-MM-yyyy"
-                                        change="endDateChange"></ejs-datepicker>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6">
-                        <small class="text-muted">Ставка</small>
-                        <ejs-dropdownlist id="Rates"
-                                          dataSource="@ViewBag.RatesDataSource"
-                                          placeholder="Select a rate"
-                                          popupHeight="220px"
-                                          value="@Model.Rate"></ejs-dropdownlist>
-                    </div>
-                    <div class="col-md-6">
-                        <small class="text-muted">Часов</small>
-                        <ejs-numerictextbox id="Hours"
-                                            showSpinButton="false"
-                                            value="@(((Model.EndDate - Model.BeginDate).Days + 1) * Model.Rate * 8)"
-                                            readonly="true"
-                                            format="n"
-                                            Type="text"></ejs-numerictextbox>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <small class="text-muted">Кандидат</small>
-                    <ejs-combobox id="Candidates"
-                                  placeholder="Select a candidate"
-                                  popupHeight="200px"
-                                  dataSource="@ViewBag.CandidatesDataSource"
-                                  value="@Model.Candidate.Id"
-                                  text="@Model.Candidate.FullName">
-                        <e-combobox-fields groupBy="SpecialtyString"
-                                           text="FullName"
-                                           value="Id"></e-combobox-fields>
-                    </ejs-combobox>
-                </div>
-
-                <div class="mb-3">
-                    <ejs-accordion id="CandidateInfoAccordion">
-                        <e-accordion-accordionitems>
-                            <e-accordion-accordionitem expanded="false"
-                                                       header="Требования к кандидату"
-                                                       content="#CandidateInfo">
-                            </e-accordion-accordionitem>
-                        </e-accordion-accordionitems>
-                    </ejs-accordion>
-                </div>
-
-                <div id="CandidateInfo"
-                     style="display: none">
-                    <div class="mb-3">
-                        <small class="text-muted">Специальность</small>
-                        <ejs-dropdownlist id="Specialties"
-                                          dataSource="@ViewBag.SpecialtiesDataSource"
-                                          placeholder="Select a specialty"
-                                          value="@Model.SpecialtyString"
-                                          popupHeight="220px"></ejs-dropdownlist>
-                    </div>
-
-                    <div class="mb-3">
-                        <small class="text-muted">Квалификация</small>
-                        <ejs-dropdownlist id="Qualifications"
-                                          dataSource="@ViewBag.QualificationsDataSource"
-                                          placeholder="Select a qualification"
-                                          value="@Model.QualificationString"
-                                          popupHeight="220px"></ejs-dropdownlist>
-                    </div>
-
-                    <div class="mb-3">
-                        <small class="text-muted">Описание</small>
-                        <textarea style="width: 100%;"></textarea>
-                    </div>
-                </div>
+                <partial name="Project" />
+                <partial name="ApplicationInfo" />
+                <partial name="Candidate" />
             </div>
 
             <div class="col-md-8">
-                <div class="mb-3">
-                    <small class="text-muted">Новый комментарий</small>
-                    <textarea style="width: 100%;"></textarea>
-                    <input type="button"
-                           name="butSendComment"
-                           value="Отправить"
-                           class="btn btn-primary" />
-                </div>
-
-                <div class="mb-3">
-                    <partial name="CommentsGrid" />
-                </div>
+                <partial name="Comments" />
             </div>
         </div>
 
@@ -212,84 +35,25 @@
 
         <div class="row">
             <div class="col">
-                <ejs-accordion id="GridAccordion">
-                    <e-accordion-accordionitems>
-                        <e-accordion-accordionitem expanded="false"
-                                                   header="Пересекающиеся заявки"
-                                                   content="#CrossingGridDiv">
-                        </e-accordion-accordionitem>
-                    </e-accordion-accordionitems>
-                </ejs-accordion>
-
-                <div id="CrossingGridDiv"
-                     style="display: none;">
-                    <partial name="Grid" />
-                </div>
+                <partial name="Grid" />
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <ejs-accordion id="AmRateApplicationsGridAccordion">
-                    <e-accordion-accordionitems>
-                        <e-accordion-accordionitem expanded="false"
-                                                   header="Заявления на ставку за период"
-                                                   content="#AmRateApplicationsCrossingGridDiv">
-                        </e-accordion-accordionitem>
-                    </e-accordion-accordionitems>
-                </ejs-accordion>
-
-                <div id="AmRateApplicationsCrossingGridDiv"
-                     style="display: none;">
-                    <partial name="AmRateApplicationsGrid" />
-                </div>
+                <partial name="AmRateApplicationsGrid" />
             </div>
         </div>
 
         <div class="row mb-3">
             <div class="col">
-                <ejs-accordion id="AmOZSApplicationsGridAccordion">
-                    <e-accordion-accordionitems>
-                        <e-accordion-accordionitem expanded="false"
-                                                   header="Заявления на ОЗС за период"
-                                                   content="#AmOZSApplicationsCrossingGridDiv">
-                        </e-accordion-accordionitem>
-                    </e-accordion-accordionitems>
-                </ejs-accordion>
-
-                <div id="AmOZSApplicationsCrossingGridDiv"
-                     style="display: none;">
-                    <partial name="AmOZSApplicationsGrid" />
-                </div>
+                <partial name="AmOzsApplicationsGrid" />
             </div>
         </div>
 
         <div class="row mb-3">
             <div class="col">
-                <input type="button"
-                       name="but1"
-                       value="Назад"
-                       class="btn btn-primary"
-                       style="margin-bottom:3px;" />
-
-                <input type="button"
-                       name="save"
-                       value="Отправить"
-                       class="btn btn-primary"
-                       style="margin-bottom:3px;" />
-
-                <input type="button"
-                       name="but2"
-                       value="Одобрить"
-                       class="btn btn-primary"
-                       style="margin-bottom:3px;" />
-
-
-                <input type="button"
-                       name="but3"
-                       value="Черновик"
-                       class="btn btn-primary"
-                       style="margin-bottom:3px;" />
+                <partial name="Buttons" />
             </div>
         </div>
     </div>
@@ -302,8 +66,6 @@
 
 <script>
 
-
-
     function beginDateChange(obj)
     {
         console.log("bd");
@@ -314,25 +76,9 @@
         console.log("ed");
     }
 
-    function ddlApplicationsChange(app)
+    function ddlApplicationsChange(param)
     {
-
-        console.log("ddlApplicationsChange");
-
-        let str = "@(Url.Action("Form", "Home"))";
-
-        window.location.href = str + "/?appid=" + app.itemData.Id;
-
-        @*$.ajax({
-            method: "POST",
-            url: "@Url.Action("ChangeForm", "Home")",
-            dataType: "json",
-            data: {appId: app.itemData.Id}
-            })
-            .done(function( msg ) {
-                alert( "Data Saved: " + msg );
-            });*@
-
+        $("#ApplicationForm").submit();
     }
 
 </script>

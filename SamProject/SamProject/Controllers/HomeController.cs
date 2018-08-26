@@ -4,8 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+
+using SamProject.Managers;
 using SamProject.Models;
-using SamProject.Repositories;
 
 
 
@@ -20,7 +21,22 @@ namespace SamProject.Controllers
 
     public class HomeController : Controller
     {
-        public IActionResult Create(dynamic obj)
+        private IManager _manager;
+
+
+
+
+
+        public HomeController(IManager manager)
+        {
+            _manager = manager;
+        }
+
+
+
+
+
+        public async Task<IActionResult> Create(dynamic obj)
         {
             return Ok();
         }
@@ -29,30 +45,32 @@ namespace SamProject.Controllers
 
 
 
-        private async Task SetFormData(Application app)
+        private async Task SetChartData(Application app)
         {
-            await Task.Run(() =>
-            {
-                ViewBag.StartDate = app.BeginDate.AddDays(-1);
-                ViewBag.EndDate = app.EndDate.AddDays(1);
-                ViewBag.ColumnsDataSource = Repository.GetColumnsData(app);
-                ViewBag.LineDataSource = Repository.GetLineData(app);
+            ViewBag.ColumnsDataSource = await _manager.GetColumnsDataAsync(app);
+            ViewBag.LineDataSource = await _manager.GetLineDataAsync(app);
+        }
 
-                ViewBag.SpecialtiesDataSource = Enum.GetValues(typeof(Specialty))
-                                                    .Cast<Specialty>()
-                                                    .Select(s => s.String())
-                                                    .ToArray();
 
-                ViewBag.QualificationsDataSource = Enum.GetValues(typeof(Qualification))
-                                                       .Cast<Qualification>()
-                                                       .Select(s => s.String())
-                                                       .ToArray();
 
-                ViewBag.ApplicationsDataSource = Repository.Applications;
-                ViewBag.RatesDataSource = Repository.Rates;
-                ViewBag.ProjectsDataSource = Repository.Projects;
-                ViewBag.CandidatesDataSource = Repository.People;
-            });
+
+
+        private async Task SetFormData()
+        {
+            ViewBag.SpecialtiesDataSource = Enum.GetValues(typeof(Specialty))
+                                                .Cast<Specialty>()
+                                                .Select(s => s.String())
+                                                .ToArray();
+
+            ViewBag.QualificationsDataSource = Enum.GetValues(typeof(Qualification))
+                                                   .Cast<Qualification>()
+                                                   .Select(s => s.String())
+                                                   .ToArray();
+
+            ViewBag.ApplicationsDataSource = await _manager.GetApplicationsAsync();
+            ViewBag.RatesDataSource = await _manager.GetRatesAsync();
+            ViewBag.ProjectsDataSource = await _manager.GetProjectsAsync();
+            ViewBag.CandidatesDataSource = await _manager.GetPeopleAsync();
         }
 
 
@@ -61,20 +79,37 @@ namespace SamProject.Controllers
 
         private async Task SetGridData(Application app)
         {
-            await Task.Run(() => ViewBag.GridDataSource = Repository.Applications);
-            await Task.Run(() => ViewBag.CommentsGridDataSource = Repository.Comments);
-
+            ViewBag.GridDataSource = await _manager.GetApplicationsAsync();
+            ViewBag.CommentsGridDataSource = await _manager.GetCommentsAsync();
         }
 
 
 
 
 
-        public async Task<IActionResult> Form(int appId)
+        [HttpGet]
+        public async Task<IActionResult> Form()
         {
-            var app = Repository.Applications.First(a => a.Id == (appId == 0 ? 1 : appId));
+            ViewBag.ApplicationsDataSource = await _manager.GetApplicationsAsync();
 
-            await SetFormData(app);
+            await SetFormData();
+
+            return View(null);
+        }
+
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Form(int id)
+        {
+            var app = 
+                (await _manager.GetApplicationsAsync())
+                .FirstOrDefault(a => a.Id == id);
+
+            await SetChartData(app);
+            await SetFormData();
             await SetGridData(app);
 
             return View(app);
@@ -84,7 +119,11 @@ namespace SamProject.Controllers
 
 
 
-        public IActionResult Index()
+        #region essential
+
+
+
+        public async Task<IActionResult> Index()
         {
             return View();
         }
@@ -93,29 +132,7 @@ namespace SamProject.Controllers
 
 
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-
-
-
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-
-
-
-
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
             return View();
         }
@@ -125,12 +142,16 @@ namespace SamProject.Controllers
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> Error()
         {
             var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
 
             return View(errorViewModel);
         }
+
+
+
+        #endregion
     }
 
 

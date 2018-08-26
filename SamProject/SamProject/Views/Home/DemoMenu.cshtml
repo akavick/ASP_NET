@@ -1,0 +1,63 @@
+﻿@model Application
+
+<form id="ApplicationForm"
+      method="post"
+      asp-action="Form"
+      asp-controller="Home"
+      asp-antiforgery="true">
+
+    <div class="row mb-3">
+        
+        <div class="col-md-2">
+            <small class="text-muted">&nbsp;</small>
+            <h4>Демо-меню: </h4>
+        </div>
+
+        <div class="col-md-2">
+            <div style = "max-width: 250px;">
+
+                <small class = "text-muted">Заявка</small>
+
+                <ejs-dropdownlist id = "Applications"
+                                  name = "id"
+                                  dataSource = "@ViewBag.ApplicationsDataSource"
+                                  value = "@Model?.Id"
+                                  popupHeight = "220px"
+                                  change = "ddlApplicationsChange"
+                                  placeholder = "Выберите заявку">
+                    <e-dropdownlist-fields text = "Number"
+                                           value = "Id"></e-dropdownlist-fields>
+                </ejs-dropdownlist>
+
+            </div>
+        </div>
+
+        <div class = "col-md-2">
+
+            <small class = "text-muted">Сброс демо</small>
+
+            <ejs-button id = "NewApplicationButton"
+                        content = "Новое заявление"
+                        isPrimary = "true"
+                        type = "button">
+            </ejs-button>
+
+        </div>
+
+    </div>
+
+    <hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));" />
+
+</form>
+
+
+
+
+<script>
+
+    document.getElementById("NewApplicationButton").onclick = () =>
+    {
+        location.replace('@Url.Action("Form", "Home")');
+    };
+
+</script>

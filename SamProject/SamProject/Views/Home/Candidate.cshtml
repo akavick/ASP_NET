@@ -1,0 +1,76 @@
+﻿@model Application
+
+
+
+<div class="mb-0">
+
+    <small class="text-muted">Кандидат</small>
+    <ejs-combobox id="Candidates"
+                  placeholder="Select a candidate"
+                  popupHeight="200px"
+                  dataSource="@ViewBag.CandidatesDataSource"
+                  value="@Model?.Candidate?.Id"
+                  text="@Model?.Candidate?.FullName"
+                  readonly="@(Model != null)"
+                  enabled="@(Model is null)">
+
+        <e-combobox-fields groupBy="SpecialtyString"
+                           text="FullName"
+                           value="Id"></e-combobox-fields>
+    </ejs-combobox>
+
+</div>
+
+
+
+<div class="mb-3">
+
+    <ejs-accordion id="CandidateInfoAccordion">
+        <e-accordion-accordionitems>
+            <e-accordion-accordionitem expanded="false"
+                                       header="Требования к кандидату"
+                                       content="#CandidateInfo">
+            </e-accordion-accordionitem>
+        </e-accordion-accordionitems>
+    </ejs-accordion>
+
+</div>
+
+
+
+<div id="CandidateInfo"
+     style="display: none">
+
+    <div class="mb-0">
+        <small class="text-muted">Специальность</small>
+        <ejs-dropdownlist id="Specialties"
+                          dataSource="@ViewBag.SpecialtiesDataSource"
+                          placeholder="Select a specialty"
+                          value="@Model?.SpecialtyString"
+                          popupHeight="220px"
+                          readonly="@(Model != null)"
+                          enabled="@(Model is null)"></ejs-dropdownlist>
+    </div>
+
+    <div class="mb-0">
+        <small class="text-muted">Квалификация</small>
+        <ejs-dropdownlist id="Qualifications"
+                          dataSource="@ViewBag.QualificationsDataSource"
+                          placeholder="Select a qualification"
+                          value="@Model?.QualificationString"
+                          popupHeight="220px"
+                          readonly="@(Model != null)"
+                          enabled="@(Model is null)"></ejs-dropdownlist>
+    </div>
+
+    <div class="mb-0">
+        <small class="text-muted">Описание</small>
+        <textarea class="e-input"
+                  style="width: 100%;"
+                  @(Model != null ? "readonly" : "")
+                  @(Model != null ? "disabled" : "")>
+
+</textarea>
+    </div>
+
+</div>

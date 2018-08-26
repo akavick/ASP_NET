@@ -12,6 +12,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 
+using SamProject.Managers;
+using SamProject.Repositories;
+
+
+
+
+
 namespace SamProject
 {
     public class Startup
@@ -26,6 +33,10 @@ namespace SamProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IRepository, Repository>();
+            services.AddSingleton<IManager, Manager>();
+
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -61,9 +72,11 @@ namespace SamProject
             // Add support for node_modules but only during development **temporary**
             if (env.IsDevelopment())
             {
+                var path = Path.Combine(Directory.GetCurrentDirectory(), @"node_modules");
+
                 app.UseStaticFiles(new StaticFileOptions
                 {
-                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"node_modules")),
+                    FileProvider = new PhysicalFileProvider(path),
                     RequestPath = new PathString("/vendor")
                 });
             }

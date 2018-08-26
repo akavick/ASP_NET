@@ -38,15 +38,13 @@
 <ejs-chart id="splineContainer"
            load="window.onChartLoad"
            chartMouseClick="chartMouseClick"
-           width="100%"
-           height="300"
-           >
+           height="300">
 
     <e-chart-primaryxaxis majorGridLines="lines"
                           labelIntersectAction="Rotate45"
                           valueType="DateTime"
-                          maximum="Model.BeginDate.AddDays(-1)"
-                          minimum="Model.EndDate.AddDays(1)"
+                          maximum="Model?.BeginDate.AddDays(-1)"
+                          minimum="Model?.EndDate.AddDays(1)"
                           edgeLabelPlacement="Shift"
                           intervalType="Days"
                           labelFormat="dd MMM"></e-chart-primaryxaxis>
@@ -57,7 +55,9 @@
                           title="ставка"
                           labelFormat="{value}"
                           majorTickLines="lines"
-                          lineStyle="lines"></e-chart-primaryyaxis>
+                          lineStyle="lines"
+    
+                          enableAutoIntervalOnZooming="true"></e-chart-primaryyaxis>
 
     <e-chart-axes>
         <e-chart-axis id="lineAxis"
@@ -65,9 +65,11 @@
                       valueType="Double"
                       majorGridLines="lines"
                       interval="1.0"
-                      maximum="(Model.EndDate.AddDays(1) - Model.BeginDate).Days + 0.5"
+                      maximum="(Model?.EndDate.AddDays(1) - Model?.BeginDate)?.Days + 0.5"
                       minimum="-0.5"
-                      visible="false"></e-chart-axis>
+                      visible="false"
+        
+                      enableAutoIntervalOnZooming="true" ></e-chart-axis>
     </e-chart-axes>
 
     <e-series-collection>
@@ -75,6 +77,7 @@
         @foreach (ChartData<DateTime> chartData in ViewBag.ColumnsDataSource)
         {
             <e-series dataSource="chartData.DataSource"
+                      columnWidth="0.5"
                       xName="X"
                       yName="Y"
                       name="@(chartData.Name)"
@@ -118,7 +121,19 @@
 
     </e-series-collection>
 
+    <e-chart-zoomsettings enableMouseWheelZooming="true"
+                          enablePinchZooming="true"
+                          mode="X"
+                          enableScrollbar="true"
+                          enablePan="true"></e-chart-zoomsettings>
+
+    <e-chart-margin bottom="10"
+                    top="10"
+                    left="0"
+                    right="0"></e-chart-margin>
+
     <e-chart-tooltipsettings enable="true"></e-chart-tooltipsettings>
+
     <e-chart-legendsettings toggleVisibility="true"
                             position="Bottom">
         @*location="location">*@
