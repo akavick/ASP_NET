@@ -13,10 +13,11 @@ namespace SamProject.Models
 
     public enum Qualification
     {
-        Junior = 0,
-        Staff = 1,
-        Middle = 2,
-        Senior = 3,
+        Unset = 0,
+        Junior = 1,
+        Staff = 2,
+        Middle = 3,
+        Senior = 4,
     }
 
 
@@ -25,10 +26,12 @@ namespace SamProject.Models
 
     public static class QualificationExtensions
     {
-        public static string String(this Qualification qualification)
+        public static string SamString(this Qualification qualification)
         {
             switch (qualification)
             {
+                case Qualification.Unset:
+                    return "";
                 case Qualification.Junior:
                     return "Junior";
                 case Qualification.Staff:

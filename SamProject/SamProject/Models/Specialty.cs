@@ -13,11 +13,12 @@ namespace SamProject.Models
 
     public enum Specialty
     {
-        Developer = 0,
-        Architect = 1,
-        HtmlCoder = 2,
-        Pm = 3,
-        Smd = 4
+        Unset = 0,
+        Developer = 1,
+        Architect = 2,
+        HtmlCoder = 3,
+        Pm = 4,
+        Smd = 5
     }
 
 
@@ -26,10 +27,12 @@ namespace SamProject.Models
 
     public static class SpecialtyExtensions
     {
-        public static string String(this Specialty specialty)
+        public static string SamString(this Specialty specialty)
         {
             switch (specialty)
             {
+                case Specialty.Unset:
+                    return "";
                 case Specialty.Developer:
                     return "Developer";
                 case Specialty.Architect:

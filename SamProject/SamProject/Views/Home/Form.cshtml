@@ -24,68 +24,73 @@
 
 
 
-<partial name="DemoMenu" />
+<div>
+    <partial name="DemoMenu" />
 
-<hr class="gradientlyHr" />
+    <hr class="gradientlyHr" />
 
-<form id="MainForm"
-      asp-action="Create"
-      asp-controller="Home"
-      asp-antiforgery="true"
-      class="needs-validation w-100">
+    <form id="MainForm"
+          asp-action="Create"
+          asp-controller="Home"
+          asp-antiforgery="true"
+          class="needs-validation w-100">
 
-    <div>
-        <partial name="ApplicationHeader" />
+        <div>
+            <partial name="ApplicationHeader" />
 
-        <hr class="gradientlyHr" />
+            <hr class="gradientlyHr" />
 
-        <div class="row mb-3">
-            <div class="col-md-4">
-                <partial name="Project" />
-                <partial name="ApplicationInfo" />
-                <partial name="Candidate" />
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <partial name="Project" />
+                    <partial name="ApplicationInfo" />
+                    <partial name="Candidate" />
+                </div>
+
+                <div class="col-md-8">
+                    <partial name="Comments" />
+                </div>
             </div>
 
-            <div class="col-md-8">
-                <partial name="Comments" />
+            <hr class="gradientlyHr"
+                style="display: @elementDisplay"/>
+
+            <div class="row mb-3"
+                 style="display: @elementDisplay">
+                <div class="col">
+                    <partial name="Chart" />
+                </div>
+            </div>
+
+            <hr class="gradientlyHr"
+                style="display: @elementDisplay" />
+
+            <div class="row">
+                <div class="col">
+                    <partial name="Grid" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <partial name="AmRateApplicationsGrid" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <partial name="AmOzsApplicationsGrid" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <partial name="Buttons" />
+                </div>
             </div>
         </div>
-
-        <hr class="gradientlyHr" />
-
-        <div class="row mb-3" style="display:@elementDisplay">
-            <div class="col">
-                <partial name="Chart" />
-            </div>
-        </div>
-
-        <hr class="gradientlyHr" style="display:@elementDisplay" />
-
-        <div class="row">
-            <div class="col">
-                <partial name="Grid" />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <partial name="AmRateApplicationsGrid" />
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col">
-                <partial name="AmOzsApplicationsGrid" />
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col">
-                <partial name="Buttons" />
-            </div>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
 
 
 

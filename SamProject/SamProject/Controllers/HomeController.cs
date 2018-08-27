@@ -38,7 +38,7 @@ namespace SamProject.Controllers
 
         public async Task<IActionResult> Create(dynamic obj)
         {
-            return await Task.Run(() => Ok());
+            return await Task.Run(() => Ok()); // todo
         }
 
 
@@ -57,16 +57,6 @@ namespace SamProject.Controllers
 
         private async Task SetFormData()
         {
-            ViewBag.SpecialtiesDataSource = Enum.GetValues(typeof(Specialty))
-                                                .Cast<Specialty>()
-                                                .Select(s => s.String())
-                                                .ToArray();
-
-            ViewBag.QualificationsDataSource = Enum.GetValues(typeof(Qualification))
-                                                   .Cast<Qualification>()
-                                                   .Select(s => s.String())
-                                                   .ToArray();
-
             ViewBag.ApplicationsDataSource = await _manager.GetApplicationsAsync();
             ViewBag.RatesDataSource = await _manager.GetRatesAsync();
             ViewBag.ProjectsDataSource = await _manager.GetProjectsAsync();

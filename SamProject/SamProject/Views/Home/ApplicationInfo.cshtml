@@ -2,61 +2,63 @@
 
 
 
-<div class="row">
-    <div class="col-md-6">
+<div>
+    <div class="row">
+        <div class="col-md-6">
 
-        <small class="text-muted">Начало</small>
-        <ejs-datepicker id="beginDate"
-                        placeholder="Выберите дату"
-                        value="@Model?.BeginDate"
-                        format="dd-MM-yyyy"
-                        change="beginDateChange"
-                        readonly="@(Model != null)"
-                        enabled="@(Model is null)"></ejs-datepicker>
+            <small class="text-muted">Начало</small>
+            <ejs-datepicker id="beginDate"
+                            placeholder="Выберите дату"
+                            value="@Model?.BeginDate"
+                            format="dd-MM-yyyy"
+                            change="beginDateChange"
+                            readonly="@(Model != null)"
+                            enabled="@(Model is null)"></ejs-datepicker>
 
+        </div>
+
+        <div class="col-md-6">
+
+            <small class="text-muted">Завершение</small>
+            <ejs-datepicker id="endDate"
+                            placeholder="Выберите дату"
+                            value="@Model?.EndDate"
+                            format="dd-MM-yyyy"
+                            change="endDateChange"
+                            readonly="@(Model != null)"
+                            enabled="@(Model is null)"></ejs-datepicker>
+
+        </div>
     </div>
 
-    <div class="col-md-6">
-
-        <small class="text-muted">Завершение</small>
-        <ejs-datepicker id="endDate"
-                        placeholder="Выберите дату"
-                        value="@Model?.EndDate"
-                        format="dd-MM-yyyy"
-                        change="endDateChange"
-                        readonly="@(Model != null)"
-                        enabled="@(Model is null)"></ejs-datepicker>
-
-    </div>
-</div>
 
 
+    <div class="row mb-3">
+        <div class="col-md-6">
 
-<div class="row mb-3">
-    <div class="col-md-6">
+            <small class="text-muted">Ставка</small>
+            <ejs-dropdownlist id="Rates"
+                              dataSource="@ViewBag.RatesDataSource"
+                              placeholder="Выберите ставку"
+                              popupHeight="220px"
+                              value="@Model?.Rate"
+                              readonly="@(Model != null)"
+                              enabled="@(Model is null)"></ejs-dropdownlist>
 
-        <small class="text-muted">Ставка</small>
-        <ejs-dropdownlist id="Rates"
-                          dataSource="@ViewBag.RatesDataSource"
-                          placeholder="Выберите ставку"
-                          popupHeight="220px"
-                          value="@Model?.Rate"
-                          readonly="@(Model != null)"
-                          enabled="@(Model is null)"></ejs-dropdownlist>
+        </div>
 
-    </div>
+        <div class="col-md-6">
 
-    <div class="col-md-6">
+            <small class="text-muted">Часов</small>
+            <ejs-numerictextbox id="Hours"
+                                showSpinButton="false"
+                                value="@(((Model?.EndDate - Model?.BeginDate)?.Days + 1) * Model?.Rate * 8)"
+                                readonly="true"
+                                enabled="@(Model is null)"
+                                format="n"
+                                Type="text"></ejs-numerictextbox>
 
-        <small class="text-muted">Часов</small>
-        <ejs-numerictextbox id="Hours"
-                            showSpinButton="false"
-                            value="@(((Model?.EndDate - Model?.BeginDate)?.Days + 1) * Model?.Rate * 8)"
-                            readonly="true"
-                            enabled="@(Model is null)"
-                            format="n"
-                            Type="text"></ejs-numerictextbox>
+        </div>
 
     </div>
-
 </div>

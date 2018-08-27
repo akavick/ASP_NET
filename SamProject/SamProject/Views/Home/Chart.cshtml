@@ -34,77 +34,79 @@
 
 
 
-<ejs-chart id="splineContainer"
-           load="window.onChartLoad"
-           chartMouseClick="chartMouseClick"
-           height="300">
+<div>
+    <ejs-chart id="splineContainer"
+               load="window.onChartLoad"
+               chartMouseClick="chartMouseClick"
+               height="300">
 
-    <e-chart-primaryxaxis majorGridLines="lines"
-                          labelIntersectAction="Rotate45"
-                          valueType="DateTime"
-                          maximum="Model?.BeginDate.AddDays(-1)"
-                          minimum="Model?.EndDate.AddDays(1)"
-                          edgeLabelPlacement="Shift"
-                          intervalType="Days"
-                          labelFormat="dd MMM"
-                          enableAutoIntervalOnZooming="true"></e-chart-primaryxaxis>
+        <e-chart-primaryxaxis majorGridLines="lines"
+                              labelIntersectAction="Rotate45"
+                              valueType="DateTime"
+                              maximum="Model?.BeginDate.AddDays(-1)"
+                              minimum="Model?.EndDate.AddDays(1)"
+                              edgeLabelPlacement="Shift"
+                              intervalType="Days"
+                              labelFormat="dd MMM"
+                              enableAutoIntervalOnZooming="true"></e-chart-primaryxaxis>
 
-    <e-chart-primaryyaxis minimum="0"
-                          maximum="2"
-                          interval="0.25"
-                          title="ставка"
-                          labelFormat="{value}"
-                          majorTickLines="lines"
-                          lineStyle="lines"></e-chart-primaryyaxis>
+        <e-chart-primaryyaxis minimum="0"
+                              maximum="2"
+                              interval="0.25"
+                              title="ставка"
+                              labelFormat="{value}"
+                              majorTickLines="lines"
+                              lineStyle="lines"></e-chart-primaryyaxis>
 
-    <e-series-collection>
+        <e-series-collection>
 
-        @foreach (ChartData<DateTime> chartData in ViewBag.ColumnsDataSource)
-        {
-            <e-series dataSource="chartData.DataSource"
-                      columnWidth="0.75"
-                      xName="X"
-                      yName="Y"
-                      name="@(chartData.Name)"
-                      width="2"
-                      opacity="1"
-                      fill="@(chartData.Color)"
-                      legendShape="@(Syncfusion.EJ2.Charts.LegendShape.SeriesType)"
-                      type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
-        }
+            @foreach (ChartData<DateTime> chartData in ViewBag.ColumnsDataSource)
+            {
+                <e-series dataSource="chartData.DataSource"
+                          columnWidth="0.75"
+                          xName="X"
+                          yName="Y"
+                          name="@(chartData.Name)"
+                          width="2"
+                          opacity="1"
+                          fill="@(chartData.Color)"
+                          legendShape="@(Syncfusion.EJ2.Charts.LegendShape.SeriesType)"
+                          type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
+            }
 
-        @foreach (ChartData<DateTime> chartData in ViewBag.LineDataSource)
-        {
-            <e-series dataSource="chartData.DataSource"
-                      name="@(chartData.Name)"
-                      xName="X"
-                      yName="Y"
-                      width="2"
-                      opacity="1"
-                      fill="@(chartData.Color)"
-                      type="@Syncfusion.EJ2.Charts.ChartSeriesType.StepLine"
-                      enableTooltip="false"></e-series>
-        }
+            @foreach (ChartData<DateTime> chartData in ViewBag.LineDataSource)
+            {
+                <e-series dataSource="chartData.DataSource"
+                          name="@(chartData.Name)"
+                          xName="X"
+                          yName="Y"
+                          width="2"
+                          opacity="1"
+                          fill="@(chartData.Color)"
+                          type="@Syncfusion.EJ2.Charts.ChartSeriesType.StepLine"
+                          enableTooltip="false"></e-series>
+            }
 
-    </e-series-collection>
+        </e-series-collection>
 
-    <e-chart-zoomsettings enableMouseWheelZooming="true"
-                          enablePinchZooming="true"
-                          mode="X"
-                          enableScrollbar="true"></e-chart-zoomsettings>
+        <e-chart-zoomsettings enableMouseWheelZooming="true"
+                              enablePinchZooming="true"
+                              mode="X"
+                              enableScrollbar="true"></e-chart-zoomsettings>
 
-    <e-chart-margin bottom="10"
-                    top="10"
-                    left="0"
-                    right="0"></e-chart-margin>
+        <e-chart-margin bottom="10"
+                        top="10"
+                        left="0"
+                        right="15"></e-chart-margin>
 
-    <e-chart-tooltipsettings enable="true"></e-chart-tooltipsettings>
+        <e-chart-tooltipsettings enable="true"></e-chart-tooltipsettings>
 
-    <e-chart-legendsettings toggleVisibility="true"
-                            position="Bottom"></e-chart-legendsettings>
+        <e-chart-legendsettings toggleVisibility="true"
+                                position="Bottom"></e-chart-legendsettings>
 
-    <e-chart-chartarea>
-        <e-chartarea-border width="0.0001"></e-chartarea-border>
-    </e-chart-chartarea>
+        <e-chart-chartarea>
+            <e-chartarea-border width="0.0001"></e-chartarea-border>
+        </e-chart-chartarea>
 
-</ejs-chart>
+    </ejs-chart>
+</div>

@@ -2,77 +2,111 @@
 
 
 
-<div class="mb-0">
+@{
+    var specialties = Enum.GetValues(typeof(Specialty))
+                          .Cast<Specialty>()
+                          .Where(s => s != Specialty.Unset)
+                          .Select(s => new
+                          {
+                              Value = s,
+                              SamString = s.SamString()
+                          })
+                          .ToArray();
 
-    <small class="text-muted">Кандидат</small>
-    <ejs-combobox id="Candidates"
-                  placeholder="Выберите кандидата"
-                  popupHeight="200px"
-                  dataSource="@ViewBag.CandidatesDataSource"
-                  value="@Model?.Candidate?.Id"
-                  text="@Model?.Candidate?.FullName"
-                  readonly="@(Model != null)"
-                  enabled="@(Model is null)">
-
-        <e-combobox-fields groupBy="SpecialtyString"
-                           text="FullName"
-                           value="Id"></e-combobox-fields>
-    </ejs-combobox>
-
-</div>
-
-
-
-<div class="mb-3">
-
-    <ejs-accordion id="CandidateInfoAccordion">
-        <e-accordion-accordionitems>
-            <e-accordion-accordionitem expanded="false"
-                                       header="Требования к кандидату"
-                                       content="#CandidateInfo">
-            </e-accordion-accordionitem>
-        </e-accordion-accordionitems>
-    </ejs-accordion>
-
-</div>
+    var qualifications = Enum.GetValues(typeof(Qualification))
+                             .Cast<Qualification>()
+                             .Where(q => q != Qualification.Unset)
+                             .Select(q => new
+                             {
+                                 Value = q,
+                                 SamString = q.SamString()
+                             })
+                             .ToArray();
+}
 
 
 
-<div id="CandidateInfo"
-     style="display: none">
-
+<div>
     <div class="mb-0">
-        <small class="text-muted">Специальность</small>
-        <ejs-dropdownlist id="Specialties"
-                          dataSource="@ViewBag.SpecialtiesDataSource"
-                          placeholder="Выберите специальность"
-                          value="@Model?.SpecialtyString"
-                          popupHeight="220px"
-                          readonly="@(Model != null)"
-                          enabled="@(Model is null)"></ejs-dropdownlist>
+
+        <small class="text-muted">Кандидат</small>
+        <ejs-combobox id="Candidates"
+                      placeholder="Выберите кандидата"
+                      popupHeight="200px"
+                      dataSource="@ViewBag.CandidatesDataSource"
+                      value="@Model?.Candidate?.Id"
+                      text="@Model?.Candidate?.FullName"
+                      readonly="@(Model != null)"
+                      enabled="@(Model is null)">
+
+            <e-combobox-fields groupBy="SpecialtyString"
+                               text="FullName"
+                               value="Id"></e-combobox-fields>
+        </ejs-combobox>
+
     </div>
 
-    <div class="mb-0">
-        <small class="text-muted">Квалификация</small>
-        <ejs-dropdownlist id="Qualifications"
-                          dataSource="@ViewBag.QualificationsDataSource"
-                          placeholder="Выберите квалификацию"
-                          value="@Model?.QualificationString"
-                          popupHeight="220px"
-                          readonly="@(Model != null)"
-                          enabled="@(Model is null)"></ejs-dropdownlist>
+
+
+    <div class="mb-3">
+
+        <ejs-accordion id="CandidateInfoAccordion">
+            <e-accordion-accordionitems>
+                <e-accordion-accordionitem expanded="false"
+                                           header="Требования к кандидату"
+                                           content="#CandidateInfo">
+                </e-accordion-accordionitem>
+            </e-accordion-accordionitems>
+        </ejs-accordion>
+
     </div>
 
-    <div class="mb-0">
-        <small class="text-muted">Описание</small>
-        <div class="e-input-group">
-            <input class="e-input" 
-                   placeholder="@(Model != null ? "" : "Введите описание")" 
-                   type="text"  
-                   @(Model != null ? "readonly" : "")
-                   @(Model != null ? "disabled" : "")
-                   value="@Model?.CandidateDescription"/>
+
+
+    <div id="CandidateInfo"
+         style="display: none">
+
+        <div class="mb-0">
+            <small class="text-muted">Специальность</small>
+            <ejs-dropdownlist id="Specialties"
+                              dataSource="@specialties"
+                              placeholder="Выберите специальность"
+                              value="@Model?.SpecialtyString"
+                              popupHeight="220px"
+                              readonly="@(Model != null)"
+                              enabled="@(Model is null)">
+                
+                <e-dropdownlist-fields text="SamString"
+                                       value="Value"></e-dropdownlist-fields>
+            </ejs-dropdownlist>
         </div>
-    </div>
 
+        <div class="mb-0">
+            <small class="text-muted">Квалификация</small>
+            <ejs-dropdownlist id="Qualifications"
+                              dataSource="@qualifications"
+                              placeholder="Выберите квалификацию"
+                              value="@Model?.QualificationString"
+                              popupHeight="220px"
+                              readonly="@(Model != null)"
+                              enabled="@(Model is null)">
+                
+                <e-dropdownlist-fields text="SamString"
+                                       value="Value"></e-dropdownlist-fields>
+            </ejs-dropdownlist>
+        </div>
+
+        <div class="mb-0">
+            <small class="text-muted">Описание</small>
+            <div class="e-input-group">
+                <input class="e-input"
+                       placeholder="@(Model != null ? "" : "Введите описание")"
+                       type="text"
+                       @(Model != null ? "readonly" : "")
+                       @(Model != null ? "disabled" : "")
+                       value="@Model?.CandidateDescription" />
+            </div>
+        </div>
+
+    </div>
 </div>
