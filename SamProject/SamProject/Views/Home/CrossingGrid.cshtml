@@ -1,27 +1,31 @@
-﻿@*@{
-        var filterOperators = new[] { new { @operator = "contains" } };
-        var customAttributes = new { @class = "customcss" };
+﻿@{
+    var filterOperators = new[] { new { @operator = "contains" } };
+    var customAttributes = new { @class = "customcss" };
 
-        List<object> filterColumns = new List<object>();
-        filterColumns.Add(new { field = "ApplicationStatus", matchCase = false, @operator = "contains" });
+    List<object> filterColumns = new List<object>();
+    filterColumns.Add(new { field = "ApplicationStatus", matchCase = false, @operator = "contains" });
 
+}
+
+
+
+    
+<style>
+    .e-grid .e-headercell .customcss
+    {
+        background-color: #2382c3;
+        color: white;
+        font-family: 'Bell MT';
+        font-size: 20px;
     }
+</style>
 
 
-    <style>
-        .e-grid .e-headercell .customcss
-        {
-            background-color: #2382c3;
-            color: white;
-            font-family: 'Bell MT';
-            font-size: 20px;
-        }
-    </style>*@
 
 <div>
     <ejs-accordion id="CrossingGridAccordion">
         <e-accordion-accordionitems>
-            <e-accordion-accordionitem expanded="false"
+            <e-accordion-accordionitem expanded="true"
                                        header="Пересекающиеся заявки"
                                        content="#CrossingGridDiv">
             </e-accordion-accordionitem>
@@ -32,7 +36,7 @@
          style="display: none;">
 
         <ejs-grid id="CrossingGrid"
-                  dataSource="@ViewBag.GridDataSource"
+                  dataSource="@ViewBag.CrossingGridDataSource"
                   allowPaging="true"
                   allowReordering="true"
                   allowResizing="true"
@@ -57,7 +61,7 @@
                                    type="FilterBar"></e-grid-filterSettings>
 
             <e-grid-columns>
-                <e-grid-column field="Number"
+                <e-grid-column field="Number" customAttributes="@customAttributes"
                                headerText="Номер"
                                width="30"></e-grid-column>
                 <e-grid-column field="ApplicationStatus.Name"
@@ -81,11 +85,11 @@
                 <e-grid-column field="BeginDate"
                                headerText="Начало"
                                width="40"
-                               format="yMd"></e-grid-column>
+                               format="yMMMd"></e-grid-column>
                 <e-grid-column field="EndDate"
                                headerText="Завершение"
                                width="40"
-                               format="yMd"></e-grid-column>
+                               format="yMMMd"></e-grid-column>
                 <e-grid-column field="ProjectManager.FullName"
                                headerText="Руководитель проекта"
                                width="50"></e-grid-column>
@@ -104,7 +108,7 @@
 
 <script>
 
-    function crossingGridDataBound(args) 
+    function crossingGridDataBound(args)
     {
         this.autoFitColumns();
     }

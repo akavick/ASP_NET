@@ -69,7 +69,7 @@ namespace SamProject.Controllers
 
         private async Task SetGridData(Application app)
         {
-            ViewBag.GridDataSource = await _manager.GetApplicationsAsync();
+            ViewBag.CrossingGridDataSource = await _manager.GetApplicationsAsync();
             ViewBag.CommentsGridDataSource = await _manager.GetCommentsAsync();
             ViewBag.AmOzsGridDataSource = await _manager.GetAmOzsApplicationsAsync();
             ViewBag.AmRateGridDataSource = await _manager.GetAmRateApplicationsAsync();

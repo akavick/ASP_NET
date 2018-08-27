@@ -88,7 +88,7 @@ namespace SamProject.Managers
                                                    X = d,
                                                    Y = (double)innerApp.Rate
                                                })
-                                                    .ToArray();
+                                               .ToArray();
 
                                            return data;
                                        })
@@ -115,27 +115,27 @@ namespace SamProject.Managers
 
         public async Task<IEnumerable<ChartData<DateTime>>> GetLineDataAsync(Application application)
         {
-            //var columnChartData = 
-            //    (await GetColumnsDataAsync(application))
-            //    .SelectMany(cd => cd.DataSource)
-            //    .GroupBy(ds => ds.X)
-            //    .Select(dsGroup => new ChartPoint<DateTime>
-            //    {
-            //        X = dsGroup.Key.AddHours(-12),
-            //        Y = dsGroup.Sum(ds => ds.Y)
-            //    })
-            //    .ToList();
+            var columnChartData =
+                (await GetColumnsDataAsync(application))
+                .SelectMany(cd => cd.DataSource)
+                .GroupBy(ds => ds.X)
+                .Select(dsGroup => new ChartPoint<DateTime>
+                {
+                    X = dsGroup.Key.AddHours(-12),
+                    Y = dsGroup.Sum(ds => ds.Y)
+                })
+                .ToList();
 
-            //if (application.EndDate.Date > columnChartData.Last().X.Date)
-            //{
-            //    columnChartData.Add(new ChartPoint<DateTime>
-            //    {
-            //        X = application.EndDate.Date.AddHours(12),
-            //        Y = columnChartData.Last().Y
-            //    });
-            //}
+            if (application.EndDate.Date > columnChartData.Last().X.Date)
+            {
+                columnChartData.Add(new ChartPoint<DateTime>
+                {
+                    X = application.EndDate.Date.AddHours(12),
+                    Y = columnChartData.Last().Y
+                });
+            }
 
-            var linedata =
+            var lineData =
                 (await GetAmRateApplicationsAsync())
                 .SelectMany(aa =>
                 {
@@ -158,6 +158,12 @@ namespace SamProject.Managers
                 
                     return data;
                 })
+                .GroupBy(cp => cp.X)
+                .Select(cpg =>
+                {
+                    var maxRate = cpg.Max(icp => icp.Y);
+                    return cpg.First(cp => Math.Abs(cp.Y - maxRate) < 0.01);
+                })
                 .OrderBy(cp => cp.X)
                 .ToList();
 
@@ -177,55 +183,21 @@ namespace SamProject.Managers
             })
             .OrderBy(d => d)
             .ToList()
-            .ForEach(d => linedata.Where(cp => cp.X == d.AddHours(-12))
+            .ForEach(d => lineData.Where(cp => cp.X == d.AddHours(-12))
                                   .ToList()
                                   .ForEach(cp => cp.Y = 0.0));
 
-            if (application.EndDate.Date > linedata.Last().X.Date)
+            if (application.EndDate.Date > lineData.Last().X.Date)
             {
-                linedata.Add(new ChartPoint<DateTime>
+                lineData.Add(new ChartPoint<DateTime>
                 {
                     X = application.EndDate.Date.AddHours(12),
-                    Y = linedata.Last().Y
+                    Y = lineData.Last().Y
                 });
             }
 
 
 
-            #region main app
-
-
-
-            //if (application.Id == 1)
-            //{
-            //    linedata.Where(cp => cp.X > 90 && cp.X < 101)
-            //            .ToList()
-            //            .ForEach(cp => cp.Y -= 0.25);
-
-            //    linedata.Where(cp => cp.X > 140 && cp.X < 151)
-            //            .ToList()
-            //            .ForEach(cp => cp.Y -= 0.5);
-
-            //    linedata.Where(cp => cp.X > 30 && cp.X < 51)
-            //            .ToList()
-            //            .ForEach(cp => cp.Y = 0.0);
-
-            //    linedata.Where(cp => cp.X > 190 && cp.X < 201)
-            //            .ToList()
-            //            .ForEach(cp => cp.Y = 0.0);
-
-            //    linedata.Where(cp => cp.X > 250 && cp.X < 271)
-            //            .ToList()
-            //            .ForEach(cp => cp.Y = 0.0);
-
-            //    linedata.Where(cp => cp.X > 330)
-            //            .ToList()
-            //            .ForEach(cp => cp.Y += 0.25);
-            //}
-
-
-
-            #endregion
 
 
             var lineChart = new List<ChartData<DateTime>>
@@ -234,7 +206,7 @@ namespace SamProject.Managers
                 {
                     Name = "",
                     Color = "black",
-                    DataSource = linedata
+                    DataSource = lineData
                 },
             };
 
