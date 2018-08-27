@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 using SamProject.Models;
@@ -11,6 +10,11 @@ using SamProject.Models;
 
 namespace SamProject.Managers
 {
+
+
+
+
+
     public interface IManager
     {
         Task<IEnumerable<ChartData<DateTime>>> GetColumnsDataAsync(Application application);
@@ -22,5 +26,12 @@ namespace SamProject.Managers
         Task<IEnumerable<Project>> GetProjectsAsync();
         Task<IEnumerable<decimal>> GetRatesAsync();
         Task<IEnumerable<Application>> GetApplicationsAsync();
+        Task<IEnumerable<AmOzsApplication>> GetAmOzsApplicationsAsync();
+        Task<IEnumerable<AmRateApplication>> GetAmRateApplicationsAsync();
     }
+
+
+
+
+
 }

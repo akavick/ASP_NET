@@ -3,7 +3,7 @@
         var customAttributes = new { @class = "customcss" };
 
         List<object> filterColumns = new List<object>();
-        filterColumns.Add(new { field = "ApplicationStatusString", matchCase = false, @operator = "contains" });
+        filterColumns.Add(new { field = "ApplicationStatus", matchCase = false, @operator = "contains" });
 
     }
 
@@ -19,7 +19,7 @@
     </style>*@
 
 <div>
-    <ejs-accordion id="GridAccordion">
+    <ejs-accordion id="CrossingGridAccordion">
         <e-accordion-accordionitems>
             <e-accordion-accordionitem expanded="false"
                                        header="Пересекающиеся заявки"
@@ -31,7 +31,7 @@
     <div id="CrossingGridDiv"
          style="display: none;">
 
-        <ejs-grid id="Grid"
+        <ejs-grid id="CrossingGrid"
                   dataSource="@ViewBag.GridDataSource"
                   allowPaging="true"
                   allowReordering="true"
@@ -46,7 +46,8 @@
                   allowRowDragAndDrop="true"
                   enableAltRow="true"
                   allowSelection="true"
-                  toolbar="@(new List<string> {"Search"})">
+                  toolbar="@(new List<string> {"Search"})"
+                  dataBound="crossingGridDataBound">
 
             <e-grid-pagesettings pageSize="10.0"
                                  pageSizes="@(new[] {"5", "10", "20", "All"})"></e-grid-pagesettings>
@@ -59,16 +60,16 @@
                 <e-grid-column field="Number"
                                headerText="Номер"
                                width="30"></e-grid-column>
-                <e-grid-column field="ApplicationStatusString"
+                <e-grid-column field="ApplicationStatus.Name"
                                headerText="Статус"
                                width="50"></e-grid-column>
                 <e-grid-column field="Project.Name"
                                headerText="Проект"
                                width="50"></e-grid-column>
-                <e-grid-column field="SpecialtyString"
+                <e-grid-column field="Specialty.Name"
                                headerText="Специальность"
                                width="50"></e-grid-column>
-                <e-grid-column field="QualificationString"
+                <e-grid-column field="Qualification.Name"
                                headerText="Квалификация"
                                width="40"></e-grid-column>
                 <e-grid-column field="Rate"
@@ -101,16 +102,11 @@
 
 
 
+<script>
 
-@*@section Scripts
-        {
+    function crossingGridDataBound(args) 
+    {
+        this.autoFitColumns();
+    }
 
-        <script>
-
-
-            console.log($("#Grid"));
-
-
-        </script>
-
-    }*@
+</script>

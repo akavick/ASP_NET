@@ -11,42 +11,36 @@ namespace SamProject.Models
 
 
 
-    public enum Specialty
+    public class Specialty
     {
-        Unset = 0,
-        Developer = 1,
-        Architect = 2,
-        HtmlCoder = 3,
-        Pm = 4,
-        Smd = 5
-    }
+        public SpecialtyType Type { get; set; } = SpecialtyType.Unset;
+        public string Name => ToString();
 
 
 
 
 
-    public static class SpecialtyExtensions
-    {
-        public static string SamString(this Specialty specialty)
+        public override string ToString()
         {
-            switch (specialty)
+            switch (Type)
             {
-                case Specialty.Unset:
+                case SpecialtyType.Unset:
                     return "";
-                case Specialty.Developer:
+                case SpecialtyType.Developer:
                     return "Developer";
-                case Specialty.Architect:
+                case SpecialtyType.Architect:
                     return "Architect";
-                case Specialty.HtmlCoder:
+                case SpecialtyType.HtmlCoder:
                     return "HTML Coder";
-                case Specialty.Pm:
+                case SpecialtyType.Pm:
                     return "Project Manager";
-                case Specialty.Smd:
+                case SpecialtyType.Smd:
                     return "Senior Manager Delivery";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(specialty), specialty, null);
+                    throw new ArgumentOutOfRangeException(nameof(Type), Type, null);
             }
         }
+
     }
 
 

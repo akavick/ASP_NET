@@ -11,36 +11,32 @@ namespace SamProject.Models
 
 
 
-    public enum ApplicationStatus
+    public class ApplicationStatus
     {
-        New = 0,
-        OnApproval = 1,
-        Approved = 2,
-        Revoked = 3,
-    }
+        public ApplicationStatusType Type { get; set; } = ApplicationStatusType.New;
+        public string Name => ToString();
 
 
 
 
 
-    public static class ApplicationStatusExtensions
-    {
-        public static string String(this ApplicationStatus applicationStatus)
+        public override string ToString()
         {
-            switch (applicationStatus)
+            switch (Type)
             {
-                case ApplicationStatus.New:
+                case ApplicationStatusType.New:
                     return "Создание запроса";
-                case ApplicationStatus.Approved:
+                case ApplicationStatusType.Approved:
                     return "Утверждена";
-                case ApplicationStatus.Revoked:
+                case ApplicationStatusType.Revoked:
                     return "Отозвана";
-                case ApplicationStatus.OnApproval:
+                case ApplicationStatusType.OnApproval:
                     return "На утверждении RM";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(applicationStatus), applicationStatus, null);
+                    throw new ArgumentOutOfRangeException(nameof(Type), Type, null);
             }
         }
+
     }
 
 

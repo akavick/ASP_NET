@@ -1,7 +1,5 @@
 ﻿using System;
 
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-
 
 
 
@@ -17,9 +15,9 @@ namespace SamProject.Models
     {
         public int Id { get; set; } = 0;
         public string Number { get; set; } = "0000";
-        public ApplicationStatus ApplicationStatus { get; set; } = ApplicationStatus.New;
-        public Specialty Specialty { get; set; } = Specialty.Developer;
-        public Qualification Qualification { get; set; } = Qualification.Junior;
+        public ApplicationStatus ApplicationStatus { get; set; } = new ApplicationStatus();
+        public Specialty Specialty { get; set; } = new Specialty();
+        public Qualification Qualification { get; set; } = new Qualification();
         public Project Project { get; set; } = new Project();
         public Person ProjectManager { get; set; } = new Person();
         public Person Smd { get; set; } = new Person();
@@ -30,13 +28,6 @@ namespace SamProject.Models
         public string Department { get; set; } = "";
         public string Market { get; set; } = "";
         public string CandidateDescription { get; set; } = "";
-
-
-        public string ApplicationStatusString => ApplicationStatus.String();
-
-        public string SpecialtyString => Specialty.SamString();
-
-        public string QualificationString => Qualification.SamString();
     }
 
 

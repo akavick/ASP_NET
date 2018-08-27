@@ -4,6 +4,6 @@
 
 <div>
     <h4 class="mb-3">
-        Заявка #<span style="color: #317ab9">@(Model?.Number ?? "0000")</span> Статус: <span style="color: #317ab9">@(Model?.ApplicationStatusString ?? ApplicationStatus.New.String())</span>
+        Заявка #<span style="color: #317ab9">@(Model?.Number ?? "0000")</span> Статус: <span style="color: #317ab9">@(Model?.ApplicationStatus.ToString() ?? new ApplicationStatus().ToString())</span>
     </h4>
 </div>

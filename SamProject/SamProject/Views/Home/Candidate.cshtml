@@ -3,24 +3,16 @@
 
 
 @{
-    var specialties = Enum.GetValues(typeof(Specialty))
-                          .Cast<Specialty>()
-                          .Where(s => s != Specialty.Unset)
-                          .Select(s => new
-                          {
-                              Value = s,
-                              SamString = s.SamString()
-                          })
+    var specialties = Enum.GetValues(typeof(SpecialtyType))
+                          .Cast<SpecialtyType>()
+                          .Where(s => s != SpecialtyType.Unset)
+                          .Select(s => new Specialty { Type = s })
                           .ToArray();
 
-    var qualifications = Enum.GetValues(typeof(Qualification))
-                             .Cast<Qualification>()
-                             .Where(q => q != Qualification.Unset)
-                             .Select(q => new
-                             {
-                                 Value = q,
-                                 SamString = q.SamString()
-                             })
+    var qualifications = Enum.GetValues(typeof(QualificationType))
+                             .Cast<QualificationType>()
+                             .Where(q => q != QualificationType.Unset)
+                             .Select(q => new Qualification { Type = q })
                              .ToArray();
 }
 
@@ -39,7 +31,7 @@
                       readonly="@(Model != null)"
                       enabled="@(Model is null)">
 
-            <e-combobox-fields groupBy="SpecialtyString"
+            <e-combobox-fields groupBy="Specialty.Name"
                                text="FullName"
                                value="Id"></e-combobox-fields>
         </ejs-combobox>
@@ -71,13 +63,13 @@
             <ejs-dropdownlist id="Specialties"
                               dataSource="@specialties"
                               placeholder="Выберите специальность"
-                              value="@Model?.SpecialtyString"
+                              value="@Model?.Specialty?.Type"
                               popupHeight="220px"
                               readonly="@(Model != null)"
                               enabled="@(Model is null)">
                 
-                <e-dropdownlist-fields text="SamString"
-                                       value="Value"></e-dropdownlist-fields>
+                <e-dropdownlist-fields text="Name"
+                                       value="Type"></e-dropdownlist-fields>
             </ejs-dropdownlist>
         </div>
 
@@ -86,13 +78,13 @@
             <ejs-dropdownlist id="Qualifications"
                               dataSource="@qualifications"
                               placeholder="Выберите квалификацию"
-                              value="@Model?.QualificationString"
+                              value="@Model?.Qualification?.Type"
                               popupHeight="220px"
                               readonly="@(Model != null)"
                               enabled="@(Model is null)">
                 
-                <e-dropdownlist-fields text="SamString"
-                                       value="Value"></e-dropdownlist-fields>
+                <e-dropdownlist-fields text="Name"
+                                       value="Type"></e-dropdownlist-fields>
             </ejs-dropdownlist>
         </div>
 

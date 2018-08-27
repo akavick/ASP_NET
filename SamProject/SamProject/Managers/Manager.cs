@@ -204,7 +204,7 @@ namespace SamProject.Managers
 
         public async Task<IEnumerable<Application>> GetCrossingGridDataAsync(Application app)
         {
-            return await Task.Run(() => _repository.Applications.Where(a => 1 == 1).ToArray());
+            return await Task.Run(() => _repository.Applications.Where(a => 1 == 1).ToArray()); //todo
         }
 
 
@@ -259,6 +259,28 @@ namespace SamProject.Managers
         public async Task<IEnumerable<Application>> GetApplicationsAsync()
         {
             return await Task.Run(() => _repository.Applications);
+        }
+
+
+
+
+
+        public async Task<IEnumerable<AmOzsApplication>> GetAmOzsApplicationsAsync()
+        {
+            return await Task.Run(() => _repository.AmApplications
+                                                   .OfType<AmOzsApplication>()
+                                                   .ToArray());
+        }
+
+
+
+
+
+        public async Task<IEnumerable<AmRateApplication>> GetAmRateApplicationsAsync()
+        {
+            return await Task.Run(() => _repository.AmApplications
+                                                   .OfType<AmRateApplication>()
+                                                   .ToArray());
         }
 
     }

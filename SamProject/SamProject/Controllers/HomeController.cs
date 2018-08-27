@@ -71,6 +71,8 @@ namespace SamProject.Controllers
         {
             ViewBag.GridDataSource = await _manager.GetApplicationsAsync();
             ViewBag.CommentsGridDataSource = await _manager.GetCommentsAsync();
+            ViewBag.AmOzsGridDataSource = await _manager.GetAmOzsApplicationsAsync();
+            ViewBag.AmRateGridDataSource = await _manager.GetAmRateApplicationsAsync();
         }
 
 

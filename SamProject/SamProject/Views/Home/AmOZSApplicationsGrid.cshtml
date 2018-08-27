@@ -12,7 +12,7 @@
          style="display: none;">
 
         <ejs-grid id="AmOzsApplicationsGrid"
-                  dataSource="@ViewBag.GridDataSource"
+                  dataSource="@ViewBag.AmOzsGridDataSource"
                   allowPaging="true"
                   allowReordering="true"
                   allowResizing="true"
@@ -26,7 +26,8 @@
                   allowRowDragAndDrop="true"
                   enableAltRow="true"
                   allowSelection="true"
-                  toolbar="@(new List<string> {"Search"})">
+                  toolbar="@(new List<string> {"Search"})"
+                  dataBound="amOzsApplicationsGridDataBound">
 
             <e-grid-pagesettings pageSize="10.0"
                                  pageSizes="@(new[] {"5", "10", "20", "All"})"></e-grid-pagesettings>
@@ -39,11 +40,8 @@
                 <e-grid-column field="Number"
                                headerText="Номер"
                                width="30"></e-grid-column>
-                <e-grid-column field="Project.Name"
-                               headerText="Проект"
-                               width="50"></e-grid-column>
-                <e-grid-column field="Rate"
-                               headerText="Ставка"
+                <e-grid-column field="Person.FullName"
+                               headerText="Сотрудник"
                                width="30"></e-grid-column>
                 <e-grid-column field="BeginDate"
                                headerText="Начало"
@@ -58,3 +56,16 @@
 
     </div>
 </div>
+
+
+
+
+
+<script>
+
+    function amOzsApplicationsGridDataBound(args) 
+    {
+        this.autoFitColumns();
+    }
+
+</script>

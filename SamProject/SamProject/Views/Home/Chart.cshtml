@@ -2,6 +2,29 @@
 
 
 
+@{
+    var lines = new
+    {
+        width = 0.0001
+    };
+
+    //var border = new Syncfusion.EJ2.Charts.ChartBorder
+    //{
+    //    Width = 0,
+    //    Color = "transparent"
+    //};
+
+    //var location = new
+    //{
+    //    x = 300,
+    //    y = 300
+    //};
+}
+
+
+
+
+
 <script>
 
     function chartMouseClick(obj)
@@ -13,25 +36,6 @@
 
 
 
-@{
-    var lines = new
-    {
-        width = 0.0001
-    };
-
-    var border = new Syncfusion.EJ2.Charts.ChartBorder
-    {
-        Width = 0,
-        Color = "transparent"
-    };
-
-    var location = new
-    {
-        x = 300,
-        y = 300
-    };
-}
-
 
 
 <div>
@@ -40,7 +44,7 @@
                chartMouseClick="chartMouseClick"
                height="300">
 
-        <e-chart-primaryxaxis majorGridLines="lines"
+        <e-chart-primaryxaxis majorGridLines="@lines"
                               labelIntersectAction="Rotate45"
                               valueType="DateTime"
                               maximum="Model?.BeginDate.AddDays(-1)"
@@ -55,8 +59,8 @@
                               interval="0.25"
                               title="ставка"
                               labelFormat="{value}"
-                              majorTickLines="lines"
-                              lineStyle="lines"></e-chart-primaryyaxis>
+                              majorTickLines="@lines"
+                              lineStyle="@lines"></e-chart-primaryyaxis>
 
         <e-series-collection>
 
@@ -99,7 +103,10 @@
                         left="0"
                         right="15"></e-chart-margin>
 
-        <e-chart-tooltipsettings enable="true"></e-chart-tooltipsettings>
+        <e-chart-tooltipsettings enable="true"
+                                 enableAnimation="true"
+                                 header="проект: <b>${series.name}</b>"
+                                 format="<b>${point.x}</b>, ставка: <b>${point.y}</b>"></e-chart-tooltipsettings>
 
         <e-chart-legendsettings toggleVisibility="true"
                                 position="Bottom"></e-chart-legendsettings>

@@ -11,39 +11,34 @@ namespace SamProject.Models
 
 
 
-    public enum Qualification
+    public class Qualification
     {
-        Unset = 0,
-        Junior = 1,
-        Staff = 2,
-        Middle = 3,
-        Senior = 4,
-    }
+        public QualificationType Type { get; set; } = QualificationType.Unset;
+        public string Name => ToString();
 
 
 
 
 
-    public static class QualificationExtensions
-    {
-        public static string SamString(this Qualification qualification)
+        public override string ToString()
         {
-            switch (qualification)
+            switch (Type)
             {
-                case Qualification.Unset:
+                case QualificationType.Unset:
                     return "";
-                case Qualification.Junior:
+                case QualificationType.Junior:
                     return "Junior";
-                case Qualification.Staff:
+                case QualificationType.Staff:
                     return "Staff";
-                case Qualification.Middle:
+                case QualificationType.Middle:
                     return "Middle";
-                case Qualification.Senior:
+                case QualificationType.Senior:
                     return "Senior";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(qualification), qualification, null);
+                    throw new ArgumentOutOfRangeException(nameof(Type), Type, null);
             }
         }
+
     }
 
 

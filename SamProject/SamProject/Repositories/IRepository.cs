@@ -17,6 +17,7 @@ namespace SamProject.Repositories
         IEnumerable<Project> Projects { get; }
         IEnumerable<decimal> Rates { get; }
         IEnumerable<Application> Applications { get; }
+        IEnumerable<AmApplication> AmApplications { get; }
     }
 
 }
