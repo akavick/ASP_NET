@@ -115,34 +115,71 @@ namespace SamProject.Managers
 
         public async Task<IEnumerable<ChartData<DateTime>>> GetLineDataAsync(Application application)
         {
-            var columnChartData = 
-                (await GetColumnsDataAsync(application))
-                .SelectMany(cd => cd.DataSource)
-                .GroupBy(ds => ds.X)
-                .Select(dsGroup => new ChartPoint<DateTime>
-                {
-                    X = dsGroup.Key.AddHours(-12),
-                    Y = dsGroup.Sum(ds => ds.Y)
-                })
-                .ToList();
+            //var columnChartData = 
+            //    (await GetColumnsDataAsync(application))
+            //    .SelectMany(cd => cd.DataSource)
+            //    .GroupBy(ds => ds.X)
+            //    .Select(dsGroup => new ChartPoint<DateTime>
+            //    {
+            //        X = dsGroup.Key.AddHours(-12),
+            //        Y = dsGroup.Sum(ds => ds.Y)
+            //    })
+            //    .ToList();
 
-            if (application.EndDate.Date > columnChartData.Last().X.Date)
-            {
-                columnChartData.Add(new ChartPoint<DateTime>
-                {
-                    X = application.EndDate.Date.AddHours(12),
-                    Y = columnChartData.Last().Y
-                });
-            }
+            //if (application.EndDate.Date > columnChartData.Last().X.Date)
+            //{
+            //    columnChartData.Add(new ChartPoint<DateTime>
+            //    {
+            //        X = application.EndDate.Date.AddHours(12),
+            //        Y = columnChartData.Last().Y
+            //    });
+            //}
 
             var linedata =
                 (await GetAmRateApplicationsAsync())
-                .Select(amra => new ChartPoint<DateTime>
+                .SelectMany(aa =>
                 {
-                    X = amra.AddHours(-12),
-                    Y = dsGroup.Sum(ds => ds.Y)
+                    var currentDate = aa.BeginDate;
+                    var dates = new List<DateTime> { currentDate };
+                
+                    while (currentDate != aa.EndDate)
+                    {
+                        currentDate = currentDate.AddDays(1);
+                        dates.Add(currentDate);
+                    }
+                
+                    var data =
+                        dates.Select(d => new ChartPoint<DateTime>
+                        {
+                            X = d.AddHours(-12),
+                            Y = (double)aa.Rate
+                        })
+                        .ToArray();
+                
+                    return data;
                 })
+                .OrderBy(cp => cp.X)
                 .ToList();
+
+            (await GetAmOzsApplicationsAsync())
+            .SelectMany(aa =>
+            {
+                var currentDate = aa.BeginDate;
+                var dates = new List<DateTime> { currentDate };
+
+                while (currentDate != aa.EndDate)
+                {
+                    currentDate = currentDate.AddDays(1);
+                    dates.Add(currentDate);
+                }
+
+                return dates;
+            })
+            .OrderBy(d => d)
+            .ToList()
+            .ForEach(d => linedata.Where(cp => cp.X == d.AddHours(-12))
+                                  .ToList()
+                                  .ForEach(cp => cp.Y = 0.0));
 
             if (application.EndDate.Date > linedata.Last().X.Date)
             {

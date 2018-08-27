@@ -138,7 +138,7 @@ namespace SamProject.Repositories
                 new AmRateApplication{ Id = 20, Number = "02-000017", BeginDate = new DateTime(2018, 6, 25), EndDate = new DateTime(2018, 6, 26),  Person = _people[0], Rate = _rates[4] },
                 new AmRateApplication{ Id = 21, Number = "02-000018", BeginDate = new DateTime(2018, 7, 4),  EndDate = new DateTime(2018, 7, 5),   Person = _people[0], Rate = _rates[4] },
                 new AmRateApplication{ Id = 22, Number = "02-000019", BeginDate = new DateTime(2018, 7, 9),  EndDate = new DateTime(2018, 7, 10),  Person = _people[0], Rate = _rates[4] },
-                new AmRateApplication{ Id = 23, Number = "02-000020", BeginDate = new DateTime(2018, 7, 28), EndDate = new DateTime(2018, 7, 30),  Person = _people[0], Rate = _rates[4] },
+                new AmRateApplication{ Id = 23, Number = "02-000020", BeginDate = new DateTime(2018, 7, 27), EndDate = new DateTime(2018, 7, 30),  Person = _people[0], Rate = _rates[4] },
                 new AmRateApplication{ Id = 24, Number = "02-000021", BeginDate = new DateTime(2018, 8, 8),  EndDate = new DateTime(2018, 8, 9),   Person = _people[0], Rate = _rates[4] },
                 new AmRateApplication{ Id = 25, Number = "02-000022", BeginDate = new DateTime(2018, 10, 1), EndDate = new DateTime(2018, 10, 31), Person = _people[0], Rate = _rates[4] },
             };
