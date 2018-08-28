@@ -11,9 +11,9 @@ namespace SamProject.Models
 
 
 
-    public class ApplicationStatus
+    public class RsApplicationStatus
     {
-        public ApplicationStatusType Type { get; set; } = ApplicationStatusType.New;
+        public RsApplicationStatusType Type { get; set; } = RsApplicationStatusType.New;
         public string Name => ToString();
 
 
@@ -24,13 +24,13 @@ namespace SamProject.Models
         {
             switch (Type)
             {
-                case ApplicationStatusType.New:
+                case RsApplicationStatusType.New:
                     return "Создание запроса";
-                case ApplicationStatusType.Approved:
+                case RsApplicationStatusType.Approved:
                     return "Утверждена";
-                case ApplicationStatusType.Revoked:
+                case RsApplicationStatusType.Revoked:
                     return "Отозвана";
-                case ApplicationStatusType.OnApproval:
+                case RsApplicationStatusType.OnApproval:
                     return "На утверждении RM";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(Type), Type, null);

@@ -1,4 +1,11 @@
-﻿@model Application
+﻿@model RsApplication
+
+
+
+@{
+    var appIsNew = Model?.ApplicationStatus?.Type == RsApplicationStatusType.New;
+    var hours = ((Model?.EndDate - Model?.BeginDate)?.Days + 1) * Model?.Rate * 8;
+}
 
 
 
@@ -9,11 +16,11 @@
             <small class="text-muted">Начало</small>
             <ejs-datepicker id="beginDate"
                             placeholder="Выберите дату"
-                            value="@Model?.BeginDate"
+                            value="@(Model?.BeginDate)"
                             format="dd-MM-yyyy"
                             change="beginDateChange"
-                            readonly="@(Model != null)"
-                            enabled="@(Model is null)"></ejs-datepicker>
+                            readonly="@(!appIsNew)"
+                            enabled="@(appIsNew)"></ejs-datepicker>
 
         </div>
 
@@ -22,11 +29,11 @@
             <small class="text-muted">Завершение</small>
             <ejs-datepicker id="endDate"
                             placeholder="Выберите дату"
-                            value="@Model?.EndDate"
+                            value="@(Model?.EndDate)"
                             format="dd-MM-yyyy"
                             change="endDateChange"
-                            readonly="@(Model != null)"
-                            enabled="@(Model is null)"></ejs-datepicker>
+                            readonly="@(!appIsNew)"
+                            enabled="@(appIsNew)"></ejs-datepicker>
 
         </div>
     </div>
@@ -38,12 +45,12 @@
 
             <small class="text-muted">Ставка</small>
             <ejs-dropdownlist id="Rates"
-                              dataSource="@ViewBag.RatesDataSource"
+                              dataSource="@(ViewBag.RatesDataSource)"
                               placeholder="Выберите ставку"
                               popupHeight="220px"
-                              value="@Model?.Rate"
-                              readonly="@(Model != null)"
-                              enabled="@(Model is null)"></ejs-dropdownlist>
+                              value="@(Model?.Rate)"
+                              readonly="@(!appIsNew)"
+                              enabled="@(appIsNew)"></ejs-dropdownlist>
 
         </div>
 
@@ -52,9 +59,9 @@
             <small class="text-muted">Часов</small>
             <ejs-numerictextbox id="Hours"
                                 showSpinButton="false"
-                                value="@(((Model?.EndDate - Model?.BeginDate)?.Days + 1) * Model?.Rate * 8)"
+                                value="@(hours)"
                                 readonly="true"
-                                enabled="@(Model is null)"
+                                enabled="@(appIsNew)"
                                 format="n"
                                 Type="text"></ejs-numerictextbox>
 

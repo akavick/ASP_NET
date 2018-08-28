@@ -1,4 +1,4 @@
-﻿@model Application
+﻿@model RsApplication
 
 
 
@@ -8,8 +8,14 @@
                 isPrimary="true"
                 type="button"></ejs-button>
 
-    <ejs-button id="SaveButton"
+    <ejs-button id="SendButton"
                 content="Отправить"
+                isPrimary="true"
+                disabled="@(Model != null)"
+                type="button"></ejs-button>
+    
+    <ejs-button id="SaveButton"
+                content="Сохранить"
                 isPrimary="true"
                 disabled="@(Model != null)"
                 type="button"></ejs-button>

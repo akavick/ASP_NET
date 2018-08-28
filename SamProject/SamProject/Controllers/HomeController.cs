@@ -45,7 +45,7 @@ namespace SamProject.Controllers
 
 
 
-        private async Task SetChartData(Application app)
+        private async Task SetChartData(RsApplication app)
         {
             ViewBag.ColumnsDataSource = await _manager.GetColumnsDataAsync(app);
             ViewBag.LineDataSource = await _manager.GetLineDataAsync(app);
@@ -67,12 +67,12 @@ namespace SamProject.Controllers
 
 
 
-        private async Task SetGridData(Application app)
+        private async Task SetGridData(RsApplication app)
         {
-            ViewBag.CrossingGridDataSource = await _manager.GetApplicationsAsync();
+            ViewBag.CrossingGridDataSource = await _manager.GetCrossingGridDataAsync(app);
             ViewBag.CommentsGridDataSource = await _manager.GetCommentsAsync();
-            ViewBag.AmOzsGridDataSource = await _manager.GetAmOzsApplicationsAsync();
-            ViewBag.AmRateGridDataSource = await _manager.GetAmRateApplicationsAsync();
+            ViewBag.AmOzsGridDataSource = await _manager.GetAmOzsApplicationsAsync(app);
+            ViewBag.AmRateGridDataSource = await _manager.GetAmRateApplicationsAsync(app);
         }
 
 
@@ -82,11 +82,13 @@ namespace SamProject.Controllers
         [HttpGet]
         public async Task<IActionResult> Form()
         {
+            var app = await _manager.GetNewApplication();
+
             ViewBag.ApplicationsDataSource = await _manager.GetApplicationsAsync();
 
             await SetFormData();
 
-            return View(null);
+            return View(app);
         }
 
 

@@ -30,43 +30,21 @@ namespace SamProject.Managers
 
 
 
-        private bool AreApplicationsCrossing(Application app1, Application app2)
-        {
-            //bool LeftCross()
-            //{
-            //    return true;
-            //}
-
-
-
-            return app1.Id == app2.Id
-                || app1.BeginDate >= app2.BeginDate && app1.EndDate <= app2.EndDate
-                || app2.BeginDate >= app1.BeginDate && app2.EndDate <= app1.EndDate
-                || app2.EndDate >= app1.BeginDate && app2.EndDate <= app1.EndDate
-                || app1.EndDate >= app2.BeginDate && app1.EndDate <= app2.EndDate
-                || app2.BeginDate <= app1.EndDate && app2.BeginDate >= app1.BeginDate
-                || app1.BeginDate <= app2.EndDate && app1.BeginDate >= app2.BeginDate;
-        }
-
-
-
-
-
-        public async Task<IEnumerable<ChartData<DateTime>>> GetColumnsDataAsync(Application application)
+        public async Task<IEnumerable<ChartData<DateTime>>> GetColumnsDataAsync(RsApplication application)
         {
             return await Task.Run(() =>
             {
-                var colors = new[] { "green", "gray", "lightblue", "orange", "red", };
+                var dateSpan = new DateSpan
+                {
+                    BeginDate = application.BeginDate.AddDays(-1),
+                    EndDate = application.EndDate.AddDays(1)
+                };
+
+                var colors = new[] { "green", "gray", "lightblue", "orange", "darkred", "darkblue" };
 
                 var columnChart =
-                    _repository.Applications
-                               .Where(app => app.Id == application.Id
-                                                       || app.BeginDate >= application.BeginDate && app.EndDate <= application.EndDate
-                                                       || application.BeginDate >= app.BeginDate && application.EndDate <= app.EndDate
-                                                       || application.EndDate >= app.BeginDate && application.EndDate <= app.EndDate
-                                                       || app.EndDate >= application.BeginDate && app.EndDate <= application.EndDate
-                                                       || application.BeginDate <= app.EndDate && application.BeginDate >= app.BeginDate
-                                                       || app.BeginDate <= application.EndDate && app.BeginDate >= application.BeginDate)
+                    _repository.ReservationSystemApplications
+                               .Where(app => app.IntersectsWith(dateSpan))
                                .GroupBy(app => app.Project)
                                .Select((appGroup, i) =>
                                {
@@ -113,41 +91,41 @@ namespace SamProject.Managers
 
 
 
-        public async Task<IEnumerable<ChartData<DateTime>>> GetLineDataAsync(Application application)
+        public async Task<IEnumerable<ChartData<DateTime>>> GetLineDataAsync(RsApplication application)
         {
-            var columnChartData =
-                (await GetColumnsDataAsync(application))
-                .SelectMany(cd => cd.DataSource)
-                .GroupBy(ds => ds.X)
-                .Select(dsGroup => new ChartPoint<DateTime>
-                {
-                    X = dsGroup.Key.AddHours(-12),
-                    Y = dsGroup.Sum(ds => ds.Y)
-                })
-                .ToList();
+            //var columnChartData =
+            //    (await GetColumnsDataAsync(application))
+            //    .SelectMany(cd => cd.DataSource)
+            //    .GroupBy(ds => ds.X)
+            //    .Select(dsGroup => new ChartPoint<DateTime>
+            //    {
+            //        X = dsGroup.Key.AddHours(-12),
+            //        Y = dsGroup.Sum(ds => ds.Y)
+            //    })
+            //    .ToList();
 
-            if (application.EndDate.Date > columnChartData.Last().X.Date)
-            {
-                columnChartData.Add(new ChartPoint<DateTime>
-                {
-                    X = application.EndDate.Date.AddHours(12),
-                    Y = columnChartData.Last().Y
-                });
-            }
+            //if (application.EndDate.Date > columnChartData.Last().X.Date)
+            //{
+            //    columnChartData.Add(new ChartPoint<DateTime>
+            //    {
+            //        X = application.EndDate.Date.AddHours(12),
+            //        Y = columnChartData.Last().Y
+            //    });
+            //}
 
             var lineData =
-                (await GetAmRateApplicationsAsync())
+                (await GetAmRateApplicationsAsync(application))
                 .SelectMany(aa =>
                 {
                     var currentDate = aa.BeginDate;
                     var dates = new List<DateTime> { currentDate };
-                
+
                     while (currentDate != aa.EndDate)
                     {
                         currentDate = currentDate.AddDays(1);
                         dates.Add(currentDate);
                     }
-                
+
                     var data =
                         dates.Select(d => new ChartPoint<DateTime>
                         {
@@ -155,7 +133,7 @@ namespace SamProject.Managers
                             Y = (double)aa.Rate
                         })
                         .ToArray();
-                
+
                     return data;
                 })
                 .GroupBy(cp => cp.X)
@@ -167,7 +145,7 @@ namespace SamProject.Managers
                 .OrderBy(cp => cp.X)
                 .ToList();
 
-            (await GetAmOzsApplicationsAsync())
+            (await GetAmOzsApplicationsAsync(application))
             .SelectMany(aa =>
             {
                 var currentDate = aa.BeginDate;
@@ -211,16 +189,17 @@ namespace SamProject.Managers
             };
 
             return lineChart;
-
         }
 
 
 
 
 
-        public async Task<IEnumerable<Application>> GetCrossingGridDataAsync(Application app)
+        public async Task<IEnumerable<RsApplication>> GetCrossingGridDataAsync(RsApplication application)
         {
-            return await Task.Run(() => _repository.Applications.Where(a => 1 == 1).ToArray()); //todo
+            return await Task.Run(() => _repository.ReservationSystemApplications
+                                                   .Where(a => a.IntersectsWith(application))
+                                                   .ToArray());
         }
 
 
@@ -272,19 +251,20 @@ namespace SamProject.Managers
 
 
 
-        public async Task<IEnumerable<Application>> GetApplicationsAsync()
+        public async Task<IEnumerable<RsApplication>> GetApplicationsAsync()
         {
-            return await Task.Run(() => _repository.Applications);
+            return await Task.Run(() => _repository.ReservationSystemApplications);
         }
 
 
 
 
 
-        public async Task<IEnumerable<AmOzsApplication>> GetAmOzsApplicationsAsync()
+        public async Task<IEnumerable<AmOzsApplication>> GetAmOzsApplicationsAsync(RsApplication application)
         {
             return await Task.Run(() => _repository.AmApplications
                                                    .OfType<AmOzsApplication>()
+                                                   .Where(a => a.IntersectsWith(application))
                                                    .ToArray());
         }
 
@@ -292,11 +272,24 @@ namespace SamProject.Managers
 
 
 
-        public async Task<IEnumerable<AmRateApplication>> GetAmRateApplicationsAsync()
+        public async Task<IEnumerable<AmRateApplication>> GetAmRateApplicationsAsync(RsApplication application)
         {
             return await Task.Run(() => _repository.AmApplications
                                                    .OfType<AmRateApplication>()
+                                                   .Where(a => a.IntersectsWith(application))
                                                    .ToArray());
+        }
+
+
+
+
+
+        public async Task<RsApplication> GetNewApplication()
+        {
+            return await Task.Run(() => new RsApplication
+            {
+                Candidate = _repository.People.Single(p => p.Id == 1) //Храмцов
+            });
         }
 
     }

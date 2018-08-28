@@ -5,7 +5,7 @@
 
 
 
-    public enum ApplicationStatusType
+    public enum RsApplicationStatusType
     {
         New = 0,
         OnApproval = 1,
