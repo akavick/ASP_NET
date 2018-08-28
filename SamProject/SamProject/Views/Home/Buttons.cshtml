@@ -2,6 +2,12 @@
 
 
 
+@{
+    var appIsNew = Model?.ApplicationStatus?.Type == RsApplicationStatusType.New;
+}
+
+
+
 <div>
     <ejs-button id="BackButton"
                 content="Назад"
@@ -11,25 +17,25 @@
     <ejs-button id="SendButton"
                 content="Отправить"
                 isPrimary="true"
-                disabled="@(Model != null)"
+                disabled="@(!appIsNew)"
                 type="button"></ejs-button>
-    
+
     <ejs-button id="SaveButton"
                 content="Сохранить"
                 isPrimary="true"
-                disabled="@(Model != null)"
+                disabled="@(!appIsNew)"
                 type="button"></ejs-button>
 
     <ejs-button id="ApproveButton"
                 content="Одобрить"
                 isPrimary="true"
-                disabled="@(Model != null)"
+                disabled="@(!appIsNew)"
                 type="button"></ejs-button>
 
     <ejs-button id="DraftButton"
                 content="Черновик"
                 isPrimary="true"
-                disabled="@(Model != null)"
+                disabled="@(!appIsNew)"
                 type="button"></ejs-button>
 </div>
 
@@ -42,6 +48,7 @@
     let demoMode = () => { alert("Демо-режим"); };
 
     document.getElementById("BackButton").onclick = demoMode;
+    document.getElementById("SendButton").onclick = demoMode;
     document.getElementById("SaveButton").onclick = demoMode;
     document.getElementById("ApproveButton").onclick = demoMode;
     document.getElementById("DraftButton").onclick = demoMode;

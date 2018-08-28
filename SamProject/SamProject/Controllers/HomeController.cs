@@ -84,9 +84,9 @@ namespace SamProject.Controllers
         {
             var app = await _manager.GetNewApplication();
 
-            ViewBag.ApplicationsDataSource = await _manager.GetApplicationsAsync();
-
+            await SetChartData(app);
             await SetFormData();
+            await SetGridData(app);
 
             return View(app);
         }

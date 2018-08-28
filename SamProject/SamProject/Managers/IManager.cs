@@ -24,7 +24,7 @@ namespace SamProject.Managers
         Task<IEnumerable<Person>> GetPeopleAsync();
         Task<IEnumerable<Client>> GetClientsAsync();
         Task<IEnumerable<Project>> GetProjectsAsync();
-        Task<IEnumerable<decimal>> GetRatesAsync();
+        Task<IEnumerable<Rate>> GetRatesAsync();
         Task<IEnumerable<RsApplication>> GetApplicationsAsync();
         Task<IEnumerable<AmOzsApplication>> GetAmOzsApplicationsAsync(RsApplication application);
         Task<IEnumerable<AmRateApplication>> GetAmRateApplicationsAsync(RsApplication application);

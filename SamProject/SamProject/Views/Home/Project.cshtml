@@ -2,6 +2,12 @@
 
 
 
+@{
+    var appIsNew = Model?.ApplicationStatus?.Type == RsApplicationStatusType.New;
+}
+
+
+
 <div>
     <div class="mb-0">
 
@@ -12,8 +18,8 @@
                       dataSource="@ViewBag.ProjectsDataSource"
                       value="@Model?.Project?.Id"
                       text="@Model?.Project?.Name"
-                      readonly="@(Model != null)"
-                      enabled="@(Model is null)">
+                      readonly="@(!appIsNew)"
+                      enabled="@(appIsNew)">
 
             <e-combobox-fields text="Name"
                                value="Id"></e-combobox-fields>

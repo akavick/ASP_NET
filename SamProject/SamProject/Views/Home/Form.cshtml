@@ -2,11 +2,8 @@
 
 @{
     ViewData["Title"] = "Form";
-
-    var elementDisplay = Model is null
-                             ? "none"
-                             : "block";
 }
+
 
 
 
@@ -19,8 +16,9 @@
         height: 1px;
         background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
     }
-
 </style>
+
+
 
 
 
@@ -52,18 +50,15 @@
                 </div>
             </div>
 
-            <hr class="gradientlyHr"
-                style="display: @elementDisplay"/>
+            <hr class="gradientlyHr" />
 
-            <div class="row mb-3"
-                 style="display: @elementDisplay">
+            <div class="row mb-3">
                 <div class="col">
                     <partial name="Chart" />
                 </div>
             </div>
 
-            <hr class="gradientlyHr"
-                style="display: @elementDisplay" />
+            <hr class="gradientlyHr" />
 
             <div class="row">
                 <div class="col">
@@ -90,28 +85,5 @@
     </form>
 </div>
 
-
-
-
-
-
-<script>
-
-    function beginDateChange(obj)
-    {
-        console.log("bd");
-    }
-
-    function endDateChange(obj)
-    {
-        console.log("ed");
-    }
-
-    function ddlApplicationsChange(param)
-    {
-        $("#ApplicationForm").submit();
-    }
-
-</script>
 
 

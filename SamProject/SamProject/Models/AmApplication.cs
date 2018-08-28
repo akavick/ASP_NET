@@ -23,8 +23,8 @@ namespace SamProject.Models
 
 
 
-        public Person Person { get; set; } = new Person();
-        public int Id { get; set; } = 0;
+        public Person Person { get; set; }
+        public int Id { get; set; }
         public string Number { get; set; } = "00-000000";
 
         public DateTime BeginDate

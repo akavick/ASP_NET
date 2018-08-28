@@ -14,6 +14,8 @@
                              .Where(q => q != QualificationType.Unset)
                              .Select(q => new Qualification { Type = q })
                              .ToArray();
+
+    var appIsNew = Model?.ApplicationStatus?.Type == RsApplicationStatusType.New;
 }
 
 
@@ -28,8 +30,8 @@
                       dataSource="@ViewBag.CandidatesDataSource"
                       value="@Model?.Candidate?.Id"
                       text="@Model?.Candidate?.FullName"
-                      readonly="@(Model != null)"
-                      enabled="@(Model is null)">
+                      readonly="@(!appIsNew)"
+                      enabled="@(appIsNew)">
 
             <e-combobox-fields groupBy="Specialty.Name"
                                text="FullName"
@@ -65,8 +67,8 @@
                               placeholder="Выберите специальность"
                               value="@Model?.Specialty?.Type"
                               popupHeight="220px"
-                              readonly="@(Model != null)"
-                              enabled="@(Model is null)">
+                              readonly="@(!appIsNew)"
+                              enabled="@(appIsNew)">
                 
                 <e-dropdownlist-fields text="Name"
                                        value="Type"></e-dropdownlist-fields>
@@ -80,8 +82,8 @@
                               placeholder="Выберите квалификацию"
                               value="@Model?.Qualification?.Type"
                               popupHeight="220px"
-                              readonly="@(Model != null)"
-                              enabled="@(Model is null)">
+                              readonly="@(!appIsNew)"
+                              enabled="@(appIsNew)">
                 
                 <e-dropdownlist-fields text="Name"
                                        value="Type"></e-dropdownlist-fields>
@@ -92,10 +94,10 @@
             <small class="text-muted">Описание</small>
             <div class="e-input-group">
                 <input class="e-input"
-                       placeholder="@(Model != null ? "" : "Введите описание")"
+                       placeholder="@(!appIsNew ? "" : "Введите описание")"
                        type="text"
-                       @(Model != null ? "readonly" : "")
-                       @(Model != null ? "disabled" : "")
+                       @(!appIsNew ? "readonly" : "")
+                       @(!appIsNew ? "disabled" : "")
                        value="@Model?.CandidateDescription" />
             </div>
         </div>

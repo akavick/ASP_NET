@@ -4,8 +4,36 @@
 
 @{
     var appIsNew = Model?.ApplicationStatus?.Type == RsApplicationStatusType.New;
-    var hours = ((Model?.EndDate - Model?.BeginDate)?.Days + 1) * Model?.Rate * 8;
+    var hours = ((Model?.EndDate - Model?.BeginDate)?.Days + 1) * Model?.Rate?.Value * 8;
+
+    if (hours == 0.0m)
+    {
+        hours = null;
+    }
 }
+
+
+
+
+<script>
+
+    function beginDateChange(obj)
+    {
+        console.log("bd");
+    }
+
+    function endDateChange(obj)
+    {
+        console.log("ed");
+    }
+
+    function rateChange(obj)
+    {
+        console.log("r");
+    }
+
+</script>
+
 
 
 
@@ -17,6 +45,8 @@
             <ejs-datepicker id="beginDate"
                             placeholder="Выберите дату"
                             value="@(Model?.BeginDate)"
+                            max="@(new DateTime(DateTime.Now.Year, 12, 31))"
+                            min="@(new DateTime(DateTime.Now.Year, 1, 1))"
                             format="dd-MM-yyyy"
                             change="beginDateChange"
                             readonly="@(!appIsNew)"
@@ -30,6 +60,8 @@
             <ejs-datepicker id="endDate"
                             placeholder="Выберите дату"
                             value="@(Model?.EndDate)"
+                            max="@(new DateTime(DateTime.Now.Year, 12, 31))"
+                            min="@(new DateTime(DateTime.Now.Year, 1, 1))"
                             format="dd-MM-yyyy"
                             change="endDateChange"
                             readonly="@(!appIsNew)"
@@ -48,9 +80,14 @@
                               dataSource="@(ViewBag.RatesDataSource)"
                               placeholder="Выберите ставку"
                               popupHeight="220px"
-                              value="@(Model?.Rate)"
+                              value="@(Model?.Rate?.Type)"
                               readonly="@(!appIsNew)"
-                              enabled="@(appIsNew)"></ejs-dropdownlist>
+                              enabled="@(appIsNew)"
+                              change="rateChange">
+                
+                <e-dropdownlist-fields text="Name"
+                                       value="Type"></e-dropdownlist-fields>
+            </ejs-dropdownlist>
 
         </div>
 

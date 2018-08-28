@@ -64,7 +64,7 @@ namespace SamProject.Managers
                                                dates.Select(d => new ChartPoint<DateTime>
                                                {
                                                    X = d,
-                                                   Y = (double)innerApp.Rate
+                                                   Y = (double)innerApp.Rate.Value
                                                })
                                                .ToArray();
 
@@ -127,21 +127,24 @@ namespace SamProject.Managers
                     }
 
                     var data =
-                        dates.Select(d => new ChartPoint<DateTime>
+                        dates.Select(d => new
                         {
-                            X = d.AddHours(-12),
-                            Y = (double)aa.Rate
+                            ChartPoint = new ChartPoint<DateTime>
+                            {
+                                X = d.AddHours(-12),
+                                Y = (double)aa.Rate.Value
+                            }
+                            ,Application = aa
                         })
                         .ToArray();
 
                     return data;
                 })
-                .GroupBy(cp => cp.X)
-                .Select(cpg =>
-                {
-                    var maxRate = cpg.Max(icp => icp.Y);
-                    return cpg.First(cp => Math.Abs(cp.Y - maxRate) < 0.01);
-                })
+                .GroupBy(cp => cp.ChartPoint.X)
+                .Select(cpg => cpg.OrderByDescending(d => d.Application.BeginDate)
+                                  .ThenBy(d => d.Application.Rate)
+                                  .First()
+                                  .ChartPoint)
                 .OrderBy(cp => cp.X)
                 .ToList();
 
@@ -198,7 +201,7 @@ namespace SamProject.Managers
         public async Task<IEnumerable<RsApplication>> GetCrossingGridDataAsync(RsApplication application)
         {
             return await Task.Run(() => _repository.ReservationSystemApplications
-                                                   .Where(a => a.IntersectsWith(application))
+                                                   .Where(a => a.Id != application.Id && a.IntersectsWith(application))
                                                    .ToArray());
         }
 
@@ -242,9 +245,11 @@ namespace SamProject.Managers
 
 
 
-        public async Task<IEnumerable<decimal>> GetRatesAsync()
+        public async Task<IEnumerable<Rate>> GetRatesAsync()
         {
-            return await Task.Run(() => _repository.Rates);
+            return await Task.Run(() => Rate.Values
+                                            .Where(r => r.Type != RateValueType.Unset)
+                                            .ToArray());
         }
 
 

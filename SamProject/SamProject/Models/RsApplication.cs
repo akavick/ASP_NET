@@ -20,19 +20,19 @@ namespace SamProject.Models
 
 
 
-        public int Id { get; set; } = 0;
+        public int Id { get; set; }
         public string Number { get; set; } = "0000";
         public RsApplicationStatus ApplicationStatus { get; set; } = new RsApplicationStatus();
         public Specialty Specialty { get; set; } = new Specialty();
         public Qualification Qualification { get; set; } = new Qualification();
-        public Project Project { get; set; } = new Project();
-        public Person ProjectManager { get; set; } = new Person();
-        public Person Smd { get; set; } = new Person();
-        public Person Candidate { get; set; } = new Person();
-        public decimal Rate { get; set; } = 0.0m;
-        public string Department { get; set; } = "";
-        public string Market { get; set; } = "";
-        public string CandidateDescription { get; set; } = "";
+        public Project Project { get; set; }
+        public Person ProjectManager { get; set; }
+        public Person Smd { get; set; }
+        public Person Candidate { get; set; }
+        public Rate Rate { get; set; }
+        public string Department { get; set; }
+        public string Market { get; set; }
+        public string CandidateDescription { get; set; }
 
         public DateTime BeginDate
         {
