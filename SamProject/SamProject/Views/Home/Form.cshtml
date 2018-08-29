@@ -23,15 +23,17 @@
 
 
 <div>
-    <partial name="DemoMenu" />
 
-    <hr class="gradientlyHr" />
 
     <form id="MainForm"
-          asp-action="Create"
+          asp-action="Form"
           asp-controller="Home"
           asp-antiforgery="true"
           class="needs-validation w-100">
+        
+        <partial name="DemoMenu" />
+
+        <hr class="gradientlyHr" />
 
         <div>
             <partial name="ApplicationHeader" />

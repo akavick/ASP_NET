@@ -38,9 +38,6 @@ namespace SamProject
             services.AddSingleton<IRepository, Repository>();
             services.AddSingleton<IManager, Manager>();
 
-            services.AddDistributedMemoryCache();
-            services.AddSession();
-
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.

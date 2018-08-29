@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 
 using SamProject.Managers;
@@ -33,15 +34,6 @@ namespace SamProject.Controllers
         public HomeController(IManager manager)
         {
             _manager = manager;
-        }
-
-
-
-
-
-        public async Task<IActionResult> Create(dynamic obj)
-        {
-            return await Task.Run(() => Ok()); // todo
         }
 
 
@@ -87,14 +79,27 @@ namespace SamProject.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Form(int id)
+        public async Task<IActionResult> Form(int id, DateTime beginDate, DateTime endDate, RateValueType rate)
         {
             var app = 
                 (await _manager.GetApplicationsAsync())
                 .FirstOrDefault(a => a.Id == id);
 
+            if (app is null)
+            {
+                app = await _manager.GetNewApplication();
+                app.BeginDate = beginDate;
+                app.EndDate = endDate;
+                app.Rate = new Rate {Type = rate};
+            }
+            else
+            {
+                ViewBag.CommentsGridDataSource = await _manager.GetCommentsAsync();
+            }
+
             await SetChartData(app);
             await SetFormData();
+
             ViewBag.AmRateGridDataSource = await _manager.GetAmRateApplicationsAsync(app);
 
             return View(app);
@@ -113,38 +118,46 @@ namespace SamProject.Controllers
 
 
 
-        public async Task<IActionResult> CrossingGridDataSource([FromBody]DataManagerRequest dm, int id)
+        public async Task<IActionResult> CrossingGridDataSource([FromBody]DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate)
         {
-            return await GridDataSource(dm, id, new RsApplication());
+            return await GridDataSource(dm, id, beginDate, endDate, rate, new RsApplication());
         }
 
 
 
 
 
-        public async Task<IActionResult> AmRateGridDataSource([FromBody]DataManagerRequest dm, int id)
+        public async Task<IActionResult> AmRateGridDataSource([FromBody]DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate)
         {
-            return await GridDataSource(dm, id, new AmRateApplication());
+            return await GridDataSource(dm, id, beginDate, endDate, rate, new AmRateApplication());
         }
 
 
 
 
 
-        public async Task<IActionResult> AmOzsGridDataSource([FromBody]DataManagerRequest dm, int id)
+        public async Task<IActionResult> AmOzsGridDataSource([FromBody]DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate)
         {
-            return await GridDataSource(dm, id, new AmOzsApplication());
+            return await GridDataSource(dm, id, beginDate, endDate, rate, new AmOzsApplication());
         }
 
 
 
 
 
-        private async Task<IActionResult> GridDataSource([FromBody] DataManagerRequest dm, int id, object obj)
+        private async Task<IActionResult> GridDataSource([FromBody] DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate, object obj)
         {
             var app =
                 (await _manager.GetApplicationsAsync())
                 .FirstOrDefault(a => a.Id == id);
+
+            if (app is null)
+            {
+                app = await _manager.GetNewApplication();
+                app.BeginDate = beginDate;
+                app.EndDate = endDate;
+                app.Rate = new Rate { Type = rate };
+            }
 
             IEnumerable dataSource = null;
 

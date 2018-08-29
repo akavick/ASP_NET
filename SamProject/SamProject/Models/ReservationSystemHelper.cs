@@ -37,8 +37,4 @@ namespace SamProject.Models
 
     }
 
-
-
-
-
 }

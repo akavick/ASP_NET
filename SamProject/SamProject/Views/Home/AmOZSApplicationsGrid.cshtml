@@ -32,7 +32,7 @@
                   toolbar="@(new List<string> {"Search"})"
                   dataBound="amOzsApplicationsGridDataBound">
 
-            <e-data-manager url="@(Url.Action("AmOzsGridDataSource", "Home", new {id = Model.Id}))"
+            <e-data-manager url="@(Url.Action("AmOzsGridDataSource", "Home", new {id = Model.Id, beginDate = Model.BeginDate, endDate = Model.EndDate, rate = Model.Rate.Type}))"
                             adaptor="UrlAdaptor"></e-data-manager>
 
             <e-grid-pagesettings pageSize="10.0"

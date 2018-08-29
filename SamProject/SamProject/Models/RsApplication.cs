@@ -29,7 +29,7 @@ namespace SamProject.Models
         public Person ProjectManager { get; set; }
         public Person Smd { get; set; }
         public Person Candidate { get; set; }
-        public Rate Rate { get; set; }
+        public Rate Rate { get; set; } = new Rate();
         public string Department { get; set; }
         public string Market { get; set; }
         public string CandidateDescription { get; set; }
