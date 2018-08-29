@@ -1,4 +1,8 @@
-﻿<div>
+﻿@model RsApplication
+
+
+
+<div>
     <ejs-accordion id="AmRateApplicationsGridAccordion">
         <e-accordion-accordionitems>
             <e-accordion-accordionitem expanded="true"
@@ -12,7 +16,6 @@
          style="display: none;">
 
         <ejs-grid id="AmRateApplicationsGrid"
-                  dataSource="@ViewBag.AmRateGridDataSource"
                   allowPaging="true"
                   allowReordering="true"
                   allowResizing="true"
@@ -29,6 +32,9 @@
                   toolbar="@(new List<string> {"Search"})"
                   dataBound="amRateApplicationsGridDataBound">
 
+            <e-data-manager url="@(Url.Action("AmRateGridDataSource", "Home", new {id = Model.Id}))"
+                            adaptor="UrlAdaptor"></e-data-manager>
+
             <e-grid-pagesettings pageSize="10.0"
                                  pageSizes="@(new[] {"5", "10", "20", "All"})"></e-grid-pagesettings>
 
@@ -37,6 +43,9 @@
                                    type="FilterBar"></e-grid-filterSettings>
 
             <e-grid-columns>
+                <e-grid-column field="Id"
+                               isPrimaryKey="true"
+                               visible="false"></e-grid-column>
                 <e-grid-column field="Number"
                                headerText="Номер"
                                width="30"></e-grid-column>
@@ -66,7 +75,7 @@
 
 <script>
 
-    function amRateApplicationsGridDataBound(args) 
+    function amRateApplicationsGridDataBound(args)
     {
         this.autoFitColumns();
     }

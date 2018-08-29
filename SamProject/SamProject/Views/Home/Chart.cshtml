@@ -44,6 +44,9 @@
                chartMouseClick="chartMouseClick"
                height="300">
 
+        @*<e-data-manager url="@(Url.Action("ChartDataSource", "Home", new {id = Model.Id}))"
+                        adaptor="UrlAdaptor"></e-data-manager>*@
+
         <e-chart-primaryxaxis majorGridLines="@lines"
                               labelIntersectAction="Rotate45"
                               valueType="DateTime"

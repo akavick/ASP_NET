@@ -76,7 +76,8 @@ namespace SamProject.Managers
                                    {
                                        Name = appGroup.Key.Name,
                                        Color = colors[i],
-                                       DataSource = source
+                                       DataSource = source,
+                                       SeriesType = Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn
                                    };
 
                                    return chartData;
@@ -187,7 +188,8 @@ namespace SamProject.Managers
                 {
                     Name = "",
                     Color = "black",
-                    DataSource = lineData
+                    DataSource = lineData,
+                    SeriesType = Syncfusion.EJ2.Charts.ChartSeriesType.StepLine
                 },
             };
 

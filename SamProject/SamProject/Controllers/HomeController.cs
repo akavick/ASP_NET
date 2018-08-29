@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 using SamProject.Managers;
 using SamProject.Models;
+
+using Syncfusion.EJ2.Base;
 
 
 
@@ -67,18 +70,6 @@ namespace SamProject.Controllers
 
 
 
-        private async Task SetGridData(RsApplication app)
-        {
-            ViewBag.CrossingGridDataSource = await _manager.GetCrossingGridDataAsync(app);
-            ViewBag.CommentsGridDataSource = await _manager.GetCommentsAsync();
-            ViewBag.AmOzsGridDataSource = await _manager.GetAmOzsApplicationsAsync(app);
-            ViewBag.AmRateGridDataSource = await _manager.GetAmRateApplicationsAsync(app);
-        }
-
-
-
-
-
         [HttpGet]
         public async Task<IActionResult> Form()
         {
@@ -86,7 +77,7 @@ namespace SamProject.Controllers
 
             await SetChartData(app);
             await SetFormData();
-            await SetGridData(app);
+            ViewBag.AmRateGridDataSource = await _manager.GetAmRateApplicationsAsync(app);
 
             return View(app);
         }
@@ -104,11 +95,105 @@ namespace SamProject.Controllers
 
             await SetChartData(app);
             await SetFormData();
-            await SetGridData(app);
+            ViewBag.AmRateGridDataSource = await _manager.GetAmRateApplicationsAsync(app);
 
             return View(app);
         }
 
+
+
+
+
+        //public async Task<IActionResult> ChartDataSource([FromBody]DataManagerRequest dm, int id)
+        //{
+        //    return await GridDataSource(dm, id, new RsApplication());
+        //}
+
+
+
+
+
+        public async Task<IActionResult> CrossingGridDataSource([FromBody]DataManagerRequest dm, int id)
+        {
+            return await GridDataSource(dm, id, new RsApplication());
+        }
+
+
+
+
+
+        public async Task<IActionResult> AmRateGridDataSource([FromBody]DataManagerRequest dm, int id)
+        {
+            return await GridDataSource(dm, id, new AmRateApplication());
+        }
+
+
+
+
+
+        public async Task<IActionResult> AmOzsGridDataSource([FromBody]DataManagerRequest dm, int id)
+        {
+            return await GridDataSource(dm, id, new AmOzsApplication());
+        }
+
+
+
+
+
+        private async Task<IActionResult> GridDataSource([FromBody] DataManagerRequest dm, int id, object obj)
+        {
+            var app =
+                (await _manager.GetApplicationsAsync())
+                .FirstOrDefault(a => a.Id == id);
+
+            IEnumerable dataSource = null;
+
+            switch (obj)
+            {
+                case RsApplication _:
+                    dataSource = await _manager.GetCrossingGridDataAsync(app);
+                    break;
+                case AmRateApplication _:
+                    dataSource = await _manager.GetAmRateApplicationsAsync(app);
+                    break;
+                case AmOzsApplication _:
+                    dataSource = await _manager.GetAmOzsApplicationsAsync(app);
+                    break;
+            }
+
+            var operation = new DataOperations();
+
+            if (dm.Search != null && dm.Search.Count > 0)
+            {
+                dataSource = operation.PerformSearching(dataSource, dm.Search);  //Search
+            }
+
+            if (dm.Sorted != null && dm.Sorted.Count > 0) //Sorting
+            {
+                dataSource = operation.PerformSorting(dataSource, dm.Sorted);
+            }
+
+            if (dm.Where != null && dm.Where.Count > 0) //Filtering
+            {
+                dataSource = operation.PerformFiltering(dataSource, dm.Where, dm.Where[0].Operator);
+            }
+
+            var count = dataSource.OfType<object>().Count();
+
+            if (dm.Skip != 0)
+            {
+                dataSource = operation.PerformSkip(dataSource, dm.Skip);   //Paging
+            }
+
+            if (dm.Take != 0)
+            {
+                dataSource = operation.PerformTake(dataSource, dm.Take);
+            }
+
+            return dm.RequiresCounts
+                ? Json(new { result = dataSource, count = count })
+                : Json(dataSource);
+        }
 
 
 
