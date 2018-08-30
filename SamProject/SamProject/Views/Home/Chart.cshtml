@@ -66,31 +66,43 @@
                               lineStyle="@lines"></e-chart-primaryyaxis>
 
         <e-series-collection>
+            
+            @*<e-data-manager dataType=""></e-data-manager>*@
 
             @foreach (ChartData<DateTime> chartData in ViewBag.ColumnsDataSource)
             {
                 <e-series dataSource="chartData.DataSource"
+                          name="@(chartData.Name)"
+                          id="@(chartData.Name)"
                           columnWidth="0.75"
                           xName="X"
                           yName="Y"
-                          name="@(chartData.Name)"
                           width="2"
-                          opacity="1"
+                          opacity="0.8"
                           fill="@(chartData.Color)"
                           legendShape="@(Syncfusion.EJ2.Charts.LegendShape.SeriesType)"
-                          type="@Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn"></e-series>
+                          type="@(chartData.SeriesType)">
+
+                    @*<e-data-manager></e-data-manager>*@
+                    
+                    <e-segments>
+                        <e-segment ></e-segment>
+                    </e-segments>
+ 
+                </e-series>
             }
 
             @foreach (ChartData<DateTime> chartData in ViewBag.LineDataSource)
             {
                 <e-series dataSource="chartData.DataSource"
                           name="@(chartData.Name)"
+                          id="@(chartData.Name)"
                           xName="X"
                           yName="Y"
-                          width="2"
+                          width="2.5"
                           opacity="1"
                           fill="@(chartData.Color)"
-                          type="@Syncfusion.EJ2.Charts.ChartSeriesType.StepLine"
+                          type="@(chartData.SeriesType)"
                           enableTooltip="false"></e-series>
             }
 
@@ -108,7 +120,7 @@
 
         <e-chart-tooltipsettings enable="true"
                                  enableAnimation="true"
-                                 header="проект: <b>${series.name}</b>"
+                                 header="проект: <b>${series.name} ${point.x}</b>"
                                  format="<b>${point.x}</b>, ставка: <b>${point.y}</b>"></e-chart-tooltipsettings>
 
         <e-chart-legendsettings toggleVisibility="true"

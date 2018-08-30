@@ -1,6 +1,6 @@
 ﻿@using SamProjectTelerik.Controllers
 
-
+@model RsApplication
 
 
 
@@ -101,41 +101,30 @@
                   .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
                   .Series(series =>
                   {
-                      foreach (ChartData list in ViewBag.ColumnsDataSource)
+                      foreach (var columnChartSeries in (IEnumerable<ChartSeries<DateTime, decimal>>)ViewBag.ColumnsDataSource)
                       {
                           series
-                              .Column(list.DataSource)
+                              .Column(columnChartSeries.DataSource)
+                              .CategoryField("X")
+                              .Field("Y")
                               .Stack(true)
-                              .Color(list.Color)
-                              .Name(list.Name)
+                              .Color(columnChartSeries.Color)
+                              .Name(columnChartSeries.Name)
                               .DynamicHeight(true)
                               .DynamicSlope(true)
                               .Border(b => b.Width(0));
                       }
 
-                      foreach (ChartData area in ViewBag.AreaDataSource)
+                      foreach (var lineChartSeries in (IEnumerable<ChartSeries<DateTime, decimal>>)ViewBag.LineDataSource)
                       {
                           series
-                              .Area(area.DataSource)
-                              .Line(line => line.Style(ChartSeriesLineStyle.Step))
-                              .Markers(m => m.Visible(false).Size(0))
-                              .Color(area.Color)
-                              .Name(area.Name)
-                              .Opacity(0.5)
-                              .Tooltip(t => t.Visible(false))
-                              .VisibleInLegend(false)
-                              .DynamicHeight(true)
-                              .DynamicSlope(true);
-                      }
-
-                      foreach (ChartData line in ViewBag.LineDataSource)
-                      {
-                          series
-                              .Line(line.DataSource)
+                              .Line(lineChartSeries.DataSource)
+                              .CategoryField("X")
+                              .Field("Y")
                               .Style(ChartSeriesStyle.Step)
                               .Markers(m => m.Visible(false).Size(0))
-                              .Color(line.Color)
-                              .Name(line.Name)
+                              .Color(lineChartSeries.Color)
+                              .Name(lineChartSeries.Name)
                               .Tooltip(t => t.Visible(false))
                               .VisibleInLegend(false)
                               .DynamicHeight(true)
@@ -143,8 +132,7 @@
                       }
 
                   })
-                  .CategoryAxis(axis => axis.Name("dateAxis")
-                                            .Categories((string[])ViewBag.Dates)
+                  .CategoryAxis(axis => axis.Date()
                                             .BaseUnit(ChartAxisBaseUnit.Days)
                   // Align the first two value axes to the left
                   // and the last two to the right.
@@ -154,9 +142,8 @@
                   // the number of categories.
                   //.AxisCrossingValue(0, 0, 10, 10)
                   )
-
                   .ValueAxis(axis => axis.Numeric()
-                                         .Name("rateAxis")
+                                         //.Name("rateAxis")
                                          .Title("ставка")
                                          .Min(0.0)
                                          .Max(2.0)

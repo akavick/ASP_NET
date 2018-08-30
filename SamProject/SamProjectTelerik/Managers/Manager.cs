@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using SamProject.Models;
-using SamProject.Repositories;
+using SamProjectTelerik.Models;
+using SamProjectTelerik.Repositories;
 
 
 
 
 
-namespace SamProject.Managers
+namespace SamProjectTelerik.Managers
 {
 
     public class Manager : IManager
@@ -30,7 +30,7 @@ namespace SamProject.Managers
 
 
 
-        public async Task<IEnumerable<ChartData<DateTime>>> GetColumnsDataAsync(RsApplication application)
+        public async Task<IEnumerable<ChartSeries<DateTime, decimal>>> GetColumnsDataAsync(RsApplication application)
         {
             return await Task.Run(() =>
             {
@@ -61,12 +61,12 @@ namespace SamProject.Managers
                                            }
 
                                            var data =
-                                               dates.Select(d => new ChartPoint<DateTime>
+                                               dates.Select(d => new ChartPoint<DateTime, decimal>
                                                {
                                                    X = d,
-                                                   Y = (double)innerApp.Rate.Value,
-                                                   RsApplicationId = innerApp.Id,
-                                                   RsApplicationNumber = innerApp.Number
+                                                   Y = innerApp.Rate.Value,
+                                                   //RsApplicationId = innerApp.Id,
+                                                   //RsApplicationNumber = innerApp.Number
                                                })
                                                .ToArray();
 
@@ -74,15 +74,15 @@ namespace SamProject.Managers
                                        })
                                        .ToList();
 
-                                   var chartData = new ChartData<DateTime>
+                                   var chartSeries = new ChartSeries<DateTime, decimal>
                                    {
                                        Name = appGroup.Key.Name,
                                        Color = colors[i],
                                        DataSource = source,
-                                       SeriesType = Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn
+                                       //SeriesType = Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn
                                    };
 
-                                   return chartData;
+                                   return chartSeries;
                                })
                                .ToList();
 
@@ -94,9 +94,9 @@ namespace SamProject.Managers
 
 
 
-        public async Task<IEnumerable<ChartData<DateTime>>> GetLineDataAsync(RsApplication application)
+        public async Task<IEnumerable<ChartSeries<DateTime, decimal>>> GetLineDataAsync(RsApplication application)
         {
-            //var columnChartData =
+            //var columnChartSeries =
             //    (await GetColumnsDataAsync(application))
             //    .SelectMany(cd => cd.DataSource)
             //    .GroupBy(ds => ds.X)
@@ -107,12 +107,12 @@ namespace SamProject.Managers
             //    })
             //    .ToList();
 
-            //if (application.EndDate.Date > columnChartData.Last().X.Date)
+            //if (application.EndDate.Date > columnChartSeries.Last().X.Date)
             //{
-            //    columnChartData.Add(new ChartPoint<DateTime>
+            //    columnChartSeries.Add(new ChartPoint<DateTime>
             //    {
             //        X = application.EndDate.Date.AddHours(12),
-            //        Y = columnChartData.Last().Y
+            //        Y = columnChartSeries.Last().Y
             //    });
             //}
 
@@ -132,10 +132,10 @@ namespace SamProject.Managers
                     var data =
                         dates.Select(d => new
                         {
-                            ChartPoint = new ChartPoint<DateTime>
+                            ChartPoint = new ChartPoint<DateTime, decimal>
                             {
                                 X = d.AddHours(-12),
-                                Y = (double)aa.Rate.Value
+                                Y = aa.Rate.Value
                             }
                             ,Application = aa
                         })
@@ -169,11 +169,11 @@ namespace SamProject.Managers
             .ToList()
             .ForEach(d => lineData.Where(cp => cp.X == d.AddHours(-12))
                                   .ToList()
-                                  .ForEach(cp => cp.Y = 0.0));
+                                  .ForEach(cp => cp.Y = 0.0m));
 
             if (application.EndDate.Date > lineData.Last().X.Date)
             {
-                lineData.Add(new ChartPoint<DateTime>
+                lineData.Add(new ChartPoint<DateTime, decimal>
                 {
                     X = application.EndDate.Date.AddHours(12),
                     Y = lineData.Last().Y
@@ -184,14 +184,14 @@ namespace SamProject.Managers
 
 
 
-            var lineChart = new List<ChartData<DateTime>>
+            var lineChart = new List<ChartSeries<DateTime, decimal>>
             {
-                new ChartData<DateTime>
+                new ChartSeries<DateTime, decimal>
                 {
                     Name = "",
                     Color = "#2F2FFB",
                     DataSource = lineData,
-                    SeriesType = Syncfusion.EJ2.Charts.ChartSeriesType.StepLine
+                    //SeriesType = Syncfusion.EJ2.Charts.ChartSeriesType.StepLine
                 },
             };
 

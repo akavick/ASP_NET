@@ -2,8 +2,7 @@
   "version": "1.0.0",
   "name": "asp.net",
   "private": true,
-  "devDependencies":
-  {
-    "@syncfusion/ej2": "16.2.46"
+  "devDependencies": {
+    "@syncfusion/ej2": "16.2.50"
   }
 }

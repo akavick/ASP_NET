@@ -49,15 +49,14 @@ namespace SamProject
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                     .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
-            ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTE1NTlAMzEzNjJlMzIyZTMwZ2x5R0Z1ZExrVTZXQlgwMnFNVUdBNE4xMUhBT0doSlc3b1lSc1dtZElURT0=");
-            // 16.2.0.46sp Core // MTE1NTlAMzEzNjJlMzIyZTMwZ2x5R0Z1ZExrVTZXQlgwMnFNVUdBNE4xMUhBT0doSlc3b1lSc1dtZElURT0=
-            // 16.2.0.46sp All  // MTE1NjJAMzEzNjJlMzIyZTMwVjJsSXAxajBBRkhEY3BzNVhONTJQRGthVVpiVWpZZUJjMUdhZkROdW5PYz0=;MTE1NjNAMzEzNjJlMzIyZTMwSHpSZUx4SUxQQ1E0ejByTTBMMVhuOFpyTXBPVW81dUZZeU00RloxQlkzUT0=;MTE1NjRAMzEzNjJlMzIyZTMwQzZiVGtoWEhNTFlvckdwUzNvV3pwYi81bXZpVnF2QTArRUZMa3hKYjIrRT0=;MTE1NjVAMzEzNjJlMzIyZTMwVFRJMFlnZDNFR1dGWmtVRWk2NmxONTh1UkJXWDJNWndSRVRBdGRXc3dSRT0=;MTE1NjZAMzEzNjJlMzIyZTMwbE9hQTI5bUhMRUVWY0VueUI2ZFZ5VUNTTUlsbXhndmEzWVNUbndKODZZUT0=;MTE1NjdAMzEzNjJlMzIyZTMwS25id0tHeitpM0RkZzNkOGNud1dOQnBrU09xZXcwSi9YRGJycHdtbytRVT0=;MTE1NjhAMzEzNjJlMzIyZTMwaTROb2c1bHExQk9jc3BFcWtFd015MWNjbVhweG5WZVU4d21HWnVSOUJ1Zz0=;MTE1NjlAMzEzNjJlMzIyZTMwYmh1cnNrQkhIdm1tZ1hpSGVDdUYvSDkxNmRvd0xCUDgzVjM4UWN3YU1ocz0=;MTE1NzBAMzEzNjJlMzIyZTMwZ2x5R0Z1ZExrVTZXQlgwMnFNVUdBNE4xMUhBT0doSlc3b1lSc1dtZElURT0=
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTkwMDBAMzEzNjJlMzIyZTMwZ2FBVXg4N0l4U3pBRFdWK1hha0RTS3BjaytBZ1o3Nk8xeTFZUldDWGNEQT0=");
+            // 16.2.0.50sp Core // MTkwMDBAMzEzNjJlMzIyZTMwZ2FBVXg4N0l4U3pBRFdWK1hha0RTS3BjaytBZ1o3Nk8xeTFZUldDWGNEQT0=
+            // 16.2.0.50sp All  // MTkwMDFAMzEzNjJlMzIyZTMwRU9rMDF5Mk1maWpOTTQ2OWprdVM1OFhGMHc1NE9RQ3BFUHNFc1NXWmFrND0=;MTkwMDJAMzEzNjJlMzIyZTMwSGdDLzl6eVJ2RXU3VytHM1d3VGhPYVQ5ZmlFVWRVRW85T0tVS2wzdmVEWT0=;MTkwMDNAMzEzNjJlMzIyZTMwZFNXMWRPNHJnd1d5b2RaWUNXYWhuVDFDV0VyVnJ4Q1RIV2dIZkdaNFB4cz0=;MTkwMDRAMzEzNjJlMzIyZTMwSS93OGRvT083L0hOWDRJUUYyK1BQVHhNTitFSUtxT0l6eG9mSWc4VUUvaz0=;MTkwMDVAMzEzNjJlMzIyZTMwTk8wSUJ3cWVSdzdtaUQwaGttKzd6SmNCeE9lTlFPdC9XOWlSSUdHRTVYdz0=;MTkwMDZAMzEzNjJlMzIyZTMwWEVFVnZ2MFlFZklBdWJaOTc5aUpVRlYvSStFQUdSWC9MVk8xQ1E3aG5SND0=;MTkwMDdAMzEzNjJlMzIyZTMwaWVKYXY1ZGJxSXA0djF3NkVRU0drM1R3UEFCWUliUHNzK3RXZkZqN1FoST0=;MTkwMDhAMzEzNjJlMzIyZTMwTmlHVG1CT3lvcndnaGs4T3ZHN1NabmFzY05iMGlWQ0hvZTJZby94Y0Niaz0=;MTkwMDlAMzEzNjJlMzIyZTMwZ2FBVXg4N0l4U3pBRFdWK1hha0RTS3BjaytBZ1o3Nk8xeTFZUldDWGNEQT0=
 
 
             if (env.IsDevelopment())

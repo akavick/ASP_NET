@@ -1,0 +1,78 @@
+﻿@model RsApplication
+
+
+
+@*@{
+    var appIsNew = Model?.ApplicationStatus?.Type == RsApplicationStatusType.New;
+}
+
+
+
+<div>
+    <div class="mb-0">
+
+        <small class="text-muted">Проект</small>
+        <ejs-combobox id="Projects"
+                      placeholder="Выберите проект"
+                      popupHeight="200px"
+                      dataSource="@ViewBag.ProjectsDataSource"
+                      value="@Model?.Project?.Id"
+                      text="@Model?.Project?.Name"
+                      readonly="@(!appIsNew)"
+                      enabled="@(appIsNew)">
+
+            <e-combobox-fields text="Name"
+                               value="Id"></e-combobox-fields>
+        </ejs-combobox>
+
+    </div>
+
+
+
+    <div class="mb-3">
+
+        <ejs-accordion id="ProjectInfoAccordion">
+            <e-accordion-accordionitems>
+                <e-accordion-accordionitem expanded="false"
+                                           header="Информация о проекте"
+                                           content="#ProjectInfoAccordionContent">
+                </e-accordion-accordionitem>
+            </e-accordion-accordionitems>
+        </ejs-accordion>
+
+    </div>
+
+
+
+    <div id="ProjectInfoAccordionContent"
+         style="display: none">
+
+        <div class="mb-3">
+            <small class="text-muted">Заказчик</small>
+            <div>@Model?.Project?.Client?.Name</div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <small class="text-muted">Подразделение</small>
+                <div>@Model?.Department</div>
+            </div>
+            <div class="col-md-6">
+                <small class="text-muted">Рынок</small>
+                <div>@Model?.Market</div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <small class="text-muted">SMD</small>
+                <div>@Model?.Smd?.FullName</div>
+            </div>
+            <div class="col-md-6">
+                <small class="text-muted">Руководитель проекта</small>
+                <div>@Model?.ProjectManager?.FullName</div>
+            </div>
+        </div>
+
+    </div>
+</div>*@

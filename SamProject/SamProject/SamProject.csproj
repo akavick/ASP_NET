@@ -6,10 +6,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Syncfusion.EJ2" Version="16.2.0.46" />
+    <PackageReference Include="Syncfusion.EJ2" Version="16.2.0.50" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 

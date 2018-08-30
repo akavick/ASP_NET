@@ -1,0 +1,125 @@
+﻿@model RsApplication
+
+
+
+@*@{
+    var appIsNew = Model?.ApplicationStatus?.Type == RsApplicationStatusType.New;
+    var hours = ((Model?.EndDate - Model?.BeginDate)?.Days + 1) * Model?.Rate?.Value * 8;
+
+    if (hours == 0.0m)
+    {
+        hours = null;
+    }
+}
+
+
+
+
+<script>
+
+    function beginDateChange(obj)
+    {
+        console.log("bd");
+
+        document.getElementById("MainForm").submit();
+
+        //var grid =
+        //    document
+        //        .getElementById("CrossingGrid")
+        //        .ej2_instances[0];
+
+        //grid.dataSource = null;
+        //grid.refresh();
+    }
+
+    function endDateChange(obj)
+    {
+        console.log("ed");
+
+        document.getElementById("MainForm").submit();
+    }
+
+    function rateChange(obj)
+    {
+        console.log("r");
+
+        document.getElementById("MainForm").submit();
+    }
+
+</script>
+
+
+
+
+<div>
+    <div class="row">
+        <div class="col-md-6">
+
+            <small class="text-muted">Начало</small>
+            <ejs-datepicker id="beginDate"
+                            name="beginDate"
+                            placeholder="Выберите дату"
+                            value="@(Model?.BeginDate)"
+                            max="@(new DateTime(DateTime.Now.Year, 12, 31))"
+                            min="@(new DateTime(DateTime.Now.Year, 1, 1))"
+                            format="dd-MM-yyyy"
+                            change="beginDateChange"
+                            readonly="@(!appIsNew)"
+                            enabled="@(appIsNew)"></ejs-datepicker>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <small class="text-muted">Завершение</small>
+            <ejs-datepicker id="endDate"
+                            name="endDate"
+                            placeholder="Выберите дату"
+                            value="@(Model?.EndDate)"
+                            max="@(new DateTime(DateTime.Now.Year, 12, 31))"
+                            min="@(new DateTime(DateTime.Now.Year, 1, 1))"
+                            format="dd-MM-yyyy"
+                            change="endDateChange"
+                            readonly="@(!appIsNew)"
+                            enabled="@(appIsNew)"></ejs-datepicker>
+
+        </div>
+    </div>
+
+
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+
+            <small class="text-muted">Ставка</small>
+            <ejs-dropdownlist id="Rates"
+                              name="rate"
+                              dataSource="@(ViewBag.RatesDataSource)"
+                              placeholder="Выберите ставку"
+                              popupHeight="220px"
+                              value="@(Model?.Rate?.Type)"
+                              readonly="@(!appIsNew)"
+                              enabled="@(appIsNew)"
+                              change="rateChange">
+                
+                <e-dropdownlist-fields text="Name"
+                                       value="Type"></e-dropdownlist-fields>
+            </ejs-dropdownlist>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <small class="text-muted">Часов</small>
+            <ejs-numerictextbox id="Hours"
+                                showSpinButton="false"
+                                value="@(hours)"
+                                readonly="true"
+                                enabled="@(appIsNew)"
+                                format="n"
+                                Type="text"></ejs-numerictextbox>
+
+        </div>
+
+    </div>
+</div>*@
