@@ -31,9 +31,12 @@
           asp-antiforgery="true"
           class="needs-validation w-100">
         
-        <partial name="DemoMenu" />
-
-        <hr class="gradientlyHr" />
+        <div>
+            <input id="currentAppId"
+                   type="hidden"
+                   name="id"
+                   value="@Model?.Id" />
+        </div>
 
         <div>
             <partial name="ApplicationHeader" />
@@ -62,13 +65,11 @@
 
             <hr class="gradientlyHr" />
 
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col">
                     <partial name="CrossingGrid" />
                 </div>
-            </div>
 
-            <div class="row mb-3">
                 <div class="col-md-6">
                     <partial name="AmRateApplicationsGrid" />
                 </div>

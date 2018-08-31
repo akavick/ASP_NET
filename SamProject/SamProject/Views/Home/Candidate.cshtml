@@ -3,20 +3,36 @@
 
 
 @{
-    var specialties = Enum.GetValues(typeof(SpecialtyType))
-                          .Cast<SpecialtyType>()
-                          .Where(s => s != SpecialtyType.Unset)
-                          .Select(s => new Specialty { Type = s })
-                          .ToArray();
+    //var specialties = Enum.GetValues(typeof(SpecialtyType))
+    //                      .Cast<SpecialtyType>()
+    //                      .Where(s => s != SpecialtyType.Unset)
+    //                      .Select(s => new Specialty { Type = s })
+    //                      .ToArray();
 
-    var qualifications = Enum.GetValues(typeof(QualificationType))
-                             .Cast<QualificationType>()
-                             .Where(q => q != QualificationType.Unset)
-                             .Select(q => new Qualification { Type = q })
-                             .ToArray();
+    //var qualifications = Enum.GetValues(typeof(QualificationType))
+    //                         .Cast<QualificationType>()
+    //                         .Where(q => q != QualificationType.Unset)
+    //                         .Select(q => new Qualification { Type = q })
+    //                         .ToArray();
 
     var appIsNew = Model?.ApplicationStatus?.Type == RsApplicationStatusType.New;
 }
+
+
+
+
+<script>
+
+    function cbCandidatesChange(param)
+    {
+        document.getElementById("candidateDescriptionWrapper").style.display =
+            this.value !== null
+                ? "none"
+                : "block";
+    }
+
+</script>
+
 
 
 
@@ -31,7 +47,8 @@
                       value="@Model?.Candidate?.Id"
                       text="@Model?.Candidate?.FullName"
                       readonly="@(!appIsNew)"
-                      enabled="@(appIsNew)">
+                      enabled="@(appIsNew)"
+                      change="cbCandidatesChange">
 
             <e-combobox-fields groupBy="Specialty.Name"
                                text="FullName"
@@ -39,10 +56,23 @@
         </ejs-combobox>
 
     </div>
+    
+    <div id="candidateDescriptionWrapper"
+         class="mb-3"
+         style="display: @(Model?.Candidate?.Id != null ? "none" : "block")">
+        <small class="text-muted">Описание</small>
+        <div class="e-input-group">
+            <input class="e-input"
+                   placeholder="@(!appIsNew ? "" : "Введите описание")"
+                   type="text"
+                   @(!appIsNew ? "readonly" : "")
+                   @(!appIsNew ? "disabled" : "")
+                   value="@Model?.CandidateDescription" />
+        </div>
+    </div>
 
 
-
-    <div class="mb-3">
+    @*<div class="mb-3">
 
         <ejs-accordion id="CandidateInfoAccordion">
             <e-accordion-accordionitems>
@@ -102,5 +132,5 @@
             </div>
         </div>
 
-    </div>
+    </div>*@
 </div>

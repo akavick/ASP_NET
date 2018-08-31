@@ -34,17 +34,11 @@ namespace SamProjectTelerik.Managers
         {
             return await Task.Run(() =>
             {
-                var dateSpan = new DateSpan
-                {
-                    BeginDate = application.BeginDate.AddDays(-1),
-                    EndDate = application.EndDate.AddDays(1)
-                };
-
                 var colors = new[] { "green", "darkred", "darkgray", "darkorange", "lightblue", "darkblue" };
 
                 var columnChart =
                     _repository.ReservationSystemApplications
-                               .Where(app => app.IntersectsWith(dateSpan))
+                               .Where(app => app.IntersectsWith(application))
                                .GroupBy(app => app.Project)
                                .Select((appGroup, i) =>
                                {
@@ -134,7 +128,7 @@ namespace SamProjectTelerik.Managers
                         {
                             ChartPoint = new ChartPoint<DateTime, decimal>
                             {
-                                X = d.AddHours(-12),
+                                X = d,
                                 Y = aa.Rate.Value
                             }
                             ,Application = aa
@@ -167,18 +161,18 @@ namespace SamProjectTelerik.Managers
             })
             .OrderBy(d => d)
             .ToList()
-            .ForEach(d => lineData.Where(cp => cp.X == d.AddHours(-12))
+            .ForEach(d => lineData.Where(cp => cp.X == d)
                                   .ToList()
                                   .ForEach(cp => cp.Y = 0.0m));
 
-            if (application.EndDate.Date > lineData.Last().X.Date)
-            {
-                lineData.Add(new ChartPoint<DateTime, decimal>
-                {
-                    X = application.EndDate.Date.AddHours(12),
-                    Y = lineData.Last().Y
-                });
-            }
+            //if (application.EndDate.Date > lineData.Last().X.Date)
+            //{
+            //    lineData.Add(new ChartPoint<DateTime, decimal>
+            //    {
+            //        X = application.EndDate.Date.AddHours(12),
+            //        Y = lineData.Last().Y
+            //    });
+            //}
 
 
 

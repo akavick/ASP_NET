@@ -13,6 +13,63 @@
 
 
 
+<style>
+    .e-grid .e-headercell .customcss
+    {
+        background-color: #2382c3 !important;
+        color: white !important;
+        font-family: 'Bell MT' !important;
+        font-size: 20px !important;
+    }
+
+    .clickableNumber 
+    {
+        color: cornflowerblue;
+        text-decoration: underline;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .clickableNumber:hover 
+    {
+        color: orange;
+    }
+
+</style>
+
+
+
+
+
+<script>
+
+    function crossingGridDataBound(args)
+    {
+        console.log("crossingGridDataBound");
+
+        //var grid =
+        //    document
+        //        .getElementById("CrossingGrid")
+        //        .ej2_instances[0];
+
+        //grid.refresh();
+
+        this.autoFitColumns();
+    }
+
+    function setAppIdAndSubmit(appId)
+    {
+        console.log("setAppIdAndSubmit");
+
+        document.getElementById("currentAppId").value = appId;
+        document.getElementById("MainForm").submit();
+    }
+
+</script>
+
+
+
+
 
 
 
@@ -63,25 +120,29 @@
                 <e-grid-column field="Number"
                                customAttributes="@(new {@class = "customcss"})"
                                headerText="Номер"
-                               width="30"></e-grid-column>
+                               width="30"
+                               template="#numberTemplate"></e-grid-column>
                 <e-grid-column field="ApplicationStatus.Name"
                                headerText="Статус"
                                width="50"></e-grid-column>
                 <e-grid-column field="Project.Name"
                                headerText="Проект"
                                width="50"></e-grid-column>
-                <e-grid-column field="Specialty.Name"
+                @*<e-grid-column field="Specialty.Name"
                                headerText="Специальность"
-                               width="50"></e-grid-column>
-                <e-grid-column field="Qualification.Name"
+                               width="50"></e-grid-column>*@
+                @*<e-grid-column field="Qualification.Name"
                                headerText="Квалификация"
-                               width="40"></e-grid-column>
+                               width="40"></e-grid-column>*@
                 <e-grid-column field="Rate.Name"
                                headerText="Ставка"
                                width="30"></e-grid-column>
-                <e-grid-column field="Candidate.FullName"
+                <e-grid-column field="Hours"
+                               headerText="Часов"
+                               width="30"></e-grid-column>
+                @*<e-grid-column field="Candidate.FullName"
                                headerText="Кандидат"
-                               width="50"></e-grid-column>
+                               width="50"></e-grid-column>*@
                 <e-grid-column field="BeginDate"
                                headerText="Начало"
                                width="40"
@@ -105,33 +166,9 @@
 
 
 
-
-<style>
-    .e-grid .e-headercell .customcss
-    {
-        background-color: #2382c3 !important;
-        color: white !important;
-        font-family: 'Bell MT' !important;
-        font-size: 20px !important;
-    }
-</style>
-
-
-
-
-
-<script>
-
-    function crossingGridDataBound(args)
-    {
-        //var grid =
-        //    document
-        //        .getElementById("CrossingGrid")
-        //        .ej2_instances[0];
-
-        //grid.refresh();
-
-        this.autoFitColumns();
-    }
-
+<script id="numberTemplate" type="text/x-template">
+    <div class="clickableNumber"
+         onclick=setAppIdAndSubmit(${Id})>
+        ${Number}
+    </div>
 </script>

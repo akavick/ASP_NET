@@ -204,7 +204,7 @@ namespace SamProject.Managers
 
         public async Task<IEnumerable<RsApplication>> GetCrossingGridDataAsync(RsApplication application)
         {
-            return await Task.Run(() => _repository.ReservationSystemApplications
+            return await Task.FromResult(_repository.ReservationSystemApplications
                                                    .Where(a => a.Id != application.Id && a.IntersectsWith(application))
                                                    .ToArray());
         }
@@ -215,7 +215,7 @@ namespace SamProject.Managers
 
         public async Task<IEnumerable<Comment>> GetCommentsAsync()
         {
-            return await Task.Run(() => _repository.Comments);
+            return await Task.FromResult(_repository.Comments);
         }
 
 
@@ -224,7 +224,7 @@ namespace SamProject.Managers
 
         public async Task<IEnumerable<Person>> GetPeopleAsync()
         {
-            return await Task.Run(() => _repository.People);
+            return await Task.FromResult(_repository.People);
         }
 
 
@@ -233,7 +233,7 @@ namespace SamProject.Managers
 
         public async Task<IEnumerable<Client>> GetClientsAsync()
         {
-            return await Task.Run(() => _repository.Clients);
+            return await Task.FromResult(_repository.Clients);
         }
 
 
@@ -242,7 +242,7 @@ namespace SamProject.Managers
 
         public async Task<IEnumerable<Project>> GetProjectsAsync()
         {
-            return await Task.Run(() => _repository.Projects);
+            return await Task.FromResult(_repository.Projects);
         }
 
 
@@ -251,7 +251,7 @@ namespace SamProject.Managers
 
         public async Task<IEnumerable<Rate>> GetRatesAsync()
         {
-            return await Task.Run(() => Rate.Values
+            return await Task.FromResult(Rate.Values
                                             .Where(r => r.Type != RateValueType.Unset)
                                             .ToArray());
         }
@@ -262,7 +262,7 @@ namespace SamProject.Managers
 
         public async Task<IEnumerable<RsApplication>> GetApplicationsAsync()
         {
-            return await Task.Run(() => _repository.ReservationSystemApplications);
+            return await Task.FromResult(_repository.ReservationSystemApplications);
         }
 
 
@@ -271,7 +271,7 @@ namespace SamProject.Managers
 
         public async Task<IEnumerable<AmOzsApplication>> GetAmOzsApplicationsAsync(RsApplication application)
         {
-            return await Task.Run(() => _repository.AmApplications
+            return await Task.FromResult(_repository.AmApplications
                                                    .OfType<AmOzsApplication>()
                                                    .Where(a => a.IntersectsWith(application))
                                                    .ToArray());
@@ -283,7 +283,7 @@ namespace SamProject.Managers
 
         public async Task<IEnumerable<AmRateApplication>> GetAmRateApplicationsAsync(RsApplication application)
         {
-            return await Task.Run(() => _repository.AmApplications
+            return await Task.FromResult(_repository.AmApplications
                                                    .OfType<AmRateApplication>()
                                                    .Where(a => a.IntersectsWith(application))
                                                    .ToArray());
@@ -295,7 +295,7 @@ namespace SamProject.Managers
 
         public async Task<RsApplication> GetNewApplication()
         {
-            return await Task.Run(() => new RsApplication
+            return await Task.FromResult(new RsApplication
             {
                 Candidate = _repository.People.Single(p => p.Id == 1) //Храмцов
             });

@@ -33,9 +33,6 @@
     <Content Update="Views\Home\Candidate.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Home\DemoMenu.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Views\Home\AmOzsApplicationsGrid.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

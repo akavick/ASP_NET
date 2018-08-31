@@ -81,6 +81,11 @@ namespace SamProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Form(int id, DateTime beginDate, DateTime endDate, RateValueType rate)
         {
+            if (beginDate > endDate)
+            {
+                beginDate = endDate;
+            }
+
             var app = 
                 (await _manager.GetApplicationsAsync())
                 .FirstOrDefault(a => a.Id == id);
@@ -113,6 +118,21 @@ namespace SamProject.Controllers
         //{
         //    return await GridDataSource(dm, id, new RsApplication());
         //}
+
+
+
+
+
+        public async Task<IActionResult> ProjectInfo(int projectId)
+        {
+            var project = 
+                (await _manager.GetProjectsAsync())
+                .SingleOrDefault(p => p.Id == projectId) ?? new Project();
+
+
+            return await Task.FromResult(Json(project));
+        }
+
 
 
 
@@ -217,7 +237,7 @@ namespace SamProject.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return await Task.Run(() => View());
+            return await Task.FromResult(View());
         }
 
 
@@ -226,7 +246,7 @@ namespace SamProject.Controllers
 
         public async Task<IActionResult> Privacy()
         {
-            return await Task.Run(() => View());
+            return await Task.FromResult(View());
         }
 
 

@@ -95,7 +95,7 @@
     @(Html.Kendo()
                   .Chart()
                   .Name("chart")
-                  .Zoomable(true)
+                  .Zoomable(zoom => zoom.Mousewheel(opt => opt.Lock(ChartAxisLock.Y)))
                   .HtmlAttributes(new { width = "100%", height = "100%" })
                   .Title("")
                   .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
@@ -150,6 +150,7 @@
                                          .MajorUnit(0.25))
 
                   .Tooltip(tooltip => tooltip.Visible(true)
+                                             .Shared(true)
                                              .Template("#= series.name #: #= value #"))
                   .Events(events => events
                       .SeriesClick("onSeriesClick")

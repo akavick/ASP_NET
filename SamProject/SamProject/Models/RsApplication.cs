@@ -46,6 +46,7 @@ namespace SamProject.Models
             set => _endDate = value.Date;
         }
 
+        public decimal Hours => ((EndDate - BeginDate).Days + 1) * 8 * Rate.Value;
 
 
 

@@ -8,6 +8,35 @@
 
 
 
+
+
+<script>
+
+    function cbProjetsChange(parameters)
+    {
+        console.log("cbProjetsChange");
+
+        $.ajax({
+            type: "POST",
+            url: "@(Url.Action("ProjectInfo", "Home"))",
+            // передача в качестве объекта
+            // поля будут закодированые через encodeURIComponent автоматически
+            data: { projectId: this.value },
+            success: function (project)
+            {
+                document.getElementById("projectDepartment").innerHTML = project.Department;
+                document.getElementById("projectMarket").innerHTML = project.Market;
+                document.getElementById("projectClientName").innerHTML = project.Client.Name;
+            }
+        });
+    }
+
+</script>
+
+
+
+
+
 <div>
     <div class="mb-0">
 
@@ -19,7 +48,8 @@
                       value="@Model?.Project?.Id"
                       text="@Model?.Project?.Name"
                       readonly="@(!appIsNew)"
-                      enabled="@(appIsNew)">
+                      enabled="@(appIsNew)"
+                      change="cbProjetsChange">
 
             <e-combobox-fields text="Name"
                                value="Id"></e-combobox-fields>
@@ -49,28 +79,28 @@
 
         <div class="mb-3">
             <small class="text-muted">Заказчик</small>
-            <div>@Model?.Project?.Client?.Name</div>
+            <div id="projectClientName">@Model?.Project?.Client?.Name</div>
         </div>
 
         <div class="row mb-3">
             <div class="col-md-6">
                 <small class="text-muted">Подразделение</small>
-                <div>@Model?.Department</div>
+                <div id="projectDepartment">@Model?.Department</div>
             </div>
             <div class="col-md-6">
                 <small class="text-muted">Рынок</small>
-                <div>@Model?.Market</div>
+                <div  id="projectMarket">@Model?.Market</div>
             </div>
         </div>
 
         <div class="row mb-3">
             <div class="col-md-6">
                 <small class="text-muted">SMD</small>
-                <div>@Model?.Smd?.FullName</div>
+                <div id="projectSmdFullName">@Model?.Smd?.FullName</div>
             </div>
             <div class="col-md-6">
                 <small class="text-muted">Руководитель проекта</small>
-                <div>@Model?.ProjectManager?.FullName</div>
+                <div id="projectProjectManagerFullName">@Model?.ProjectManager?.FullName</div>
             </div>
         </div>
 

@@ -43,7 +43,15 @@
     {
         console.log("r");
 
-        document.getElementById("MainForm").submit();
+        let bd = document.getElementById("beginDate").ej2_instances[0].value;
+        let edLesser = document.getElementById("endDate").ej2_instances[0].value;
+        let ed = new Date(edLesser);
+
+        ed.setDate(edLesser.getDate() + 1);
+
+        let hours = (Math.abs(ed - bd) / 3600000 / 3) * parseFloat(this.text);
+
+        document.getElementById("Hours").ej2_instances[0].value = hours;
     }
 
 </script>
@@ -60,8 +68,8 @@
                             name="beginDate"
                             placeholder="Выберите дату"
                             value="@(Model?.BeginDate)"
-                            max="@(new DateTime(DateTime.Now.Year, 12, 31))"
-                            min="@(new DateTime(DateTime.Now.Year, 1, 1))"
+                            max="@(Model?.EndDate)"
+                            min="@(appIsNew ? new DateTime(DateTime.Now.Year, 1, 1) : Model?.BeginDate)"
                             format="dd-MM-yyyy"
                             change="beginDateChange"
                             readonly="@(!appIsNew)"
@@ -76,8 +84,8 @@
                             name="endDate"
                             placeholder="Выберите дату"
                             value="@(Model?.EndDate)"
-                            max="@(new DateTime(DateTime.Now.Year, 12, 31))"
-                            min="@(new DateTime(DateTime.Now.Year, 1, 1))"
+                            max="@(appIsNew ? new DateTime(DateTime.Now.Year, 12, 31) : Model?.EndDate)"
+                            min="@(Model?.BeginDate)"
                             format="dd-MM-yyyy"
                             change="endDateChange"
                             readonly="@(!appIsNew)"
