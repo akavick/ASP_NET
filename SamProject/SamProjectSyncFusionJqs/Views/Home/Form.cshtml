@@ -1,0 +1,92 @@
+﻿@model RsApplication
+
+@{
+    ViewData["Title"] = "Form";
+}
+
+
+
+
+
+<style>
+
+    .gradientlyHr
+    {
+        border: 0;
+        height: 1px;
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+    }
+</style>
+
+
+
+
+
+<div>
+
+
+    <form id="MainForm"
+          asp-action="Form"
+          asp-controller="Home"
+          asp-antiforgery="true"
+          class="needs-validation w-100">
+        
+        <div>
+            <input id="currentAppId"
+                   type="hidden"
+                   name="id"
+                   value="@Model?.Id" />
+        </div>
+
+        <div>
+            <partial name="ApplicationHeader" />
+
+            <hr class="gradientlyHr" />
+
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <partial name="Project" />
+                    <partial name="ApplicationInfo" />
+                    <partial name="Candidate" />
+                </div>
+
+                <div class="col-md-8">
+                    <partial name="Comments" />
+                </div>
+            </div>
+
+            <hr class="gradientlyHr" />
+
+            <div class="row mb-3">
+                <div class="col">
+                    <partial name="Chart" />
+                </div>
+            </div>
+
+            <hr class="gradientlyHr" />
+
+            <div class="row mb-3">
+                <div class="col">
+                    <partial name="CrossingGrid" />
+                </div>
+
+                <div class="col-md-6">
+                    <partial name="AmRateApplicationsGrid" />
+                </div>
+
+                <div class="col-md-6">
+                    <partial name="AmOzsApplicationsGrid" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <partial name="Buttons" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+

@@ -1,6 +1,4 @@
-﻿@using SamProjectTelerik.Controllers
-
-@model RsApplication
+﻿@model RsApplication
 
 
 
@@ -154,20 +152,20 @@
                                              .Template("#= series.name #: #= value #"))
                   .Events(events => events
                       .SeriesClick("onSeriesClick")
-                  //.SeriesHover("onSeriesHover")
-                  //.DataBound("onDataBound")
-                  //.AxisLabelClick("onAxisLabelClick")
-                  //.PlotAreaClick("onPlotAreaClick")
-                  //.PlotAreaHover("onPlotAreaHover")
-                  //.Render("onRender")
-                  //.LegendItemClick("onLegendItemClick")
-                  //.LegendItemHover("onLegendItemHover")
-                  //.DragStart("onDragStart")
-                  //.Drag("onDrag")
-                  //.DragEnd("onDragEnd")
-                  //.ZoomStart("onZoomStart")
-                  //.Zoom("onZoom")
-                  //.ZoomEnd("onZoomEnd")
+                      //.SeriesHover("onSeriesHover")
+                      .DataBound("onDataBound")
+                      .AxisLabelClick("onAxisLabelClick")
+                      .PlotAreaClick("onPlotAreaClick")
+                      //.PlotAreaHover("onPlotAreaHover")
+                      .Render("onRender")
+                      .LegendItemClick("onLegendItemClick")
+                      .LegendItemHover("onLegendItemHover")
+                      .DragStart("onDragStart")
+                      .Drag("onDrag")
+                      .DragEnd("onDragEnd")
+                      .ZoomStart("onZoomStart")
+                      .Zoom("onZoom")
+                      .ZoomEnd("onZoomEnd")
                   )
 
     )

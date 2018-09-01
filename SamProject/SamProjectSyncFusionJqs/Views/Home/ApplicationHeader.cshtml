@@ -1,0 +1,23 @@
+﻿@model RsApplication
+
+
+
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <div>
+        <h4 class="mb-3">
+            Заявка #<span style="color: #317ab9">@(Model?.Number ?? "0000")</span> Статус: <span style="color: #317ab9">@(Model?.ApplicationStatus.ToString() ?? new RsApplicationStatus().ToString())</span>
+        </h4>
+    </div>
+    <div style="display: flex;">
+        <small class="text-muted"
+               style="margin-right: 5px;">Сброс демо</small>
+        <div>
+            @*<ejs-button id="NewApplicationButton"
+                        content="Новая заявка"
+                        isPrimary="true"
+                        type="button"
+                        onclick="location.replace('@(Url.Action("Form", "Home"))');">
+            </ejs-button>*@
+        </div>
+    </div>
+</div>
