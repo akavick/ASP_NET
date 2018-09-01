@@ -3,29 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCore", "AspNetCore\AspNetCore.csproj", "{17F7BFDC-8D22-4B88-B8E9-22E580CAFF69}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AngularWebpack", "AngularWebpack\AngularWebpack.csproj", "{84EE0055-8F78-4711-BB1A-19EB7FEFE6FA}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowToBeatNPM_1", "HowToBeatNPM_1\HowToBeatNPM_1.csproj", "{42D67FC6-5CBF-4942-BE9E-6819590DCCF7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowToBeatNPM_2", "HowToBeatNPM_2\HowToBeatNPM_2.csproj", "{E302F3B7-3C2B-4685-8F90-38348BF41BFF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HowToBeatNPM_3", "HowToBeatNPM_3\HowToBeatNPM_3.csproj", "{DA6847FA-4B5B-4845-A6D8-3A5023EDEA54}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorPages", "RazorPages\RazorPages.csproj", "{30814315-408E-4DB5-9204-5EC8364A6089}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GridTest_001", "GridTest_001\GridTest_001.csproj", "{AF781299-73A8-4921-A1DB-8AA9A1631924}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chart_01", "Chart_01\Chart_01.csproj", "{F345E14B-A1AC-4EDC-B04C-1961DA67C8D9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reporting_01", "Reporting_01\Reporting_01.csproj", "{2EC45E36-C15B-4E3D-BB2E-C511E8998F5F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Canvas", "Canvas\Canvas.csproj", "{8848D4ED-A26D-4B09-B2A8-936900D02801}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jqwTest", "jqwTest\jqwTest.csproj", "{0559AC87-DB27-4FE5-A54A-9F1D6FB90C0F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularNew", "AngularNew\AngularNew.csproj", "{934AD5D6-192F-47F5-BD3B-68DFE18F5235}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp", "BlazorApp\BlazorApp.csproj", "{8F4F9206-8A3A-4BF1-859C-9C2C476E7DA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,14 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{17F7BFDC-8D22-4B88-B8E9-22E580CAFF69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{17F7BFDC-8D22-4B88-B8E9-22E580CAFF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{17F7BFDC-8D22-4B88-B8E9-22E580CAFF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{17F7BFDC-8D22-4B88-B8E9-22E580CAFF69}.Release|Any CPU.Build.0 = Release|Any CPU
-		{84EE0055-8F78-4711-BB1A-19EB7FEFE6FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84EE0055-8F78-4711-BB1A-19EB7FEFE6FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84EE0055-8F78-4711-BB1A-19EB7FEFE6FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84EE0055-8F78-4711-BB1A-19EB7FEFE6FA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{42D67FC6-5CBF-4942-BE9E-6819590DCCF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{42D67FC6-5CBF-4942-BE9E-6819590DCCF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42D67FC6-5CBF-4942-BE9E-6819590DCCF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -53,18 +33,6 @@ Global
 		{DA6847FA-4B5B-4845-A6D8-3A5023EDEA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA6847FA-4B5B-4845-A6D8-3A5023EDEA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA6847FA-4B5B-4845-A6D8-3A5023EDEA54}.Release|Any CPU.Build.0 = Release|Any CPU
-		{30814315-408E-4DB5-9204-5EC8364A6089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{30814315-408E-4DB5-9204-5EC8364A6089}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30814315-408E-4DB5-9204-5EC8364A6089}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{30814315-408E-4DB5-9204-5EC8364A6089}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF781299-73A8-4921-A1DB-8AA9A1631924}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF781299-73A8-4921-A1DB-8AA9A1631924}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF781299-73A8-4921-A1DB-8AA9A1631924}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF781299-73A8-4921-A1DB-8AA9A1631924}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F345E14B-A1AC-4EDC-B04C-1961DA67C8D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F345E14B-A1AC-4EDC-B04C-1961DA67C8D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F345E14B-A1AC-4EDC-B04C-1961DA67C8D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F345E14B-A1AC-4EDC-B04C-1961DA67C8D9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2EC45E36-C15B-4E3D-BB2E-C511E8998F5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2EC45E36-C15B-4E3D-BB2E-C511E8998F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2EC45E36-C15B-4E3D-BB2E-C511E8998F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -73,14 +41,10 @@ Global
 		{8848D4ED-A26D-4B09-B2A8-936900D02801}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8848D4ED-A26D-4B09-B2A8-936900D02801}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8848D4ED-A26D-4B09-B2A8-936900D02801}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0559AC87-DB27-4FE5-A54A-9F1D6FB90C0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0559AC87-DB27-4FE5-A54A-9F1D6FB90C0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0559AC87-DB27-4FE5-A54A-9F1D6FB90C0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0559AC87-DB27-4FE5-A54A-9F1D6FB90C0F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{934AD5D6-192F-47F5-BD3B-68DFE18F5235}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{934AD5D6-192F-47F5-BD3B-68DFE18F5235}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{934AD5D6-192F-47F5-BD3B-68DFE18F5235}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{934AD5D6-192F-47F5-BD3B-68DFE18F5235}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F4F9206-8A3A-4BF1-859C-9C2C476E7DA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F4F9206-8A3A-4BF1-859C-9C2C476E7DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F4F9206-8A3A-4BF1-859C-9C2C476E7DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F4F9206-8A3A-4BF1-859C-9C2C476E7DA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
