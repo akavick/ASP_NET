@@ -30,7 +30,7 @@
           asp-controller="Home"
           asp-antiforgery="true"
           class="needs-validation w-100">
-        
+
         <div>
             <input id="currentAppId"
                    type="hidden"
@@ -38,37 +38,49 @@
                    value="@Model?.Id" />
         </div>
 
-        <div>
-            <partial name="ApplicationHeader" />
+        @*<div>
+        <partial name="ApplicationHeader" />
 
-            <hr class="gradientlyHr" />
+        <hr class="gradientlyHr" />
 
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <partial name="Project" />
-                    <partial name="ApplicationInfo" />
-                    <partial name="Candidate" />
-                </div>
-
-                <div class="col-md-8">
-                    <partial name="Comments" />
-                </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <partial name="Project" />
+                <partial name="ApplicationInfo" />
+                <partial name="Candidate" />
             </div>
 
-            <hr class="gradientlyHr" />
-
-            <div class="row mb-3">
-                <div class="col">
-                    <partial name="Chart" />
-                </div>
+            <div class="col-md-8">
+                <partial name="Comments" />
             </div>
+        </div>
 
-            <hr class="gradientlyHr" />
+        <hr class="gradientlyHr" />
 
-            <div class="row mb-3">
-                <div class="col">
-                    <partial name="CrossingGrid" />
-                </div>
+        <div class="row mb-3">
+            <div class="col">
+                <partial name="Chart" />
+            </div>
+        </div>
+
+        <hr class="gradientlyHr" />
+
+        <div class="row mb-3">
+            <div class="col">*@
+        
+        @*<iframe id="chartIframe" 
+                data-html="true"
+                style="width:100%; height:400px" 
+                src="@Url.Action("ChartWrapper", "Home", new { app = Model })"></iframe>*@
+        
+        @*@{ await Html.RenderPartialAsync("Chart", Model); }*@
+        
+
+        <partial name="Chart" model="@Model" />
+        <partial name="CrossingGrid" />
+        <partial name="AmRateApplicationsGrid" />
+        <partial name="AmOzsApplicationsGrid" />
+        @*</div>
 
                 <div class="col-md-6">
                     <partial name="AmRateApplicationsGrid" />
@@ -84,7 +96,7 @@
                     <partial name="Buttons" />
                 </div>
             </div>
-        </div>
+        </div>*@
     </form>
 </div>
 

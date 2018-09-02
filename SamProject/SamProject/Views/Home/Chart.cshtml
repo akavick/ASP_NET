@@ -2,6 +2,8 @@
 
 
 
+
+
 @{
     var lines = new
     {
@@ -25,27 +27,25 @@
 
 
 
+
 <script>
 
     function chartMouseClick(obj)
     {
         console.log(obj.target);
     }
-
+    //window.onChartLoad = function(obj)
+    //{
+    //    console.log("hi");
+    //};
 </script>
 
 
-
-
-
 <div>
-    <ejs-chart id="splineContainer"
+    <ejs-chart id="Chart"
                load="window.onChartLoad"
                chartMouseClick="chartMouseClick"
                height="300">
-
-        @*<e-data-manager url="@(Url.Action("ChartDataSource", "Home", new {id = Model.Id}))"
-                        adaptor="UrlAdaptor"></e-data-manager>*@
 
         <e-chart-primaryxaxis majorGridLines="@lines"
                               labelIntersectAction="Rotate45"
@@ -66,8 +66,6 @@
                               lineStyle="@lines"></e-chart-primaryyaxis>
 
         <e-series-collection>
-            
-            @*<e-data-manager dataType=""></e-data-manager>*@
 
             @foreach (ChartData<DateTime> chartData in ViewBag.ColumnsDataSource)
             {
@@ -75,6 +73,7 @@
                           name="@(chartData.Name)"
                           id="@(chartData.Name)"
                           columnWidth="0.75"
+                          columnSpacing="0.1"
                           xName="X"
                           yName="Y"
                           width="2"
@@ -83,12 +82,10 @@
                           legendShape="@(Syncfusion.EJ2.Charts.LegendShape.SeriesType)"
                           type="@(chartData.SeriesType)">
 
-                    @*<e-data-manager></e-data-manager>*@
-                    
                     <e-segments>
-                        <e-segment ></e-segment>
+                        <e-segment></e-segment>
                     </e-segments>
- 
+
                 </e-series>
             }
 
@@ -110,6 +107,8 @@
 
         <e-chart-zoomsettings enableMouseWheelZooming="true"
                               enablePinchZooming="true"
+                              enablePan="true"
+                              enableSelectionZooming="true"
                               mode="X"
                               enableScrollbar="true"></e-chart-zoomsettings>
 
@@ -132,3 +131,15 @@
 
     </ejs-chart>
 </div>
+
+
+
+
+@*<script>
+
+    let newDiv = document.createElement("div");
+    newDiv.innerHTML = "<h1>Привет!</h1>";
+    document.body.appendChild(newDiv);
+
+
+</script>*@

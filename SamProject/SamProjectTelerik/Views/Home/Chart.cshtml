@@ -91,82 +91,104 @@
 <div class="demo-section k-content wide">
 
     @(Html.Kendo()
-                  .Chart()
-                  .Name("chart")
-                  .Zoomable(zoom => zoom.Mousewheel(opt => opt.Lock(ChartAxisLock.Y)))
-                  .HtmlAttributes(new { width = "100%", height = "100%" })
-                  .Title("")
-                  .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
-                  .Series(series =>
-                  {
-                      foreach (var columnChartSeries in (IEnumerable<ChartSeries<DateTime, decimal>>)ViewBag.ColumnsDataSource)
-                      {
-                          series
-                              .Column(columnChartSeries.DataSource)
-                              .CategoryField("X")
-                              .Field("Y")
-                              .Stack(true)
-                              .Color(columnChartSeries.Color)
-                              .Name(columnChartSeries.Name)
-                              .DynamicHeight(true)
-                              .DynamicSlope(true)
-                              .Border(b => b.Width(0));
-                      }
 
-                      foreach (var lineChartSeries in (IEnumerable<ChartSeries<DateTime, decimal>>)ViewBag.LineDataSource)
-                      {
-                          series
-                              .Line(lineChartSeries.DataSource)
-                              .CategoryField("X")
-                              .Field("Y")
-                              .Style(ChartSeriesStyle.Step)
-                              .Markers(m => m.Visible(false).Size(0))
-                              .Color(lineChartSeries.Color)
-                              .Name(lineChartSeries.Name)
-                              .Tooltip(t => t.Visible(false))
-                              .VisibleInLegend(false)
-                              .DynamicHeight(true)
-                              .DynamicSlope(true);
-                      }
+          .Chart()
 
-                  })
-                  .CategoryAxis(axis => axis.Date()
-                                            .BaseUnit(ChartAxisBaseUnit.Days)
-                  // Align the first two value axes to the left
-                  // and the last two to the right.
-                  //
-                  // Right alignment is done by specifying a
-                  // crossing value greater than or equal to
-                  // the number of categories.
-                  //.AxisCrossingValue(0, 0, 10, 10)
-                  )
-                  .ValueAxis(axis => axis.Numeric()
-                                         //.Name("rateAxis")
-                                         .Title("ставка")
-                                         .Min(0.0)
-                                         .Max(2.0)
-                                         .MajorUnit(0.25))
+          .RenderAs(RenderingMode.SVG)
 
-                  .Tooltip(tooltip => tooltip.Visible(true)
-                                             .Shared(true)
-                                             .Template("#= series.name #: #= value #"))
-                  .Events(events => events
-                      .SeriesClick("onSeriesClick")
-                      //.SeriesHover("onSeriesHover")
-                      .DataBound("onDataBound")
-                      .AxisLabelClick("onAxisLabelClick")
-                      .PlotAreaClick("onPlotAreaClick")
-                      //.PlotAreaHover("onPlotAreaHover")
-                      .Render("onRender")
-                      .LegendItemClick("onLegendItemClick")
-                      .LegendItemHover("onLegendItemHover")
-                      .DragStart("onDragStart")
-                      .Drag("onDrag")
-                      .DragEnd("onDragEnd")
-                      .ZoomStart("onZoomStart")
-                      .Zoom("onZoom")
-                      .ZoomEnd("onZoomEnd")
-                  )
+          .Name("chart")
+          
+          .Zoomable(conf => conf.Mousewheel(opt => opt.Lock(ChartAxisLock.Y))
+                                .Selection(selection => selection.Lock(ChartAxisLock.Y)))
+          
+          .Pannable(conf => conf.Lock(ChartAxisLock.Y))
+
+          .HtmlAttributes(new { style = "height:300px; width:100%" })
+
+          .Title("")
+
+          .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
+
+          .Series(series =>
+          {
+              foreach (var columnChartSeries in (IEnumerable<ChartSeries<DateTime, decimal>>)ViewBag.ColumnsDataSource)
+              {
+                  series.Column(columnChartSeries.DataSource)
+                        .Aggregate(conf => conf.Close(ChartSeriesAggregate.Sum))
+                        .CategoryField("X")
+                        .Field("Y")
+                        .Stack(true)
+                        .Color(columnChartSeries.Color)
+                        .Name(columnChartSeries.Name)
+                        .DynamicHeight(true)
+                        .DynamicSlope(true)
+                        .Border(b => b.Width(0));
+              }
+
+              foreach (var lineChartSeries in (IEnumerable<ChartSeries<DateTime, decimal>>)ViewBag.LineDataSource)
+              {
+                  series.Line(lineChartSeries.DataSource)
+                        .CategoryField("X")
+                        .Field("Y")
+                        .Style(ChartSeriesStyle.Step)
+                        .Markers(m => m.Visible(false).Size(0))
+                        .Color(lineChartSeries.Color)
+                        .Name(lineChartSeries.Name)
+                        .Tooltip(t => t.Visible(false))
+                        .VisibleInLegend(false)
+                        .DynamicHeight(true)
+                        .DynamicSlope(true);
+              }
+
+          })
+
+          .CategoryAxis(axis => axis.Date()
+                                    .Min(Model.BeginDate)
+                                    .Max((Model.EndDate - Model.BeginDate).Days > 100 ? Model.BeginDate.AddDays(100) : Model.EndDate)
+                                    .BaseUnit(ChartAxisBaseUnit.Days)
+                                    .Justify(true)
+                                    .MinorGridLines(conf => conf.Visible(false))
+                                    .MinorTicks(conf => conf.Visible(false))
+                                    .MajorGridLines(conf => conf.Visible(false))
+                                    .MajorTicks(conf => conf.Visible(false))
+                                    //.PlotBands(conf => conf.)
+                                    .Labels(conf => conf.Step(20)/*.Rotation("auto")*/))
+                                    //.AutoBaseUnitSteps(conf => conf.Days())
+                                    // Align the first two value axes to the left
+                                    // and the last two to the right.
+                                    //
+                                    // Right alignment is done by specifying a
+                                    // crossing value greater than or equal to
+                                    // the number of categories.
+                                    //.AxisCrossingValue(0, 0, 10, 10)
+          
+          .ValueAxis(axis => axis.Numeric()
+                                 //.Name("rateAxis")
+                                 .Title("ставка")
+                                 .Min(0.0)
+                                 .Max(2.0)
+                                 .MajorUnit(0.25))
+
+          .Tooltip(tooltip => tooltip.Visible(true)
+                                     .Shared(true)
+                                     .Template("#= series.name #: #= value #"))
+          
+          .Events(events => events.SeriesClick("onSeriesClick")
+                                  //.SeriesHover("onSeriesHover")
+                                  .DataBound("onDataBound")
+                                  .AxisLabelClick("onAxisLabelClick")
+                                  //.PlotAreaClick("onPlotAreaClick")
+                                  //.PlotAreaHover("onPlotAreaHover")
+                                  //.Render("onRender")
+                                  //.LegendItemClick("onLegendItemClick")
+                                  //.LegendItemHover("onLegendItemHover")
+                                  //.DragStart("onDragStart")
+                                  //.Drag("onDrag")
+                                  //.DragEnd("onDragEnd")
+                                  //.ZoomStart("onZoomStart")
+                                  //.Zoom("onZoom")
+                                  //.ZoomEnd("onZoomEnd")
+          )
 
     )
 </div>

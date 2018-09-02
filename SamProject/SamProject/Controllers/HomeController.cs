@@ -231,6 +231,15 @@ namespace SamProject.Controllers
 
 
 
+
+        public async Task<IActionResult> ChartWrapper(RsApplication app)
+        {
+            return await Task.FromResult(View(app));
+        }
+
+
+
+
         #region essential
 
 

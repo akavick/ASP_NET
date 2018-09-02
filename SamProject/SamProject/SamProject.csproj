@@ -24,6 +24,9 @@
     <Content Update="Views\Home\ApplicationHeader.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Home\ChartWrapper.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Home\Comments.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
