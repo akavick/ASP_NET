@@ -137,6 +137,22 @@ namespace SamProject.Controllers
 
 
 
+        public async Task<IActionResult> ChartDataAjax(int appId)
+        {
+            var app =
+                (await _manager.GetApplicationsAsync())
+                .FirstOrDefault(a => a.Id == appId) ?? await _manager.GetNewApplication();
+
+            var columns = await _manager.GetColumnsDataAsync(app);
+            var line = await _manager.GetLineDataAsync(app);
+
+
+            return await Task.FromResult(Json(new { columns, line }));
+        }
+
+
+
+
 
         public async Task<IActionResult> CrossingGridDataSource([FromBody]DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate)
         {

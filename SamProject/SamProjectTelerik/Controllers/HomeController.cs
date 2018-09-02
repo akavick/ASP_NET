@@ -105,6 +105,17 @@ namespace SamProjectTelerik.Controllers
 
 
 
+        public async Task<IActionResult> ChartDataAjax(RsApplication app)
+        {
+            var columns = await _manager.GetColumnsDataAsync(app);
+            var line = await _manager.GetLineDataAsync(app);
+
+
+            return await Task.FromResult(Json(new { columns, line }));
+        }
+
+
+
 
         //public async Task<IActionResult> ChartDataSource(/*[FromBody]DataManagerRequest dm, int id*/)
         //{

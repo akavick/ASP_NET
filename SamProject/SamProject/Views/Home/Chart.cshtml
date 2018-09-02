@@ -38,11 +38,36 @@
     //{
     //    console.log("hi");
     //};
+
+    function getChartData()
+    {
+        console.log("got data for chart");
+
+        $.ajax({
+            type: "POST",
+            url: "@(Url.Action("ChartDataAjax", "Home"))",
+            // передача в качестве объекта
+            // поля будут закодированые через encodeURIComponent автоматически
+            data: { appId: document.getElementById("currentAppId").value },
+            success: function (result)
+            {
+                let wrapper = document.getElementById("chartWrapper");
+            },
+            error: function (err)
+            {
+                console.log("error: " + err);
+            }
+        });
+    }
+
+    $(document).ready(function () { getChartData(); });
+
 </script>
 
 
-<div>
-    <ejs-chart id="Chart"
+<div id="chartWrapper">
+
+    @*<ejs-chart id="Chart"
                load="window.onChartLoad"
                chartMouseClick="chartMouseClick"
                height="300">
@@ -129,17 +154,7 @@
             <e-chartarea-border width="0.0001"></e-chartarea-border>
         </e-chart-chartarea>
 
-    </ejs-chart>
+    </ejs-chart>*@
 </div>
 
 
-
-
-@*<script>
-
-    let newDiv = document.createElement("div");
-    newDiv.innerHTML = "<h1>Привет!</h1>";
-    document.body.appendChild(newDiv);
-
-
-</script>*@

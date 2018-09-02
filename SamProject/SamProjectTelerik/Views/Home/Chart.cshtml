@@ -85,12 +85,66 @@
 </script>
 
 
+<script>
 
+    function chartMouseClick(obj)
+    {
+        console.log(obj.target);
+    }
+    //window.onChartLoad = function(obj)
+    //{
+    //    console.log("hi");
+    //};
+
+    function getChartData()
+    {
+        console.log("got data for chart");
+
+        $.ajax({
+            type: "POST",
+            url: "@(Url.Action("ChartDataAjax", "Home", new { app = Model }))",
+            // передача в качестве объекта
+            // поля будут закодированые через encodeURIComponent автоматически
+            success: function (result)
+            {
+                let wrapper = document.getElementById("chartWrapper");
+                let columns = result.columns;
+                let line = result.line;
+
+                columns.forEach(function (currentValue, index, array)
+                {
+                    let columnWrapper = document.createElement("div");
+                    columnWrapper.style.width = "10px";
+                    columnWrapper.style.backgroundColor = "red";
+
+
+                    wrapper.appendChild(columnWrapper);
+                });
+            },
+            error: function (err)
+            {
+                console.log("error: " + err);
+            }
+        });
+    }
+
+</script>
 
 
 <div class="demo-section k-content wide">
+    
+    
+    <div id="chartWrapper" 
+         style="height:300px; 
+                width:100%; 
+                background-color: aliceblue; 
+                display: flex; 
+                align-items: stretch; 
+                justify-content: space-around;"></div>
+    
+    
 
-    @(Html.Kendo()
+    @*@(Html.Kendo()
 
           .Chart()
 
@@ -190,7 +244,7 @@
                                   //.ZoomEnd("onZoomEnd")
           )
 
-    )
+    )*@
 </div>
 
 
@@ -199,15 +253,17 @@
 
 <script>
 
-    $(document).ready(function ()
-    {
-        var chart = $("#chart").data("kendoChart");
-        var series = chart.options.series;
+    //$(document).ready(function ()
+    //{
+    //    var chart = $("#chart").data("kendoChart");
+    //    var series = chart.options.series;
 
-        series[0].gap = 0.75;
-        series[0].spacing = 0.1;
+    //    series[0].gap = 0.75;
+    //    series[0].spacing = 0.1;
 
-        chart.redraw();
-    });
+    //    chart.redraw();
+    //});
+
+    $(document).ready(function () { getChartData(); });
 
 </script>
