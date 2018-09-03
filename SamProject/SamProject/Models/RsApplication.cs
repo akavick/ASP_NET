@@ -1,5 +1,6 @@
 ﻿using System;
 
+using Microsoft.AspNetCore.Html;
 
 
 
@@ -31,7 +32,6 @@ namespace SamProject.Models
         public Person Candidate { get; set; }
         public Rate Rate { get; set; } = new Rate();
         public string Department { get; set; }
-        public string Market { get; set; }
         public string CandidateDescription { get; set; }
 
         public DateTime BeginDate
@@ -47,6 +47,11 @@ namespace SamProject.Models
         }
 
         public decimal Hours => ((EndDate - BeginDate).Days + 1) * 8 * Rate.Value;
+
+
+
+        public string RsApplicationLink { get; set; }
+
 
 
 

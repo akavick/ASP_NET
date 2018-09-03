@@ -2,18 +2,11 @@
 
 
 
-@{
-    var filterOperators = new[] { new { @operator = "contains" } };
-
-    List<object> filterColumns = new List<object>();
-    filterColumns.Add(new { field = "ApplicationStatus", matchCase = false, @operator = "contains" });
-}
-
-
 
 
 
 <style>
+
     .e-grid .e-headercell .customcss
     {
         background-color: #2382c3 !important;
@@ -22,7 +15,7 @@
         font-size: 20px !important;
     }
 
-    .clickableNumber 
+    .clickableNumber
     {
         color: cornflowerblue;
         text-decoration: underline;
@@ -30,11 +23,10 @@
         cursor: pointer;
     }
 
-    .clickableNumber:hover 
-    {
-        color: orange;
-    }
-
+        .clickableNumber:hover
+        {
+            color: orange;
+        }
 </style>
 
 
@@ -60,7 +52,6 @@
     function setAppIdAndSubmit(appId)
     {
         console.log("setAppIdAndSubmit");
-
         document.getElementById("currentAppId").value = appId;
         document.getElementById("MainForm").submit();
     }
@@ -71,12 +62,23 @@
 
 
 
+@{
+    var filterOperators = new[] { new { @operator = "contains" } };
+
+    List<object> filterColumns = new List<object>();
+    filterColumns.Add(new { field = "Number", matchCase = false, @operator = "contains", predicate = "and", value = "" });
+    filterColumns.Add(new { field = "ApplicationStatus.Name", matchCase = false, @operator = "contains", predicate = "and", value = "" });
+    filterColumns.Add(new { field = "Project.Name", matchCase = false, @operator = "contains", predicate = "and", value = "" });
+}
+
+
+
 
 
 <div>
     <ejs-accordion id="CrossingGridAccordion">
         <e-accordion-accordionitems>
-            <e-accordion-accordionitem expanded="true"
+            <e-accordion-accordionitem expanded="false"
                                        header="Пересекающиеся заявки"
                                        content="#CrossingGridDiv">
             </e-accordion-accordionitem>
@@ -111,7 +113,8 @@
 
             <e-grid-filterSettings mode="Immediate"
                                    immediateModeDelay="200.0"
-                                   type="FilterBar"></e-grid-filterSettings>
+                                   type="FilterBar"
+                                   columns="filterColumns"></e-grid-filterSettings>
 
             <e-grid-columns>
                 <e-grid-column field="Id"
@@ -157,8 +160,7 @@
 
 
 <script id="numberTemplate" type="text/x-template">
-    <div class="clickableNumber"
-         onclick=setAppIdAndSubmit(${Id})>
-        ${Number}
+    <div class="clickableNumber">
+        ${RsApplicationLink}
     </div>
 </script>

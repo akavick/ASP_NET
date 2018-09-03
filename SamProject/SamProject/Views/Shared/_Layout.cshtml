@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    @*<meta http-equiv="X-UA-Compatible" content="IE = edge">*@
 
     <title>@ViewData["Title"] - SamProject</title>
 
@@ -31,16 +32,9 @@
     <link rel="stylesheet"
           href="~/css/site.min.css"
           asp-append-version="true" />
-
-</head>
-<body style="padding-top:0;">
-
-    @*<partial name="_CookieConsentPartial" />*@
-
-    <div style="margin: 10px 5%; height: 100%; ">
-        @RenderBody()
-    </div>
-
+    
+    
+    
     <environment include="Development">
         @*<script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -64,13 +58,153 @@
     <environment exclude="Development">
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/popper.js/dist/umd/popper.min.js"></script>
-        <script src="~/lib/bootstrap/dist/css/bootstrap.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="~/lib/@@syncfusion/ej2/dist/ej2.min.js"></script>
     </environment>
+
+    <script src="~/js/site.js" 
+            asp-append-version="true"></script>
     
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+</head>
+<body style="padding-top:0;">
+
+    <div id="mainContentWrapper"
+         style="display: none; width:100%; height:100%;">
+        
+        <div id="warningMessage"
+             class="mb-3"
+             style="display: none;">Your browser have some problems with rendering SVG and some components on this page may not work correctly</div>
+
+
+
+
+        <script>
+
+            function getBrowser()
+            {
+                let ua = navigator.userAgent;
+
+                let bName = function()
+                {
+                    if (ua.search(/Edge/) > -1) return "edge";
+                    if (ua.search(/MSIE/) > -1) return "ie";
+                    if (ua.search(/Trident/) > -1) return "ie11";
+                    if (ua.search(/Firefox/) > -1) return "firefox";
+                    if (ua.search(/Opera/) > -1) return "opera";
+                    if (ua.search(/OPR/) > -1) return "operaWebkit";
+                    if (ua.search(/YaBrowser/) > -1) return "yabrowser";
+                    if (ua.search(/Chrome/) > -1) return "chrome";
+                    if (ua.search(/Safari/) > -1) return "safari";
+                    if (ua.search(/Maxthon/) > -1) return "maxthon";
+                }();
+
+                let version;
+                switch (bName)
+                {
+                    case "edge":
+                        version = (ua.split("Edge")[1]).split("/")[1];
+                        break;
+                    case "ie":
+                        version = (ua.split("MSIE ")[1]).split(";")[0];
+                        break;
+                    case "ie11":
+                        bName = "ie";
+                        version = (ua.split("; rv:")[1]).split(")")[0];
+                        break;
+                    case "firefox":
+                        version = ua.split("Firefox/")[1];
+                        break;
+                    case "opera":
+                        version = ua.split("Version/")[1];
+                        break;
+                    case "operaWebkit":
+                        bName = "opera";
+                        version = ua.split("OPR/")[1];
+                        break;
+                    case "yabrowser":
+                        version = (ua.split("YaBrowser/")[1]).split(" ")[0];
+                        break;
+                    case "chrome":
+                        version = (ua.split("Chrome/")[1]).split(" ")[0];
+                        break;
+                    case "safari":
+                        version = (ua.split("Version/")[1]).split(" ")[0];
+                        break;
+                    case "maxthon":
+                        version = ua.split("Maxthon/")[1];
+                        break;
+                }
+
+                let platform = 'desktop';
+
+                if (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase())
+                )
+                {
+                    platform = 'mobile';
+                }
+
+                let browsrObj;
+
+                try
+                {
+                    browsrObj =
+                    {
+                        platform: platform,
+                        browser: bName,
+                        versionFull: version,
+                        versionShort: version.split(".")[0]
+                    };
+                }
+                catch (err)
+                {
+                    browsrObj =
+                    {
+                        platform: platform,
+                        browser: 'unknown',
+                        versionFull: 'unknown',
+                        versionShort: 'unknown'
+                    };
+                }
+
+                return browsrObj;
+            }
+
+            let curentBrowser = getBrowser();
+
+            if (curentBrowser.browser === "edge")
+            {
+                document.getElementById("warningMessage").style.display = "block";
+            }
+
+        </script>
+
+
+
+
+
+        @*<partial name="_CookieConsentPartial" />*@
+
+        <div style="margin: 10px 5%; height: 100%;">
+            @RenderBody()
+        </div></div>
+
+
 
     <ejs-scripts></ejs-scripts>
+    
+    
+    <script>
+        document.getElementById("mainContentWrapper").style.display = "block";
+
+        let chart = document.getElementById("Chart");
+
+        if (chart)
+        {
+            chart.ej2_instances[0].refresh();
+        }
+    </script>
+
 
     @RenderSection("Scripts", required: false)
 </body>

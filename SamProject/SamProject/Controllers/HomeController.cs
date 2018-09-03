@@ -63,12 +63,24 @@ namespace SamProject.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Form()
+        public async Task<IActionResult> Form(int appId)
         {
-            var app = await _manager.GetNewApplication();
+            var app =
+                (await _manager.GetApplicationsAsync())
+                .FirstOrDefault(a => a.Id == appId);
+
+            if (app is null)
+            {
+                app = await _manager.GetNewApplication();
+            }
+            else
+            {
+                ViewBag.CommentsGridDataSource = await _manager.GetCommentsAsync();
+            }
 
             await SetChartData(app);
             await SetFormData();
+
             ViewBag.AmRateGridDataSource = await _manager.GetAmRateApplicationsAsync(app);
 
             return View(app);
@@ -137,18 +149,18 @@ namespace SamProject.Controllers
 
 
 
-        public async Task<IActionResult> ChartDataAjax(int appId)
-        {
-            var app =
-                (await _manager.GetApplicationsAsync())
-                .FirstOrDefault(a => a.Id == appId) ?? await _manager.GetNewApplication();
+        //public async Task<IActionResult> ChartDataAjax(int appId)
+        //{
+        //    var app =
+        //        (await _manager.GetApplicationsAsync())
+        //        .FirstOrDefault(a => a.Id == appId) ?? await _manager.GetNewApplication();
 
-            var columns = await _manager.GetColumnsDataAsync(app);
-            var line = await _manager.GetLineDataAsync(app);
+        //    var columns = await _manager.GetColumnsDataAsync(app);
+        //    var line = await _manager.GetLineDataAsync(app);
 
 
-            return await Task.FromResult(Json(new { columns, line }));
-        }
+        //    return await Task.FromResult(Json(new { columns, line }));
+        //}
 
 
 
@@ -201,6 +213,12 @@ namespace SamProject.Controllers
             {
                 case RsApplication _:
                     dataSource = await _manager.GetCrossingGridDataAsync(app);
+
+                    foreach (RsApplication application in dataSource)
+                    {
+                        application.RsApplicationLink = $"<a href='{Url.Action("Form", "Home", new { appId = application.Id })}' target='_blank'>{application.Number}</a>";
+                    }
+
                     break;
                 case AmRateApplication _:
                     dataSource = await _manager.GetAmRateApplicationsAsync(app);

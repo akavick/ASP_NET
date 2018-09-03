@@ -27,6 +27,8 @@
                 document.getElementById("projectDepartment").innerHTML = project.Department || "";
                 document.getElementById("projectMarket").innerHTML = project.Market || "";
                 document.getElementById("projectClientName").innerHTML = project.Client.Name || "";
+                document.getElementById("projectSmdFullName").innerHTML = project.Smd.FullName || "";
+                document.getElementById("projectProjectManagerFullName").innerHTML = project.ProjectManager.FullName || "";
             }
         });
     }
@@ -85,22 +87,22 @@
         <div class="row mb-3">
             <div class="col-md-6">
                 <small class="text-muted">Подразделение</small>
-                <div id="projectDepartment">@(Model?.Department ?? "")</div>
+                <div id="projectDepartment">@(Model?.Project?.Department ?? "")</div>
             </div>
             <div class="col-md-6">
                 <small class="text-muted">Рынок</small>
-                <div  id="projectMarket">@(Model?.Market ?? "")</div>
+                <div  id="projectMarket">@(Model?.Project?.Market ?? "")</div>
             </div>
         </div>
 
         <div class="row mb-3">
             <div class="col-md-6">
                 <small class="text-muted">SMD</small>
-                <div id="projectSmdFullName">@(Model?.Smd?.FullName ?? "")</div>
+                <div id="projectSmdFullName">@(Model?.Project?.Smd?.FullName ?? "")</div>
             </div>
             <div class="col-md-6">
                 <small class="text-muted">Руководитель проекта</small>
-                <div id="projectProjectManagerFullName">@(Model?.ProjectManager?.FullName ?? "")</div>
+                <div id="projectProjectManagerFullName">@(Model?.Project?.ProjectManager?.FullName ?? "")</div>
             </div>
         </div>
 

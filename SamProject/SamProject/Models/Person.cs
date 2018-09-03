@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-
-
-
-
-
-namespace SamProject.Models
+﻿namespace SamProject.Models
 {
 
 

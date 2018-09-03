@@ -57,7 +57,6 @@ namespace SamProject
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTkwMDFAMzEzNjJlMzIyZTMwRU9rMDF5Mk1maWpOTTQ2OWprdVM1OFhGMHc1NE9RQ3BFUHNFc1NXWmFrND0=;MTkwMDJAMzEzNjJlMzIyZTMwSGdDLzl6eVJ2RXU3VytHM1d3VGhPYVQ5ZmlFVWRVRW85T0tVS2wzdmVEWT0=;MTkwMDNAMzEzNjJlMzIyZTMwZFNXMWRPNHJnd1d5b2RaWUNXYWhuVDFDV0VyVnJ4Q1RIV2dIZkdaNFB4cz0=;MTkwMDRAMzEzNjJlMzIyZTMwSS93OGRvT083L0hOWDRJUUYyK1BQVHhNTitFSUtxT0l6eG9mSWc4VUUvaz0=;MTkwMDVAMzEzNjJlMzIyZTMwTk8wSUJ3cWVSdzdtaUQwaGttKzd6SmNCeE9lTlFPdC9XOWlSSUdHRTVYdz0=;MTkwMDZAMzEzNjJlMzIyZTMwWEVFVnZ2MFlFZklBdWJaOTc5aUpVRlYvSStFQUdSWC9MVk8xQ1E3aG5SND0=;MTkwMDdAMzEzNjJlMzIyZTMwaWVKYXY1ZGJxSXA0djF3NkVRU0drM1R3UEFCWUliUHNzK3RXZkZqN1FoST0=;MTkwMDhAMzEzNjJlMzIyZTMwTmlHVG1CT3lvcndnaGs4T3ZHN1NabmFzY05iMGlWQ0hvZTJZby94Y0Niaz0=;MTkwMDlAMzEzNjJlMzIyZTMwZ2FBVXg4N0l4U3pBRFdWK1hha0RTS3BjaytBZ1o3Nk8xeTFZUldDWGNEQT0=");
             // 16.2.0.50sp Core // MTkwMDBAMzEzNjJlMzIyZTMwZ2FBVXg4N0l4U3pBRFdWK1hha0RTS3BjaytBZ1o3Nk8xeTFZUldDWGNEQT0=
             // 16.2.0.50sp All  // MTkwMDFAMzEzNjJlMzIyZTMwRU9rMDF5Mk1maWpOTTQ2OWprdVM1OFhGMHc1NE9RQ3BFUHNFc1NXWmFrND0=;MTkwMDJAMzEzNjJlMzIyZTMwSGdDLzl6eVJ2RXU3VytHM1d3VGhPYVQ5ZmlFVWRVRW85T0tVS2wzdmVEWT0=;MTkwMDNAMzEzNjJlMzIyZTMwZFNXMWRPNHJnd1d5b2RaWUNXYWhuVDFDV0VyVnJ4Q1RIV2dIZkdaNFB4cz0=;MTkwMDRAMzEzNjJlMzIyZTMwSS93OGRvT083L0hOWDRJUUYyK1BQVHhNTitFSUtxT0l6eG9mSWc4VUUvaz0=;MTkwMDVAMzEzNjJlMzIyZTMwTk8wSUJ3cWVSdzdtaUQwaGttKzd6SmNCeE9lTlFPdC9XOWlSSUdHRTVYdz0=;MTkwMDZAMzEzNjJlMzIyZTMwWEVFVnZ2MFlFZklBdWJaOTc5aUpVRlYvSStFQUdSWC9MVk8xQ1E3aG5SND0=;MTkwMDdAMzEzNjJlMzIyZTMwaWVKYXY1ZGJxSXA0djF3NkVRU0drM1R3UEFCWUliUHNzK3RXZkZqN1FoST0=;MTkwMDhAMzEzNjJlMzIyZTMwTmlHVG1CT3lvcndnaGs4T3ZHN1NabmFzY05iMGlWQ0hvZTJZby94Y0Niaz0=;MTkwMDlAMzEzNjJlMzIyZTMwZ2FBVXg4N0l4U3pBRFdWK1hha0RTS3BjaytBZ1o3Nk8xeTFZUldDWGNEQT0=
-            // 16.2.0.46sp All  // MjAwNDFAMzEzNjJlMzIyZTMwUTM1d0lCejRESGRaZzR0RElpMnFtei8xOFNlN0ZRZUVTamd3blBNdk1yND0=;MjAwNDJAMzEzNjJlMzIyZTMwV2lXOTJrNzhLd2NYU2t4dnpJNEluZit6WHdHdTdKcVcyVWZZSXdtOVcxMD0=;MjAwNDNAMzEzNjJlMzIyZTMwZVc5TEpKN29qM28yQ1BtWlh4aFp6UE5DYzNhMDI2SnJpdWlXVUgyMVpWYz0=;MjAwNDRAMzEzNjJlMzIyZTMwZ0U2amJGNnorZThjdUliSWk5b3RxZjNLZW9zWUYvRUs1eEhSQjJ4N2dmOD0=;MjAwNDVAMzEzNjJlMzIyZTMwZHMwckhlRkhwRmZnQ0NBNUtKMkVjNS80RjFpbUd1cHV1NUg1T1k4dVpHcz0=;MjAwNDZAMzEzNjJlMzIyZTMwSGxoMVNTci9CcHZ4Nks4dmUrWU40UjVJc1pXM3hUWkRNa3pnOHdlQjgvdz0=;MjAwNDdAMzEzNjJlMzIyZTMwWGtjK2M0em1QWVpxaVlUTjBkTUZYRFNvemc3cXhUcVNkRm9DWVNTaGJLST0=;MjAwNDhAMzEzNjJlMzIyZTMwQzM2TGd5YXhPaE1LZXg1RXNYMHlTOXhBTGF2Sk5iTlA2akl0VVBXdDRxOD0=;MjAwNDlAMzEzNjJlMzIyZTMwS3VuZDdpNmEvUmtBL0pXKzYvVElQN1lIcGJaZ0FYNXJnK242Ny83LzZIdz0=
 
             if (env.IsDevelopment())
             {
@@ -68,6 +67,22 @@ namespace SamProject
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+
+            app.Use(async (context, next) =>
+            {
+                string userAgent = context.Request.Headers["User-Agent"];
+
+                if (userAgent.Contains("MSIE") || userAgent.Contains("Trident"))
+                {
+                    await context.Response.WriteAsync("Your browser is not supported");
+                }
+                else
+                {
+                    await next.Invoke();
+                }
+            });
+
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
