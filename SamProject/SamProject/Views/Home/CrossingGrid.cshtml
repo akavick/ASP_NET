@@ -114,7 +114,8 @@
             <e-grid-filterSettings mode="Immediate"
                                    immediateModeDelay="200.0"
                                    type="FilterBar"
-                                   columns="filterColumns"></e-grid-filterSettings>
+                                   columns="@(filterColumns)"
+                                   operators="@(filterOperators)"></e-grid-filterSettings>
 
             <e-grid-columns>
                 <e-grid-column field="Id"
