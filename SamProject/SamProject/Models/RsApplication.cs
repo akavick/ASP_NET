@@ -12,7 +12,7 @@ namespace SamProject.Models
 
 
 
-    public class RsApplication : IIntersectingCheckableApplication
+    public class RsApplication : IApplication, IIntersectingCheckableApplication
     {
         private DateTime _beginDate = new DateTime(DateTime.Now.Year, 1, 1);
         private DateTime _endDate = new DateTime(DateTime.Now.Year, 12, 31);
@@ -45,6 +45,9 @@ namespace SamProject.Models
             get => _endDate;
             set => _endDate = value.Date;
         }
+
+        public string BeginDateString => ReservationSystemHelper.GetFormattedDateString(BeginDate);
+        public string EndDateString => ReservationSystemHelper.GetFormattedDateString(EndDate);
 
         public decimal Hours => ((EndDate - BeginDate).Days + 1) * 8 * Rate.Value;
 

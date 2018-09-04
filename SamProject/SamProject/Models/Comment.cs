@@ -12,5 +12,7 @@ namespace SamProject.Models
         public string Content { get; set; }
         public DateTime DateTimeOfPosting { get; set; }
         public DateTime DateTimeOfModify { get; set; }
+        public string DateTimeOfPostingString => ReservationSystemHelper.GetFormattedDateString(DateTimeOfPosting);
+        public string DateTimeOfModifyString => ReservationSystemHelper.GetFormattedDateString(DateTimeOfModify);
     }
 }

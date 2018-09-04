@@ -35,6 +35,14 @@ namespace SamProject.Models
             return result;
         }
 
+
+
+
+
+        public static string GetFormattedDateString(DateTime date)
+        {
+            return date.ToString("dd-MM-yyyy");
+        }
     }
 
 }

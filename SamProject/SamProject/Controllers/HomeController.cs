@@ -81,8 +81,6 @@ namespace SamProject.Controllers
             await SetChartData(app);
             await SetFormData();
 
-            ViewBag.AmRateGridDataSource = await _manager.GetAmRateApplicationsAsync(app);
-
             return View(app);
         }
 
@@ -93,6 +91,24 @@ namespace SamProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Form(int id, DateTime beginDate, DateTime endDate, RateValueType rate)
         {
+            var minDate = new DateTime(2018, 1, 1);
+            var maxDate = new DateTime(2018, 12, 31);
+
+            if (beginDate < minDate)
+            {
+                beginDate = minDate;
+            }
+
+            if (endDate < minDate)
+            {
+                endDate = minDate;
+            }
+
+            if (endDate > maxDate)
+            {
+                endDate = maxDate;
+            }
+
             if (beginDate > endDate)
             {
                 beginDate = endDate;
@@ -116,8 +132,6 @@ namespace SamProject.Controllers
 
             await SetChartData(app);
             await SetFormData();
-
-            ViewBag.AmRateGridDataSource = await _manager.GetAmRateApplicationsAsync(app);
 
             return View(app);
         }
@@ -168,7 +182,7 @@ namespace SamProject.Controllers
 
         public async Task<IActionResult> CrossingGridDataSource([FromBody]DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate)
         {
-            return await GridDataSource(dm, id, beginDate, endDate, rate, new RsApplication());
+            return await GridDataSource<RsApplication>(dm, id, beginDate, endDate, rate);
         }
 
 
@@ -177,7 +191,7 @@ namespace SamProject.Controllers
 
         public async Task<IActionResult> AmRateGridDataSource([FromBody]DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate)
         {
-            return await GridDataSource(dm, id, beginDate, endDate, rate, new AmRateApplication());
+            return await GridDataSource<AmRateApplication>(dm, id, beginDate, endDate, rate);
         }
 
 
@@ -186,14 +200,15 @@ namespace SamProject.Controllers
 
         public async Task<IActionResult> AmOzsGridDataSource([FromBody]DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate)
         {
-            return await GridDataSource(dm, id, beginDate, endDate, rate, new AmOzsApplication());
+            return await GridDataSource<AmOzsApplication>(dm, id, beginDate, endDate, rate);
         }
 
 
 
 
 
-        private async Task<IActionResult> GridDataSource([FromBody] DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate, object obj)
+        private async Task<IActionResult> GridDataSource<T>([FromBody] DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate) 
+            where T: IApplication
         {
             var app =
                 (await _manager.GetApplicationsAsync())
@@ -209,23 +224,22 @@ namespace SamProject.Controllers
 
             IEnumerable dataSource = null;
 
-            switch (obj)
+            if (typeof(T) == typeof(RsApplication))
             {
-                case RsApplication _:
-                    dataSource = await _manager.GetCrossingGridDataAsync(app);
+                dataSource = await _manager.GetCrossingGridDataAsync(app);
 
-                    foreach (RsApplication application in dataSource)
-                    {
-                        application.RsApplicationLink = $"<a href='{Url.Action("Form", "Home", new { appId = application.Id })}' target='_blank'>{application.Number}</a>";
-                    }
-
-                    break;
-                case AmRateApplication _:
-                    dataSource = await _manager.GetAmRateApplicationsAsync(app);
-                    break;
-                case AmOzsApplication _:
-                    dataSource = await _manager.GetAmOzsApplicationsAsync(app);
-                    break;
+                foreach (RsApplication application in dataSource)
+                {
+                    application.RsApplicationLink = $"<a href='{Url.Action("Form", "Home", new { appId = application.Id })}' target='_blank'>{application.Number}</a>";
+                }
+            }
+            else if (typeof(T) == typeof(AmRateApplication))
+            {
+                dataSource = await _manager.GetAmRateApplicationsAsync(app);
+            }
+            else if (typeof(T) == typeof(AmOzsApplication))
+            {
+                dataSource = await _manager.GetAmOzsApplicationsAsync(app);
             }
 
             var operation = new DataOperations();
@@ -242,7 +256,19 @@ namespace SamProject.Controllers
 
             if (dm.Where != null && dm.Where.Count > 0) //Filtering
             {
-                dataSource = operation.PerformFiltering(dataSource, dm.Where, dm.Where[0].Operator);
+                const string @operator = "contains";
+
+                foreach (var whereFilter in dm.Where)
+                {
+                    whereFilter.Operator = @operator;
+
+                    foreach (var whereFilterPredicate in whereFilter.predicates)
+                    {
+                        whereFilterPredicate.Operator = @operator;
+                    }
+                }
+
+                dataSource = operation.PerformFiltering(dataSource, dm.Where, @operator);
             }
 
             var count = dataSource.OfType<object>().Count();

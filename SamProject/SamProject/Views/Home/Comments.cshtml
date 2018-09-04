@@ -40,12 +40,10 @@
                                minWidth="500"></e-grid-column>
                 <e-grid-column field="Person.FullName"
                                headerText="Автор"></e-grid-column>
-                <e-grid-column field="DateTimeOfPosting"
-                               headerText="Оставлен"
-                               format="yMMMd"></e-grid-column>
-                <e-grid-column field="DateTimeOfModify"
-                               headerText="Изменён"
-                               format="yMMMd"></e-grid-column>
+                <e-grid-column field="DateTimeOfPostingString"
+                               headerText="Оставлен"></e-grid-column>
+                <e-grid-column field="DateTimeOfModifyString"
+                               headerText="Изменён"></e-grid-column>
             </e-grid-columns>
         </ejs-grid>
 
@@ -62,7 +60,7 @@
 
     function commentsGridDataBound(args) 
     {
-        this.autoFitColumns(["Person.FullName", "DateTimeOfPosting", "DateTimeOfModify"]);
+        this.autoFitColumns(["Person.FullName", "DateTimeOfPostingString", "DateTimeOfModifyString"]);
     }
 
 </script>

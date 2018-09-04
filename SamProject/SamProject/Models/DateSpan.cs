@@ -15,7 +15,8 @@ namespace SamProject.Models
     {
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
-
+        public string BeginDateString => ReservationSystemHelper.GetFormattedDateString(BeginDate);
+        public string EndDateString => ReservationSystemHelper.GetFormattedDateString(EndDate);
 
 
 

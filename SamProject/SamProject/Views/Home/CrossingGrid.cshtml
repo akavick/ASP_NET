@@ -62,19 +62,6 @@
 
 
 
-@{
-    var filterOperators = new[] { new { @operator = "contains" } };
-
-    List<object> filterColumns = new List<object>();
-    filterColumns.Add(new { field = "Number", matchCase = false, @operator = "contains", predicate = "and", value = "" });
-    filterColumns.Add(new { field = "ApplicationStatus.Name", matchCase = false, @operator = "contains", predicate = "and", value = "" });
-    filterColumns.Add(new { field = "Project.Name", matchCase = false, @operator = "contains", predicate = "and", value = "" });
-}
-
-
-
-
-
 <div>
     <ejs-accordion id="CrossingGridAccordion">
         <e-accordion-accordionitems>
@@ -113,9 +100,7 @@
 
             <e-grid-filterSettings mode="Immediate"
                                    immediateModeDelay="200.0"
-                                   type="FilterBar"
-                                   columns="@(filterColumns)"
-                                   operators="@(filterOperators)"></e-grid-filterSettings>
+                                   type="FilterBar"></e-grid-filterSettings>
 
             <e-grid-columns>
                 <e-grid-column field="Id"
@@ -137,14 +122,12 @@
                 <e-grid-column field="Hours"
                                headerText="Часов"
                                width="30"></e-grid-column>
-                <e-grid-column field="BeginDate"
+                <e-grid-column field="BeginDateString"
                                headerText="Начало"
-                               width="40"
-                               format="yMMMd"></e-grid-column>
-                <e-grid-column field="EndDate"
+                               width="40"></e-grid-column>
+                <e-grid-column field="EndDateString"
                                headerText="Завершение"
-                               width="40"
-                               format="yMMMd"></e-grid-column>
+                               width="40"></e-grid-column>
                 <e-grid-column field="ProjectManager.FullName"
                                headerText="Руководитель проекта"
                                width="50"></e-grid-column>

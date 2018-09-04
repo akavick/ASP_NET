@@ -14,7 +14,7 @@ namespace SamProject.Models
 
 
 
-    public abstract class AmApplication : IIntersectingCheckableApplication
+    public abstract class AmApplication : IApplication, IIntersectingCheckableApplication
     {
         private DateTime _endDate = new DateTime(DateTime.Now.Year, 12, 31);
         private DateTime _beginDate = new DateTime(DateTime.Now.Year, 1, 1);
@@ -38,7 +38,10 @@ namespace SamProject.Models
             get => _endDate;
             set => _endDate = value.Date;
         }
-       
+
+        public string BeginDateString => ReservationSystemHelper.GetFormattedDateString(BeginDate);
+        public string EndDateString => ReservationSystemHelper.GetFormattedDateString(EndDate);
+
 
 
 

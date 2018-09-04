@@ -68,6 +68,19 @@ namespace SamProject
                 app.UseHsts();
             }
 
+            //if (env.IsDevelopment())
+            //{
+            //    app.Use(async (context, next) =>
+            //    {
+            //        if (context.Request.Path.Value == "/favicon.ico")
+            //        {
+            //            var path = new PathString("/SamProject/favicon.ico");
+            //            context.Request.Path = path;
+            //        }
+
+            //        await next.Invoke();
+            //    });
+            //}
 
             app.Use(async (context, next) =>
             {
@@ -82,7 +95,6 @@ namespace SamProject
                     await next.Invoke();
                 }
             });
-
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
