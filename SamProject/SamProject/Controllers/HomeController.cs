@@ -63,11 +63,11 @@ namespace SamProject.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Form(int appId)
+        public async Task<IActionResult> Form(string number)
         {
             var app =
                 (await _manager.GetApplicationsAsync())
-                .FirstOrDefault(a => a.Id == appId);
+                .FirstOrDefault(a => a.Number == number);
 
             if (app is null)
             {
@@ -89,7 +89,7 @@ namespace SamProject.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Form(int id, DateTime beginDate, DateTime endDate, RateValueType rate)
+        public async Task<IActionResult> Form(string number, DateTime beginDate, DateTime endDate, RateValueType rate)
         {
             var minDate = new DateTime(2018, 1, 1);
             var maxDate = new DateTime(2018, 12, 31);
@@ -116,7 +116,7 @@ namespace SamProject.Controllers
 
             var app = 
                 (await _manager.GetApplicationsAsync())
-                .FirstOrDefault(a => a.Id == id);
+                .FirstOrDefault(a => a.Number == number);
 
             if (app is null)
             {
@@ -163,11 +163,11 @@ namespace SamProject.Controllers
 
 
 
-        //public async Task<IActionResult> ChartDataAjax(int appId)
+        //public async Task<IActionResult> ChartDataAjax(int id)
         //{
         //    var app =
         //        (await _manager.GetApplicationsAsync())
-        //        .FirstOrDefault(a => a.Id == appId) ?? await _manager.GetNewApplication();
+        //        .FirstOrDefault(a => a.Id == id) ?? await _manager.GetNewApplication();
 
         //    var columns = await _manager.GetColumnsDataAsync(app);
         //    var line = await _manager.GetLineDataAsync(app);
@@ -230,7 +230,7 @@ namespace SamProject.Controllers
 
                 foreach (RsApplication application in dataSource)
                 {
-                    application.RsApplicationLink = $"<a href='{Url.Action("Form", "Home", new { appId = application.Id })}' target='_blank'>{application.Number}</a>";
+                    application.RsApplicationLink = $"<a href='{Url.RouteUrl(new { controller = "Home", action = "Form", number = application.Number })}' target='_blank'>{application.Number}</a>";
                 }
             }
             else if (typeof(T) == typeof(AmRateApplication))
