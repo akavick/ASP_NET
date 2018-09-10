@@ -168,14 +168,14 @@
 <div class="demo-section k-content wide">
 
 
-    <div style="overflow-x: scroll; height:350px; width:100%;">
+    @*<div style="overflow-x: scroll; height:350px; width:100%;">
         <div id="chartWrapper"
              style="height: 300px; width: 100%; display: flex;"></div>
-    </div>
+    </div>*@
 
 
 
-    @*@(Html.Kendo()
+    @(Html.Kendo()
 
               .Chart()
 
@@ -275,7 +275,7 @@
                                       //.ZoomEnd("onZoomEnd")
               )
 
-        )*@
+        )
 </div>
 
 
@@ -295,6 +295,6 @@
     //    chart.redraw();
     //});
 
-    $(document).ready(function () { getChartData(); });
+    //$(document).ready(function () { getChartData(); });
 
 </script>

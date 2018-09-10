@@ -65,6 +65,10 @@ namespace SamProject.Controllers
         [HttpGet]
         public async Task<IActionResult> Form(string number)
         {
+            var user = User;
+
+
+
             var app =
                 (await _manager.GetApplicationsAsync())
                 .FirstOrDefault(a => a.Number == number);
