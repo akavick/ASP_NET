@@ -1,87 +1,58 @@
 ﻿<!doctype html>
 <html lang="en">
-<head>
 
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    @*<meta http-equiv="X-UA-Compatible" content="IE = edge">*@
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>@ViewData["Title"] - SamProject</title>
 
     <environment include="Development">
-        @*<link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous" />*@
         <link rel="stylesheet"
-              href="~/vendor/bootstrap/dist/css/bootstrap.min.css" />
-
-        @*<link rel="stylesheet" 
-                href="https://cdn.syncfusion.com/ej2/bootstrap.css" />*@
-        @*<link rel="stylesheet" 
-              href="~/vendor/@@syncfusion/ej2/bootstrap.css" />*@
-        <link rel="stylesheet" 
-              href="~/vendor/@@syncfusion/ej2/bootstrap.css" />
+              href="~/node_modules/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet"
+              href="~/node_modules/@@syncfusion/ej2/bootstrap.css" />
     </environment>
-    
+
     <environment exclude="Development">
         <link rel="stylesheet"
-              href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        @*<link rel="stylesheet" 
-              href="~/lib/@@syncfusion/ej2/bootstrap.css" />*@
-        <link rel="stylesheet" 
-              href="~/lib/@@syncfusion/ej2/bootstrap.css" />
+              href="~/lib/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet"
+              href="~/lib/syncfusion/css/bootstrap.css" />
     </environment>
 
     <link rel="stylesheet"
           href="~/css/site.min.css"
           asp-append-version="true" />
-    
-    
-    
+
     <environment include="Development">
-        @*<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>*@
-        <script src="~/vendor/jquery/dist/jquery.min.js"></script>
-
-        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>*@
-        <script src="~/vendor/popper.js/dist/umd/popper.min.js"></script>
-
-        @*<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>*@
-        <script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-
-        @*<script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>*@
-        <script src="~/vendor/@@syncfusion/ej2/dist/ej2.min.js"></script>
+        <script src="~/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="~/node_modules/popper.js/dist/umd/popper.min.js"></script>
+        <script src="~/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/node_modules/@@syncfusion/ej2/dist/ej2.min.js"></script>
     </environment>
-    
+
     <environment exclude="Development">
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/popper.js/dist/umd/popper.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="~/lib/@@syncfusion/ej2/dist/ej2.min.js"></script>
+        <script src="~/lib/jquery/jquery.min.js"></script>
+        <script src="~/lib/popper.js/popper.min.js"></script>
+        <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+        <script src="~/lib/syncfusion/js/ej2.min.js"></script>
     </environment>
 
-    <script src="~/js/site.js" 
+    <script src="~/js/site.js"
             asp-append-version="true"></script>
-    
 
 </head>
+
 <body style="padding-top:0;">
 
     <div id="mainContentWrapper"
          style="display: none; width:100%; height:100%;">
-        
+
         <div id="warningMessage"
              class="mb-3"
              style="display: none;">Your browser have some problems with rendering SVG and some components on this page may not work correctly</div>
-
-
-
 
         <script>
 
@@ -89,32 +60,54 @@
             {
                 let ua = navigator.userAgent;
 
-                let bName = function()
+                let bName = function ()
                 {
-                    if (ua.search(/Edge/) > -1) return "edge";
-                    if (ua.search(/MSIE/) > -1) return "ie";
-                    if (ua.search(/Trident/) > -1) return "ie11";
-                    if (ua.search(/Firefox/) > -1) return "firefox";
-                    if (ua.search(/Opera/) > -1) return "opera";
-                    if (ua.search(/OPR/) > -1) return "operaWebkit";
-                    if (ua.search(/YaBrowser/) > -1) return "yabrowser";
-                    if (ua.search(/Chrome/) > -1) return "chrome";
-                    if (ua.search(/Safari/) > -1) return "safari";
-                    if (ua.search(/Maxthon/) > -1) return "maxthon";
+                    if (ua.search(/Edge/) > -1)
+                        return "edge";
+
+                    if (ua.search(/MSIE/) > -1)
+                        return "ie";
+
+                    if (ua.search(/Trident/) > -1)
+                        return "ie11";
+
+                    if (ua.search(/Firefox/) > -1)
+                        return "firefox";
+
+                    if (ua.search(/Opera/) > -1)
+                        return "opera";
+
+                    if (ua.search(/OPR/) > -1)
+                        return "operaWebkit";
+
+                    if (ua.search(/YaBrowser/) > -1)
+                        return "yabrowser";
+
+                    if (ua.search(/Chrome/) > -1)
+                        return "chrome";
+
+                    if (ua.search(/Safari/) > -1)
+                        return "safari";
+
+                    if (ua.search(/Maxthon/) > -1)
+                        return "maxthon";
+
+                    return "";
                 }();
 
-                let version;
+                let version = "";
+
                 switch (bName)
                 {
                     case "edge":
-                        version = (ua.split("Edge")[1]).split("/")[1];
+                        version = ua.split("Edge")[1].split("/")[1];
                         break;
                     case "ie":
-                        version = (ua.split("MSIE ")[1]).split(";")[0];
+                        version = ua.split("MSIE ")[1].split(";")[0];
                         break;
                     case "ie11":
                         bName = "ie";
-                        version = (ua.split("; rv:")[1]).split(")")[0];
+                        version = ua.split("; rv:")[1].split(")")[0];
                         break;
                     case "firefox":
                         version = ua.split("Firefox/")[1];
@@ -127,13 +120,13 @@
                         version = ua.split("OPR/")[1];
                         break;
                     case "yabrowser":
-                        version = (ua.split("YaBrowser/")[1]).split(" ")[0];
+                        version = ua.split("YaBrowser/")[1].split(" ")[0];
                         break;
                     case "chrome":
-                        version = (ua.split("Chrome/")[1]).split(" ")[0];
+                        version = ua.split("Chrome/")[1].split(" ")[0];
                         break;
                     case "safari":
-                        version = (ua.split("Version/")[1]).split(" ")[0];
+                        version = ua.split("Version/")[1].split(" ")[0];
                         break;
                     case "maxthon":
                         version = ua.split("Maxthon/")[1];
@@ -142,8 +135,7 @@
 
                 let platform = 'desktop';
 
-                if (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase())
-                )
+                if (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()))
                 {
                     platform = 'mobile';
                 }
@@ -191,14 +183,16 @@
 
         <div style="margin: 10px 5%; height: 100%;">
             @RenderBody()
-        </div></div>
+        </div>
+    </div>
 
 
 
     <ejs-scripts></ejs-scripts>
-    
-    
+
+
     <script>
+
         document.getElementById("mainContentWrapper").style.display = "block";
 
         let chart = document.getElementById("Chart");
@@ -207,9 +201,11 @@
         {
             chart.ej2_instances[0].refresh();
         }
+
     </script>
 
 
     @RenderSection("Scripts", required: false)
+
 </body>
 </html>

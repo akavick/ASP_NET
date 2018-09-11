@@ -14,42 +14,42 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
-        {
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
-        }
+        //[HttpGet]
+        //[AllowAnonymous]
+        //public IActionResult Login(string returnUrl = null)
+        //{
+        //    ViewData["ReturnUrl"] = returnUrl;
+        //    return View();
+        //}
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel vm, string returnUrl = null)
-        {
-            //TODO: проверка пароля, загрузка пользователя из БД, и т.д. и т.п.
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, "Fake User"),
-                new Claim("age", "25", ClaimValueTypes.Integer)
-            };
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Login(LoginViewModel vm, string returnUrl = null)
+        //{
+        //    //TODO: проверка пароля, загрузка пользователя из БД, и т.д. и т.п.
+        //    var claims = new List<Claim>
+        //    {
+        //        new Claim(ClaimTypes.Name, "Fake User"),
+        //        new Claim("age", "25", ClaimValueTypes.Integer)
+        //    };
 
-            var identity = new ClaimsIdentity("MyCookieMiddlewareInstance");
-            identity.AddClaims(claims);
+        //    var identity = new ClaimsIdentity("MyCookieMiddlewareInstance");
+        //    identity.AddClaims(claims);
 
-            var principal = new ClaimsPrincipal(identity);
+        //    var principal = new ClaimsPrincipal(identity);
 
-            await HttpContext.Authentication.SignInAsync("MyCookieMiddlewareInstance",
-                                                         principal,
-                                                         new AuthenticationProperties
-                                                         {
-                                                             ExpiresUtc = DateTime.UtcNow.AddMinutes(20)
-                                                         });
+        //    await HttpContext.Authentication.SignInAsync("MyCookieMiddlewareInstance",
+        //                                                 principal,
+        //                                                 new AuthenticationProperties
+        //                                                 {
+        //                                                     ExpiresUtc = DateTime.UtcNow.AddMinutes(20)
+        //                                                 });
 
-            _logger.LogInformation(4, "User logged in.");
+        //    _logger.LogInformation(4, "User logged in.");
 
-            return RedirectToLocal(returnUrl);
-        }
+        //    return RedirectToLocal(returnUrl);
+        //}
 
 
 

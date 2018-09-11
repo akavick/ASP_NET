@@ -107,7 +107,7 @@ namespace SamProject
                 app.UseStaticFiles(new StaticFileOptions
                 {
                     FileProvider = new PhysicalFileProvider(path),
-                    RequestPath = new PathString("/vendor")
+                    RequestPath = new PathString("/node_modules")
                 });
             }
 
