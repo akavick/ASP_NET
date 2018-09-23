@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <base href="/">
+    <meta charset="utf-8" />
+    <title>Html</title>
+
+    <style>
+        ul#menu1 li
+        {
+            display: inline;
+        }
+
+        table#table1 td
+        {
+            width: 60px;
+            height: 60px;
+            border: solid 1px silver;
+            text-align: center;
+        }
+
+        a:link
+        {
+            color: blue;
+            text-decoration: none
+        }
+
+        a:visited
+        {
+            color: pink;
+            text-decoration: none
+        }
+
+        a:hover
+        {
+            color: red;
+            text-decoration: underline
+        }
+
+        a:active
+        {
+            color: yellow;
+            text-decoration: underline
+        }
+    </style>
+
+</head>
+<body>
+
+
+    <p>Форматирование в <mark>HTML5</mark></p>
+    <p>Это <b>выделенный</b> текст</p>
+    <p>Это <strong>важный</strong> текст</p>
+    <p>Это <del>зачеркнутый</del> текст</p>
+    <p>Это <s>недействительный</s> текст</p>
+    <p>Это <em>важный</em> текст</p>
+    <p>Это текст <i>курсивом</i> </p>
+    <p>Это <ins>добавленный</ins> текст</p>
+    <p>Это <u>подчеркнутый</u> текст</p>
+    <p>X<sub>i</sub> = Y<sup><small>2</small></sup> + Z<sup><small>2</small></sup></p>
+
+
+    <ul id="menu1">
+        <li>Главная</li>
+        <li>Блог</li>
+        <li>Форум</li>
+        <li>О сайте</li>
+    </ul>
+
+
+    <details>
+        <summary>Флагманы 2015</summary>
+        <ul>
+            <li>iPhone 6S Plus</li>
+            <li>Nexus 6P</li>
+            <li>Galaxy S6 Edge</li>
+            <li>Lumia 950 XL</li>
+        </ul>
+    </details>
+
+
+    <dl>
+        <dt>Онтология</dt>
+        <dd>Раздел философии, изучающий фундаментальные принципы бытия</dd>
+        <dt>Гносеология</dt>
+        <dd>Философская дисциплина, занимающаяся исследованиями, критикой и теориями познания</dd>
+        <dt>Производственные отношения</dt>
+        <dd>
+            Совокупность отношений между людьми, складывающихся в процессе общественного производства,
+            обмена, распределения материальных благ и услуг.
+        </dd>
+    </dl>
+
+
+    <table id="table1">
+        <tr>
+            <td rowspan="2" style="background-color:green;">1</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td colspan="2" style="background-color:red;">7</td>
+        </tr>
+    </table>
+
+
+    <table id="table2">
+        <caption><b>Популярные смартфоны 2015</b></caption>
+        <thead>
+            <tr>
+                <th>Модель</th>
+                <th>Компания</th>
+                <th>Цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Nexus 6P</td>
+                <td>Huawei</td>
+                <td>49000</td>
+            </tr>
+            <tr>
+                <td>iPhone 6S PLus</td>
+                <td>Apple</td>
+                <td>62000</td>
+            </tr>
+            <tr>
+                <td>Lumia 950 XL</td>
+                <td>Microsoft</td>
+                <td>35000</td>
+            </tr>
+        <tbody>
+        <tfoot>
+            <tr>
+                <th colspan="3">Информация по состоянию на 17 марта</th>
+            </tr>
+        </tfoot>
+    </table>
+
+
+    <a href="#paragraph1">Параграф 1</a> | <a href="#paragraph2">Параграф 2</a> | <a href="#paragraph3">Параграф 3</a>
+    <h2 id="paragraph1">Параграф 1</h2>
+    <p>Содержание параграфа 1</p>
+    <h2 id="paragraph2">Параграф 2</h2>
+    <p>Содержание параграфа 2</p>
+    <h2 id="paragraph3">Параграф 3</h2>
+    <p>Содержание параграфа 3</p>
+
+
+    <a href="index.html" target="_blank">
+        <img src="img.jpg" alt="HTML tutorial">
+    </a>
+    
+    
+    <figure>
+        <figcaption>Февраль 2013</figcaption>
+        <img src="img.jpg" alt="Зимний пейзаж">
+    </figure>
+
+    
+    
+    
+    
+
+</body>
+</html>
