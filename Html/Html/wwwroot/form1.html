@@ -1,0 +1,394 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <base href="/">
+    <meta charset="utf-8" />
+    <title>Form</title>
+
+    <style>
+    </style>
+
+</head>
+<body>
+
+    <form id="form1"
+          method="post"
+          autocomplete="on"
+          action="http://localhost:8080/act">
+
+        <p>
+            <label for="login">text: </label>
+            <input type="text"
+                   id="login"
+                   name="login"
+                   dirname=""
+                   maxlength="16"
+                   pattern=""
+                   placeholder="type"
+                   required
+                   size="25" />
+        </p>
+
+        <p>
+            <label>text-readonly: </label>
+            <input type="text"
+                   maxlength="16"
+                   size="25"
+                   readonly
+                   value="text" />
+        </p>
+
+        <p>
+            <label>text-disabled: </label>
+            <input type="text"
+                   maxlength="16"
+                   size="25"
+                   disabled
+                   value="text" />
+        </p>
+
+        <p>
+            <label>text-list: </label>
+            <input list="phonesList"
+                   type="text"
+                   placeholder="Введите модель" />
+            <datalist id="phonesList">
+                <option value="iPhone 6S"
+                        label="54000" />
+                <option value="Lumia 950">35000</option>
+                <option value="Nexus 5X" />
+            </datalist>
+        </p>
+
+        <p>
+            <label for="password">password: </label>
+            <input type="password"
+                   id="password"
+                   name="password" />
+        </p>
+
+        <p>
+            <label for="checkbox">checkbox: </label>
+            <input type="checkbox"
+                   id="checkbox"
+                   name="checkbox"
+                   checked />
+        </p>
+
+        <p>
+            <label for="color">color: </label>
+            <input type="color"
+                   id="color"
+                   name="color" />
+        </p>
+
+        <p>
+            <label for="color">color-list: </label>
+            <input type="color"
+                   list="colors"
+                   name="color2" />
+            <datalist id="colors">
+                <option value="#0000FF"
+                        label="blue">
+                <option value="#008000"
+                        label="green">
+                <option value="#ff0000"
+                        label="red">
+            </datalist>
+        </p>
+
+        <p>
+            <label for="date">date: </label>
+            <input type="date"
+                   id="date"
+                   name="date" />
+        </p>
+
+        <p>
+            <label for="datetime">datetime: </label>
+            <input type="datetime"
+                   id="datetime"
+                   name="datetime" />
+        </p>
+
+        <p>
+            <label for="datetime-local">datetime-local: </label>
+            <input type="datetime-local"
+                   id="datetime-local"
+                   name="datetime-local" />
+        </p>
+
+        <p>
+            <label for="email">email: </label>
+            <input type="email"
+                   id="email"
+                   name="email"
+                   placeholder="user@gmail.com" />
+        </p>
+
+        <p>
+            <label for="file">file: </label>
+            <input type="file"
+                   id="file"
+                   name="file" />
+        </p>
+
+        <p>
+            <label for="hidden">hidden: </label>
+            <input type="hidden"
+                   id="hidden"
+                   name="hidden" />
+        </p>
+
+        <p>
+            <label for="month">month: </label>
+            <input type="month"
+                   id="month"
+                   name="month" />
+        </p>
+
+        <p>
+            <label for="number">number: </label>
+            <input type="number"
+                   id="number"
+                   name="number"
+                   max=""
+                   min=""
+                   step=""
+                   value="" />
+        </p>
+
+        <p>
+            <label>number-list: </label>
+            <input type="number"
+                   list="priceList"
+                   step="1000"
+                   min="3000"
+                   max="100000"
+                   value="10000" />
+            <datalist id="priceList">
+                <option value="15000" />
+                <option value="20000" />
+                <option value="25000" />
+            </datalist>
+        </p>
+
+        <p>
+            <div>
+                <label for="radio1">radio1: </label>
+                <input type="radio"
+                       id="radio1"
+                       name="radio"
+                       value="radio1" />
+            </div>
+            <div>
+                <label for="radio1">radio2: </label>
+                <input type="radio"
+                       id="radio2"
+                       name="radio"
+                       value="radio2" />
+            </div>
+            <div>
+                <label for="radio1">radio3: </label>
+                <input type="radio"
+                       id="radio3"
+                       name="radio"
+                       value="radio3" />
+            </div>
+        </p>
+
+        <p>
+            <label for="range">range: </label>
+            <input type="range"
+                   id="range"
+                   name="range"
+                   step="1"
+                   min="0"
+                   max="100"
+                   value="10" />
+        </p>
+
+        <p>
+            <label for="reset">reset: </label>
+            <input type="reset"
+                   id="reset"
+                   name="reset" />
+        </p>
+
+        <p>
+            <label for="search">search: </label>
+            <input type="search"
+                   id="search"
+                   name="search" />
+        </p>
+
+        <p>
+            <label for="tel">tel: </label>
+            <input type="tel"
+                   id="tel"
+                   name="tel"
+                   placeholder="(XXX)-XXX-XXXX" />
+        </p>
+
+        <p>
+            <label for="time">time: </label>
+            <input type="time"
+                   id="time"
+                   name="time" />
+        </p>
+
+        <p>
+            <label for="url">url: </label>
+            <input type="url"
+                   id="url"
+                   name="url" />
+        </p>
+
+        <p>
+            <label for="week">week: </label>
+            <input type="week"
+                   id="week"
+                   name="week" />
+        </p>
+
+        <p>
+            <label for="image">image: </label>
+            <input type="image"
+                   src="img.jpg"
+                   id="image"
+                   name="image" />
+        </p>
+
+        <p>
+            <label for="submit">submit: </label>
+            <input id="submit"
+                   type="submit"
+                   value="submit" />
+        </p>
+
+        <p>
+            <label for="select">select:</label>
+            <select id="select"
+                    name="select">
+                <!--multiple-->
+                <option disabled
+                        selected>
+                    Выберите модель
+                </option>
+                <option value="iphone 6s">iPhone 6S</option>
+                <option value="lumia 950">Lumia 950</option>
+                <option value="nexus 5x">Nexus 5X</option>
+                <option value="galaxy s7">Galaxy S7</option>
+                <optgroup label="Apple">
+                    <option value="iphone 6s">iPhone 6S</option>
+                    <option value="iphone 6s plus">iPhone 6S Plus</option>
+                    <option value="iphone 5se">iPhone 5SE</option>
+                </optgroup>
+                <optgroup label="Microsoft">
+                    <option value="lumia 950">Lumia 950</option>
+                    <option value="lumia 950 xl">Lumia 950 XL</option>
+                    <option value="lumia 650">Lumia 650</option>
+                </optgroup>
+            </select>
+        </p>
+
+        <p>
+            <label for="textarea">textarea:</label>
+            <br />
+            <textarea name="textarea"
+                      id="textarea"
+                      placeholder="Не более 200 символов"
+                      maxlength="200"
+                      cols="30"
+                      rows="7"></textarea>
+        </p>
+
+    </form>
+
+    <!--
+    Для создания валидации у элементов форм HTML5 используется ряд атрибутов:
+
+    required: требует обязательного ввода значения. Для элементов textarea, select, input (с типом text, password, checkbox, radio, file, datetime-local, date, month, time, week, number, email, url, search, tel)
+
+    min и max: минимально и максимально допустимые значения. Для элемента input с типом datetime-local, date, month, time, week, number, range
+
+    pattern: задает шаблон, которому должны соответствовать вводимые данные. Для элемента input с типом text, password, email, url, search, tel. Атрибут pattern задает шаблон, которому должны соответствовать данные. Для определения шаблона используется язык так называемых регулярных выражений.
+
+    Не всегда валидация является желаемой, иногда требуется ее отключить. И в этом случае мы можем использовать либо у элемента формы атрибут novalidate, либо у кнопки отправки атрибут formnovalidate:
+    -->
+
+    <p>
+        <label for="button1">button1: </label>
+        <button type="reset"
+                id="button1"
+                value="button1"
+                form="form1">
+            button-reset
+        </button>
+    </p>
+    <p>
+        <label for="button2">button2: </label>
+        <button type="submit"
+                id="button2"
+                value="button2"
+                form="form1"
+                formmethod="post"
+                formaction="http://localhost:8080/act">
+            button-submit
+        </button>
+    </p>
+    <p>
+        <label for="button3">button3: </label>
+        <button type="button"
+                id="button3"
+                value="button3">
+            button-button
+        </button>
+    </p>
+
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <label>fileform:</label>
+    <form id="form2"
+          enctype="multipart/form-data"
+          method="post"
+          action="http://localhost:8080/postfile">
+        <p>
+            <input type="file"
+                   name="file"
+                   accept=""
+                   multiple
+                   required />
+        </p>
+        <p>
+            <input type="submit"
+                   value="Отправить" />
+        </p>
+    </form>
+
+    
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <h2>fieldset</h2>
+    <form id="form3">
+        <fieldset>
+            <legend>Введите данные:</legend>
+            <label for="login4">Логин:</label><br>
+            <input type="text" name="login4" id="login4" /><br>
+            <label for="password4">Пароль:</label><br>
+            <input type="password" name="password4" id="password4" /><br>
+            <input type="submit" value="Авторизация">
+        </fieldset>
+    </form> 
+
+
+</body>
+</html>
