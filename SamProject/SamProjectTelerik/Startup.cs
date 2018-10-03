@@ -14,8 +14,9 @@ using Microsoft.Extensions.FileProviders;
 
 using Newtonsoft.Json.Serialization;
 
+using Repository.Repositories;
+
 using SamProjectTelerik.Managers;
-using SamProjectTelerik.Repositories;
 
 
 
@@ -35,7 +36,7 @@ namespace SamProjectTelerik
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IRepository, Repository>();
+            services.AddSingleton<IRepository, Repository.Repositories.Repository>();
             services.AddSingleton<IManager, Manager>();
 
 

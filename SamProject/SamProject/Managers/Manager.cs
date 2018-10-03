@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Repository.Models;
+using Repository.Repositories;
+
 using SamProject.Models;
-using SamProject.Repositories;
 
 
 

@@ -7,8 +7,9 @@ using Kendo.Mvc.UI;
 
 using Microsoft.AspNetCore.Mvc;
 
+using Repository.Models;
+
 using SamProjectTelerik.Managers;
-using SamProjectTelerik.Models;
 
 
 

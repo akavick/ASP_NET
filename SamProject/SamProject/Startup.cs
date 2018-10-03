@@ -14,8 +14,9 @@ using Microsoft.Extensions.FileProviders;
 
 using Newtonsoft.Json.Serialization;
 
+using Repository.Repositories;
+
 using SamProject.Managers;
-using SamProject.Repositories;
 
 
 
@@ -23,6 +24,7 @@ using SamProject.Repositories;
 
 namespace SamProject
 {
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -30,12 +32,20 @@ namespace SamProject
             Configuration = configuration;
         }
 
+
+
+
+
         public IConfiguration Configuration { get; }
+
+
+
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IRepository, Repository>();
+            services.AddSingleton<IRepository, Repository.Repositories.Repository>();
             services.AddSingleton<IManager, Manager>();
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -51,10 +61,15 @@ namespace SamProject
                     .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
 
+
+
+
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTkwMDFAMzEzNjJlMzIyZTMwRU9rMDF5Mk1maWpOTTQ2OWprdVM1OFhGMHc1NE9RQ3BFUHNFc1NXWmFrND0=;MTkwMDJAMzEzNjJlMzIyZTMwSGdDLzl6eVJ2RXU3VytHM1d3VGhPYVQ5ZmlFVWRVRW85T0tVS2wzdmVEWT0=;MTkwMDNAMzEzNjJlMzIyZTMwZFNXMWRPNHJnd1d5b2RaWUNXYWhuVDFDV0VyVnJ4Q1RIV2dIZkdaNFB4cz0=;MTkwMDRAMzEzNjJlMzIyZTMwSS93OGRvT083L0hOWDRJUUYyK1BQVHhNTitFSUtxT0l6eG9mSWc4VUUvaz0=;MTkwMDVAMzEzNjJlMzIyZTMwTk8wSUJ3cWVSdzdtaUQwaGttKzd6SmNCeE9lTlFPdC9XOWlSSUdHRTVYdz0=;MTkwMDZAMzEzNjJlMzIyZTMwWEVFVnZ2MFlFZklBdWJaOTc5aUpVRlYvSStFQUdSWC9MVk8xQ1E3aG5SND0=;MTkwMDdAMzEzNjJlMzIyZTMwaWVKYXY1ZGJxSXA0djF3NkVRU0drM1R3UEFCWUliUHNzK3RXZkZqN1FoST0=;MTkwMDhAMzEzNjJlMzIyZTMwTmlHVG1CT3lvcndnaGs4T3ZHN1NabmFzY05iMGlWQ0hvZTJZby94Y0Niaz0=;MTkwMDlAMzEzNjJlMzIyZTMwZ2FBVXg4N0l4U3pBRFdWK1hha0RTS3BjaytBZ1o3Nk8xeTFZUldDWGNEQT0=");
+
             // 16.2.0.50sp Core // MTkwMDBAMzEzNjJlMzIyZTMwZ2FBVXg4N0l4U3pBRFdWK1hha0RTS3BjaytBZ1o3Nk8xeTFZUldDWGNEQT0=
             // 16.2.0.50sp All  // MTkwMDFAMzEzNjJlMzIyZTMwRU9rMDF5Mk1maWpOTTQ2OWprdVM1OFhGMHc1NE9RQ3BFUHNFc1NXWmFrND0=;MTkwMDJAMzEzNjJlMzIyZTMwSGdDLzl6eVJ2RXU3VytHM1d3VGhPYVQ5ZmlFVWRVRW85T0tVS2wzdmVEWT0=;MTkwMDNAMzEzNjJlMzIyZTMwZFNXMWRPNHJnd1d5b2RaWUNXYWhuVDFDV0VyVnJ4Q1RIV2dIZkdaNFB4cz0=;MTkwMDRAMzEzNjJlMzIyZTMwSS93OGRvT083L0hOWDRJUUYyK1BQVHhNTitFSUtxT0l6eG9mSWc4VUUvaz0=;MTkwMDVAMzEzNjJlMzIyZTMwTk8wSUJ3cWVSdzdtaUQwaGttKzd6SmNCeE9lTlFPdC9XOWlSSUdHRTVYdz0=;MTkwMDZAMzEzNjJlMzIyZTMwWEVFVnZ2MFlFZklBdWJaOTc5aUpVRlYvSStFQUdSWC9MVk8xQ1E3aG5SND0=;MTkwMDdAMzEzNjJlMzIyZTMwaWVKYXY1ZGJxSXA0djF3NkVRU0drM1R3UEFCWUliUHNzK3RXZkZqN1FoST0=;MTkwMDhAMzEzNjJlMzIyZTMwTmlHVG1CT3lvcndnaGs4T3ZHN1NabmFzY05iMGlWQ0hvZTJZby94Y0Niaz0=;MTkwMDlAMzEzNjJlMzIyZTMwZ2FBVXg4N0l4U3pBRFdWK1hha0RTS3BjaytBZ1o3Nk8xeTFZUldDWGNEQT0=
 
@@ -104,11 +119,7 @@ namespace SamProject
             {
                 var path = Path.Combine(Directory.GetCurrentDirectory(), @"node_modules");
 
-                app.UseStaticFiles(new StaticFileOptions
-                {
-                    FileProvider = new PhysicalFileProvider(path),
-                    RequestPath = new PathString("/node_modules")
-                });
+                app.UseStaticFiles(new StaticFileOptions {FileProvider = new PhysicalFileProvider(path), RequestPath = new PathString("/node_modules")});
             }
 
             app.UseCookiePolicy();
@@ -116,9 +127,10 @@ namespace SamProject
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{number?}");
+                                name: "default",
+                                template: "{controller=Home}/{action=Index}/{number?}");
             });
         }
     }
+
 }

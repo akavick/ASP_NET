@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamProject", "SamProject\Sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamProjectTelerik", "SamProjectTelerik\SamProjectTelerik.csproj", "{A579250E-EE61-48B8-ABD3-543603A72F15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Devexpress", "Devexpress\Devexpress.csproj", "{D5E8F2D1-5BD9-4943-B354-23614C1783D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{2843FC0D-26C9-4522-8969-C2A65FEA7E92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{A579250E-EE61-48B8-ABD3-543603A72F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A579250E-EE61-48B8-ABD3-543603A72F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A579250E-EE61-48B8-ABD3-543603A72F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5E8F2D1-5BD9-4943-B354-23614C1783D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E8F2D1-5BD9-4943-B354-23614C1783D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E8F2D1-5BD9-4943-B354-23614C1783D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E8F2D1-5BD9-4943-B354-23614C1783D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2843FC0D-26C9-4522-8969-C2A65FEA7E92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2843FC0D-26C9-4522-8969-C2A65FEA7E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2843FC0D-26C9-4522-8969-C2A65FEA7E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2843FC0D-26C9-4522-8969-C2A65FEA7E92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

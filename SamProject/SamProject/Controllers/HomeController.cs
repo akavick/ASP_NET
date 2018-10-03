@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
+using Repository.Models;
+
 using SamProject.Managers;
-using SamProject.Models;
 
 using Syncfusion.EJ2.Base;
 

@@ -1,0 +1,45 @@
+﻿@using DevExpress.AspNetCore.Bootstrap
+@using DevExpress.Compatibility.System.Windows.Forms
+@using DevExpress.XtraSpellChecker.Parser
+
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div>
+
+    @(Html.DevExpress()
+          .BootstrapChart("chartStackedBar")
+          .TitleText("Male Age Structure")
+          .SettingsCommonSeries(settings => settings
+                                                .ArgumentField("state"))
+          .SeriesCollection(series => {
+                                          series.AddStackedBarSeries()
+                                                .Name("0-14")
+                                                .ValueField("young");
+                                          series.AddStackedBarSeries()
+                                                .Name("15-64")
+                                                .ValueField("middle");
+                                          series.AddStackedBarSeries()
+                                                .Name("65 and older")
+                                                .ValueField("older");
+          })
+          .ArgumentAxis(axis => axis
+                                    .ValueMarginsEnabled(false)
+                                    .DiscreteAxisDivisionMode(DiscreteAxisDivisionMode.CrossLabels)
+                                    .GridVisible(true)
+                                    .TickInterval(1))
+          .SettingsLegend(settings => settings
+                                          .VerticalAlignment(VerticalAlign.Bottom)
+                                          .HorizontalAlignment(HorizontalAlign.Center)
+                                          .ItemTextPosition(UIElementPosition.Top))
+          .ValueAxisCollection(axis => axis
+                                           .AddValueAxis()
+                                           .TitleText("millions")
+                                           .Position(UIElementPosition.Right))
+          .CssClasses(css => css.Control("demo-chart"))
+          .Bind("jsondata/ChartTypes/stackedbar.json"))
+
+</div>
