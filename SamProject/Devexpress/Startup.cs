@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using DevExpress.AspNetCore;
+using DevExpress.AspNetCore.Bootstrap;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,9 +45,6 @@ namespace Devexpress
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // set up the services utilized by DevExpress controls 
-            services.AddDevExpressControls();
-
             //services.AddSingleton<IRepository, Repository>();
             //services.AddSingleton<IManager, Manager>();
 
@@ -62,6 +60,18 @@ namespace Devexpress
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                     .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
+
+            // set up the services utilized by DevExpress controls 
+            //services.AddDevExpressControls();
+            services.AddDevExpressControls(options =>
+            {
+                options.Bootstrap(bootstrapOptions =>
+                {
+                    bootstrapOptions.IconSet = BootstrapIconSet.Embedded;
+                    bootstrapOptions.Mode = BootstrapMode.Bootstrap4;
+                });
+                options.Resources = ResourcesType.DevExtreme;
+            });
         }
 
 
@@ -71,6 +81,9 @@ namespace Devexpress
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // register DevExpress middleware components before calling UseMvc()
+            app.UseDevExpressControls();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -95,6 +108,7 @@ namespace Devexpress
             //}
 
             app.UseCookiePolicy();
+
 
             app.UseMvc(routes =>
             {

@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamProject", "SamProject\Sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamProjectTelerik", "SamProjectTelerik\SamProjectTelerik.csproj", "{A579250E-EE61-48B8-ABD3-543603A72F15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Devexpress", "Devexpress\Devexpress.csproj", "{D5E8F2D1-5BD9-4943-B354-23614C1783D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Devexpress", "Devexpress\Devexpress.csproj", "{D5E8F2D1-5BD9-4943-B354-23614C1783D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{2843FC0D-26C9-4522-8969-C2A65FEA7E92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{2843FC0D-26C9-4522-8969-C2A65FEA7E92}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevExtreme", "DevExtreme\DevExtreme.csproj", "{B0BA93C3-11EC-4F8D-809E-75762CB4ED4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2843FC0D-26C9-4522-8969-C2A65FEA7E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2843FC0D-26C9-4522-8969-C2A65FEA7E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2843FC0D-26C9-4522-8969-C2A65FEA7E92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0BA93C3-11EC-4F8D-809E-75762CB4ED4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0BA93C3-11EC-4F8D-809E-75762CB4ED4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0BA93C3-11EC-4F8D-809E-75762CB4ED4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0BA93C3-11EC-4F8D-809E-75762CB4ED4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

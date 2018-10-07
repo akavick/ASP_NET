@@ -11,8 +11,7 @@
 <div>
     
     
-    @(Html.DevExpress().BootstrapTextBox("text"))
-    
+ 
 
     @(Html.DevExpress()
           .BootstrapChart("chartStackedBar")
@@ -20,15 +19,15 @@
           .SettingsCommonSeries(settings => settings
                                                 .ArgumentField("state"))
           .SeriesCollection(series => {
-                                          series.AddStackedBarSeries()
-                                                .Name("0-14")
-                                                .ValueField("young");
-                                          series.AddStackedBarSeries()
-                                                .Name("15-64")
-                                                .ValueField("middle");
-                                          series.AddStackedBarSeries()
-                                                .Name("65 and older")
-                                                .ValueField("older");
+              series.AddStackedBarSeries()
+                    .Name("0-14")
+                    .ValueField("young");
+              series.AddStackedBarSeries()
+                    .Name("15-64")
+                    .ValueField("middle");
+              series.AddStackedBarSeries()
+                    .Name("65 and older")
+                    .ValueField("older");
           })
           .ArgumentAxis(axis => axis
                                     .ValueMarginsEnabled(false)
@@ -50,6 +49,10 @@
               new { State = "Japan", Young = 9.6, Middle = 43.4, Older = 9 },
               new { State = "Russia", Young = 13.5, Middle = 49, Older = 5.8 },
               new { State = "USA", Young = 30, Middle = 90.3, Older = 14.5 }
-          }))
+          })
+          )
+    
+    
+
 
 </div>
