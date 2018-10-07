@@ -1,28 +1,5 @@
-﻿@model RsApplication
-
-
-
-
-
-@{
-    var lines = new
-    {
-        width = 0.0001
-    };
-
-    //var border = new Syncfusion.EJ2.Charts.ChartBorder
-    //{
-    //    Width = 0,
-    //    Color = "transparent"
-    //};
-
-    //var location = new
-    //{
-    //    x = 300,
-    //    y = 300
-    //};
-}
-
+﻿@using Syncfusion.EJ2.Charts
+@model RsApplication
 
 
 
@@ -51,7 +28,7 @@
                height="300"
                width="100%">
 
-        <e-chart-primaryxaxis majorGridLines="@lines"
+        <e-chart-primaryxaxis majorGridLines="@(new ChartMajorGridLines{Width = 0.0001})"
                               labelIntersectAction="Rotate45"
                               valueType="DateTime"
                               maximum="Model?.BeginDate.AddDays(-1)"
@@ -66,8 +43,8 @@
                               interval="0.25"
                               title="ставка"
                               labelFormat="{value}"
-                              majorTickLines="@lines"
-                              lineStyle="@lines"></e-chart-primaryyaxis>
+                              majorTickLines="@(new ChartMajorTickLines{Width = 0.0001})"
+                              lineStyle="@(new ChartAxisLine{Width = 0.0001})"></e-chart-primaryyaxis>
 
         <e-series-collection>
 
@@ -83,7 +60,7 @@
                           width="2"
                           opacity="0.8"
                           fill="@(chartData.Color)"
-                          legendShape="@(Syncfusion.EJ2.Charts.LegendShape.SeriesType)"
+                          legendShape="@(LegendShape.SeriesType)"
                           type="@(chartData.SeriesType)">
 
                     <e-segments>

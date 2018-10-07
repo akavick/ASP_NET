@@ -55,7 +55,6 @@ namespace SamProject
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                     .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
@@ -68,10 +67,8 @@ namespace SamProject
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTkwMDFAMzEzNjJlMzIyZTMwRU9rMDF5Mk1maWpOTTQ2OWprdVM1OFhGMHc1NE9RQ3BFUHNFc1NXWmFrND0=;MTkwMDJAMzEzNjJlMzIyZTMwSGdDLzl6eVJ2RXU3VytHM1d3VGhPYVQ5ZmlFVWRVRW85T0tVS2wzdmVEWT0=;MTkwMDNAMzEzNjJlMzIyZTMwZFNXMWRPNHJnd1d5b2RaWUNXYWhuVDFDV0VyVnJ4Q1RIV2dIZkdaNFB4cz0=;MTkwMDRAMzEzNjJlMzIyZTMwSS93OGRvT083L0hOWDRJUUYyK1BQVHhNTitFSUtxT0l6eG9mSWc4VUUvaz0=;MTkwMDVAMzEzNjJlMzIyZTMwTk8wSUJ3cWVSdzdtaUQwaGttKzd6SmNCeE9lTlFPdC9XOWlSSUdHRTVYdz0=;MTkwMDZAMzEzNjJlMzIyZTMwWEVFVnZ2MFlFZklBdWJaOTc5aUpVRlYvSStFQUdSWC9MVk8xQ1E3aG5SND0=;MTkwMDdAMzEzNjJlMzIyZTMwaWVKYXY1ZGJxSXA0djF3NkVRU0drM1R3UEFCWUliUHNzK3RXZkZqN1FoST0=;MTkwMDhAMzEzNjJlMzIyZTMwTmlHVG1CT3lvcndnaGs4T3ZHN1NabmFzY05iMGlWQ0hvZTJZby94Y0Niaz0=;MTkwMDlAMzEzNjJlMzIyZTMwZ2FBVXg4N0l4U3pBRFdWK1hha0RTS3BjaytBZ1o3Nk8xeTFZUldDWGNEQT0=");
-
-            // 16.2.0.50sp Core // MTkwMDBAMzEzNjJlMzIyZTMwZ2FBVXg4N0l4U3pBRFdWK1hha0RTS3BjaytBZ1o3Nk8xeTFZUldDWGNEQT0=
-            // 16.2.0.50sp All  // MTkwMDFAMzEzNjJlMzIyZTMwRU9rMDF5Mk1maWpOTTQ2OWprdVM1OFhGMHc1NE9RQ3BFUHNFc1NXWmFrND0=;MTkwMDJAMzEzNjJlMzIyZTMwSGdDLzl6eVJ2RXU3VytHM1d3VGhPYVQ5ZmlFVWRVRW85T0tVS2wzdmVEWT0=;MTkwMDNAMzEzNjJlMzIyZTMwZFNXMWRPNHJnd1d5b2RaWUNXYWhuVDFDV0VyVnJ4Q1RIV2dIZkdaNFB4cz0=;MTkwMDRAMzEzNjJlMzIyZTMwSS93OGRvT083L0hOWDRJUUYyK1BQVHhNTitFSUtxT0l6eG9mSWc4VUUvaz0=;MTkwMDVAMzEzNjJlMzIyZTMwTk8wSUJ3cWVSdzdtaUQwaGttKzd6SmNCeE9lTlFPdC9XOWlSSUdHRTVYdz0=;MTkwMDZAMzEzNjJlMzIyZTMwWEVFVnZ2MFlFZklBdWJaOTc5aUpVRlYvSStFQUdSWC9MVk8xQ1E3aG5SND0=;MTkwMDdAMzEzNjJlMzIyZTMwaWVKYXY1ZGJxSXA0djF3NkVRU0drM1R3UEFCWUliUHNzK3RXZkZqN1FoST0=;MTkwMDhAMzEzNjJlMzIyZTMwTmlHVG1CT3lvcndnaGs4T3ZHN1NabmFzY05iMGlWQ0hvZTJZby94Y0Niaz0=;MTkwMDlAMzEzNjJlMzIyZTMwZ2FBVXg4N0l4U3pBRFdWK1hha0RTS3BjaytBZ1o3Nk8xeTFZUldDWGNEQT0=
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzIyMDdAMzEzNjJlMzMyZTMwS1lBeTREaDNHaEhJZFVSWjJRMms0NUlGdGsrVjBQdkpFbVhmT2gxZVd6MD0=;MzIyMDhAMzEzNjJlMzMyZTMwbW03M0N0cmZGZzUvcC9nYitQaVNrZDhLajM1VGRrZWU5M3F0NTdjamRwOD0=");
+            // 16.3.0.21 js + core // MzIyMDdAMzEzNjJlMzMyZTMwS1lBeTREaDNHaEhJZFVSWjJRMms0NUlGdGsrVjBQdkpFbVhmT2gxZVd6MD0=;MzIyMDhAMzEzNjJlMzMyZTMwbW03M0N0cmZGZzUvcC9nYitQaVNrZDhLajM1VGRrZWU5M3F0NTdjamRwOD0=
 
             if (env.IsDevelopment())
             {

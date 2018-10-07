@@ -14,60 +14,30 @@
         console.log(kendo.format("Series hover :: {0} ({1}): {2}", e.series.name, e.category, e.value));
     }
 
-    function onDataBound(e)
-    {
-        console.log("Data bound");
-    }
+    function onDataBound(e) { console.log("Data bound"); }
 
     function onAxisLabelClick(e)
     {
         console.log(kendo.format("Axis label click :: {0} axis : {1}", e.axis.type, e.text));
     }
 
-    function onPlotAreaClick(e)
-    {
-        console.log(kendo.format("Plot area click :: {0} : {1:N0}", e.category, e.value));
-    }
+    function onPlotAreaClick(e) { console.log(kendo.format("Plot area click :: {0} : {1:N0}", e.category, e.value)); }
 
-    function onPlotAreaHover(e)
-    {
-        console.log(kendo.format("Plot area hover :: {0} : {1:N0}", e.category, e.value));
-    }
+    function onPlotAreaHover(e) { console.log(kendo.format("Plot area hover :: {0} : {1:N0}", e.category, e.value)); }
 
-    function onRender(e)
-    {
-        console.log("Render");
-    }
+    function onRender(e) { console.log("Render"); }
 
-    function onLegendItemClick(e)
-    {
-        console.log(kendo.format("Legend item click :: {0}", e.text));
-    }
+    function onLegendItemClick(e) { console.log(kendo.format("Legend item click :: {0}", e.text)); }
 
-    function onLegendItemHover(e)
-    {
-        console.log(kendo.format("Legend item hover :: {0}", e.text));
-    }
+    function onLegendItemHover(e) { console.log(kendo.format("Legend item hover :: {0}", e.text)); }
 
-    function onDragStart(e)
-    {
-        console.log("Drag start");
-    }
+    function onDragStart(e) { console.log("Drag start"); }
 
-    function onDrag(e)
-    {
-        console.log("Drag");
-    }
+    function onDrag(e) { console.log("Drag"); }
 
-    function onDragEnd(e)
-    {
-        console.log("Drag end");
-    }
+    function onDragEnd(e) { console.log("Drag end"); }
 
-    function onZoomStart(e)
-    {
-        console.log("Zoom start");
-    }
+    function onZoomStart(e) { console.log("Zoom start"); }
 
     function onZoom(e)
     {
@@ -77,10 +47,7 @@
         e.originalEvent.preventDefault();
     }
 
-    function onZoomEnd(e)
-    {
-        console.log("Zoom end");
-    }
+    function onZoomEnd(e) { console.log("Zoom end"); }
 
 </script>
 
@@ -90,7 +57,7 @@
     {
         width: 100%;
         margin: 0 1px;
-        min-width:5px;
+        min-width: 5px;
         display: flex;
         flex-direction: column-reverse;
     }
@@ -99,16 +66,12 @@
     {
         width: 100%;
     }
-
 </style>
 
 
 <script>
 
-    function chartMouseClick(obj)
-    {
-        console.log(obj.target);
-    }
+    function chartMouseClick(obj) { console.log(obj.target); }
     //window.onChartLoad = function(obj)
     //{
     //    console.log("hi");
@@ -120,16 +83,16 @@
 
         $.ajax({
             type: "POST",
-            url: "@(Url.Action("ChartDataAjax", "Home", new { app = Model }))",
+            url: "@(Url.Action("ChartDataAjax", "Home", new {app = Model}))",
             // передача в качестве объекта
             // поля будут закодированые через encodeURIComponent автоматически
-            success: function (result)
+            success: function(result)
             {
                 let wrapper = document.getElementById("chartWrapper");
                 let columns = result.columns;
                 let line = result.line;
 
-                columns.forEach(function (currentApp, appIndex, appArray)
+                columns.forEach(function(currentApp, appIndex, appArray)
                 {
                     currentApp.DataSource.forEach(function(currentDay, dayIndex, dayArray)
                     {
@@ -152,13 +115,8 @@
                         columnWrapper.appendChild(columnBlock);
                     });
                 });
-
-
             },
-            error: function (err)
-            {
-                console.log("error: " + err);
-            }
+            error: function(err) { console.log("error: " + err); }
         });
     }
 
@@ -169,113 +127,121 @@
 
 
     @*<div style="overflow-x: scroll; height:350px; width:100%;">
-        <div id="chartWrapper"
-             style="height: 300px; width: 100%; display: flex;"></div>
-    </div>*@
+            <div id="chartWrapper"
+                 style="height: 300px; width: 100%; display: flex;"></div>
+        </div>*@
 
 
 
-    @(Html.Kendo()
+    @{
+        Html.Kendo()
+            .Chart()
+            .RenderAs(RenderingMode.SVG)
+            .Name("chart")
+            .Zoomable(conf =>
+            {
+                conf.Mousewheel(opt => opt.Lock(ChartAxisLock.Y))
+                    .Selection(selection => selection.Lock(ChartAxisLock.Y));
+            })
+            .Pannable(conf => conf.Lock(ChartAxisLock.Y))
+            .HtmlAttributes(new { style = "height:300px; width:100%" })
+            .Title("")
+            .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
+            .Series(series =>
+            {
+                foreach (var columnChartSeries in (IEnumerable<ChartSeries<DateTime, decimal>>)ViewBag.ColumnsDataSource)
+                {
+                    series.Column(columnChartSeries.DataSource)
+                          .Aggregate(conf => conf.Close(ChartSeriesAggregate.Sum))
+                          .CategoryField("X")
+                          .Field("Y")
+                          .Stack(true)
+                          .Color(columnChartSeries.Color)
+                          .Name(columnChartSeries.Name)
+                          .DynamicHeight(true)
+                          .DynamicSlope(true)
+                          .Border(b => b.Width(0));
+                }
 
-              .Chart()
+                foreach (var lineChartSeries in (IEnumerable<ChartSeries<DateTime, decimal>>)ViewBag.LineDataSource)
+                {
+                    series.Line(lineChartSeries.DataSource)
+                          .CategoryField("X")
+                          .Field("Y")
+                          .Style(ChartSeriesStyle.Step)
+                          .Markers(m => m.Visible(false).Size(0))
+                          .Color(lineChartSeries.Color)
+                          .Name(lineChartSeries.Name)
+                          .Tooltip(t => t.Visible(false))
+                          .VisibleInLegend(false)
+                          .DynamicHeight(true)
+                          .DynamicSlope(true);
+                }
 
-              .RenderAs(RenderingMode.SVG)
+            })
+            .CategoryAxis(axis =>
+            {
+                axis.Date()
+                    .Min(Model.BeginDate)
+                    .Max((Model.EndDate - Model.BeginDate).Days > 100
+                             ? Model.BeginDate.AddDays(100)
+                             : Model.EndDate)
+                    .BaseUnit(ChartAxisBaseUnit.Days)
+                    .Justify(true)
+                    .MinorGridLines(conf => conf.Visible(false))
+                    .MinorTicks(conf => conf.Visible(false))
+                    .MajorGridLines(conf => conf.Visible(false))
+                    .MajorTicks(conf => conf.Visible(false))
 
-              .Name("chart")
+                    //.AutoBaseUnitSteps(conf => conf.Days())
+                    // Align the first two value axes to the left
+                    // and the last two to the right.
+                    //
+                    // Right alignment is done by specifying a
+                    // crossing value greater than or equal to
+                    // the number of categories.
+                    //.AxisCrossingValue(0, 0, 10, 10)
+                    //.PlotBands(conf => conf.)
+                    .Labels(conf => conf.Step(20) /*.Rotation("auto")*/);
+            })
+            .ValueAxis(axis =>
+            {
+                axis.Numeric()
+                    //.Name("rateAxis")
+                    .Title("ставка")
+                    .Min(0.0)
+                    .Max(2.0)
+                    .MajorUnit(0.25);
+            })
+            .Tooltip(tooltip =>
+            {
+                tooltip.Visible(true)
+                       .Shared(true)
+                       .Template("#= series.name #: #= value #");
+            })
+            .Events(events =>
+            {
+                events.SeriesClick("onSeriesClick")
 
-              .Zoomable(conf => conf.Mousewheel(opt => opt.Lock(ChartAxisLock.Y))
-                                    .Selection(selection => selection.Lock(ChartAxisLock.Y)))
+                      //.SeriesHover("onSeriesHover")
+                      .DataBound("onDataBound")
+                      .AxisLabelClick("onAxisLabelClick");
+            })
+            .Render();
 
-              .Pannable(conf => conf.Lock(ChartAxisLock.Y))
+        //.PlotAreaClick("onPlotAreaClick")
+        //.PlotAreaHover("onPlotAreaHover")
+        //.Render("onRender")
+        //.LegendItemClick("onLegendItemClick")
+        //.LegendItemHover("onLegendItemHover")
+        //.DragStart("onDragStart")
+        //.Drag("onDrag")
+        //.DragEnd("onDragEnd")
+        //.ZoomStart("onZoomStart")
+        //.Zoom("onZoom")
+        //.ZoomEnd("onZoomEnd")
+    }
 
-              .HtmlAttributes(new { style = "height:300px; width:100%" })
-
-              .Title("")
-
-              .Legend(legend => legend.Position(ChartLegendPosition.Bottom))
-
-              .Series(series =>
-              {
-                  foreach (var columnChartSeries in (IEnumerable<ChartSeries<DateTime, decimal>>)ViewBag.ColumnsDataSource)
-                  {
-                      series.Column(columnChartSeries.DataSource)
-                            .Aggregate(conf => conf.Close(ChartSeriesAggregate.Sum))
-                            .CategoryField("X")
-                            .Field("Y")
-                            .Stack(true)
-                            .Color(columnChartSeries.Color)
-                            .Name(columnChartSeries.Name)
-                            .DynamicHeight(true)
-                            .DynamicSlope(true)
-                            .Border(b => b.Width(0));
-                  }
-
-                  foreach (var lineChartSeries in (IEnumerable<ChartSeries<DateTime, decimal>>)ViewBag.LineDataSource)
-                  {
-                      series.Line(lineChartSeries.DataSource)
-                            .CategoryField("X")
-                            .Field("Y")
-                            .Style(ChartSeriesStyle.Step)
-                            .Markers(m => m.Visible(false).Size(0))
-                            .Color(lineChartSeries.Color)
-                            .Name(lineChartSeries.Name)
-                            .Tooltip(t => t.Visible(false))
-                            .VisibleInLegend(false)
-                            .DynamicHeight(true)
-                            .DynamicSlope(true);
-                  }
-
-              })
-
-              .CategoryAxis(axis => axis.Date()
-                                        .Min(Model.BeginDate)
-                                        .Max((Model.EndDate - Model.BeginDate).Days > 100 ? Model.BeginDate.AddDays(100) : Model.EndDate)
-                                        .BaseUnit(ChartAxisBaseUnit.Days)
-                                        .Justify(true)
-                                        .MinorGridLines(conf => conf.Visible(false))
-                                        .MinorTicks(conf => conf.Visible(false))
-                                        .MajorGridLines(conf => conf.Visible(false))
-                                        .MajorTicks(conf => conf.Visible(false))
-                                        //.PlotBands(conf => conf.)
-                                        .Labels(conf => conf.Step(20)/*.Rotation("auto")*/))
-                                        //.AutoBaseUnitSteps(conf => conf.Days())
-                                        // Align the first two value axes to the left
-                                        // and the last two to the right.
-                                        //
-                                        // Right alignment is done by specifying a
-                                        // crossing value greater than or equal to
-                                        // the number of categories.
-                                        //.AxisCrossingValue(0, 0, 10, 10)
-
-              .ValueAxis(axis => axis.Numeric()
-                                     //.Name("rateAxis")
-                                     .Title("ставка")
-                                     .Min(0.0)
-                                     .Max(2.0)
-                                     .MajorUnit(0.25))
-
-              .Tooltip(tooltip => tooltip.Visible(true)
-                                         .Shared(true)
-                                         .Template("#= series.name #: #= value #"))
-
-              .Events(events => events.SeriesClick("onSeriesClick")
-                                      //.SeriesHover("onSeriesHover")
-                                      .DataBound("onDataBound")
-                                      .AxisLabelClick("onAxisLabelClick")
-                                      //.PlotAreaClick("onPlotAreaClick")
-                                      //.PlotAreaHover("onPlotAreaHover")
-                                      //.Render("onRender")
-                                      //.LegendItemClick("onLegendItemClick")
-                                      //.LegendItemHover("onLegendItemHover")
-                                      //.DragStart("onDragStart")
-                                      //.Drag("onDrag")
-                                      //.DragEnd("onDragEnd")
-                                      //.ZoomStart("onZoomStart")
-                                      //.Zoom("onZoom")
-                                      //.ZoomEnd("onZoomEnd")
-              )
-
-        )
 </div>
 
 

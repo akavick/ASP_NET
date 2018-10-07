@@ -1,4 +1,5 @@
-﻿@model RsApplication
+﻿@using Syncfusion.EJ2.Charts
+@model RsApplication
 
 @{
     Layout = null;
@@ -56,21 +57,20 @@
             console.log(obj.target);
         }
 
-        window.onChartLoad = function(obj) { console.log("hi"); };
+        window.onChartLoad = function (obj) { console.log("hi"); };
 
     </script>
 </head>
 <body>
 
     <div id="mainChartWrapper">
-        
+
         <ejs-chart id="Chart"
                    load="window.onChartLoad"
                    chartMouseClick="chartMouseClick"
-                   
                    height="300">
 
-            <e-chart-primaryxaxis majorGridLines="@lines"
+            <e-chart-primaryxaxis majorGridLines="@(new ChartMajorGridLines{Width = 0.0001})"
                                   labelIntersectAction="Rotate45"
                                   valueType="DateTime"
                                   maximum="Model?.BeginDate.AddDays(-1)"
@@ -85,8 +85,8 @@
                                   interval="0.25"
                                   title="ставка"
                                   labelFormat="{value}"
-                                  majorTickLines="@lines"
-                                  lineStyle="@lines"></e-chart-primaryyaxis>
+                                  majorTickLines="@(new ChartMajorTickLines{Width = 0.0001})"
+                                  lineStyle="@(new ChartAxisLine{Width = 0.0001})"></e-chart-primaryyaxis>
 
             <e-series-collection>
 

@@ -1,0 +1,100 @@
+﻿@model RsApplication
+
+
+
+
+
+<script>
+
+    function chartMouseClick(obj)
+    {
+        console.log(obj.target);
+    }
+    //window.onChartLoad = function(obj)
+    //{
+    //    console.log("hi");
+    //};
+
+</script>
+
+
+<div id="chartWrapper"
+     style="width:100%">
+
+    @{
+        var datasource = new List<object>
+        {
+            new {Date = DateTime.Now.Date.AddDays(0), Young = 6.7, Middle = 28.6, Older = 5.1},
+            new {Date = DateTime.Now.Date.AddDays(1), Young = 9.6, Middle = 43.4, Older = 9},
+            new {Date = DateTime.Now.Date.AddDays(2), Young = 13.5, Middle = 49, Older = 5.8},
+            new {Date = DateTime.Now.Date.AddDays(3), Young = 30, Middle = 90.3, Older = 14.5}
+        };
+
+
+        Html.DevExtreme()
+            .Chart()
+            .ID("chart")
+            .ArgumentAxis(axis =>
+            {
+                axis.ArgumentType(ChartDataType.DateTime)
+                    .TickInterval(ti => ti.Days(1));
+            })
+            .CommonSeriesSettings(s =>
+            {
+                s.ArgumentField("Date")
+                 .Type(SeriesType.StackedBar);
+            })
+            .Series(s =>
+            {
+                s.Add()
+                 .Type(SeriesType.StackedBar)
+                 .ArgumentField("Date")
+                 .ValueField("Young")
+                 .Name("0-14");
+
+                s.Add()
+                 .Type(SeriesType.StackedBar)
+                 .ArgumentField("Date")
+                 .ValueField("Middle")
+                 .Name("15-64");
+
+                s.Add()
+                 .Type(SeriesType.StackedBar)
+                 .ArgumentField("Date")
+                 .ValueField("Older")
+                 .Name("65 and older");
+            })
+            .Legend(l =>
+            {
+                l.VerticalAlignment(VerticalEdge.Bottom)
+                 .HorizontalAlignment(HorizontalAlignment.Center)
+                 .ItemTextPosition(Position.Top);
+            })
+            .ValueAxis(a =>
+            {
+                a.Add()
+                 .Title(t => t.Text("millions"))
+                 .Position(Position.Right);
+            })
+            .Title("Male Age Structure")
+            .Export(e => e.Enabled(true))
+            .Tooltip(t =>
+            {
+                t.Enabled(true)
+                 .Location(ChartTooltipLocation.Edge)
+                 .CustomizeTooltip(@"
+                function(arg)
+                {
+                    return
+                    {
+                        text: arg.seriesName + "" years: "" + arg.valueText
+                    };
+                }
+            ");
+            })
+            .DataSource(datasource)
+            .Render();
+    }
+</div>
+
+

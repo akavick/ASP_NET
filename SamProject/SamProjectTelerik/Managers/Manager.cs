@@ -57,76 +57,13 @@ namespace SamProjectTelerik.Managers
 
         //                                           var data =
         //                                               dates.Select(d => new ChartPoint<DateTime, decimal>
-        //                                                    {
-        //                                                        X = d,
-        //                                                        Y = innerApp.Rate.Value,
-        //                                                    })
-        //                                                    .ToArray();
+        //                                               {
+        //                                                   X = d,
+        //                                                   Y = innerApp.Rate.Value,
+        //                                               })
+        //                                               .ToArray();
 
         //                                           return data;
-        //                                       })
-        //                                       .ToList();
-
-        //                           var chartSeries = new ChartSeries<DateTime, decimal>
-        //                           {
-        //                               Name = appGroup.Key.Name,
-        //                               Color = colors[i],
-        //                               DataSource = source,
-        //                               //SeriesType = Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn
-        //                           };
-
-        //                           return chartSeries;
-        //                       })
-        //                       .ToList();
-
-        //        return columnChart;
-        //    });
-        //}
-
-
-
-
-
-        //public async Task<IEnumerable<ChartSeries<DateTime, decimal>>> GetColumnsDataAsync(RsApplication application)
-        //{
-        //    return await Task.Run(() =>
-        //    {
-        //        var colors = new[] { "green", "darkred", "darkgray", "darkorange", "lightblue", "darkblue" };
-
-        //        var columnChart =
-        //            _repository.ReservationSystemApplications
-        //                       .Where(app => app.IntersectsWith(application))
-        //                       .GroupBy(app => app.Project)
-        //                       .Select((appGroup, i) =>
-        //                       {
-        //                           var source =
-        //                               appGroup.SelectMany(innerApp =>
-        //                                       {
-        //                                           var currentDate = innerApp.BeginDate;
-        //                                           var dates = new List<DateTime> { currentDate };
-
-        //                                           while (currentDate != innerApp.EndDate)
-        //                                           {
-        //                                               currentDate = currentDate.AddDays(1);
-        //                                               dates.Add(currentDate);
-        //                                           }
-
-        //                                           var data = 
-        //                                               dates.Select(d => new ChartPoint<DateTime, decimal>
-        //                                                    {
-        //                                                        X = d,
-        //                                                        Y = innerApp.Rate.Value,
-        //                                                    })
-        //                                                    .ToArray();
-
-        //                                           return data;
-        //                                       })
-        //                                       .GroupBy(cp => cp.X)
-        //                                       .Select(cpg =>
-        //                                       {
-        //                                           var cp = cpg.First();
-        //                                           cp.Y = cpg.Sum(item => item.Y);
-        //                                           return cp;
         //                                       })
         //                                       .ToList();
 
@@ -156,46 +93,48 @@ namespace SamProjectTelerik.Managers
             {
                 var colors = new[] { "green", "darkred", "darkgray", "darkorange", "lightblue", "darkblue" };
 
-                var projectsColors = 
-                    _repository.Projects
-                               .Select((p, i) => new
-                               {
-                                   Project = p,
-                                   Color = colors[i]
-                               })
-                               .ToDictionary(pc => pc.Project, pc => pc.Color);
-
                 var columnChart =
                     _repository.ReservationSystemApplications
                                .Where(app => app.IntersectsWith(application))
-                               .OrderBy(app => app.BeginDate)
-                               .ThenBy(app => app.EndDate)
-                               .Select(app =>
+                               .GroupBy(app => app.Project)
+                               .Select((appGroup, i) =>
                                {
-                                   var currentDate = app.BeginDate;
-                                   var dates = new List<DateTime> { currentDate };
+                                   var source =
+                                       appGroup.SelectMany(innerApp =>
+                                               {
+                                                   var currentDate = innerApp.BeginDate;
+                                                   var dates = new List<DateTime> { currentDate };
 
-                                   while (currentDate != app.EndDate)
-                                   {
-                                       currentDate = currentDate.AddDays(1);
-                                       dates.Add(currentDate);
-                                   }
+                                                   while (currentDate != innerApp.EndDate)
+                                                   {
+                                                       currentDate = currentDate.AddDays(1);
+                                                       dates.Add(currentDate);
+                                                   }
 
-                                   var data =
-                                       dates.Select(d => new ChartPoint<DateTime, decimal>
-                                            {
-                                                X = d,
-                                                Y = app.Rate.Value,
-                                                //RsApplicationId = innerApp.Id,
-                                                //RsApplicationNumber = innerApp.Number
-                                            })
-                                            .ToArray();
+                                                   var data =
+                                                       dates.Select(d => new ChartPoint<DateTime, decimal>
+                                                       {
+                                                           X = d,
+                                                           Y = innerApp.Rate.Value,
+                                                       })
+                                                       .ToArray();
+
+                                                   return data;
+                                               })
+                                               .GroupBy(cp => cp.X)
+                                               .Select(cpg =>
+                                               {
+                                                   var cp = cpg.First();
+                                                   cp.Y = cpg.Sum(item => item.Y);
+                                                   return cp;
+                                               })
+                                               .ToList();
 
                                    var chartSeries = new ChartSeries<DateTime, decimal>
                                    {
-                                       Name = app.Project.Name,
-                                       Color = projectsColors[app.Project],
-                                       DataSource = data,
+                                       Name = appGroup.Key.Name,
+                                       Color = colors[i],
+                                       DataSource = source,
                                        //SeriesType = Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn
                                    };
 
@@ -206,6 +145,67 @@ namespace SamProjectTelerik.Managers
                 return columnChart;
             });
         }
+
+
+
+
+
+        //public async Task<IEnumerable<ChartSeries<DateTime, decimal>>> GetColumnsDataAsync(RsApplication application)
+        //{
+        //    return await Task.Run(() =>
+        //    {
+        //        var colors = new[] { "green", "darkred", "darkgray", "darkorange", "lightblue", "darkblue" };
+
+        //        var projectsColors = 
+        //            _repository.Projects
+        //                       .Select((p, i) => new
+        //                       {
+        //                           Project = p,
+        //                           Color = colors[i]
+        //                       })
+        //                       .ToDictionary(pc => pc.Project, pc => pc.Color);
+
+        //        var columnChart =
+        //            _repository.ReservationSystemApplications
+        //                       .Where(app => app.IntersectsWith(application))
+        //                       .OrderBy(app => app.BeginDate)
+        //                       .ThenBy(app => app.EndDate)
+        //                       .Select(app =>
+        //                       {
+        //                           var currentDate = app.BeginDate;
+        //                           var dates = new List<DateTime> { currentDate };
+
+        //                           while (currentDate != app.EndDate)
+        //                           {
+        //                               currentDate = currentDate.AddDays(1);
+        //                               dates.Add(currentDate);
+        //                           }
+
+        //                           var data =
+        //                               dates.Select(d => new ChartPoint<DateTime, decimal>
+        //                                    {
+        //                                        X = d,
+        //                                        Y = app.Rate.Value,
+        //                                        //RsApplicationId = innerApp.Id,
+        //                                        //RsApplicationNumber = innerApp.Number
+        //                                    })
+        //                                    .ToArray();
+
+        //                           var chartSeries = new ChartSeries<DateTime, decimal>
+        //                           {
+        //                               Name = app.Project.Name,
+        //                               Color = projectsColors[app.Project],
+        //                               DataSource = data,
+        //                               //SeriesType = Syncfusion.EJ2.Charts.ChartSeriesType.StackingColumn
+        //                           };
+
+        //                           return chartSeries;
+        //                       })
+        //                       .ToList();
+
+        //        return columnChart;
+        //    });
+        //}
 
 
 
