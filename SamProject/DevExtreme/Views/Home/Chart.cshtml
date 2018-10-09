@@ -1,5 +1,5 @@
 ﻿@model RsApplication
-
+@using  DevExtreme.Controllers
 
 
 
@@ -22,109 +22,160 @@
      style="width:100%">
 
     @{
-        //var datasource = new List<object>
+        var now = DateTime.Now.Date;
+        var projects = new[] { "P1", "P2", "P3" };
+        const string lineName = "Line";
+
+        //var datasource = new List<Dictionary<string, object>>
         //{
-        //    new {Date = DateTime.Now.Date.AddDays(0), Young = 6.7, Middle = 28.6, Older = 5.1},
-        //    new {Date = DateTime.Now.Date.AddDays(1), Young = 9.6, Middle = 43.4, Older = 9},
-        //    new {Date = DateTime.Now.Date.AddDays(2), Young = 13.5, Middle = 49, Older = 5.8},
-        //    new {Date = DateTime.Now.Date.AddDays(3), Young = 30, Middle = 90.3, Older = 14.5}
+        //    new Dictionary<string, object> { { "Date", now.AddDays(1) }, { projects[0], 1.00 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(2) }, { projects[0], 1.00 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(3) }, { projects[0], 1.00 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(4) }, { projects[0], 1.00 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(5) }, { projects[0], 0.75 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(6) }, { projects[0], 0.75 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(3) }, { projects[0], 0.25 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(4) }, { projects[0], 0.25 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(5) }, { projects[0], 0.50 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(6) }, { projects[0], 0.50 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(0) }, { projects[1], 1.00 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(2) }, { projects[1], 0.50 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(3) }, { projects[1], 0.50 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(4) }, { projects[1], 0.50 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(0) }, { projects[2], 0.25 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(2) }, { projects[2], 0.25 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(1) }, { projects[2], 0.25 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(0).AddHours(-12) }, { lineName, 1.25 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(1).AddHours(-12) }, { lineName, 1.25 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(2).AddHours(-12) }, { lineName, 1.50 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(3).AddHours(-12) }, { lineName, 1.50 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(4).AddHours(-12) }, { lineName, 1.50 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(5).AddHours(-12) }, { lineName, 1.50 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(6).AddHours(-12) }, { lineName, 1.25 } },
+        //    new Dictionary<string, object> { { "Date", now.AddDays(7).AddHours(-12) }, { lineName, 1.25 } },
         //};
 
-
         var datasource = new List<object>
-    {
-        new Dictionary<string, object> {{"Date", DateTime.Now.Date.AddDays(0)}, {"Young", 6.7 }, {"Middle", 28.6 }, {"Older", 5.1 } },
-        new Dictionary<string, object> {{"Date", DateTime.Now.Date.AddDays(1)}, {"Young", 9.6 }, {"Middle", 43.4 }, {"Older", 9 } },
-        new Dictionary<string, object> {{"Date", DateTime.Now.Date.AddDays(2)}, {"Young", 13.5 }, {"Middle", 49 }, {"Older", 5.8 } },
-        new Dictionary<string, object> {{"Date", DateTime.Now.Date.AddDays(3)}, {"Young", 30 }, {"Middle", 90.3 }, {"Older", 14.5 } },
-    };
+        {
+            new { Date = now.AddDays(1), Project = projects[0], Rate = 1.00 },
+            new { Date = now.AddDays(2), Project = projects[0], Rate = 1.00 },
+            new { Date = now.AddDays(3), Project = projects[0], Rate = 1.00 },
+            new { Date = now.AddDays(4), Project = projects[0], Rate = 1.00 },
+
+            new { Date = now.AddDays(5), Project = projects[0], Rate = 1.00 },
+            new { Date = now.AddDays(6), Project = projects[0], Rate = 1.00 },
+
+            new { Date = now.AddDays(3), Project = projects[0], Rate = 0.25 },
+            new { Date = now.AddDays(4), Project = projects[0], Rate = 0.25 },
+
+            new { Date = now.AddDays(0), Project = projects[1], Rate = 1.00 },
+
+            new { Date = now.AddDays(0), Project = projects[2], Rate = 0.25 },
+            new { Date = now.AddDays(1), Project = projects[2], Rate = 0.25 },
+            new { Date = now.AddDays(2), Project = projects[2], Rate = 0.25 },
+
+            
+            new { Date = now.AddDays(2), Project = projects[1], Rate = 0.50 },
+            new { Date = now.AddDays(3), Project = projects[1], Rate = 0.50 },
+            new { Date = now.AddDays(4), Project = projects[1], Rate = 0.50 },
+
+            new { Date = now.AddDays(0).AddHours(-12), Project = lineName, Rate = 1.25 },
+            new { Date = now.AddDays(1).AddHours(-12), Project = lineName, Rate = 1.25 },
+            new { Date = now.AddDays(2).AddHours(-12), Project = lineName, Rate = 1.50 },
+            new { Date = now.AddDays(3).AddHours(-12), Project = lineName, Rate = 1.50 },
+            new { Date = now.AddDays(4).AddHours(-12), Project = lineName, Rate = 1.50 },
+            new { Date = now.AddDays(5).AddHours(-12), Project = lineName, Rate = 1.50 },
+        };
 
 
-        Html.DevExtreme()
-            .Chart()
-            .ID("chart")
-            .ArgumentAxis(axis =>
-            {
-                axis.ArgumentType(ChartDataType.DateTime)
-                    .TickInterval(ti => ti.Days(1));
-            })
-            .CommonSeriesSettings(s =>
-            {
-                s.ArgumentField("Date")
-                 .Type(SeriesType.StackedBar);
-            })
-            .Series(s =>
-            {
-                s.Add()
-                 .Type(SeriesType.StackedBar)
-                 .ArgumentField("Date")
-                 .ValueField("Young")
-                 .Name("0-14");
+        Html
+        .DevExtreme()
+        .Chart()
+        .ID("chart")
+        //.Palette(VizPalette.Violet)
+        .ArgumentAxis(axis =>
+        {
+            axis.ArgumentType(ChartDataType.DateTime)
+                .TickInterval(ti => ti.Days(1));
+        })
+        .ValueAxis(a =>
+        {
+            a.Add()
+             .Title(t => t.Text("Rate"))
+             .Position(Position.Left)
+             .TickInterval(0.25)
+             .MinorTickInterval(0.25)
+             .Tick(t => t.Visible(true))
+             .MinorTick(mt => mt.Visible(true))
+             .Max(2.0)
+             .ShowZero(true)
+             .Label(l => l.DisplayMode(ChartLabelDisplayMode.Stagger));
+        })
+        .Title("")
+        .CommonSeriesSettings(s =>
+        {
+            s.ArgumentField("Date")
+             .ValueField("Rate")
+             .Type(SeriesType.StackedBar)
+             .Stackedbar(sb =>
+             {
+                 sb.Aggregation(a =>
+                 {
+                     a.Enabled(true)
+                      .Method(ChartSeriesAggregationMethod.Sum);
+                 });
+             });
+        })
+        .SeriesTemplate(st =>
+        {
+            st.NameField("Project")
+              .CustomizeSeries(@"
+                        function(valueFromNameField)
+                        {
+                            return valueFromNameField === ""Line""
+                                ? {
+                                    type: ""stepline"",
+                                    label: { visible: false },
+                                    point: { visible: false },
+                                    color: ""#ff3f7a"",
+                                    hoverMode: ""none""
+                                }
+                                : {};
+                        }");
+        })
+        //.Series(s =>
+        //{
+        //    foreach (var p in projects)
+        //    {
+        //        s.Add()
+        //         .Type(SeriesType.StackedBar)
+        //         .ArgumentField("Date")
+        //         .ValueField(p)
+        //         .Name(p);
+        //    }
 
-                s.Add()
-                 .Type(SeriesType.StackedBar)
-                 .ArgumentField("Date")
-                 .ValueField("Middle")
-                 .Name("15-64");
-
-                s.Add()
-                 .Type(SeriesType.StackedBar)
-                 .ArgumentField("Date")
-                 .ValueField("Older")
-                 .Name("65 and older");
-
-
-                foreach (ChartData<DateTime> chartData in ViewBag.ColumnsDataSource)
-                {
-                    //s.Add()
-                    // .Type(SeriesType.StackedBar)
-                    // .ArgumentField("Date")
-                    // .ValueField("Young")
-                    // .Name("0-14");
-
-
-                }
-
-                foreach (ChartData<DateTime> chartData in ViewBag.LineDataSource)
-                {
-
-                }
-
-
-            })
-            .Legend(l =>
-            {
-                l.VerticalAlignment(VerticalEdge.Bottom)
-                 .HorizontalAlignment(HorizontalAlignment.Center)
-                 .ItemTextPosition(Position.Top);
-            })
-            .ValueAxis(a =>
-            {
-                a.Add()
-                 .Title(t => t.Text("millions"))
-                 .Position(Position.Right);
-            })
-            .Title("Male Age Structure")
-            .Export(e => e.Enabled(true))
-            .Tooltip(t =>
-            {
-                t.Enabled(true)
-                 .Location(ChartTooltipLocation.Edge)
-                    // .CustomizeTooltip
-                    //(@"
-                    //    function(arg)
-                    //    {
-                    //        return
-                    //        {
-                    //            text: arg.seriesName + "" years: "" + arg.valueText
-                    //        };
-                    //    }
-                    //")
-                    ;
-            })
-            .DataSource(datasource)
-            .Render();
+        //    s.Add()
+        //     .Type(SeriesType.StepLine)
+        //     .Point(p => p.Visible(false))
+        //     .ArgumentField("Date")
+        //     .HoverMode(ChartSeriesHoverMode.None)
+        //     .ValueField("Line")
+        //     .Name("AMRate");
+        //})
+        .Legend(l =>
+        {
+            l.VerticalAlignment(VerticalEdge.Bottom)
+             .HorizontalAlignment(HorizontalAlignment.Center)
+             .ItemTextPosition(Position.Top);
+        })
+        //.Export(e => e.Enabled(true))
+        .Tooltip(t =>
+        {
+            t.Enabled(true)
+             .Location(ChartTooltipLocation.Edge)
+             .CustomizeTooltip(@"function(arg){return{text: arg.seriesName + "" : "" + arg.valueText};}");
+        })
+        .DataSource(datasource)
+        .Render();
     }
 </div>
-
-

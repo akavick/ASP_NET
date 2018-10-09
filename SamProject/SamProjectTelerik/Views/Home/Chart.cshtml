@@ -152,7 +152,7 @@
                 foreach (var columnChartSeries in (IEnumerable<ChartSeries<DateTime, decimal>>)ViewBag.ColumnsDataSource)
                 {
                     series.Column(columnChartSeries.DataSource)
-                          .Aggregate(conf => conf.Close(ChartSeriesAggregate.Sum))
+                          //.Aggregate(conf => conf.Close(ChartSeriesAggregate.Sum))
                           .CategoryField("X")
                           .Field("Y")
                           .Stack(true)
