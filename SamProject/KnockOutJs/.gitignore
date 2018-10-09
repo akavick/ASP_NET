@@ -29,7 +29,6 @@ Obj/
 # Visual Studio 2015 cache/options directory
 .vs/
 /wwwroot/dist/
-/wwwroot/lib/
 /ClientApp/dist/
 
 # Visual Studio 2017 libman libs

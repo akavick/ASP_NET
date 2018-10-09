@@ -4,15 +4,16 @@
 
 <div>
 
-    <partial name="Ko01" />
-    <partial name="Ko02" />
-    <partial name="Ko03" />
-    
-    @section Scripts
-    {
-        <script type="text/javascript" src="~/js/Ko01.js"></script>
-        <script type="text/javascript" src="~/js/Ko02.js"></script>
-        <script type="text/javascript" src="~/js/Ko03.js"></script>
-    }
+    <partial name="PartialWrapper" view-data="@(new ViewDataDictionary(ViewData){{ "Num", 1 }})" />
+    <partial name="PartialWrapper" view-data="@(new ViewDataDictionary(ViewData){{ "Num", 2 }})" />
+    <partial name="PartialWrapper" view-data="@(new ViewDataDictionary(ViewData){{ "Num", 3 }})" />
+    <partial name="PartialWrapper" view-data="@(new ViewDataDictionary(ViewData){{ "Num", 4 }})" />
+    <partial name="PartialWrapper" view-data="@(new ViewDataDictionary(ViewData){{ "Num", 5 }})" />
+    <partial name="PartialWrapper" view-data="@(new ViewDataDictionary(ViewData){{ "Num", 6 }})" />
+    <partial name="PartialWrapper" view-data="@(new ViewDataDictionary(ViewData){{ "Num", 7 }})" />
+    <partial name="PartialWrapper" view-data="@(new ViewDataDictionary(ViewData){{ "Num", 8 }})" />
+    <partial name="PartialWrapper" view-data="@(new ViewDataDictionary(ViewData){{ "Num", 9 }})" />
+    <partial name="PartialWrapper" view-data="@(new ViewDataDictionary(ViewData){{ "Num", 10 }})" />
+    <partial name="PartialWrapper" view-data="@(new ViewDataDictionary(ViewData){{ "Num", 11 }})" />
 
 </div>
