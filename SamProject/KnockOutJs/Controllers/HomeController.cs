@@ -6,14 +6,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using KnockOutJs.Models;
 
+
+
+
+
 namespace KnockOutJs.Controllers
 {
+
+
+
+
+
     public class HomeController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
+
+
+
+
 
         public IActionResult About()
         {
@@ -22,6 +35,10 @@ namespace KnockOutJs.Controllers
             return View();
         }
 
+
+
+
+
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
@@ -29,15 +46,28 @@ namespace KnockOutJs.Controllers
             return View();
         }
 
+
+
+
+
         public IActionResult Privacy()
         {
             return View();
         }
 
+
+
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }
+
+
+
+
+
 }
