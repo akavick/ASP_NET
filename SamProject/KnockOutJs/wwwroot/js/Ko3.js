@@ -553,6 +553,6 @@ function formatCurrency(value)
                 };
             };
 
-            ko.applyBindings(new Cart(), document.getElementById("Ko03"));
+            ko.applyBindings(new Cart(), document.getElementById("Ko3"));
         });
 })();

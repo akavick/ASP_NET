@@ -24,6 +24,6 @@
                 }, this);
             };
 
-            ko.applyBindings(new ClickCounterViewModel(), document.getElementById("Ko02"));
+            ko.applyBindings(new ClickCounterViewModel(), document.getElementById("Ko2"));
         });
 })();
