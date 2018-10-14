@@ -16,6 +16,6 @@
                 }, this);
             };
 
-            ko.applyBindings(new ViewModel("write", "something"), document.getElementById("Ko01")); // This makes Knockout get to work
+            ko.applyBindings(new ViewModel("write", "something"), document.getElementById("Ko1")); // This makes Knockout get to work
         });
 })();

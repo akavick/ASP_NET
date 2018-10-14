@@ -19,7 +19,7 @@
 </head>
 <body>
 
-    <partial name="_CookieConsentPartial" />
+    @*<partial name="_CookieConsentPartial" />*@
 
     <div class="container body-content">
         @RenderBody()
@@ -39,6 +39,8 @@
         <script src="~/lib/knockout/knockout-min.js"></script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+    
+    <partial name="_ValidationScriptsPartial"/>
 
     @RenderSection("Scripts", required: false)
 
