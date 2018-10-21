@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Http.Features
+
+@{
+    var consentFeature = Context.Features.Get<ITrackingConsentFeature>();
+    var showBanner = !consentFeature?.CanTrack ?? false;
+    var cookieString = consentFeature?.CreateConsentCookie();
+}
+
+@if (showBanner)
+{
+    <nav id="cookieConsent" role="alert">
+        <button type="button" data-cookie-string="@cookieString">Accept</button>
+    </nav>
+
+    <script>
+        (function ()
+        {
+            document.querySelector("#cookieConsent button[data-cookie-string]").addEventListener("click", function (el)
+            {
+                document.cookie = el.target.dataset.cookieString;
+                document.querySelector("#cookieConsent").classList.add("hidden");
+            }, false);
+        })();
+    </script>
+}

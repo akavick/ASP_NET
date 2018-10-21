@@ -187,19 +187,19 @@ alert( number.toLocaleString() ); // 123 456 789
 
 
 
-//в JavaScript есть обычные числа и три специальных числовых значения: NaN, Infinity и -Infinity.
+////в JavaScript есть обычные числа и три специальных числовых значения: NaN, Infinity и -Infinity.
 
-console.log(2..toString(2));
-console.log(parseInt("100", 2));
-console.log(1 / 0);
+//console.log(2..toString(2));
+//console.log(parseInt("100", 2));
+//console.log(1 / 0);
 
-console.log(isFinite(3));
-console.log(isFinite(NaN));
-console.log(isFinite(1 / 0));
+//console.log(isFinite(3));
+//console.log(isFinite(NaN));
+//console.log(isFinite(1 / 0));
 
-console.log(isNaN(3));
-console.log(isNaN(1 / 0));
-console.log(isNaN(NaN));
+//console.log(isNaN(3));
+//console.log(isNaN(1 / 0));
+//console.log(isNaN(NaN));
 
 // правильная проверка на число 
 function isNumeric(n)
@@ -221,4 +221,26 @@ function pow(x, n)
     return 0;
 }
 
+function f1()
+{
+    var f3 = function()
+    {
+         console.log("f3");
+    };
+
+    function f2()
+    {
+        console.log("f2");
+    }
+
+    this.f2 = f2;
+    this.f3 = new f3();
+
+    console.log("f1");
+}
+
+var f = new f1();
+
+f.f2();
+f.f3();
 
