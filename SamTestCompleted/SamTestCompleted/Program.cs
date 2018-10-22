@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.EventLog;
 
+using SamLogger.Helpers;
+
 
 
 
@@ -36,25 +38,25 @@ namespace SamTestCompleted
         {
             var webHostBuilder = 
                 WebHost.CreateDefaultBuilder(args)
-                       .ConfigureLogging((hostingContext, logging) =>
-                       {
-                           var loggingSection = hostingContext.Configuration.GetSection("Logging");
-                           var sourceName = loggingSection["SourceName"];
-                           var logName = loggingSection["LogName"];
-                     
-                           if (!EventLog.SourceExists(sourceName))
-                           {
-                               EventLog.CreateEventSource(sourceName, logName);
-                           }
+                       //.ConfigureLogging((hostingContext, logging) =>
+                       //{
+                       //    var loggingSection = hostingContext.Configuration.GetSection("Logging");
+                       //    var sourceName = loggingSection["SourceName"];
+                       //    var logName = loggingSection["LogName"];
 
-                           logging.ClearProviders();
-                           logging.AddConfiguration(loggingSection);
-                           logging.AddEventLog(new EventLogSettings
-                           {
-                               SourceName = sourceName,
-                               LogName = logName
-                           });
-                       })
+                       //    if (!EventLog.SourceExists(sourceName))
+                       //    {
+                       //        EventLog.CreateEventSource(sourceName, logName);
+                       //    }
+
+                       //    logging.ClearProviders();
+                       //    logging.AddConfiguration(loggingSection);
+                       //    logging.AddEventLog(new EventLogSettings
+                       //    {
+                       //        SourceName = sourceName,
+                       //        LogName = logName
+                       //    });
+                       //})
                        .UseStartup<Startup>();
 
             return webHostBuilder;

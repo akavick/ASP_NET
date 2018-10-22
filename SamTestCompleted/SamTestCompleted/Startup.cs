@@ -53,7 +53,7 @@ namespace SamTestCompleted
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddTransient<ISamLogProcessor, BasicLogProcessor>();
+            services.AddSingleton<ISamLogProcessor, CommonSamLogProcessor>();
 
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -69,11 +69,13 @@ namespace SamTestCompleted
         (
             IApplicationBuilder applicationBuilder
           , IHostingEnvironment hostingEnvironment
-          //, ILogger<Startup> logger
           , ISamLogProcessor logger
         )
         {
-            logger.Subscribe(new CommonLogger());
+            var loggingSection = Configuration.GetSection("Logging");
+            var sourceName = loggingSection["SourceName"];
+            var logName = loggingSection["LogName"];
+            logger.Subscribe(new CommonSamEventLogLogger(sourceName, logName));
 
 
             if (hostingEnvironment.IsDevelopment())
@@ -86,32 +88,7 @@ namespace SamTestCompleted
                 applicationBuilder.UseHsts();
             }
 
-            applicationBuilder.Use(async (context, next) =>
-            {
-                await logger.LogInformation(context.Request.Path);
-                await logger.LogWarning("Warning!");
-                await logger.LogError
-                    (
-                     "error",
-                     new AggregateException
-                         (
-                          "agg1",
-                          new AggregateException
-                              (
-                               "agg2",
-                               new Exception("ex3"),
-                               new Exception("ex3")
-                              ),
-                          new AggregateException
-                              (
-                               "agg2",
-                               new Exception("ex3"),
-                               new Exception("ex3")
-                              )
-                         )
-                    );
-                await next();
-            });
+
 
             applicationBuilder.UseHttpsRedirection();
             applicationBuilder.UseStaticFiles();

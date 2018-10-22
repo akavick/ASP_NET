@@ -14,9 +14,9 @@ namespace SamLogger.Interfaces
 
     public interface ISamLogger
     {
-        Task LogInformation(string message);
-        Task LogWarning(string message);
-        Task LogError(string message, Exception exception);
+        Task LogInformationAsync(string message, DateTime when);
+        Task LogWarningAsync(string message, DateTime when);
+        Task LogErrorAsync(string message, DateTime when, Exception exception);
     }
 
 

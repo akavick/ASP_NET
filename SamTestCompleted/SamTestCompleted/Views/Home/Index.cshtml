@@ -2,6 +2,25 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div>
-    hello
-</div>
+
+<div>Hello, @User.Identity.Name!</div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div>You've been authenticated by @User.Identity.AuthenticationType.</div>
+}
+
+<div>You have @((User.Identity as System.Security.Principal.WindowsIdentity)?.Claims?.Count() ?? User.Claims?.Count() ?? 0) claims</div>
+
+<p>
+    <a href="@Url.Action("BuggedPage", "Home")">Page with UI bug</a>
+</p>
+<p>
+    <a href="@Url.Action("BuggedMethod", "Home")">Method with logic bug</a>
+</p>
+<p>
+    <a href="@Url.Action("BuggedMethod2", "Home")">Method with trowing big exception</a>
+</p>
+<p>
+    <a href="/NonExistentResource">Link to a non-existent resource</a>
+</p>
