@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <base href="/">
+    <meta charset="utf-8" />
+    <title>Html</title>
+
+</head>
+<body>
+
+    <script>
+
+        //function f1()
+        //{
+        //    console.log(this);
+        //}
+
+        //function f2()
+        //{
+        //    "use strict";
+        //    console.log(this);
+        //}
+
+        //f1();
+        //f2();
+
+        //var obj =
+        //{
+        //    f1: f1,
+        //    f2: f2
+        //};
+        ////obj.f1 = f1;
+        ////obj.f2 = f2;
+
+        //obj.f1();
+        //obj.f2();
+
+        ; (function()
+        {
+            var obj = {
+                f1: function ()
+                {
+                    console.log(this);
+                    function innerf1()
+                    {
+                        console.log(this);
+                    }
+
+                    innerf1();
+                },
+                f2: function()
+                {
+                    console.log(this);
+                    var innerf2 = function (o)
+                    {
+                        console.log(o);
+                    }
+
+                    innerf2(this);
+                }
+            };
+
+            obj.f1();
+            obj.f2();
+        }());
+
+    </script>
+
+  
+
+</body>
+</html>
