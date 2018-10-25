@@ -11,59 +11,44 @@
 
     <script>
 
-        //function f1()
+        //; (function()
         //{
-        //    console.log(this);
-        //}
+        //    var obj = {
+        //        f1: function ()
+        //        {
+        //            console.log(this);
+        //            function innerf1()
+        //            {
+        //                console.log(this);
+        //            }
 
-        //function f2()
-        //{
-        //    "use strict";
-        //    console.log(this);
-        //}
+        //            innerf1();
+        //        },
+        //        f2: function()
+        //        {
+        //            console.log(this);
+        //            var innerf2 = function (o)
+        //            {
+        //                console.log(o);
+        //            }
 
-        //f1();
-        //f2();
+        //            innerf2(this);
+        //        }
+        //    };
 
-        //var obj =
-        //{
-        //    f1: f1,
-        //    f2: f2
-        //};
-        ////obj.f1 = f1;
-        ////obj.f2 = f2;
+        //    obj.f1();
+        //    obj.f2();
+        //}());
 
-        //obj.f1();
-        //obj.f2();
 
-        ; (function()
+        ;
+        var mainObj = window.mainObj || {};
+        mainObj = (function (obj)
         {
-            var obj = {
-                f1: function ()
-                {
-                    console.log(this);
-                    function innerf1()
-                    {
-                        console.log(this);
-                    }
+            obj.x = 10;
+            obj.y = 10;
+        }(mainObj));
 
-                    innerf1();
-                },
-                f2: function()
-                {
-                    console.log(this);
-                    var innerf2 = function (o)
-                    {
-                        console.log(o);
-                    }
-
-                    innerf2(this);
-                }
-            };
-
-            obj.f1();
-            obj.f2();
-        }());
 
     </script>
 
