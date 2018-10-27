@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamTestCompleted", "SamTestCompleted\SamTestCompleted.csproj", "{CA4A7011-E0E9-4411-81CF-40A8092C128E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamTestCompleted", "SamTestCompleted\SamTestCompleted.csproj", "{CA4A7011-E0E9-4411-81CF-40A8092C128E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamLogger", "SamLogger\SamLogger.csproj", "{B46B9EDE-E48E-450E-ACF8-AA18B66EB166}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamLogger", "SamLogger\SamLogger.csproj", "{B46B9EDE-E48E-450E-ACF8-AA18B66EB166}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{BC59E614-1603-4A59-A352-DC6FD3899A71}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSite", "WebSite", "{D79F294E-B5AE-47D0-A5EC-B3733B826C59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +28,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CA4A7011-E0E9-4411-81CF-40A8092C128E} = {D79F294E-B5AE-47D0-A5EC-B3733B826C59}
+		{B46B9EDE-E48E-450E-ACF8-AA18B66EB166} = {BC59E614-1603-4A59-A352-DC6FD3899A71}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DB3E53D0-DA81-4507-81A7-89942C3976EE}
