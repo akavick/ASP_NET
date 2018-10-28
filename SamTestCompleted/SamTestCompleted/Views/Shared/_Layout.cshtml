@@ -1,64 +1,67 @@
-﻿<!DOCTYPE html>
+﻿@functions{
+
+    public UserInfo GetUserInfo()
+    {
+        var user = User?.Identity as System.Security.Principal.WindowsIdentity ?? User?.Identity;
+
+        var userInfo = new UserInfo
+        {
+            Name = user?.Name ?? "unknown",
+            AuthenticationType = user?.AuthenticationType ?? "unknown",
+            IsAuthenticated = user?.IsAuthenticated ?? false
+        };
+
+        return userInfo;
+    }
+
+    public Microsoft.AspNetCore.Html.IHtmlContent Serialize(object obj)
+    {
+        return Json.Serialize(obj, new Newtonsoft.Json.JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+    }
+
+}
+
+<!DOCTYPE html>
 <html>
 <head>
 
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0"/>
+          content="width=device-width, initial-scale=1.0" />
+
     <title>@ViewData["Title"] - SamTestCompleted</title>
-    
-    
+
     <environment include="Development">
         <script src="~/js/errorHandler.js"
                 asp-append-version="true"></script>
+        <script src="~/js/helpers.js"
+                asp-append-version="true"></script>
+        <link rel="stylesheet"
+              href="~/css/site.css"
+              asp-append-version="true" />
     </environment>
     <environment exclude="Development">
         <script src="~/js/errorHandler.min.js"
                 asp-append-version="true"></script>
-    </environment>
-
-    @{
-        var user = User?.Identity as System.Security.Principal.WindowsIdentity ?? User?.Identity;
-
-        var userInfo =
-            user is null
-                ? new { Name = "unknown", AuthenticationType = "unknown", IsAuthenticated = false }
-                : new { user.Name, user.AuthenticationType, user.IsAuthenticated };
-
-        var serializedUser = Json?.Serialize(userInfo, new Newtonsoft.Json.JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
-    }
-
-    <script>
-        window.SamTest.errorModule.init(@serializedUser, "@(Url.Action("UiError", "Home"))");
-        window.SamTest.errorModule.constraintBrowsers();
-    </script>
-
-    <title>@ViewData["Title"] - SamTest</title>
-    
-
-    <environment include="Development">
-        <link rel="stylesheet"
-              href="~/css/site.css"
-              asp-append-version="true"/>
-    </environment>
-    <environment exclude="Development">
+        <script src="~/js/helpers.min.js"
+                asp-append-version="true"></script>
         <link rel="stylesheet"
               href="~/css/site.min.css"
-              asp-append-version="true"/>
+              asp-append-version="true" />
     </environment>
 
 </head>
 <body>
 
-    <partial name="_CookieConsentPartial"/>
+    <script>
+        window.SamTestCompleted.ErrorModule.actions.initialize(@(Serialize(GetUserInfo())), "@(Url.Action("UiError", "Home"))");
+        window.SamTestCompleted.Helpers.BrowserHelper.actions.constraintBrowsers();
+    </script>
+
+    <partial name="_CookieConsentPartial" />
 
     <div>
         @RenderBody()
-
-        @*<hr/>
-        <footer>
-            <p>&copy; 2018 - SamTestCompleted</p>
-        </footer>*@
     </div>
 
     <environment include="Development">

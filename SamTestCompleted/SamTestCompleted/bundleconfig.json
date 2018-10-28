@@ -16,5 +16,11 @@
     "inputFiles": [
       "wwwroot/css/site.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/helpers.min.js",
+    "inputFiles": [
+      "wwwroot/js/helpers.js"
+    ]
   }
 ]

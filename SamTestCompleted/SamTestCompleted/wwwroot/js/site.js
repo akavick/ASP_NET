@@ -2,3 +2,8 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+
+"use strict";
+
+//console.log(window.SamTest_Logger.User);

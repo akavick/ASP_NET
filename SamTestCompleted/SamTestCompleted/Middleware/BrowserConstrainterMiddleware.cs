@@ -13,25 +13,34 @@ namespace SamTestCompleted.Middleware
 
 
 
-    public class BrowserConstrainterMiddleware : IMiddleware
+    public class BrowserConstrainterMiddleware
     {
 
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        private readonly RequestDelegate _next;
+
+
+
+        public BrowserConstrainterMiddleware(RequestDelegate next)
+        {
+            _next = next;
+        }
+
+
+
+        public async Task InvokeAsync(HttpContext context)
         {
             string userAgent = context.Request.Headers["User-Agent"];
 
             if (userAgent.Contains("MSIE") || userAgent.Contains("Trident"))
             {
-                await context.Response.WriteAsync("Your browser is not supported");
+                context.Response.ContentType = "text/html";
+                await context.Response.WriteAsync("<h1>Error: your browser is not supported</h1>");
             }
             else
             {
-                await next.Invoke(context);
+                await _next.Invoke(context);
             }
         }
-
-
-
 
 
     }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using SamLogger.Interfaces;
@@ -40,7 +42,7 @@ namespace SamTestCompleted.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
 
 
@@ -82,21 +84,21 @@ namespace SamTestCompleted.Controllers
                                       if (i == 3)
                                       {
                                           throw new AggregateException
-                                          (
-                                              "agg1",
-                                              new AggregateException
                                               (
-                                                  "agg2",
-                                                  new Exception("ex3"),
-                                                  new Exception("ex3")
-                                              ),
-                                              new AggregateException
-                                              (
-                                                  "agg2",
-                                                  new Exception("ex3"),
-                                                  new Exception("ex3")
-                                              )
-                                          );
+                                               "agg1",
+                                               new AggregateException
+                                                   (
+                                                    "agg2",
+                                                    new Exception("ex3"),
+                                                    new Exception("ex3")
+                                                   ),
+                                               new AggregateException
+                                                   (
+                                                    "agg2",
+                                                    new Exception("ex3"),
+                                                    new Exception("ex3")
+                                                   )
+                                              );
                                       }
 
                                       return i * i;
@@ -120,7 +122,7 @@ namespace SamTestCompleted.Controllers
 
             _logger.LogWarning(msg);
 
-            return Json(new { Result = "failed" });
+            return Json(new {Result = "failed"});
         }
     }
 
