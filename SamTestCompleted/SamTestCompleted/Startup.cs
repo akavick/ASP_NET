@@ -6,6 +6,10 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+
+using Logger.Interfaces;
+using Logger.LogProcessors;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -21,13 +25,11 @@ using Microsoft.Extensions.Logging.EventLog;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-using SamLogger.Interfaces;
-using SamLogger.Loggers;
-using SamLogger.LogProcessors;
-
 using SamTestCompleted.Extensions;
 using SamTestCompleted.Helpers;
 using SamTestCompleted.Middleware;
+
+using EventLogLogger = Logger.Loggers.EventLogLogger;
 
 
 
@@ -63,11 +65,15 @@ namespace SamTestCompleted
 
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
-            services.AddSingleton<ISamLogProcessor, CommonSamLogProcessor>();
+            services.AddSingleton<ILogProcessor, LogProcessor>();
 
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                    .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+                    .AddJsonOptions(options =>
+                    {
+                        options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                        options.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
+                    });
 
             services.AddAuthorization(options =>
             {
@@ -92,13 +98,13 @@ namespace SamTestCompleted
         (
             IApplicationBuilder applicationBuilder
           , IHostingEnvironment hostingEnvironment
-          , ISamLogProcessor logger
+          , ILogProcessor logger
         )
         {
             var loggingSection = Configuration.GetSection("Logging");
             var sourceName = loggingSection["SourceName"];
             var logName = loggingSection["LogName"];
-            logger.Subscribe(new CommonSamEventLogLogger(sourceName, logName));
+            logger.Subscribe(new EventLogLogger(sourceName, logName));
 
             applicationBuilder.Use(async (context, next) =>
             {

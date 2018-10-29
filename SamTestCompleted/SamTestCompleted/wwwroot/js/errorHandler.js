@@ -19,13 +19,25 @@ window.SamTestCompleted.ErrorModule = window.SamTestCompleted.ErrorModule || (fu
             var message = errorEvent.message;
             var url = errorEvent.filename;
             var user = module.options.currentUser;
+            var userName = "unknown";
+            var userIsAuthenticated = false;
+            var userAuthenticationType = "unknown";
+
+            if (user)
+            {
+                userName = user.name;
+                userIsAuthenticated = user.isAuthenticated;
+                userAuthenticationType = user.authenticationType;
+            }
 
             var msgObj =
             {
                 message: message,
                 stack: stack,
                 url: url,
-                user: user
+                userName: userName,
+                userIsAuthenticated: userIsAuthenticated,
+                userAuthenticationType: userAuthenticationType
             };
 
             var req = new XMLHttpRequest();

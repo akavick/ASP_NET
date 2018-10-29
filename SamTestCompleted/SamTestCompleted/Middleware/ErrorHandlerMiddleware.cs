@@ -3,12 +3,12 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
 
+using Logger.Interfaces;
+
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
-
-using SamLogger.Interfaces;
 
 
 
@@ -31,7 +31,7 @@ namespace SamTestCompleted.Middleware
 
 
 
-        public async Task InvokeAsync(HttpContext context, ISamLogProcessor logger)
+        public async Task InvokeAsync(HttpContext context, ILogProcessor logger)
         {
             var user = context.User?.Identity as System.Security.Principal.WindowsIdentity ?? context.User?.Identity;
             var errorFeature = context.Features.Get<IExceptionHandlerFeature>();

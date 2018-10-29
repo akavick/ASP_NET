@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using SamLogger.Interfaces;
+using Logger.Interfaces;
 
 
 
-
-
-namespace SamLogger.LogProcessors
+namespace Logger.LogProcessors
 {
 
 
 
 
 
-    public class CommonSamLogProcessor : ISamLogProcessor
+    public class LogProcessor : ILogProcessor
     {
         private event Func<string, DateTime, Task> LogInformationAsyncEvent;
         private event Func<string, DateTime, Task> LogWarningAsyncEvent;
@@ -22,14 +20,14 @@ namespace SamLogger.LogProcessors
 
 
 
-        public void Subscribe(ISamLogger logger)
+        public void Subscribe(ILogger logger)
         {
             LogInformationAsyncEvent += logger.LogInformationAsync;
             LogWarningAsyncEvent += logger.LogWarningAsync;
             LogErrorAsyncEvent += logger.LogErrorAsync;
         }
 
-        public void Unsubscribe(ISamLogger logger)
+        public void Unsubscribe(ILogger logger)
         {
             LogInformationAsyncEvent -= logger.LogInformationAsync;
             LogWarningAsyncEvent -= logger.LogWarningAsync;

@@ -3,19 +3,17 @@ using System.Threading.Tasks;
 
 
 
-
-
-namespace SamLogger.Interfaces
+namespace Logger.Interfaces
 {
 
 
 
 
 
-    public interface ISamLogProcessor
+    public interface ILogProcessor
     {
-        void Subscribe(ISamLogger logger);
-        void Unsubscribe(ISamLogger logger);
+        void Subscribe(ILogger logger);
+        void Unsubscribe(ILogger logger);
         void LogInformation(string message);
         void LogWarning(string message);
         void LogError(string message, Exception exception);

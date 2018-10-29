@@ -5,11 +5,11 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
+using Logger.Interfaces;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-
-using SamLogger.Interfaces;
 
 using SamTestCompleted.Models;
 using SamTestCompleted.ViewModels;
@@ -23,11 +23,11 @@ namespace SamTestCompleted.Controllers
 
     public class HomeController : Controller
     {
-        private readonly ISamLogProcessor _logger;
+        private readonly ILogProcessor _logger;
 
 
 
-        public HomeController(ISamLogProcessor logger)
+        public HomeController(ILogProcessor logger)
         {
             _logger = logger;
         }
@@ -130,7 +130,12 @@ namespace SamTestCompleted.Controllers
         public IActionResult UiError([FromBody] UiError error)
         {
             var nl = Environment.NewLine;
-            var msg = $"UI ERROR from url: {error.Url}{nl}User:{nl}{error.User}{nl}Message:{nl}{error.Message}{nl}Stack:{nl}{error.Stack}{nl}";
+            var msg = $"UI ERROR from url: {error.Url}{nl}"
+                    + $"User: {error.UserName}{nl}"
+                    + $"IsAuthenticated: {error.UserIsAuthenticated}{nl}"
+                    + $"AuthenticationType: {error.UserAuthenticationType}{nl}"
+                    + $"Message: {error.Message}{nl}"
+                    + $"Stack: {error.Stack}{nl}";
 
             _logger.LogWarning(msg);
 

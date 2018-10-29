@@ -3,16 +3,14 @@ using System.Threading.Tasks;
 
 
 
-
-
-namespace SamLogger.Interfaces
+namespace Logger.Interfaces
 {
 
 
 
 
 
-    public interface ISamLogger
+    public interface ILogger
     {
         Task LogInformationAsync(string message, DateTime when);
         Task LogWarningAsync(string message, DateTime when);

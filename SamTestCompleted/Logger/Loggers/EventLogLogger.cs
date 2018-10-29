@@ -2,27 +2,25 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-using SamLogger.Interfaces;
+using Logger.Interfaces;
 
 
 
-
-
-namespace SamLogger.Loggers
+namespace Logger.Loggers
 {
 
 
 
 
 
-    public class CommonSamEventLogLogger : ISamEventLogLogger
+    public class EventLogLogger : IEventLogLogger
     {
         protected string SourceName;
         protected string LogName;
 
 
 
-        public CommonSamEventLogLogger(string sourceName, string logName)
+        public EventLogLogger(string sourceName, string logName)
         {
             if (!EventLog.SourceExists(sourceName))
             {

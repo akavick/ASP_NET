@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamTestCompleted", "SamTestCompleted\SamTestCompleted.csproj", "{CA4A7011-E0E9-4411-81CF-40A8092C128E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamLogger", "SamLogger\SamLogger.csproj", "{B46B9EDE-E48E-450E-ACF8-AA18B66EB166}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logger", "Logger\Logger.csproj", "{B46B9EDE-E48E-450E-ACF8-AA18B66EB166}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{BC59E614-1603-4A59-A352-DC6FD3899A71}"
 EndProject
@@ -27,17 +27,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{AEE45729-C91
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BLL", "BLL", "{9A6D2007-D8AD-44A9-8F88-4A20E677679D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{8E05DAC5-B940-4AA7-B9E3-E37BAF788D33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{8E05DAC5-B940-4AA7-B9E3-E37BAF788D33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{398A1FB0-5965-4E13-A1AE-5BEC70703312}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{398A1FB0-5965-4E13-A1AE-5BEC70703312}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{C0B9DBBD-A281-4DD3-9C12-A87DABF4413E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authorization", "Authorization", "{F97993D4-4CE4-43D1-B642-6A9DFC3AD28B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthorizationLogic", "AuthorizationLogic\AuthorizationLogic.csproj", "{741600C0-0F8B-49A8-BD12-1D0C236E4B92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorizationLogic", "AuthorizationLogic\AuthorizationLogic.csproj", "{741600C0-0F8B-49A8-BD12-1D0C236E4B92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthenticationLogic", "AuthenticationLogic\AuthenticationLogic.csproj", "{1EB63824-6782-4AA3-9108-755E1D422DDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthenticationLogic", "AuthenticationLogic\AuthenticationLogic.csproj", "{1EB63824-6782-4AA3-9108-755E1D422DDB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ErrorsHandling", "ErrorsHandling", "{219E7FCB-275F-438C-A11A-BA36BDC13149}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorHandler", "ErrorHandler\ErrorHandler.csproj", "{1B00A494-48BF-485F-8F70-EE13B1D066C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +73,10 @@ Global
 		{1EB63824-6782-4AA3-9108-755E1D422DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EB63824-6782-4AA3-9108-755E1D422DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EB63824-6782-4AA3-9108-755E1D422DDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B00A494-48BF-485F-8F70-EE13B1D066C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B00A494-48BF-485F-8F70-EE13B1D066C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B00A494-48BF-485F-8F70-EE13B1D066C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B00A494-48BF-485F-8F70-EE13B1D066C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +88,7 @@ Global
 		{398A1FB0-5965-4E13-A1AE-5BEC70703312} = {AEE45729-C912-47D3-B613-3DBEBB1B1896}
 		{741600C0-0F8B-49A8-BD12-1D0C236E4B92} = {F97993D4-4CE4-43D1-B642-6A9DFC3AD28B}
 		{1EB63824-6782-4AA3-9108-755E1D422DDB} = {C0B9DBBD-A281-4DD3-9C12-A87DABF4413E}
+		{1B00A494-48BF-485F-8F70-EE13B1D066C9} = {219E7FCB-275F-438C-A11A-BA36BDC13149}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DB3E53D0-DA81-4507-81A7-89942C3976EE}

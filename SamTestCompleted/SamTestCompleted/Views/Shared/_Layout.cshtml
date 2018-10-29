@@ -1,14 +1,14 @@
 ﻿@functions{
 
-    public UserInfo GetUserInfo()
+    public object GetUserInfo()
     {
         var user = User?.Identity as System.Security.Principal.WindowsIdentity ?? User?.Identity;
 
-        var userInfo = new UserInfo
+        var userInfo = new
         {
-            Name = user?.Name ?? "unknown",
-            AuthenticationType = user?.AuthenticationType ?? "unknown",
-            IsAuthenticated = user?.IsAuthenticated ?? false
+            name = user?.Name ?? "unknown",
+            authenticationType = user?.AuthenticationType ?? "unknown",
+            isAuthenticated = user?.IsAuthenticated ?? false
         };
 
         return userInfo;
