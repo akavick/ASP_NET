@@ -41,7 +41,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthenticationLogic", "Auth
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ErrorsHandling", "ErrorsHandling", "{219E7FCB-275F-438C-A11A-BA36BDC13149}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErrorHandler", "ErrorHandler\ErrorHandler.csproj", "{1B00A494-48BF-485F-8F70-EE13B1D066C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ErrorHandler", "ErrorHandler\ErrorHandler.csproj", "{1B00A494-48BF-485F-8F70-EE13B1D066C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailer", "Mailer\Mailer.csproj", "{99167C4C-8C04-4E19-B499-A7AE0BB70968}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +79,10 @@ Global
 		{1B00A494-48BF-485F-8F70-EE13B1D066C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B00A494-48BF-485F-8F70-EE13B1D066C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B00A494-48BF-485F-8F70-EE13B1D066C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99167C4C-8C04-4E19-B499-A7AE0BB70968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99167C4C-8C04-4E19-B499-A7AE0BB70968}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99167C4C-8C04-4E19-B499-A7AE0BB70968}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99167C4C-8C04-4E19-B499-A7AE0BB70968}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +95,7 @@ Global
 		{741600C0-0F8B-49A8-BD12-1D0C236E4B92} = {F97993D4-4CE4-43D1-B642-6A9DFC3AD28B}
 		{1EB63824-6782-4AA3-9108-755E1D422DDB} = {C0B9DBBD-A281-4DD3-9C12-A87DABF4413E}
 		{1B00A494-48BF-485F-8F70-EE13B1D066C9} = {219E7FCB-275F-438C-A11A-BA36BDC13149}
+		{99167C4C-8C04-4E19-B499-A7AE0BB70968} = {57079F50-CD0F-4E4F-A5E2-02F96B3DE518}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DB3E53D0-DA81-4507-81A7-89942C3976EE}

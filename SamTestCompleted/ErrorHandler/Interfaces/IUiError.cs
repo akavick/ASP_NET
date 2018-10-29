@@ -14,6 +14,8 @@
         string UserAuthenticationType { get; set; }
 
         string Url { get; set; }
+
+        string ToMsgString();
     }
 
 }

@@ -11,8 +11,8 @@ namespace ErrorHandler.Interfaces
     public interface IErrorHandler
     {
 
-        void HandleUiError(IUiError uiError, string message = null);
-        Task HandleUiErrorAsync(IUiError uiError, DateTime when, string message = null);
+        void HandleUiError(IUiError uiError);
+        Task HandleUiErrorAsync(IUiError uiError, DateTime when);
         void HandleError(Exception error, string message = null);
         Task HandleErrorAsync(Exception error, DateTime when, string message = null);
 
