@@ -16,7 +16,7 @@
 
     public Microsoft.AspNetCore.Html.IHtmlContent Serialize(object obj)
     {
-        return Json.Serialize(obj, new Newtonsoft.Json.JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
+        return Json.Serialize(obj);
     }
 
 }

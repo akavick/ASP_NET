@@ -7,6 +7,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -17,12 +18,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.EventLog;
 
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 using SamLogger.Interfaces;
 using SamLogger.Loggers;
 using SamLogger.LogProcessors;
 
+using SamTestCompleted.Extensions;
 using SamTestCompleted.Helpers;
 using SamTestCompleted.Middleware;
 
@@ -66,17 +69,18 @@ namespace SamTestCompleted
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                     .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("EmployeeOnly", policy => policy.RequireClaim("EmployeeNumber"));
-            //    options.AddPolicy("Founders", policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
-            //    options.AddPolicy("BadgeEntry", policy =>
-            //                          policy.RequireAssertion(context =>
-            //                                                      context.User.HasClaim(c =>
-            //                                                                                (c.Type == ClaimTypes.Country ||
-            //                                                                                 c.Type == ClaimTypes.DateOfBirth) &&
-            //                                                                                c.Issuer == "https://microsoftsecurity")));
-            //});
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("TestPolicy1", policy => policy.RequireClaim("TestClaim1"));
+                options.AddPolicy("TestPolicy2", policy => policy.RequireClaim("TestClaim3"));
+                //options.AddPolicy("Founders", policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
+                //options.AddPolicy("BadgeEntry", policy =>
+                //                      policy.RequireAssertion(context =>
+                //                                                  context.User.HasClaim(c =>
+                //                                                                            (c.Type == ClaimTypes.Country ||
+                //                                                                             c.Type == ClaimTypes.DateOfBirth) &&
+                //                                                                            c.Issuer == "https://microsoftsecurity")));
+            });
         }
 
 
@@ -96,17 +100,36 @@ namespace SamTestCompleted
             var logName = loggingSection["LogName"];
             logger.Subscribe(new CommonSamEventLogLogger(sourceName, logName));
 
+            applicationBuilder.Use(async (context, next) =>
+            {
+                var cid = (ClaimsIdentity) context.User.Identity;
+
+                if(!cid.HasClaim(c => c.Type == "TestClaim1"))
+                {
+                    cid.AddClaim(new Claim("TestClaim1", "true"));
+                }
+
+                if (!cid.HasClaim(c => c.Type == "TestClaim2"))
+                {
+                    cid.AddClaim(new Claim("TestClaim2", "false"));
+                }
+
+                await next();
+            });
 
             applicationBuilder.UseStatusCodePages(async context =>
             {
+                var nl = Environment.NewLine;
+                var msg = $"ERROR: {""}{nl}User: {context.GetUser().Name}{nl}StatusCode: {context.GetStatusCode()}{nl}";
+                await logger.LogWarningAsync(msg, DateTime.Now);
+
                 context.HttpContext.Response.ContentType = "text/html";
                 await context.HttpContext.Response.WriteAsync($"<h1>Error {context.HttpContext.Response.StatusCode}</h1>");
             });
-            //todo выбрать вариант
-            //app.UseStatusCodePagesWithReExecute("/html/errors/{0}.html");
+            ////todo выбрать вариант
+            //applicationBuilder.UseStatusCodePagesWithReExecute("/html/errors/{0}.html");
+            //applicationBuilder.UseStatusCodePagesWithReExecute("/Home/Error");
 
-            // todo убрать IE на уровне сервера?
-            applicationBuilder.UseMiddleware<BrowserConstrainterMiddleware>();
 
             //if (hostingEnvironment.IsDevelopment())
             //{
@@ -122,6 +145,10 @@ namespace SamTestCompleted
                 applicationBuilder.UseHsts();
             }
 
+            // todo убрать IE на уровне сервера?
+            applicationBuilder.UseMiddleware<BrowserConstrainterMiddleware>();
+
+            #region impersonation
 
             //applicationBuilder.Use(async (context, next) =>
             //{
@@ -146,13 +173,15 @@ namespace SamTestCompleted
             //    }
             //});
 
-
+            #endregion
 
             applicationBuilder.UseHttpsRedirection();
             applicationBuilder.UseStaticFiles();
             applicationBuilder.UseCookiePolicy();
-            applicationBuilder.UseAuthentication();
+            //applicationBuilder.UseAuthentication();
             applicationBuilder.UseMvcWithDefaultRoute();
+
+            #region routes
 
             //applicationBuilder.UseMvc(routes =>
             //{
@@ -160,6 +189,8 @@ namespace SamTestCompleted
             //                    name: "default",
             //                    template: "{controller=Home}/{action=Index}/{id?}");
             //});
+
+            #endregion
         }
     }
 

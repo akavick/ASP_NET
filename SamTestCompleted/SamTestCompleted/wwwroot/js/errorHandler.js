@@ -18,7 +18,7 @@ window.SamTestCompleted.ErrorModule = window.SamTestCompleted.ErrorModule || (fu
             var stack = errorEvent.error.stack;
             var message = errorEvent.message;
             var url = errorEvent.filename;
-            var user = JSON.stringify(module.options.currentUser);
+            var user = module.options.currentUser;
 
             var msgObj =
             {
