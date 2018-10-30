@@ -30,8 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Cache\Cache.csproj" />
     <ProjectReference Include="..\ErrorHandler\ErrorHandler.csproj" />
     <ProjectReference Include="..\Logger\Logger.csproj" />
+    <ProjectReference Include="..\Mailer\Mailer.csproj" />
   </ItemGroup>
 
 </Project>

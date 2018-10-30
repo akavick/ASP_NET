@@ -7,6 +7,8 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
+using Cache.Interfaces;
+
 using Logger.Interfaces;
 using Logger.LogProcessors;
 
@@ -28,8 +30,6 @@ using Newtonsoft.Json.Serialization;
 using SamTestCompleted.Extensions;
 using SamTestCompleted.Helpers;
 using SamTestCompleted.Middleware;
-
-using EventLogLogger = Logger.Loggers.EventLogLogger;
 
 
 
@@ -62,6 +62,9 @@ namespace SamTestCompleted
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddMemoryCache();
+            services.AddSingleton<ICache, Cache.Caches.Cache>();
 
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
@@ -104,7 +107,7 @@ namespace SamTestCompleted
             var loggingSection = Configuration.GetSection("Logging");
             var sourceName = loggingSection["SourceName"];
             var logName = loggingSection["LogName"];
-            logger.Subscribe(new EventLogLogger(sourceName, logName));
+            logger.Subscribe(new Logger.Loggers.EventLogLogger(sourceName, logName));
 
             applicationBuilder.Use(async (context, next) =>
             {

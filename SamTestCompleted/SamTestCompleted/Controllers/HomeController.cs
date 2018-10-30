@@ -49,8 +49,6 @@ namespace SamTestCompleted.Controllers
                 //httpEx.StatusCode : (HttpStatusCode)Response.StatusCode
                 ;
 
-
-
             return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
 
