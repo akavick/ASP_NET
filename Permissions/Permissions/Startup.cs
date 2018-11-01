@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -49,17 +50,30 @@ namespace Permissions
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseStatusCodePagesWithReExecute("/Error/Error");
-
             if (env.IsDevelopment())
             {
+                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
+                app.UseStatusCodePagesWithReExecute("/Error/Error");
                 app.UseExceptionHandler("/Error/Error");
                 app.UseHsts();
             }
+
+            app.Use(async (context, next) =>
+            {
+                var cid = (ClaimsIdentity)context.User.Identity;
+
+                //if (!cid.HasClaim(c => c.Type == "TestClaim1"))
+                //{
+                //    cid.AddClaim(new Claim("TestClaim1", "true"));
+                //}
+
+                await next();
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
