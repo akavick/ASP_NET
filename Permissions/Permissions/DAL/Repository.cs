@@ -40,9 +40,10 @@ namespace Permissions.DAL
             _permissions.Add(new Permission{ PermissionId = 5, Title = "access FirstPage" });
             _permissions.Add(new Permission{ PermissionId = 6, Title = "access SecondPage" });
             _permissions.Add(new Permission{ PermissionId = 7, Title = "access ThirdPage" });
-            _permissions.Add(new Permission{ PermissionId = 8, Title = "can approve requests" });
-            _permissions.Add(new Permission{ PermissionId = 9, Title = "can reject requests" });
-            _permissions.Add(new Permission{ PermissionId = 10, Title = "view comments" });
+            _permissions.Add(new Permission{ PermissionId = 8, Title = "can create requests" });
+            _permissions.Add(new Permission{ PermissionId = 9, Title = "can approve requests" });
+            _permissions.Add(new Permission{ PermissionId = 10, Title = "can reject requests" });
+            _permissions.Add(new Permission{ PermissionId = 11, Title = "view comments" });
 
             _mapUnits.Add(new MapUnit{  });
         }
