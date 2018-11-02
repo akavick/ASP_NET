@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Permissions.Models
+﻿namespace Permissions.Models
 {
-    public class Request
+
+
+
+    public class Request : IUnit
     {
-        public int Id { get; set; }
+        public int RequestId { get; set; }
+
+        public int AuthorId { get; set; }
+
+        public string Status { get; set; }
+
+        public int UnitId { get; set; }
     }
 }
