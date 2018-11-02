@@ -9,19 +9,19 @@ using Permissions.Models;
 namespace Permissions.DAL
 {
 
-    public static class Repository
+    public class Repository
     {
-        private static readonly List<Permission> _permissions = new List<Permission>();
+        private readonly List<Permission> _permissions = new List<Permission>();
 
-        private static readonly List<Principal> _principals = new List<Principal>();
+        private readonly List<Principal> _principals = new List<Principal>();
 
-        private static readonly List<Request> _requests = new List<Request>();
+        private readonly List<Request> _requests = new List<Request>();
 
-        private static readonly List<MapUnit> _mapUnits = new List<MapUnit>();
+        private readonly List<MapUnit> _mapUnits = new List<MapUnit>();
 
 
 
-        static Repository()
+        public Repository()
         {
             _principals.Add(new Principal{ PrincipalId = 1, Name = @"MINSK\akavick" });
             _principals.Add(new Principal{ PrincipalId = 2, Name = @"MINSK\user2" });
@@ -56,13 +56,13 @@ namespace Permissions.DAL
 
 
 
-        public static IEnumerable<Permission> Permissions => _permissions;
+        public IEnumerable<Permission> Permissions => _permissions;
 
-        public static IEnumerable<Principal> Principals => _principals;
+        public IEnumerable<Principal> Principals => _principals;
 
-        public static IEnumerable<Request> Requests => _requests;
+        public IEnumerable<Request> Requests => _requests;
 
-        public static IEnumerable<MapUnit> MapUnits => _mapUnits;
+        public IEnumerable<MapUnit> MapUnits => _mapUnits;
     }
 
 }

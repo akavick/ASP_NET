@@ -82,13 +82,13 @@ namespace SamTestCompleted
             {
                 options.AddPolicy("TestPolicy1", policy => policy.RequireClaim("TestClaim1"));
                 options.AddPolicy("TestPolicy2", policy => policy.RequireClaim("TestClaim3"));
-                //options.AddPolicy("Founders", policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
-                //options.AddPolicy("BadgeEntry", policy =>
-                //                      policy.RequireAssertion(context =>
-                //                                                  context.User.HasClaim(c =>
-                //                                                                            (c.Type == ClaimTypes.Country ||
-                //                                                                             c.Type == ClaimTypes.DateOfBirth) &&
-                //                                                                            c.Issuer == "https://microsoftsecurity")));
+                options.AddPolicy("Founders", policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
+                options.AddPolicy("BadgeEntry", policy =>
+                                      policy.RequireAssertion(context =>
+                                                                  context.User.HasClaim(c =>
+                                                                                            (c.Type == ClaimTypes.Country ||
+                                                                                             c.Type == ClaimTypes.DateOfBirth) &&
+                                                                                            c.Issuer == "https://microsoftsecurity")));
             });
         }
 

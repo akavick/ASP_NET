@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+
+using Permissions.DAL;
 
 
 
@@ -34,8 +38,15 @@ namespace Permissions
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<Repository>();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("EditPolicy", policy => policy.Requirements.Add(new SameAuthorRequirement()));
+            });
 
+            services.AddSingleton<IAuthorizationHandler, DocumentAuthorizationHandler>();
+            services.AddSingleton<IAuthorizationHandler, DocumentAuthorizationCrudHandler>();
 
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
