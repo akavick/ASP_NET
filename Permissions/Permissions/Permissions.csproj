@@ -20,9 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Work\ThirdPage.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Views\Work\SecondPage.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

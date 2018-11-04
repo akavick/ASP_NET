@@ -1,7 +1,42 @@
-﻿@{
+﻿@model Request
+
+@{
     ViewData["Title"] = "SecondPage";
 }
 
 <div>
+    <table>
+        <tr>
+            <th>Request Id</th>
+            <th>Status</th>
+            <th>Author</th>
+        </tr>
+        <tr>
+            <td>@(Model?.RequestId ?? -1)</td>
+            <td>@(Model?.Status ?? "error")</td>
+            <td>@(Model?.Author?.Name ?? "noname")</td>
+        </tr>
+    </table>
+</div>
 
+<div>
+    @if (Model?.Status == RequestStatuses.New)
+    {
+        if ((await AuthorizationService.AuthorizeAsync(User, "CanApproveRequests")).Succeeded)
+        {
+            <button>Approve</button>
+        }
+
+        if ((await AuthorizationService.AuthorizeAsync(User, "CanRejectRequests")).Succeeded)
+        {
+            <button>Reject</button>
+        }
+    }
+    else if (Model?.Status == RequestStatuses.Approved)
+    {
+        if ((await AuthorizationService.AuthorizeAsync(User, "CanRejectApprovedRequests")).Succeeded)
+        {
+            <button>Reject</button>
+        }
+    }
 </div>

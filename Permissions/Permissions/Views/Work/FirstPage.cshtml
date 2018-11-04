@@ -1,7 +1,63 @@
-﻿@{
+﻿@model IEnumerable<Request>
+
+@{
     ViewData["Title"] = "FirstPage";
 }
 
-<div>
+<div style="display: flex; justify-content: space-around;">
+    <div id="RequestsBlock">
+        <div>Requests</div>
+
+        <table>
+            <tr>
+                <th>Request Id</th>
+                <th>Status</th>
+                <th>Author</th>
+            </tr>
+
+            @foreach (var request in Model)
+            {
+                <tr>
+                    <td><a href="@Url.RouteUrl(new { controller = "Work", action = "SecondPage", id = request.RequestId })">@request.RequestId</a></td>
+                    @*<td><a asp-route="@(new {controller="Work", action="SecondPage", request = request})">@request.RequestId</a></td>*@
+                    @*<td>@Html.ActionLink(request.RequestId.ToString(), "SecondPage", "Work", request, "https")</td>*@
+                    @*<td><a href="@(Url.Action("SecondPage", "Work", request, "https"))">@request.RequestId</a></td>*@
+                    <td>@request.Status</td>
+                    <td>@request.Author.Name</td>
+                </tr>
+            }
+
+        </table>
+
+        @if ((await AuthorizationService.AuthorizeAsync(User, "CanCreateRequests")).Succeeded)
+        {
+            <button style="margin-top: 10px;">Create</button>
+        }
+    </div>
+
+    <div id="CommentsBlock">
+        <div>Comments</div>
+
+        <table>
+            <tr>
+                <th>Content</th>
+                <th>Author</th>
+            </tr>
+
+            @for (var i = 1; i <= 10; i++)
+            {
+                <tr>
+                    <td>Comment #@i</td>
+                    <td>Author #@i</td>
+                </tr>
+            }
+        </table>
+
+        @if ((await AuthorizationService.AuthorizeAsync(User, "CanAddComments")).Succeeded)
+        {
+            <button style="margin-top: 10px;">Add Comment</button>
+        }
+    </div>
 
 </div>
+

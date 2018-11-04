@@ -1,4 +1,6 @@
-﻿namespace Permissions.Models
+﻿using System;
+
+namespace Permissions.Models
 {
 
 
@@ -8,6 +10,8 @@
         public int RequestId { get; set; }
 
         public int AuthorId { get; set; }
+
+        public Principal Author { get; set; }
 
         public string Status { get; set; }
 

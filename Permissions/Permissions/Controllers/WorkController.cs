@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Permissions.DAL;
+using Permissions.Models;
 
 
 
@@ -31,21 +32,15 @@ namespace Permissions.Controllers
 
         public IActionResult FirstPage()
         {
-            return View();
+            return View(_repository.Requests);
         }
 
 
 
-        public IActionResult SecondPage()
+        //[HttpPost]
+        public IActionResult SecondPage(int id)
         {
-            return View();
-        }
-
-
-
-        public IActionResult ThirdPage()
-        {
-            return View();
+            return View(_repository.Requests.SingleOrDefault(r => r.RequestId == id));
         }
 
     }

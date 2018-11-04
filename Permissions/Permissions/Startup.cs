@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 using Permissions.DAL;
+using Permissions.Extensions;
 
 
 
@@ -42,11 +43,29 @@ namespace Permissions
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("EditPolicy", policy => policy.Requirements.Add(new SameAuthorRequirement()));
+                options.AddPolicyAndClaimRequirement("CanCreateRequests");
+                options.AddPolicyAndClaimRequirement("CanApproveRequests");
+                options.AddPolicyAndClaimRequirement("CanRejectRequests");
+                options.AddPolicyAndClaimRequirement("CanRejectApprovedRequests");
+                options.AddPolicyAndClaimRequirement("CanAddComments");
+
+                //options.AddPolicy("CanCreateRequests", policy => policy.RequireClaim("CanCreateRequests"));
+                //options.AddPolicy("Founders", policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
+                //options.AddPolicy("BadgeEntry", policy =>
+                //                      policy.RequireAssertion(context =>
+                //                                                  context.User.HasClaim(c =>
+                //                                                                            (c.Type == ClaimTypes.Country ||
+                //                                                                             c.Type == ClaimTypes.DateOfBirth) &&
+                //                                                                            c.Issuer == "https://microsoftsecurity")));
             });
 
-            services.AddSingleton<IAuthorizationHandler, DocumentAuthorizationHandler>();
-            services.AddSingleton<IAuthorizationHandler, DocumentAuthorizationCrudHandler>();
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("EditPolicy", policy => policy.Requirements.Add(new SameAuthorRequirement()));
+            //});
+
+            //services.AddSingleton<IAuthorizationHandler, DocumentAuthorizationHandler>();
+            //services.AddSingleton<IAuthorizationHandler, DocumentAuthorizationCrudHandler>();
 
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -78,10 +97,10 @@ namespace Permissions
             {
                 var cid = (ClaimsIdentity)context.User.Identity;
 
-                //if (!cid.HasClaim(c => c.Type == "TestClaim1"))
-                //{
-                //    cid.AddClaim(new Claim("TestClaim1", "true"));
-                //}
+                cid.AddOrRewriteClaim("CanCreateRequests", "true");
+                cid.AddOrRewriteClaim("CanApproveRequests", "true");
+                cid.AddOrRewriteClaim("CanRejectRequests", "true");
+                //cid.AddOrRewriteClaim("CanRejectApprovedRequests", "true");
 
                 await next();
             });
@@ -91,6 +110,7 @@ namespace Permissions
 
             app.UseMvcWithDefaultRoute();
         }
+
     }
 
 }
