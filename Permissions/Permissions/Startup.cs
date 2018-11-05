@@ -20,6 +20,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 using Permissions.Authorization;
+using Permissions.Authorization.Handlers;
 using Permissions.Middlewares;
 using Permissions.DAL;
 using Permissions.Extensions;
@@ -61,21 +62,17 @@ namespace Permissions
                 options.AddPolicyAndClaimRequirement(Policies.CanViewThirdPage);
 
                 //options.AddPolicy("CanCreateRequests", policy => policy.RequireClaim("CanCreateRequests"));
-                options.AddPolicy("Founders", policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
+                //options.AddPolicy("Founders", policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
 
                 options.AddPolicy("ViewRequest", policy =>
                 {
                     policy.RequireAssertion(context =>
                     {
-                        if (context.Resource is AuthorizationFilterContext mvcContext)
-                        {
-                            var repository = mvcContext.HttpContext.RequestServices.GetService<Repository>();
+                        var repository = services.SingleOrDefault(s => s.ServiceType == typeof(Repository));
+                        var id = (int)context.Resource;
 
                             //todo
-                            return true;
-                        }
-
-                        return false;
+                        return true;
                     });
                 });
             });
@@ -87,6 +84,10 @@ namespace Permissions
 
             //services.AddSingleton<IAuthorizationHandler, RequestAuthorizationHandler>();
             //services.AddSingleton<IAuthorizationHandler, RequestAuthorizationCrudHandler>();
+
+            services.AddSingleton<IAuthorizationHandler, ComponentCodeHandler>();
+            services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
+
             services.AddTransient<AuthorizationLogic>();
 
             services.AddMvc()

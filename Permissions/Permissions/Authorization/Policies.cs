@@ -17,5 +17,6 @@ namespace Permissions.Authorization
         public const string CanViewFirstPage = "CanViewFirstPage";
         public const string CanViewSecondPage = "CanViewSecondPage";
         public const string CanViewThirdPage = "CanViewThirdPage";
+        public const string CanViewThisObject = "CanViewThisObject";
     }
 }

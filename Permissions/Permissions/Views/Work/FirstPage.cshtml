@@ -18,11 +18,14 @@
 
             @foreach (var request in Model)
             {
-                <tr>
-                    <td><a href="@Url.RouteUrl(new { controller = "Work", action = "SecondPage", id = request.RequestId })">@request.RequestId</a></td>
-                    <td>@request.Status</td>
-                    <td>@request.Author.Name</td>
-                </tr>
+                if ((await AuthorizationService.AuthorizeAsync(User, request.RequestId, "ViewRequest")).Succeeded)
+                {
+                    <tr>
+                        <td><a href="@Url.RouteUrl(new { controller = "Work", action = "SecondPage", id = request.RequestId })">@request.RequestId</a></td>
+                        <td>@request.Status</td>
+                        <td>@request.Author.Name</td>
+                    </tr>
+                }
             }
 
         </table>
