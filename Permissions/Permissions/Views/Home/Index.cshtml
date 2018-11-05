@@ -3,10 +3,19 @@
 }
 
 <div>
-    <p>
-        <a href="@Url.Action("FirstPage", "Work")">First page</a>
-    </p>
-    <p>
-        <a href="@Url.Action("SecondPage", "Work")">Second page</a>
-    </p>
+    
+    @if ((await AuthorizationService.AuthorizeAsync(User, Policies.CanViewFirstPage)).Succeeded)
+    {
+        <p>
+            <a href="@Url.Action("FirstPage", "Work")">First page</a>
+        </p>
+    }
+    
+    @if ((await AuthorizationService.AuthorizeAsync(User, Policies.CanViewThirdPage)).Succeeded)
+    {
+        <p>
+            <a href="@Url.Action("ThirdPage", "Work")">Second page</a>
+        </p>
+    }
+
 </div>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+using Permissions.Authorization;
 using Permissions.DAL;
 using Permissions.Models;
 
@@ -30,19 +31,36 @@ namespace Permissions.Controllers
 
 
 
+        [Authorize(Policies.CanViewFirstPage)]
         public IActionResult FirstPage()
         {
-            return View(_repository.Requests);
+            var repositoryRequests = _repository.Requests;
+
+            return View(repositoryRequests);
         }
 
 
 
-        //[HttpPost]
+        [Authorize(Policies.CanViewSecondPage)]
         public IActionResult SecondPage(int id)
         {
-            return View(_repository.Requests.SingleOrDefault(r => r.RequestId == id));
+            var request = _repository.Requests.SingleOrDefault(r => r.RequestId == id);
+
+            if (request is null)
+            {
+                return NotFound();
+            }
+
+            return View(request);
         }
 
+
+
+        [Authorize(Policies.CanViewThirdPage)]
+        public IActionResult ThirdPage()
+        {
+            return View();
+        }
     }
 
 }

@@ -10,15 +10,19 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Server.IISIntegration;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
+using Permissions.Authorization;
+using Permissions.Middlewares;
 using Permissions.DAL;
 using Permissions.Extensions;
-
 
 
 namespace Permissions
@@ -41,22 +45,39 @@ namespace Permissions
         {
             services.AddSingleton<Repository>();
 
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+
             services.AddAuthorization(options =>
             {
-                options.AddPolicyAndClaimRequirement("CanCreateRequests");
-                options.AddPolicyAndClaimRequirement("CanApproveRequests");
-                options.AddPolicyAndClaimRequirement("CanRejectRequests");
-                options.AddPolicyAndClaimRequirement("CanRejectApprovedRequests");
-                options.AddPolicyAndClaimRequirement("CanAddComments");
+                options.AddPolicyAndClaimRequirement(Policies.CanCreateRequests);
+                options.AddPolicyAndClaimRequirement(Policies.CanApproveRequests);
+                options.AddPolicyAndClaimRequirement(Policies.CanRejectRequests);
+                options.AddPolicyAndClaimRequirement(Policies.CanRejectApprovedRequests);
+                options.AddPolicyAndClaimRequirement(Policies.CanApproveRejectedRequests);
+                options.AddPolicyAndClaimRequirement(Policies.CanApproveThisRequest);
+                options.AddPolicyAndClaimRequirement(Policies.CanAddComments);
+                options.AddPolicyAndClaimRequirement(Policies.CanViewFirstPage);
+                options.AddPolicyAndClaimRequirement(Policies.CanViewSecondPage);
+                options.AddPolicyAndClaimRequirement(Policies.CanViewThirdPage);
 
                 //options.AddPolicy("CanCreateRequests", policy => policy.RequireClaim("CanCreateRequests"));
-                //options.AddPolicy("Founders", policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
-                //options.AddPolicy("BadgeEntry", policy =>
-                //                      policy.RequireAssertion(context =>
-                //                                                  context.User.HasClaim(c =>
-                //                                                                            (c.Type == ClaimTypes.Country ||
-                //                                                                             c.Type == ClaimTypes.DateOfBirth) &&
-                //                                                                            c.Issuer == "https://microsoftsecurity")));
+                options.AddPolicy("Founders", policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
+
+                options.AddPolicy("ViewRequest", policy =>
+                {
+                    policy.RequireAssertion(context =>
+                    {
+                        if (context.Resource is AuthorizationFilterContext mvcContext)
+                        {
+                            var repository = mvcContext.HttpContext.RequestServices.GetService<Repository>();
+
+                            //todo
+                            return true;
+                        }
+
+                        return false;
+                    });
+                });
             });
 
             //services.AddAuthorization(options =>
@@ -64,8 +85,9 @@ namespace Permissions
             //    options.AddPolicy("EditPolicy", policy => policy.Requirements.Add(new SameAuthorRequirement()));
             //});
 
-            //services.AddSingleton<IAuthorizationHandler, DocumentAuthorizationHandler>();
-            //services.AddSingleton<IAuthorizationHandler, DocumentAuthorizationCrudHandler>();
+            //services.AddSingleton<IAuthorizationHandler, RequestAuthorizationHandler>();
+            //services.AddSingleton<IAuthorizationHandler, RequestAuthorizationCrudHandler>();
+            services.AddTransient<AuthorizationLogic>();
 
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -74,6 +96,10 @@ namespace Permissions
                         options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                         options.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
                     });
+
+
+            services.AddDbContext<UserContext>
+                (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
 
@@ -93,13 +119,18 @@ namespace Permissions
                 app.UseHsts();
             }
 
+            app.UseMiddleware<AuthorizationMiddleware>();
+
             app.Use(async (context, next) =>
             {
                 var cid = (ClaimsIdentity)context.User.Identity;
 
-                cid.AddOrRewriteClaim("CanCreateRequests", "true");
-                cid.AddOrRewriteClaim("CanApproveRequests", "true");
-                cid.AddOrRewriteClaim("CanRejectRequests", "true");
+                cid.AddClaim("CanCreateRequests", "true");
+                cid.AddClaim("CanApproveRequests", "true");
+                cid.AddClaim("CanRejectRequests", "true");
+                cid.AddClaim("CanAddComments", "true");
+                cid.AddClaim("CanViewFirstPage", "true");
+                cid.AddClaim("CanViewSecondPage", "true");
                 //cid.AddOrRewriteClaim("CanRejectApprovedRequests", "true");
 
                 await next();

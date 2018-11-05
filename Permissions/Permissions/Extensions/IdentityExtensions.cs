@@ -8,28 +8,19 @@ namespace Permissions.Extensions
 {
     public static class IdentityExtensions
     {
-        public static void AddOrRewriteClaim(this ClaimsIdentity claimsIdentity, string claimType, string claimValue)
+        public static void AddClaim(this ClaimsIdentity claimsIdentity, string claimType, string claimValue)
         {
-            if (!claimsIdentity.HasClaim(c => c.Type == claimType))
-            {
-                claimsIdentity.AddClaim(new Claim(claimType, claimValue));
-            }
+            claimsIdentity.AddClaim(new Claim(claimType, claimValue));
         }
 
-        public static void AddOrRewriteClaim(this ClaimsIdentity claimsIdentity, string claimType, string claimValue, string claimValueType)
+        public static void AddClaim(this ClaimsIdentity claimsIdentity, string claimType, string claimValue, string claimValueType)
         {
-            if (!claimsIdentity.HasClaim(c => c.Type == claimType))
-            {
-                claimsIdentity.AddClaim(new Claim(claimType, claimValue, claimValueType));
-            }
+            claimsIdentity.AddClaim(new Claim(claimType, claimValue, claimValueType));
         }
 
-        public static void AddOrRewriteClaim(this ClaimsIdentity claimsIdentity, Claim claim)
-        {
-            if (!claimsIdentity.HasClaim(c => c.Type == claim.Type))
-            {
-                claimsIdentity.AddClaim(claim);
-            }
-        }
+        //public static void AddClaim(this ClaimsIdentity claimsIdentity, Claim claim)
+        //{
+        //    claimsIdentity.AddClaim(claim);
+        //}
     }
 }

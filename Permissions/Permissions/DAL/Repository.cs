@@ -23,9 +23,9 @@ namespace Permissions.DAL
 
         public Repository()
         {
-            _principals.Add(new Principal{ PrincipalId = 1, Name = @"akavick" });
-            _principals.Add(new Principal{ PrincipalId = 2, Name = @"user2" });
-            _principals.Add(new Principal{ PrincipalId = 3, Name = @"user3" });
+            _principals.Add(new Principal{ PrincipalId = 1, Name = @"MINSK\akavick" });
+            _principals.Add(new Principal{ PrincipalId = 2, Name = @"MINSK\maul" });
+            _principals.Add(new Principal{ PrincipalId = 3, Name = @"MINSK\arba" });
 
             _requests.Add(new Request{ RequestId = 1,  AuthorId = 1, Author = _principals[0], Status = RequestStatuses.New });
             _requests.Add(new Request{ RequestId = 2,  AuthorId = 2, Author = _principals[1], Status = RequestStatuses.Approved });

@@ -12,9 +12,9 @@
             <th>Author</th>
         </tr>
         <tr>
-            <td>@(Model?.RequestId ?? -1)</td>
-            <td>@(Model?.Status ?? "error")</td>
-            <td>@(Model?.Author?.Name ?? "noname")</td>
+            <td>@(Model.RequestId)</td>
+            <td>@(Model.Status)</td>
+            <td>@(Model.Author?.Name ?? "noname")</td>
         </tr>
     </table>
 </div>
@@ -22,21 +22,33 @@
 <div>
     @if (Model?.Status == RequestStatuses.New)
     {
-        if ((await AuthorizationService.AuthorizeAsync(User, "CanApproveRequests")).Succeeded)
+        if ((await AuthorizationService.AuthorizeAsync(User, Policies.CanApproveRequests)).Succeeded)
         {
             <button>Approve</button>
         }
 
-        if ((await AuthorizationService.AuthorizeAsync(User, "CanRejectRequests")).Succeeded)
+        if ((await AuthorizationService.AuthorizeAsync(User, Policies.CanRejectRequests)).Succeeded)
         {
             <button>Reject</button>
         }
     }
     else if (Model?.Status == RequestStatuses.Approved)
     {
-        if ((await AuthorizationService.AuthorizeAsync(User, "CanRejectApprovedRequests")).Succeeded)
+        if ((await AuthorizationService.AuthorizeAsync(User, Policies.CanRejectApprovedRequests)).Succeeded)
         {
             <button>Reject</button>
+        }
+    }
+    
+    @if (Model?.Status == RequestStatuses.Rejected)
+    {
+        if 
+        (
+            (await AuthorizationService.AuthorizeAsync(User, Policies.CanApproveRejectedRequests)).Succeeded
+            && (await AuthorizationService.AuthorizeAsync(User, Model.RequestId, Policies.CanApproveThisRequest)).Succeeded
+        )
+        {
+            <button>Approve</button>
         }
     }
 </div>
