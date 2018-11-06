@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Permissions.Models;
-using Permissions.ViewModels;
-
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Permissions.Configuration;
 
 
 namespace Permissions.Controllers
@@ -14,6 +8,13 @@ namespace Permissions.Controllers
 
     public class HomeController : Controller
     {
+        private readonly Config _config;
+
+        public HomeController(IOptions<Config> config)
+        {
+            _config = config.Value;
+        }
+
         public IActionResult Index()
         {
             return View();

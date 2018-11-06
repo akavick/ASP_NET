@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Server.IISIntegration;
@@ -20,9 +14,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 using Permissions.Authorization;
+using Permissions.Configuration;
 using Permissions.Authorization.Handlers;
 using Permissions.Middlewares;
 using Permissions.DAL;
+using Permissions.DAL.FakeRepository;
 using Permissions.Extensions;
 using Permissions.Models;
 
@@ -46,6 +42,8 @@ namespace Permissions
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<Config>(Configuration.GetSection("Config"));
+
             services.AddSingleton<Repository>();
 
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
@@ -65,27 +63,26 @@ namespace Permissions
 
                 //options.AddPolicy("CanCreateRequests", policy => policy.RequireClaim("CanCreateRequests"));
                 //options.AddPolicy("Founders", policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
+                //options.AddPolicy("EditPolicy", policy => policy.Requirements.Add(new SameAuthorRequirement()));
 
                 options.AddPolicy(Policies.ViewResource, policy =>
                 {
                     policy.RequireAssertion(context =>
                     {
-                        //var id = (int)context.Resource;
                         var request = (Request)context.Resource;
+                        var claimType = request.RequestId.ToString();
+                        var claimValue = PermissionTransmuter.MystifyPermission("CanViewThisResource"); // todo
 
-                            //todo
-                        return true;
+                        return context.User.HasClaim(claimType, claimValue);
                     });
                 });
             });
 
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("EditPolicy", policy => policy.Requirements.Add(new SameAuthorRequirement()));
-            //});
+            services.AddSingleton<Repository>();
 
-            //services.AddSingleton<IAuthorizationHandler, ComponentCodeHandler>();
-            //services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
+            services.AddSingleton<IAuthorizationHandler, ComponentCodeHandler>();
+            services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
+            services.AddSingleton<IAuthorizationHandler, TestHandler>();
 
             services.AddTransient<AuthorizationLogic>();
 

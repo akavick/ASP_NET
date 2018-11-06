@@ -1,17 +1,18 @@
 ﻿@{
+    var theFirstlinkId = "theFirstlinkId";
     ViewData["Title"] = "Work Page";
 }
 
 <div>
     
-    @if ((await AuthorizationService.AuthorizeAsync(User, Policies.CanViewFirstPage)).Succeeded)
+    @if ((await AuthorizationService.AuthorizeAsync(User, theFirstlinkId, Policies.CanViewFirstPage)).Succeeded /*todo*/)
     {
         <p>
-            <a href="@Url.Action("FirstPage", "Work")">First page</a>
+            <a id="@theFirstlinkId" href="@Url.Action("FirstPage", "Work")">First page</a>
         </p>
     }
     
-    @if ((await AuthorizationService.AuthorizeAsync(User, Policies.CanViewThirdPage)).Succeeded)
+    @if ((await AuthorizationService.AuthorizeAsync(User, Policies.CanViewThirdPage)).Succeeded /*todo*/)
     {
         <p>
             <a href="@Url.Action("ThirdPage", "Work")">Second page</a>

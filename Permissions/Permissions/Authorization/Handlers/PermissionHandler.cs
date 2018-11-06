@@ -13,29 +13,27 @@ namespace Permissions.Authorization.Handlers
     {
         public Task HandleAsync(AuthorizationHandlerContext context)
         {
-            //var pendingRequirements = context.PendingRequirements.ToList();
+            var pendingRequirements = context.PendingRequirements.ToList();
 
-            //foreach (var requirement in pendingRequirements)
-            //{
-            //    if (requirement is ReadPermission)
-            //    {
-            //        if (IsOwner(context.User, context.Resource) || IsSponsor(context.User, context.Resource))
-            //        {
-            //            context.Succeed(requirement);
-            //        }
-            //    }
-            //    else if (requirement is EditPermission || requirement is DeletePermission)
-            //    {
-            //        if (IsOwner(context.User, context.Resource))
-            //        {
-            //            context.Succeed(requirement);
-            //        }
-            //    }
-            //}
+            foreach (var requirement in pendingRequirements)
+            {
+                //if (requirement is ReadPermission)
+                //{
+                //    if (IsOwner(context.User, context.Resource) || IsSponsor(context.User, context.Resource))
+                //    {
+                //        context.Succeed(requirement);
+                //    }
+                //}
+                //else if (requirement is EditPermission || requirement is DeletePermission)
+                //{
+                //    if (IsOwner(context.User, context.Resource))
+                //    {
+                //        context.Succeed(requirement);
+                //    }
+                //}
+            }
 
-            //TODO: Use the following if targeting a version of
-            //.NET Framework older than 4.6:
-            //      return Task.FromResult(0);
+            //todo
             return Task.CompletedTask;
         }
 

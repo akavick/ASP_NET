@@ -1,4 +1,4 @@
-﻿namespace Permissions.Models
+﻿namespace Permissions.DAL.FakeRepository
 {
     public class Permission
     {

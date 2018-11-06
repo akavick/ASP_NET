@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Permissions.Models
+﻿namespace Permissions.DAL.FakeRepository
 {
     public class MapUnit
     {
