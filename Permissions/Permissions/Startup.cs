@@ -24,6 +24,8 @@ using Permissions.Authorization.Handlers;
 using Permissions.Middlewares;
 using Permissions.DAL;
 using Permissions.Extensions;
+using Permissions.Models;
+
 
 
 namespace Permissions
@@ -64,12 +66,12 @@ namespace Permissions
                 //options.AddPolicy("CanCreateRequests", policy => policy.RequireClaim("CanCreateRequests"));
                 //options.AddPolicy("Founders", policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
 
-                options.AddPolicy("ViewRequest", policy =>
+                options.AddPolicy(Policies.ViewResource, policy =>
                 {
                     policy.RequireAssertion(context =>
                     {
-                        var repository = services.SingleOrDefault(s => s.ServiceType == typeof(Repository));
-                        var id = (int)context.Resource;
+                        //var id = (int)context.Resource;
+                        var request = (Request)context.Resource;
 
                             //todo
                         return true;
@@ -82,11 +84,8 @@ namespace Permissions
             //    options.AddPolicy("EditPolicy", policy => policy.Requirements.Add(new SameAuthorRequirement()));
             //});
 
-            //services.AddSingleton<IAuthorizationHandler, RequestAuthorizationHandler>();
-            //services.AddSingleton<IAuthorizationHandler, RequestAuthorizationCrudHandler>();
-
-            services.AddSingleton<IAuthorizationHandler, ComponentCodeHandler>();
-            services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
+            //services.AddSingleton<IAuthorizationHandler, ComponentCodeHandler>();
+            //services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
 
             services.AddTransient<AuthorizationLogic>();
 

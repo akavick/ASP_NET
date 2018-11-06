@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Request>
 
 @{
+    //var thisViewCode = 100000;
     ViewData["Title"] = "FirstPage";
 }
 
@@ -18,7 +19,7 @@
 
             @foreach (var request in Model)
             {
-                if ((await AuthorizationService.AuthorizeAsync(User, request.RequestId, "ViewRequest")).Succeeded)
+                if ((await AuthorizationService.AuthorizeAsync(User, request, "ViewResource")).Succeeded)
                 {
                     <tr>
                         <td><a href="@Url.RouteUrl(new { controller = "Work", action = "SecondPage", id = request.RequestId })">@request.RequestId</a></td>

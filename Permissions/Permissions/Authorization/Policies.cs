@@ -7,6 +7,8 @@ namespace Permissions.Authorization
 {
     public static class Policies
     {
+        public const string ViewResource = "ViewResource";
+
         public const string CanCreateRequests = "CanCreateRequests";
         public const string CanApproveRequests = "CanApproveRequests";
         public const string CanApproveThisRequest = "CanApproveThisRequest";
