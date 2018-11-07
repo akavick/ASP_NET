@@ -19,6 +19,7 @@ using Permissions.Authorization.Handlers;
 using Permissions.Middlewares;
 using Permissions.DAL;
 using Permissions.DAL.FakeRepository;
+using Permissions.DAL.Repository;
 using Permissions.Extensions;
 using Permissions.Models;
 
@@ -42,8 +43,6 @@ namespace Permissions
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<Config>(Configuration.GetSection("Config"));
-
             services.AddSingleton<Repository>();
 
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
@@ -95,8 +94,8 @@ namespace Permissions
                     });
 
 
-            services.AddDbContext<UserContext>
-                (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<UserContext>
+            //    (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
 

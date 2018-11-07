@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Permissions.DAL.Enums;
-using Permissions.DAL.Models;
 
-namespace Permissions.DAL
+using Microsoft.EntityFrameworkCore;
+
+using Permissions.DAL.Repository.Enums;
+using Permissions.DAL.Repository.Models;
+
+
+
+namespace Permissions.DAL.Repository
 {
     public class UserContext : DbContext
     {

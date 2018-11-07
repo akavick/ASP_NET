@@ -3,17 +3,22 @@ using Microsoft.Extensions.Options;
 using Permissions.Configuration;
 
 
+
 namespace Permissions.Controllers
 {
 
     public class HomeController : Controller
     {
-        private readonly Config _config;
+        private readonly SystemObjectsNames _systemObjectsNames;
 
-        public HomeController(IOptions<Config> config)
+
+
+        public HomeController(IOptions<SystemObjectsNames> systemObjectsNames)
         {
-            _config = config.Value;
+            _systemObjectsNames = systemObjectsNames.Value;
         }
+
+
 
         public IActionResult Index()
         {
