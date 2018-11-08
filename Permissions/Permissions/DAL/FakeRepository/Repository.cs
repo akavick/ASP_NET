@@ -23,16 +23,21 @@ namespace Permissions.DAL.FakeRepository
 
         public Repository()
         {
-            _permissions.Add(new Permission { PermissionId = 1, Title = "View request" });
-            _permissions.Add(new Permission { PermissionId = 2, Title = "Edit request" });
-            _permissions.Add(new Permission { PermissionId = 3, Title = "Approve request" });
-            _permissions.Add(new Permission { PermissionId = 4, Title = "Reject request" });
-            _permissions.Add(new Permission { PermissionId = 5, Title = "Create request" });
-            _permissions.Add(new Permission { PermissionId = 6, Title = "View comments" });
+            _permissions.Add(new Permission { PermissionId = 1, Title = "Access" });
 
-            _permissions.Add(new Permission { PermissionId = 7, Title = "Access FirstPage" });
-            _permissions.Add(new Permission { PermissionId = 8, Title = "Access SecondPage" });
-            _permissions.Add(new Permission { PermissionId = 9, Title = "Access ThirdPage" });
+            _permissions.Add(new Permission { PermissionId = 2, Title = "ViewRequest" });
+            _permissions.Add(new Permission { PermissionId = 3, Title = "EditRequest" });
+            _permissions.Add(new Permission { PermissionId = 4, Title = "RevokeRequest" });
+
+            _permissions.Add(new Permission { PermissionId = 5, Title = "ApproveRequest" });
+            _permissions.Add(new Permission { PermissionId = 6, Title = "RejectRequest" });
+
+            //_permissions.Add(new Permission { PermissionId = 9, Title = "FullAccessToRequest" });
+
+            _permissions.Add(new Permission { PermissionId = 7, Title = "ViewComment" });
+            _permissions.Add(new Permission { PermissionId = 8, Title = "EditComment" });
+
+            
 
 
             var employeeRole = new Role { RoleId = 1, Title = "Employee" };
@@ -48,7 +53,7 @@ namespace Permissions.DAL.FakeRepository
 
             var adminRole = new Role { RoleId = 4, Title = "Admin" };
             _roles.Add(adminRole);
-            adminRole.Permissions.AddRange(_permissions);
+            //adminRole.Permissions.AddRange(_permissions);
 
 
             var akavick = new Principal { PrincipalId = 1, Name = @"MINSK\akavick" };
@@ -64,29 +69,51 @@ namespace Permissions.DAL.FakeRepository
             _principals.Add(arba);
 
 
-            _requests.Add(new Request{ RequestId = 1,  Author = akavick, Status = RequestStatuses.New      });
-            _requests.Add(new Request{ RequestId = 2,  Author = maul,    Status = RequestStatuses.Approved });
-            _requests.Add(new Request{ RequestId = 3,  Author = akavick, Status = RequestStatuses.Approved });
-            _requests.Add(new Request{ RequestId = 4,  Author = akavick, Status = RequestStatuses.Rejected });
-            _requests.Add(new Request{ RequestId = 5,  Author = arba,    Status = RequestStatuses.New      });
-            _requests.Add(new Request{ RequestId = 6,  Author = akavick, Status = RequestStatuses.Approved });
-            _requests.Add(new Request{ RequestId = 7,  Author = akavick, Status = RequestStatuses.Rejected });
-            _requests.Add(new Request{ RequestId = 8,  Author = akavick, Status = RequestStatuses.New      });
-            _requests.Add(new Request{ RequestId = 9,  Author = maul,    Status = RequestStatuses.New      });
-            _requests.Add(new Request{ RequestId = 10, Author = arba,    Status = RequestStatuses.New      });
+            _requests.Add(new Request{ RequestId = 30000001, Author = akavick, Status = RequestStatuses.New      });
+            _requests.Add(new Request{ RequestId = 30000002, Author = maul,    Status = RequestStatuses.Approved });
+            _requests.Add(new Request{ RequestId = 30000003, Author = akavick, Status = RequestStatuses.Approved });
+            _requests.Add(new Request{ RequestId = 30000004, Author = akavick, Status = RequestStatuses.Rejected });
+            _requests.Add(new Request{ RequestId = 30000005, Author = arba,    Status = RequestStatuses.New      });
+            _requests.Add(new Request{ RequestId = 30000006, Author = akavick, Status = RequestStatuses.Approved });
+            _requests.Add(new Request{ RequestId = 30000007, Author = akavick, Status = RequestStatuses.Rejected });
+            _requests.Add(new Request{ RequestId = 30000008, Author = akavick, Status = RequestStatuses.New      });
+            _requests.Add(new Request{ RequestId = 30000009, Author = maul,    Status = RequestStatuses.New      });
+            _requests.Add(new Request{ RequestId = 30000010, Author = arba,    Status = RequestStatuses.New      });
 
 
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 7, ObjectId = 20011001 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 7, ObjectId = 20021001 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 7, ObjectId = 20021002 });
 
-            _mapUnits.Add(new MapUnit { MapUnitId = 1, PrincipalId = akavick.PrincipalId, PermissionId = 7, ObjectId = 1 });
-            _mapUnits.Add(new MapUnit { MapUnitId = 2, PrincipalId = akavick.PrincipalId, PermissionId = 8, ObjectId = 1 });
+            //чужие заявки - просмотр
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 2, ObjectId = 30000002 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 2, ObjectId = 30000005 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 2, ObjectId = 30000009 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 2, ObjectId = 30000010 });
 
-            _mapUnits.Add(new MapUnit { MapUnitId = 3, PrincipalId = akavick.PrincipalId, PermissionId = 1,  ObjectId = 1 });
-            _mapUnits.Add(new MapUnit { MapUnitId = 4, PrincipalId = akavick.PrincipalId, PermissionId = 2,  ObjectId = 1 });
-            _mapUnits.Add(new MapUnit { MapUnitId = 5, PrincipalId = akavick.PrincipalId, PermissionId = 5,  ObjectId = 1 });
-            _mapUnits.Add(new MapUnit { MapUnitId = 6, PrincipalId = akavick.PrincipalId, PermissionId = 6,  ObjectId = 1 });
-            _mapUnits.Add(new MapUnit { MapUnitId = 7, PrincipalId = akavick.PrincipalId, PermissionId = 8,  ObjectId = 1 });
-            _mapUnits.Add(new MapUnit { MapUnitId = 8, PrincipalId = akavick.PrincipalId, PermissionId = 9,  ObjectId = 1 });
-            _mapUnits.Add(new MapUnit { MapUnitId = 9, PrincipalId = akavick.PrincipalId, PermissionId = 11, ObjectId = 1 });
+            //свои заявки - просмотр, редактирование, отзыв
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 2, ObjectId = 30000001 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 2, ObjectId = 30000003 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 2, ObjectId = 30000004 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 2, ObjectId = 30000006 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 2, ObjectId = 30000007 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 2, ObjectId = 30000008 });
+
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 3, ObjectId = 30000001 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 3, ObjectId = 30000003 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 3, ObjectId = 30000004 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 3, ObjectId = 30000006 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 3, ObjectId = 30000007 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 3, ObjectId = 30000008 });
+
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 4, ObjectId = 30000001 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 4, ObjectId = 30000003 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 4, ObjectId = 30000004 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 4, ObjectId = 30000006 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 4, ObjectId = 30000007 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 4, ObjectId = 30000008 });
+
+
         }
 
 

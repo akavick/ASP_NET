@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 using Permissions.Authorization;
+using Permissions.Authorization.Filters;
+using Permissions.Authorization.Requirements;
 using Permissions.DAL;
 using Permissions.DAL.FakeRepository;
 using Permissions.Models;
@@ -15,7 +17,6 @@ using Permissions.Models;
 
 namespace Permissions.Controllers
 {
-
     public class WorkController : Controller
     {
         private readonly IAuthorizationService _authorizationService;
@@ -32,7 +33,7 @@ namespace Permissions.Controllers
 
 
 
-        [Authorize(Policies.CanViewFirstPage)]
+        [ComponentAccessAuthorizationFilter(20021001, 1)]
         public IActionResult FirstPage()
         {
             var repositoryRequests = _repository.Requests;
@@ -42,7 +43,7 @@ namespace Permissions.Controllers
 
 
 
-        [Authorize(Policies.CanViewSecondPage)]
+        [ComponentAccessAuthorizationFilter(20021002, 1)]
         public IActionResult SecondPage(int id)
         {
             var request = _repository.Requests.SingleOrDefault(r => r.RequestId == id);
@@ -57,7 +58,7 @@ namespace Permissions.Controllers
 
 
 
-        [Authorize(Policies.CanViewThirdPage)]
+        [ComponentAccessAuthorizationFilter(20021003, 1)]
         public IActionResult ThirdPage()
         {
             return View();
