@@ -1,4 +1,6 @@
-﻿namespace ContractsLibrary.Caching
+﻿using Microsoft.Extensions.Caching.Memory;
+
+namespace ContractsLibrary.Caching
 {
 
 

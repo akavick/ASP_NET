@@ -48,22 +48,22 @@ namespace Permissions
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicyAndClaimRequirement(Policies.CanCreateRequests);
-                options.AddPolicyAndClaimRequirement(Policies.CanApproveRequests);
-                options.AddPolicyAndClaimRequirement(Policies.CanRejectRequests);
-                options.AddPolicyAndClaimRequirement(Policies.CanRejectApprovedRequests);
-                options.AddPolicyAndClaimRequirement(Policies.CanApproveRejectedRequests);
-                options.AddPolicyAndClaimRequirement(Policies.CanApproveThisRequest);
-                options.AddPolicyAndClaimRequirement(Policies.CanAddComments);
-                options.AddPolicyAndClaimRequirement(Policies.CanViewFirstPage);
-                options.AddPolicyAndClaimRequirement(Policies.CanViewSecondPage);
-                options.AddPolicyAndClaimRequirement(Policies.CanViewThirdPage);
+                options.AddPolicyAndClaimRequirement(PoliciesNames.CanCreateRequests);
+                options.AddPolicyAndClaimRequirement(PoliciesNames.CanApproveRequests);
+                options.AddPolicyAndClaimRequirement(PoliciesNames.CanRejectRequests);
+                options.AddPolicyAndClaimRequirement(PoliciesNames.CanRejectApprovedRequests);
+                options.AddPolicyAndClaimRequirement(PoliciesNames.CanApproveRejectedRequests);
+                options.AddPolicyAndClaimRequirement(PoliciesNames.CanApproveThisRequest);
+                options.AddPolicyAndClaimRequirement(PoliciesNames.CanAddComments);
+                options.AddPolicyAndClaimRequirement(PoliciesNames.CanViewFirstPage);
+                options.AddPolicyAndClaimRequirement(PoliciesNames.CanViewSecondPage);
+                options.AddPolicyAndClaimRequirement(PoliciesNames.CanViewThirdPage);
 
                 //options.AddPolicy("CanCreateRequests", policy => policy.RequireClaim("CanCreateRequests"));
                 //options.AddPolicy("Founders", policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
                 //options.AddPolicy("EditPolicy", policy => policy.Requirements.Add(new SameAuthorRequirement()));
 
-                options.AddPolicy(Policies.ViewResource, policy =>
+                options.AddPolicy(PoliciesNames.ViewResource, policy =>
                 {
                     policy.RequireAssertion(context =>
                     {

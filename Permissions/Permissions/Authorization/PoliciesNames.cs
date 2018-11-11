@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Permissions.Authorization
 {
-    public static class Policies
+    public static class PoliciesNames
     {
         public const string ViewResource = "ViewResource";
 

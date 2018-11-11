@@ -31,7 +31,7 @@
 
         </table>
 
-        @if ((await AuthorizationService.AuthorizeAsync(User, Policies.CanCreateRequests)).Succeeded)
+        @if ((await AuthorizationService.AuthorizeAsync(User, PoliciesNames.CanCreateRequests)).Succeeded)
         {
             <button style="margin-top: 10px;">Create</button>
         }
@@ -55,7 +55,7 @@
             }
         </table>
 
-        @if ((await AuthorizationService.AuthorizeAsync(User, Policies.CanAddComments)).Succeeded)
+        @if ((await AuthorizationService.AuthorizeAsync(User, PoliciesNames.CanAddComments)).Succeeded)
         {
             <button style="margin-top: 10px;">Add Comment</button>
         }

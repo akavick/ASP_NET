@@ -7,9 +7,9 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
-using Cache.Interfaces;
+using ContractsLibrary.Caching;
+using ContractsLibrary.Logging;
 
-using Logger.Interfaces;
 using Logger.LogProcessors;
 
 using Microsoft.AspNetCore.Builder;
@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.IISIntegration;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -62,7 +63,7 @@ namespace SamTestCompleted
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
+            
             services.AddMemoryCache();
             services.AddSingleton<ICache, Cache.Caches.Cache>();
 
@@ -97,12 +98,7 @@ namespace SamTestCompleted
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure
-        (
-            IApplicationBuilder applicationBuilder
-          , IHostingEnvironment hostingEnvironment
-          , ILogProcessor logger
-        )
+        public void Configure(IApplicationBuilder applicationBuilder, IHostingEnvironment hostingEnvironment, ILogProcessor logger)
         {
             var loggingSection = Configuration.GetSection("Logging");
             var sourceName = loggingSection["SourceName"];
@@ -158,7 +154,9 @@ namespace SamTestCompleted
             applicationBuilder.UseMiddleware<BrowserConstrainterMiddleware>();
 
             #region impersonation
-
+            
+            //// Note that RunImpersonated doesn't support asynchronous operations and shouldn't be used for complex scenarios.
+            //// For example, wrapping entire requests or middleware chains isn't supported or recommended.
             //applicationBuilder.Use(async (context, next) =>
             //{
             //    try

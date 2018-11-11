@@ -2,12 +2,10 @@
 using System.Threading.Tasks;
 
 using ContractsLibrary.ErrorHandling;
+using ContractsLibrary.Logging;
+using ContractsLibrary.Mailing;
 
 using ErrorHandler.Helpers;
-
-using Logger.Interfaces;
-
-using Mailer.Interfaces;
 
 
 
