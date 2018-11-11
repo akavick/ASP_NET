@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using ContractsLibrary.ErrorHandling;
+
 using ErrorHandler.Helpers;
-using ErrorHandler.Interfaces;
 
 using Logger.Interfaces;
 

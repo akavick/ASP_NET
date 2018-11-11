@@ -1,4 +1,4 @@
-﻿namespace Logger.Interfaces
+﻿namespace ContractsLibrary.Logging
 {
 
 

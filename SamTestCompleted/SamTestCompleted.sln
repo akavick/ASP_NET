@@ -49,6 +49,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Caching", "Caching", "{01C2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cache", "Cache\Cache.csproj", "{B3A60A36-4EBA-4174-9203-A22DAE1391F8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{60FCBB22-5FAC-4B9C-B3A3-AB9D64D497BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContractsLibrary", "ContractsLibrary\ContractsLibrary.csproj", "{66CBCD31-31FB-4758-BD0C-CDE2E0C22578}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +95,10 @@ Global
 		{B3A60A36-4EBA-4174-9203-A22DAE1391F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3A60A36-4EBA-4174-9203-A22DAE1391F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3A60A36-4EBA-4174-9203-A22DAE1391F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66CBCD31-31FB-4758-BD0C-CDE2E0C22578}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66CBCD31-31FB-4758-BD0C-CDE2E0C22578}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66CBCD31-31FB-4758-BD0C-CDE2E0C22578}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66CBCD31-31FB-4758-BD0C-CDE2E0C22578}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,6 +113,7 @@ Global
 		{1B00A494-48BF-485F-8F70-EE13B1D066C9} = {219E7FCB-275F-438C-A11A-BA36BDC13149}
 		{99167C4C-8C04-4E19-B499-A7AE0BB70968} = {57079F50-CD0F-4E4F-A5E2-02F96B3DE518}
 		{B3A60A36-4EBA-4174-9203-A22DAE1391F8} = {01C29995-7DCC-48D1-A81A-67F3CA5F455C}
+		{66CBCD31-31FB-4758-BD0C-CDE2E0C22578} = {60FCBB22-5FAC-4B9C-B3A3-AB9D64D497BE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DB3E53D0-DA81-4507-81A7-89942C3976EE}

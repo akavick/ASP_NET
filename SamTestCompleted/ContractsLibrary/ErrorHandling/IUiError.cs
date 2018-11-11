@@ -1,4 +1,4 @@
-﻿namespace ErrorHandler.Interfaces
+﻿namespace ContractsLibrary.ErrorHandling
 {
 
     public interface IUiError

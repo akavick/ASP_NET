@@ -2,7 +2,7 @@
 
 
 
-namespace Mailer.Interfaces
+namespace ContractsLibrary.Mailing
 {
 
     public interface IMailProcessor

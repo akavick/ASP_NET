@@ -1,12 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Primitives;
-
-
-
-namespace Cache.Interfaces
+﻿namespace ContractsLibrary.Caching
 {
 
 

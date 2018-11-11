@@ -1,4 +1,4 @@
-﻿using Cache.Interfaces;
+﻿using ContractsLibrary.Caching;
 
 using Microsoft.Extensions.Caching.Memory;
 

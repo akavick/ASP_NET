@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-using Logger.Interfaces;
+using ContractsLibrary.Logging;
 
 
 

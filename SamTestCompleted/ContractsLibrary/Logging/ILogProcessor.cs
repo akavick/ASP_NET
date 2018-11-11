@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 
 
-namespace Logger.Interfaces
+namespace ContractsLibrary.Logging
 {
 
 

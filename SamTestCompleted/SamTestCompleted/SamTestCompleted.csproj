@@ -30,7 +30,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AuthenticationLogic\AuthenticationLogic.csproj" />
+    <ProjectReference Include="..\AuthorizationLogic\AuthorizationLogic.csproj" />
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
     <ProjectReference Include="..\Cache\Cache.csproj" />
+    <ProjectReference Include="..\ContractsLibrary\ContractsLibrary.csproj" />
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\ErrorHandler\ErrorHandler.csproj" />
     <ProjectReference Include="..\Logger\Logger.csproj" />
     <ProjectReference Include="..\Mailer\Mailer.csproj" />
