@@ -14,7 +14,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 using Permissions.Authorization;
-using Permissions.Configuration;
 using Permissions.Authorization.Handlers;
 using Permissions.Middlewares;
 using Permissions.DAL;
@@ -79,9 +78,9 @@ namespace Permissions
 
             services.AddSingleton<Repository>();
 
-            services.AddSingleton<IAuthorizationHandler, ComponentCodeHandler>();
+            //services.AddSingleton<IAuthorizationHandler, ComponentCodeHandler>();
+            services.AddSingleton<IAuthorizationHandler, RequestPermissionHandler>();
             services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
-            services.AddSingleton<IAuthorizationHandler, TestHandler>();
 
             services.AddTransient<AuthorizationLogic>();
 
@@ -127,7 +126,7 @@ namespace Permissions
                 cid.AddClaim("CanAddComments", "true");
                 cid.AddClaim("CanViewFirstPage", "true");
                 cid.AddClaim("CanViewSecondPage", "true");
-                //cid.AddOrRewriteClaim("CanRejectApprovedRequests", "true");
+                //cid.AddClaim("CanRejectApprovedRequests", "true");
 
                 await next();
             });

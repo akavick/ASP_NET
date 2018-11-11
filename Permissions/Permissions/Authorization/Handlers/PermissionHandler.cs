@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
 
+using Permissions.Authorization.Requirements;
+using Permissions.DAL.FakeRepository;
+
 
 
 namespace Permissions.Authorization.Handlers
@@ -11,12 +14,31 @@ namespace Permissions.Authorization.Handlers
 
     public class PermissionHandler : IAuthorizationHandler
     {
+        private Repository _repository;
+
+
+
+        public PermissionHandler(Repository repository)
+        {
+            _repository = repository;
+        }
+
+
+
         public Task HandleAsync(AuthorizationHandlerContext context)
         {
             var pendingRequirements = context.PendingRequirements.ToList();
 
             foreach (var requirement in pendingRequirements)
             {
+                if (requirement is ComponentCodeRequirement)
+                {
+                    if (IsOwner(context.User, context.Resource) || IsSponsor(context.User, context.Resource))
+                    {
+                        context.Succeed(requirement);
+                    }
+                }
+
                 //if (requirement is ReadPermission)
                 //{
                 //    if (IsOwner(context.User, context.Resource) || IsSponsor(context.User, context.Resource))

@@ -9,11 +9,22 @@ using Microsoft.AspNetCore.Authorization.Infrastructure;
 
 namespace Permissions.Authorization
 {
+
+
+
     public static class Operations
     {
-        public static OperationAuthorizationRequirement Create = new OperationAuthorizationRequirement { Name = nameof(Create) };
-        public static OperationAuthorizationRequirement Read   = new OperationAuthorizationRequirement { Name = nameof(Read)   };
-        public static OperationAuthorizationRequirement Update = new OperationAuthorizationRequirement { Name = nameof(Update) };
-        public static OperationAuthorizationRequirement Delete = new OperationAuthorizationRequirement { Name = nameof(Delete) };
+        public static OperationAuthorizationRequirement ViewRequest = new OperationAuthorizationRequirement {Name = nameof(ViewRequest)};
+
+        public static OperationAuthorizationRequirement EditRequest = new OperationAuthorizationRequirement {Name = nameof(EditRequest)};
+
+        public static OperationAuthorizationRequirement ApproveRequest = new OperationAuthorizationRequirement {Name = nameof(ApproveRequest)};
+
+        public static OperationAuthorizationRequirement RejectRequest = new OperationAuthorizationRequirement {Name = nameof(RejectRequest)};
+
+        public static OperationAuthorizationRequirement CreateRequest = new OperationAuthorizationRequirement {Name = nameof(CreateRequest)};
     }
+
+
+
 }

@@ -19,7 +19,7 @@
 
             @foreach (var request in Model)
             {
-                if ((await AuthorizationService.AuthorizeAsync(User, request, "ViewResource")).Succeeded)
+                if ((await AuthorizationService.AuthorizeAsync(User, request, Operations.ViewRequest)).Succeeded)
                 {
                     <tr>
                         <td><a href="@Url.RouteUrl(new { controller = "Work", action = "SecondPage", id = request.RequestId })">@request.RequestId</a></td>

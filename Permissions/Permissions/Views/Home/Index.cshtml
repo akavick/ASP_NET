@@ -1,21 +1,26 @@
 ﻿@{
-    var theFirstlinkId = "theFirstlinkId";
+    const string theFirstPagelinkId = "theFirstPagelink";
+    const int theFirstPagelinkCode = 1000001;
+
+    const string theThirdPagelinkId = "theThirdPagelink";
+    const int theThirdPagelinkCode = 1000002;
+
     ViewData["Title"] = "Work Page";
 }
 
 <div>
     
-    @if ((await AuthorizationService.AuthorizeAsync(User, theFirstlinkId, Policies.CanViewFirstPage)).Succeeded /*todo*/)
+    @if ((await AuthorizationService.AuthorizeAsync(User, theFirstPagelinkId, new ComponentCodeRequirement(theFirstPagelinkCode))).Succeeded)
     {
         <p>
-            <a id="@theFirstlinkId" href="@Url.Action("FirstPage", "Work")">First page</a>
+            <a id="@theFirstPagelinkId" href="@Url.Action("FirstPage", "Work")">First page</a>
         </p>
     }
     
-    @if ((await AuthorizationService.AuthorizeAsync(User, Policies.CanViewThirdPage)).Succeeded /*todo*/)
+    @if ((await AuthorizationService.AuthorizeAsync(User, theThirdPagelinkId, new ComponentCodeRequirement(theThirdPagelinkCode))).Succeeded)
     {
         <p>
-            <a href="@Url.Action("ThirdPage", "Work")">Second page</a>
+            <a id="@theThirdPagelinkId" href="@Url.Action("ThirdPage", "Work")">Second page</a>
         </p>
     }
 
