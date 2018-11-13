@@ -69,7 +69,7 @@ namespace SamTestCompleted
 
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
-            services.AddSingleton<ILogProcessor, LogProcessor>();
+            services.AddSingleton<ISaMLogService, IsaMLogService>();
 
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -98,7 +98,7 @@ namespace SamTestCompleted
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder applicationBuilder, IHostingEnvironment hostingEnvironment, ILogProcessor logger)
+        public void Configure(IApplicationBuilder applicationBuilder, IHostingEnvironment hostingEnvironment, ISaMLogService logger)
         {
             var loggingSection = Configuration.GetSection("Logging");
             var sourceName = loggingSection["SourceName"];

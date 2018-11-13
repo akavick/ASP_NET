@@ -9,7 +9,7 @@ namespace SamTestCompleted.Models
 
 
 
-    public class UiError : IUiError
+    public class UiError : ISaMUiError
     {
         public string Message { get; set; }
 
@@ -23,17 +23,21 @@ namespace SamTestCompleted.Models
 
         public string Url { get; set; }
 
+        public string FileName { get; set; }
 
 
-        public string ToMsgString()
+
+        public string Detail()
         {
             var nl = Environment.NewLine;
+
             var msg = $"UI ERROR from url: {Url}{nl}"
-                    + $"User: {UserName}{nl}"
-                    + $"IsAuthenticated: {UserIsAuthenticated}{nl}"
-                    + $"AuthenticationType: {UserAuthenticationType}{nl}"
-                    + $"Message: {Message}{nl}"
-                    + $"Stack: {Stack}{nl}";
+                      + $"File: {FileName}{nl}"
+                      + $"User: {UserName}{nl}"
+                      + $"IsAuthenticated: {UserIsAuthenticated}{nl}"
+                      + $"AuthenticationType: {UserAuthenticationType}{nl}"
+                      + $"Message: {Message}{nl}"
+                      + $"Stack: {Stack}{nl}";
 
             return msg;
         }

@@ -7,7 +7,7 @@ using ContractsLibrary.Mailing;
 namespace Mailer.MailProcessors
 {
 
-    public class MailProcessor : IMailProcessor
+    public class MailService : IMailService
     {
 
         public void MailError(string errorMsg)

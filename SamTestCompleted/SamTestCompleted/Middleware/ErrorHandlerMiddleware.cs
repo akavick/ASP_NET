@@ -31,7 +31,7 @@ namespace SamTestCompleted.Middleware
 
 
 
-        public async Task InvokeAsync(HttpContext context, ILogProcessor logger)
+        public async Task InvokeAsync(HttpContext context, ISaMLogService logger)
         {
             var user = context.User?.Identity as System.Security.Principal.WindowsIdentity ?? context.User?.Identity;
             var errorFeature = context.Features.Get<IExceptionHandlerFeature>();

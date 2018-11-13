@@ -8,7 +8,7 @@ using ContractsLibrary.Authorization;
 namespace AuthorizationLogic
 {
 
-    public class Authorizer : IAuthorizer
+    public class AuthorizationService : IAuthorizationService
     {
 
         public bool TryAuthorize(IPrincipal user, string resourceId, string permission)

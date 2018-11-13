@@ -17,7 +17,8 @@ window.SamTestCompleted.ErrorModule = window.SamTestCompleted.ErrorModule || (fu
         {
             var stack = errorEvent.error.stack;
             var message = errorEvent.message;
-            var url = errorEvent.filename;
+            var url = window.location;
+            var fileName = errorEvent.filename;
             var user = module.options.currentUser;
             var userName = "unknown";
             var userIsAuthenticated = false;
@@ -35,6 +36,7 @@ window.SamTestCompleted.ErrorModule = window.SamTestCompleted.ErrorModule || (fu
                 message: message,
                 stack: stack,
                 url: url,
+                fileName: fileName,
                 userName: userName,
                 userIsAuthenticated: userIsAuthenticated,
                 userAuthenticationType: userAuthenticationType

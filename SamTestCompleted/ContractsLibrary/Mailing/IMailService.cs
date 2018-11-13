@@ -5,7 +5,7 @@
 namespace ContractsLibrary.Mailing
 {
 
-    public interface IMailProcessor
+    public interface IMailService
     {
         void MailError(string errorMsg);
         Task MailErrorAsync(string errorMsg);

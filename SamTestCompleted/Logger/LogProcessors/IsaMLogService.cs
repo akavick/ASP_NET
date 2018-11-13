@@ -12,7 +12,7 @@ namespace Logger.LogProcessors
 
 
 
-    public class LogProcessor : ILogProcessor
+    public class IsaMLogService : ISaMLogService
     {
         private event Func<string, DateTime, Task> LogInformationAsyncEvent;
         private event Func<string, DateTime, Task> LogWarningAsyncEvent;
@@ -34,34 +34,34 @@ namespace Logger.LogProcessors
             LogErrorAsyncEvent -= logger.LogErrorAsync;
         }
 
-        public void LogInformation(string message)
+        public void LogInformation(string infoMessage)
         {
-            LogInformationAsyncEvent?.Invoke(message, DateTime.Now);
+            LogInformationAsyncEvent?.Invoke(infoMessage, DateTime.Now);
         }
 
-        public void LogWarning(string message)
+        public void LogWarning(string warningMessage)
         {
-            LogWarningAsyncEvent?.Invoke(message, DateTime.Now);
+            LogWarningAsyncEvent?.Invoke(warningMessage, DateTime.Now);
         }
 
-        public void LogError(string message, Exception exception)
+        public void LogError(string errorMessage, Exception exception)
         {
-            LogErrorAsyncEvent?.Invoke(message, DateTime.Now, exception);
+            LogErrorAsyncEvent?.Invoke(errorMessage, DateTime.Now, exception);
         }
 
-        public async Task LogInformationAsync(string message, DateTime when)
+        public async Task LogInformationAsync(string infoMessage, DateTime when)
         {
-            await (LogInformationAsyncEvent?.Invoke(message, when) ?? Task.CompletedTask);
+            await (LogInformationAsyncEvent?.Invoke(infoMessage, when) ?? Task.CompletedTask);
         }
 
-        public async Task LogWarningAsync(string message, DateTime when)
+        public async Task LogWarningAsync(string warning, DateTime when)
         {
-            await (LogWarningAsyncEvent?.Invoke(message, when) ?? Task.CompletedTask);
+            await (LogWarningAsyncEvent?.Invoke(warning, when) ?? Task.CompletedTask);
         }
 
-        public async Task LogErrorAsync(string message, DateTime when, Exception exception)
+        public async Task LogErrorAsync(string errorMessage, DateTime when, Exception exception)
         {
-            await (LogErrorAsyncEvent?.Invoke(message, when, exception) ?? Task.CompletedTask);
+            await (LogErrorAsyncEvent?.Invoke(errorMessage, when, exception) ?? Task.CompletedTask);
         }
 
     }

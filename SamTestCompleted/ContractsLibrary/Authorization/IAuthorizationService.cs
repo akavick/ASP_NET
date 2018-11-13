@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace ContractsLibrary.Authorization
 {
 
-    public interface IAuthorizer
+    public interface IAuthorizationService
     {
         bool TryAuthorize(IPrincipal user, string resourceId, string permission);
 
