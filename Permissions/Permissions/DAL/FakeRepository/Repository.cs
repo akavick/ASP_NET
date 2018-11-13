@@ -81,9 +81,9 @@ namespace Permissions.DAL.FakeRepository
             _requests.Add(new Request{ RequestId = 30000010, Author = arba,    Status = RequestStatuses.New      });
 
 
-            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 7, ObjectId = 20011001 });
-            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 7, ObjectId = 20021001 });
-            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 7, ObjectId = 20021002 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 1, ObjectId = 20011001 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 1, ObjectId = 20021001 });
+            _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 1, ObjectId = 20021002 });
 
             //чужие заявки - просмотр
             _mapUnits.Add(new MapUnit { PrincipalId = akavick.PrincipalId, PermissionId = 2, ObjectId = 30000002 });
