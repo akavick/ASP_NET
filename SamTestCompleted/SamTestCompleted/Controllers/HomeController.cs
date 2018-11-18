@@ -23,11 +23,11 @@ namespace SamTestCompleted.Controllers
 
     public class HomeController : Controller
     {
-        private readonly ISaMLogService _logger;
+        private readonly ILogService _logger;
 
 
 
-        public HomeController(ISaMLogService logger)
+        public HomeController(ILogService logger)
         {
             _logger = logger;
         }

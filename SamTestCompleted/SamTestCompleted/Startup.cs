@@ -69,7 +69,7 @@ namespace SamTestCompleted
 
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
-            services.AddSingleton<ISaMLogService, IsaMLogService>();
+            services.AddSingleton<ILogService, SaMLogService>();
 
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -78,19 +78,6 @@ namespace SamTestCompleted
                         options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                         options.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
                     });
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("TestPolicy1", policy => policy.RequireClaim("TestClaim1"));
-                options.AddPolicy("TestPolicy2", policy => policy.RequireClaim("TestClaim3"));
-                options.AddPolicy("Founders", policy => policy.RequireClaim("EmployeeNumber", "1", "2", "3", "4", "5"));
-                options.AddPolicy("BadgeEntry", policy =>
-                                      policy.RequireAssertion(context =>
-                                                                  context.User.HasClaim(c =>
-                                                                                            (c.Type == ClaimTypes.Country ||
-                                                                                             c.Type == ClaimTypes.DateOfBirth) &&
-                                                                                            c.Issuer == "https://microsoftsecurity")));
-            });
         }
 
 
@@ -98,27 +85,15 @@ namespace SamTestCompleted
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder applicationBuilder, IHostingEnvironment hostingEnvironment, ISaMLogService logger)
+        public void Configure(IApplicationBuilder applicationBuilder, IHostingEnvironment hostingEnvironment, ILogService logService)
         {
             var loggingSection = Configuration.GetSection("Logging");
             var sourceName = loggingSection["SourceName"];
             var logName = loggingSection["LogName"];
-            logger.Subscribe(new Logger.Loggers.EventLogLogger(sourceName, logName));
+            logService.Subscribe(new Logger.Loggers.EventLogLogger(sourceName, logName));
 
             applicationBuilder.Use(async (context, next) =>
             {
-                var cid = (ClaimsIdentity) context.User.Identity;
-
-                if(!cid.HasClaim(c => c.Type == "TestClaim1"))
-                {
-                    cid.AddClaim(new Claim("TestClaim1", "true"));
-                }
-
-                if (!cid.HasClaim(c => c.Type == "TestClaim2"))
-                {
-                    cid.AddClaim(new Claim("TestClaim2", "false"));
-                }
-
                 await next();
             });
 
@@ -126,7 +101,7 @@ namespace SamTestCompleted
             {
                 var nl = Environment.NewLine;
                 var msg = $"ERROR: {""}{nl}User: {context.GetUser().Name}{nl}StatusCode: {context.GetStatusCode()}{nl}";
-                await logger.LogWarningAsync(msg, DateTime.Now);
+                await logService.LogWarningAsync(msg, DateTime.Now);
 
                 context.HttpContext.Response.ContentType = "text/html";
                 await context.HttpContext.Response.WriteAsync($"<h1>Error {context.HttpContext.Response.StatusCode}</h1>");

@@ -13,7 +13,7 @@ namespace Logger.Loggers
 
 
 
-    public class EventLogLogger : IEventLogLogger
+    public class EventLogLogger : ILogger
     {
         protected string SourceName;
         protected string LogName;

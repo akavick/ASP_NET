@@ -13,13 +13,13 @@ namespace ErrorHandler.ErrorHandlers
 {
     public class SaMErrorHandler : ISaMErrorHandler
     {
-        private ISaMLogService _isaMLogService;
+        private ILogService _isaMLogService;
 
         private IMailService _mailService;
 
 
 
-        public SaMErrorHandler(ISaMLogService isaMLogService, IMailService mailService)
+        public SaMErrorHandler(ILogService isaMLogService, IMailService mailService)
         {
             _isaMLogService = isaMLogService;
             _mailService = mailService;
@@ -41,6 +41,13 @@ namespace ErrorHandler.ErrorHandlers
 
 
 
+        public void HandleError(Exception error)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
         public void HandleError(Exception error, string message = null)
         {
             _isaMLogService.LogError(message, error);
@@ -49,10 +56,45 @@ namespace ErrorHandler.ErrorHandlers
 
 
 
+        public void HandleError<TModel>(Exception error, TModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        public void HandleError<TModel>(Exception error, TModel model, string message)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        public Task HandleErrorAsync(Exception error, DateTime when)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
         public async Task HandleErrorAsync(Exception error, DateTime when, string message = null)
         {
             await _isaMLogService.LogErrorAsync(message, when, error);
             await _mailService.MailErrorAsync(ErrorHelper.GetBeautifiedErrorMessage(error));
+        }
+
+
+
+        public Task HandleErrorAsync<TModel>(Exception error, DateTime when, TModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        public Task HandleErrorAsync<TModel>(Exception error, DateTime when, TModel model, string message)
+        {
+            throw new NotImplementedException();
         }
 
 

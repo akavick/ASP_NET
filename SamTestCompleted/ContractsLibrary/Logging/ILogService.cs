@@ -11,7 +11,7 @@ namespace ContractsLibrary.Logging
     /// <summary>
     /// Контракт сервиса логирования
     /// </summary>
-    public interface ISaMLogService
+    public interface ILogService
     {
         /// <summary>
         /// Подписать логгер
