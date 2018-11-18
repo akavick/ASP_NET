@@ -40,11 +40,6 @@ namespace SamTestCompleted
                            var sourceName = loggingSection["SourceName"];
                            var logName = loggingSection["LogName"];
 
-                           if (!EventLog.SourceExists(sourceName))
-                           {
-                               EventLog.CreateEventSource(sourceName, logName);
-                           }
-
                            logging.ClearProviders();
                            logging.AddConfiguration(loggingSection);
                            logging.AddEventLog(new EventLogSettings

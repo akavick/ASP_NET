@@ -90,7 +90,7 @@ namespace SamTestCompleted
             var loggingSection = Configuration.GetSection("Logging");
             var sourceName = loggingSection["SourceName"];
             var logName = loggingSection["LogName"];
-            logService.Subscribe(new Logger.Loggers.EventLogLogger(sourceName, logName));
+            //logService.Subscribe(new Logger.Loggers.EventLogLogger(sourceName, logName));
 
             applicationBuilder.Use(async (context, next) =>
             {
