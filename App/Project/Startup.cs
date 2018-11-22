@@ -71,6 +71,7 @@ namespace Project
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
     }
 
 
