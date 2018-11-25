@@ -5,4 +5,9 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Logging\" />
+    <Folder Include="Mailing\" />
+  </ItemGroup>
+
 </Project>
