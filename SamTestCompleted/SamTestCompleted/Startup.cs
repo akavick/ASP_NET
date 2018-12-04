@@ -161,10 +161,10 @@ namespace SamTestCompleted
             applicationBuilder.UseStaticFiles();
             applicationBuilder.UseCookiePolicy();
             //applicationBuilder.UseAuthentication();
-            applicationBuilder.UseMvcWithDefaultRoute();
 
             #region routes
 
+            applicationBuilder.UseMvcWithDefaultRoute();
             //applicationBuilder.UseMvc(routes =>
             //{
             //    routes.MapRoute(
