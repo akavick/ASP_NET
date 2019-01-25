@@ -1,0 +1,194 @@
+﻿@using Syncfusion.EJ2.Charts
+@model RsApplication
+
+@{
+    Layout = null;
+    var lines = new
+    {
+        width = 0.0001
+    };
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Chart</title>
+
+    <environment include="Development">
+        @*<link rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+            crossorigin="anonymous" />*@
+        <link rel="stylesheet"
+              href="~/vendor/bootstrap/dist/css/bootstrap.min.css" />
+
+        @*<link rel="stylesheet"
+            href="https://cdn.syncfusion.com/ej2/bootstrap.css" />*@
+        <link rel="stylesheet"
+              href="~/vendor/@@syncfusion/ej2/bootstrap.css" />
+    </environment>
+
+    <environment exclude="Development">
+        <link rel="stylesheet"
+              href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet"
+              href="~/lib/@@syncfusion/ej2/bootstrap.css" />
+    </environment>
+
+    <link rel="stylesheet"
+          href="~/css/site.min.css"
+          asp-append-version="true" />
+
+    <style>
+
+        html, body
+        {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+
+    <script>
+
+        function chartMouseClick(obj)
+        {
+            console.log(obj.target);
+        }
+
+        window.onChartLoad = function (obj) { console.log("hi"); };
+
+    </script>
+</head>
+<body>
+
+    <div id="mainChartWrapper">
+
+        <ejs-chart id="Chart"
+                   load="window.onChartLoad"
+                   chartMouseClick="chartMouseClick"
+                   height="300">
+
+            <e-chart-primaryxaxis majorGridLines="@(new ChartMajorGridLines{Width = 0.0001})"
+                                  labelIntersectAction="Rotate45"
+                                  valueType="DateTime"
+                                  maximum="Model?.BeginDate.AddDays(-1)"
+                                  minimum="Model?.EndDate.AddDays(1)"
+                                  edgeLabelPlacement="Shift"
+                                  intervalType="Days"
+                                  labelFormat="dd MMM"
+                                  enableAutoIntervalOnZooming="true"></e-chart-primaryxaxis>
+
+            <e-chart-primaryyaxis minimum="0"
+                                  maximum="2"
+                                  interval="0.25"
+                                  title="ставка"
+                                  labelFormat="{value}"
+                                  majorTickLines="@(new ChartMajorTickLines{Width = 0.0001})"
+                                  lineStyle="@(new ChartAxisLine{Width = 0.0001})"></e-chart-primaryyaxis>
+
+            <e-series-collection>
+
+                @foreach (ChartData<DateTime> chartData in ViewBag.ColumnsDataSource)
+                {
+                    <e-series dataSource="chartData.DataSource"
+                              name="@(chartData.Name)"
+                              id="@(chartData.Name)"
+                              columnWidth="0.75"
+                              xName="X"
+                              yName="Y"
+                              width="2"
+                              opacity="0.8"
+                              fill="@(chartData.Color)"
+                              legendShape="@(Syncfusion.EJ2.Charts.LegendShape.SeriesType)"
+                              type="@(chartData.SeriesType)">
+
+                        <e-segments>
+                            <e-segment></e-segment>
+                        </e-segments>
+
+                    </e-series>
+                }
+
+                @foreach (ChartData<DateTime> chartData in ViewBag.LineDataSource)
+                {
+                    <e-series dataSource="chartData.DataSource"
+                              name="@(chartData.Name)"
+                              id="@(chartData.Name)"
+                              xName="X"
+                              yName="Y"
+                              width="2.5"
+                              opacity="1"
+                              fill="@(chartData.Color)"
+                              type="@(chartData.SeriesType)"
+                              enableTooltip="false"></e-series>
+                }
+
+            </e-series-collection>
+
+            <e-chart-zoomsettings enableMouseWheelZooming="true"
+                                  enablePinchZooming="true"
+                                  mode="X"
+                                  enableScrollbar="true"></e-chart-zoomsettings>
+
+            <e-chart-margin bottom="10"
+                            top="10"
+                            left="0"
+                            right="15"></e-chart-margin>
+
+            <e-chart-tooltipsettings enable="true"
+                                     enableAnimation="true"
+                                     header="проект: <b>${series.name} ${point.x}</b>"
+                                     format="<b>${point.x}</b>, ставка: <b>${point.y}</b>"></e-chart-tooltipsettings>
+
+            <e-chart-legendsettings toggleVisibility="true"
+                                    position="Bottom"></e-chart-legendsettings>
+
+            <e-chart-chartarea>
+                <e-chartarea-border width="0.0001"></e-chartarea-border>
+            </e-chart-chartarea>
+
+        </ejs-chart>
+    </div>
+
+
+
+
+
+
+
+    <environment include="Development">
+        @*<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>*@
+        <script src="~/vendor/jquery/dist/jquery.min.js"></script>
+
+        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>*@
+        <script src="~/vendor/popper.js/dist/umd/popper.min.js"></script>
+
+        @*<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>*@
+        <script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        @*<script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>*@
+        <script src="~/vendor/@@syncfusion/ej2/dist/ej2.min.js"></script>
+    </environment>
+
+    <environment exclude="Development">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/popper.js/dist/umd/popper.min.js"></script>
+        <script src="~/lib/bootstrap/dist/css/bootstrap.min.js"></script>
+        <script src="~/lib/@@syncfusion/ej2/dist/ej2.min.js"></script>
+    </environment>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+
+    <ejs-scripts></ejs-scripts>
+</body>
+</html>

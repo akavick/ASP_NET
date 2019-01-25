@@ -1,0 +1,136 @@
+﻿@model RsApplication
+
+
+
+@{
+    //var specialties = Enum.GetValues(typeof(SpecialtyType))
+    //                      .Cast<SpecialtyType>()
+    //                      .Where(s => s != SpecialtyType.Unset)
+    //                      .Select(s => new Specialty { Type = s })
+    //                      .ToArray();
+
+    //var qualifications = Enum.GetValues(typeof(QualificationType))
+    //                         .Cast<QualificationType>()
+    //                         .Where(q => q != QualificationType.Unset)
+    //                         .Select(q => new Qualification { Type = q })
+    //                         .ToArray();
+
+    var appIsNew = Model?.ApplicationStatus?.Type == RsApplicationStatusType.New;
+}
+
+
+
+
+<script>
+
+    function cbCandidatesChange(param)
+    {
+        document.getElementById("candidateDescriptionWrapper").style.display =
+            this.value !== null
+                ? "none"
+                : "block";
+    }
+
+</script>
+
+
+
+
+<div>
+    <div class="mb-0">
+
+        <small class="text-muted">Кандидат</small>
+        <ejs-combobox id="Candidates"
+                      placeholder="Выберите кандидата"
+                      popupHeight="200px"
+                      dataSource="@ViewBag.CandidatesDataSource"
+                      value="@Model?.Candidate?.Id"
+                      text="@Model?.Candidate?.FullName"
+                      readonly="@(!appIsNew)"
+                      enabled="@(appIsNew)"
+                      change="cbCandidatesChange">
+
+            <e-combobox-fields groupBy="Specialty.Name"
+                               text="FullName"
+                               value="Id"></e-combobox-fields>
+        </ejs-combobox>
+
+    </div>
+    
+    <div id="candidateDescriptionWrapper"
+         class="mb-3"
+         style="display: @(Model?.Candidate?.Id != null ? "none" : "block")">
+        <small class="text-muted">Описание</small>
+        <div class="e-input-group">
+            <input class="e-input"
+                   placeholder="@(!appIsNew ? "" : "Введите описание")"
+                   type="text"
+                   @(!appIsNew ? "readonly" : "")
+                   @(!appIsNew ? "disabled" : "")
+                   value="@Model?.CandidateDescription" />
+        </div>
+    </div>
+
+
+    @*<div class="mb-3">
+
+        <ejs-accordion id="CandidateInfoAccordion">
+            <e-accordion-accordionitems>
+                <e-accordion-accordionitem expanded="false"
+                                           header="Требования к кандидату"
+                                           content="#CandidateInfo">
+                </e-accordion-accordionitem>
+            </e-accordion-accordionitems>
+        </ejs-accordion>
+
+    </div>
+
+
+
+    <div id="CandidateInfo"
+         style="display: none">
+
+        <div class="mb-0">
+            <small class="text-muted">Специальность</small>
+            <ejs-dropdownlist id="Specialties"
+                              dataSource="@specialties"
+                              placeholder="Выберите специальность"
+                              value="@Model?.Specialty?.Type"
+                              popupHeight="220px"
+                              readonly="@(!appIsNew)"
+                              enabled="@(appIsNew)">
+                
+                <e-dropdownlist-fields text="Name"
+                                       value="Type"></e-dropdownlist-fields>
+            </ejs-dropdownlist>
+        </div>
+
+        <div class="mb-0">
+            <small class="text-muted">Квалификация</small>
+            <ejs-dropdownlist id="Qualifications"
+                              dataSource="@qualifications"
+                              placeholder="Выберите квалификацию"
+                              value="@Model?.Qualification?.Type"
+                              popupHeight="220px"
+                              readonly="@(!appIsNew)"
+                              enabled="@(appIsNew)">
+                
+                <e-dropdownlist-fields text="Name"
+                                       value="Type"></e-dropdownlist-fields>
+            </ejs-dropdownlist>
+        </div>
+
+        <div class="mb-0">
+            <small class="text-muted">Описание</small>
+            <div class="e-input-group">
+                <input class="e-input"
+                       placeholder="@(!appIsNew ? "" : "Введите описание")"
+                       type="text"
+                       @(!appIsNew ? "readonly" : "")
+                       @(!appIsNew ? "disabled" : "")
+                       value="@Model?.CandidateDescription" />
+            </div>
+        </div>
+
+    </div>*@
+</div>

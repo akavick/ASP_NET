@@ -1,0 +1,115 @@
+﻿@using Syncfusion.EJ2.Charts
+@model RsApplication
+
+
+
+
+
+<script>
+
+    function chartMouseClick(obj)
+    {
+        console.log(obj.target);
+    }
+    //window.onChartLoad = function(obj)
+    //{
+    //    console.log("hi");
+    //};
+
+</script>
+
+
+<div id="chartWrapper"
+     style="width:100%">
+
+    <ejs-chart id="Chart"
+               load="window.onChartLoad"
+               chartMouseClick="chartMouseClick"
+               height="300"
+               width="100%">
+
+        <e-chart-primaryxaxis majorGridLines="@(new ChartMajorGridLines{Width = 0.0001})"
+                              labelIntersectAction="Rotate45"
+                              valueType="DateTime"
+                              maximum="Model?.BeginDate.AddDays(-1)"
+                              minimum="Model?.EndDate.AddDays(1)"
+                              edgeLabelPlacement="Shift"
+                              intervalType="Days"
+                              labelFormat="dd MMM"
+                              enableAutoIntervalOnZooming="true"></e-chart-primaryxaxis>
+
+        <e-chart-primaryyaxis minimum="0"
+                              maximum="2"
+                              interval="0.25"
+                              title="ставка"
+                              labelFormat="{value}"
+                              majorTickLines="@(new ChartMajorTickLines{Width = 0.0001})"
+                              lineStyle="@(new ChartAxisLine{Width = 0.0001})"></e-chart-primaryyaxis>
+
+        <e-series-collection>
+
+            @foreach (ChartData<DateTime> chartData in ViewBag.ColumnsDataSource)
+            {
+                <e-series dataSource="chartData.DataSource"
+                          name="@(chartData.Name)"
+                          id="@(chartData.Name)"
+                          columnWidth="0.75"
+                          columnSpacing="0.1"
+                          xName="X"
+                          yName="Y"
+                          width="2"
+                          opacity="0.8"
+                          fill="@(chartData.Color)"
+                          legendShape="@(LegendShape.SeriesType)"
+                          type="@(chartData.SeriesType)">
+
+                    <e-segments>
+                        <e-segment></e-segment>
+                    </e-segments>
+
+                </e-series>
+            }
+
+            @foreach (ChartData<DateTime> chartData in ViewBag.LineDataSource)
+            {
+                <e-series dataSource="chartData.DataSource"
+                          name="@(chartData.Name)"
+                          id="@(chartData.Name)"
+                          xName="X"
+                          yName="Y"
+                          width="2.5"
+                          opacity="1"
+                          fill="@(chartData.Color)"
+                          type="@(chartData.SeriesType)"
+                          enableTooltip="false"></e-series>
+            }
+
+        </e-series-collection>
+
+        <e-chart-zoomsettings enableMouseWheelZooming="true"
+                              enablePinchZooming="true"
+                              enableSelectionZooming="true"
+                              mode="X"
+                              enableScrollbar="true"></e-chart-zoomsettings>
+
+        <e-chart-margin bottom="10"
+                        top="10"
+                        left="0"
+                        right="15"></e-chart-margin>
+
+        <e-chart-tooltipsettings enable="true"
+                                 enableAnimation="true"
+                                 header="проект: <b>${series.name} ${point.x}</b>"
+                                 format="<b>${point.x}</b>, ставка: <b>${point.y}</b>"></e-chart-tooltipsettings>
+
+        <e-chart-legendsettings toggleVisibility="true"
+                                position="Bottom"></e-chart-legendsettings>
+
+        <e-chart-chartarea>
+            <e-chartarea-border width="0.0001"></e-chartarea-border>
+        </e-chart-chartarea>
+
+    </ejs-chart>
+</div>
+
+
