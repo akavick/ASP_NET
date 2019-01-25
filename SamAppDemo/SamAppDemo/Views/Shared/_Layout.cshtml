@@ -11,8 +11,6 @@
     <link rel="stylesheet"
           href="~/lib/bootstrap/css/bootstrap.min.css" />
     
-    @*<link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/bootstrap.css" />*@
-
     <environment include="Development">
         <link rel="stylesheet"
               href="~/node_modules/@@syncfusion/ej2/bootstrap.css" />
@@ -22,8 +20,8 @@
     </environment>
 
     <environment exclude="Development">
-        @*<link rel="stylesheet"
-              href="~/lib/syncfusion/css/bootstrap.css" />*@
+        <link rel="stylesheet"
+              href="~/lib/syncfusion/css/bootstrap.min.css" />
         <link rel="stylesheet"
               href="~/css/site.min.css" />
     </environment>
@@ -32,8 +30,6 @@
     <script src="~/lib/popper.js/popper.min.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
     
-    @*<script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>*@
-
     <environment include="Development">
         <script src="~/node_modules/@@syncfusion/ej2/dist/ej2.min.js"></script>
         <script src="~/js/site.js"
@@ -41,7 +37,7 @@
     </environment>
 
     <environment exclude="Development">
-        @*<script src="~/lib/syncfusion/js/ej2.min.js"></script>*@
+        <script src="~/lib/syncfusion/js/ej2.min.js"></script>
         <script src="~/js/site.min.js"></script>
     </environment>
 
