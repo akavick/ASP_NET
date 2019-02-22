@@ -1,45 +1,57 @@
 {
-  "version": "1.0",
-  "defaultProvider": "cdnjs",
-  "libraries": [
-    {
-      "library": "twitter-bootstrap@4.2.1",
-      "destination": "wwwroot/lib/bootstrap/",
-      "files": [
-        "js/bootstrap.min.js",
-        "css/bootstrap.min.css",
-        "js/bootstrap.min.js.map",
-        "css/bootstrap.min.css.map"
-      ]
-    },
-    {
-      "library": "jquery@3.3.1",
-      "destination": "wwwroot/lib/jquery/",
-      "files": [
-        "jquery.min.js",
-        "jquery.min.map"
-      ]
-    },
-    {
-      "library": "jquery-validate@1.19.0",
-      "destination": "wwwroot/lib/jquery-validate/",
-      "files": [
-        "jquery.validate.min.js",
-        "additional-methods.min.js",
-        "localization/messages_ru.min.js"
-      ]
-    },
-    {
-      "library": "jquery-validation-unobtrusive@3.2.11",
-      "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
-    },
-    {
-      "library": "popper.js@1.14.6",
-      "destination": "wwwroot/lib/popper.js/",
-      "files": [
-        "popper.min.js",
-        "popper.min.js.map"
-      ]
-    }
-  ]
+    "version": "1.0",
+    "defaultProvider": "cdnjs",
+    "libraries":
+    [
+        {
+            "library": "twitter-bootstrap@4.3.1",
+            "destination": "wwwroot/lib/bootstrap/",
+            "files":
+            [
+                "css/bootstrap.min.css",
+                "css/bootstrap.min.css.map",
+                "js/bootstrap.bundle.min.js",
+                "js/bootstrap.bundle.min.js.map"
+            ]
+        },
+        {
+            "library": "jquery@3.3.1",
+            "destination": "wwwroot/lib/jquery/",
+            "files":
+            [
+                "jquery.min.js",
+                "jquery.min.map"
+            ]
+        },
+        {
+            "library": "jquery-validate@1.19.0",
+            "destination": "wwwroot/lib/jquery-validate/",
+            "files":
+            [
+                "jquery.validate.min.js",
+                "additional-methods.min.js",
+                "localization/messages_ru.min.js"
+            ]
+        },
+        {
+            "library": "jquery-validation-unobtrusive@3.2.11",
+            "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
+        },
+        {
+            "provider": "unpkg",
+            "library": "@syncfusion/ej2@16.4.54",
+            "destination": "wwwroot/lib/syncfusion/ej2/",
+            "files":
+            [
+                "fabric.css",
+                "highcontrast.css",
+                "license",
+                "material.css",
+                "README.md",
+                "bootstrap.css",
+                "dist/ej2.min.js",
+                "dist/ej2.min.js.map"
+            ]
+        }
+    ]
 }

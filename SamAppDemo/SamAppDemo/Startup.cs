@@ -75,18 +75,6 @@ namespace SamAppDemo
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            if (env.IsDevelopment())
-            {
-                //var path = Path.Combine(Directory.GetCurrentDirectory(), @"node_modules");
-                var path = @"D:\Git\Source\Repos\ASP_NET\SamAppDemo\SamAppDemo\node_modules";
-                app.UseStaticFiles(new StaticFileOptions
-                {
-                    FileProvider = new PhysicalFileProvider(path),
-                    RequestPath = new PathString("/node_modules")
-                });
-            }
-
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>

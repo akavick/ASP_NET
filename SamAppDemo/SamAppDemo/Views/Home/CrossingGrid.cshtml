@@ -93,7 +93,16 @@
                   toolbar="@(new List<string> {"Search"})"
                   dataBound="crossingGridDataBound">
 
-            <e-data-manager url="@Url.Action("CrossingGridDataSource", "Home", new {id = Model.Id, beginDate = Model.BeginDate, endDate = Model.EndDate, rate = Model.Rate.Type})"
+            <e-data-manager url="@Url.Action(
+                                     "CrossingGridDataSource",
+                                     "Home", 
+                                     new
+                                     {
+                                         id = Model.Id,
+                                         beginDate = Model.BeginDate,
+                                         endDate = Model.EndDate,
+                                         rate = Model.Rate.Type
+                                     })"
                             adaptor="UrlAdaptor"></e-data-manager>
             
             <e-grid-pagesettings pageSize="10.0"
