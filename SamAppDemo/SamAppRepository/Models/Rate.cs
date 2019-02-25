@@ -6,6 +6,10 @@ namespace SamAppRepository.Models
 {
     public class Rate
     {
+        private decimal _value;
+        private RateValueType _type = RateValueType.Unset;
+
+
         public static IReadOnlyDictionary<RateValueType, decimal> RateTypeToValue { get; } = new ReadOnlyDictionary<RateValueType, decimal>(new Dictionary<RateValueType, decimal>
         {
             { RateValueType.Unset, 0.0m },
@@ -32,8 +36,19 @@ namespace SamAppRepository.Models
             { 2.0m, RateValueType.Double },
         });
 
-        private decimal _value;
-        private RateValueType _type = RateValueType.Unset;
+        public static IReadOnlyCollection<Rate> Values { get; } = new List<Rate>
+        {
+            new Rate { Type = RateValueType.Unset },
+            new Rate { Type = RateValueType.Quarter },
+            new Rate { Type = RateValueType.Half },
+            new Rate { Type = RateValueType.HalfAndQuarter },
+            new Rate { Type = RateValueType.Single },
+            new Rate { Type = RateValueType.SingleAndQuarter },
+            new Rate { Type = RateValueType.SingleAndHalf },
+            new Rate { Type = RateValueType.SingleAndHalfAndQuarter },
+            new Rate { Type = RateValueType.Double },
+        }.AsReadOnly();
+
 
         public RateValueType Type
         {
@@ -56,19 +71,6 @@ namespace SamAppRepository.Models
         }
 
         public string Name => ToString();
-
-        public static IReadOnlyCollection<Rate> Values { get; } = new List<Rate>
-        {
-            new Rate { Type = RateValueType.Unset },
-            new Rate { Type = RateValueType.Quarter },
-            new Rate { Type = RateValueType.Half },
-            new Rate { Type = RateValueType.HalfAndQuarter },
-            new Rate { Type = RateValueType.Single },
-            new Rate { Type = RateValueType.SingleAndQuarter },
-            new Rate { Type = RateValueType.SingleAndHalf },
-            new Rate { Type = RateValueType.SingleAndHalfAndQuarter },
-            new Rate { Type = RateValueType.Double },
-        }.AsReadOnly();
 
         public override string ToString()
         {
