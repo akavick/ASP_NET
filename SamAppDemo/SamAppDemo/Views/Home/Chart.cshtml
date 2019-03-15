@@ -2,9 +2,6 @@
 @model RsApplication
 
 
-
-
-
 <script>
 
     function chartMouseClick(obj)
@@ -20,15 +17,15 @@
 
 
 <div id="chartWrapper"
-     style="width:100%">
+     style="width: 100%">
 
-    <ejs-chart id="Chart"
-               load="window.onChartLoad"
-               chartMouseClick="chartMouseClick"
+    <ejs-chart chartMouseClick="chartMouseClick"
                height="300"
+               id="Chart"
+               load="window.onChartLoad"
                width="100%">
 
-        <e-chart-primaryxaxis majorGridLines="@(new ChartMajorGridLines{Width = 0.0001})"
+        <e-chart-primaryxaxis majorGridLines="@(new ChartMajorGridLines { Width = 0.0001 })"
                               labelIntersectAction="Rotate45"
                               valueType="DateTime"
                               maximum="Model?.BeginDate.AddDays(-1)"
@@ -36,15 +33,17 @@
                               edgeLabelPlacement="Shift"
                               intervalType="Days"
                               labelFormat="dd MMM"
-                              enableAutoIntervalOnZooming="true"></e-chart-primaryxaxis>
+                              enableAutoIntervalOnZooming="true">
+        </e-chart-primaryxaxis>
 
         <e-chart-primaryyaxis minimum="0"
                               maximum="2"
                               interval="0.25"
                               title="ставка"
                               labelFormat="{value}"
-                              majorTickLines="@(new ChartMajorTickLines{Width = 0.0001})"
-                              lineStyle="@(new ChartAxisLine{Width = 0.0001})"></e-chart-primaryyaxis>
+                              majorTickLines="@(new ChartMajorTickLines { Width = 0.0001 })"
+                              lineStyle="@(new ChartAxisLine { Width = 0.0001 })">
+        </e-chart-primaryyaxis>
 
         <e-series-collection>
 
@@ -81,29 +80,34 @@
                           opacity="1"
                           fill="@(chartData.Color)"
                           type="@(chartData.SeriesType)"
-                          enableTooltip="false"></e-series>
+                          enableTooltip="false">
+                </e-series>
             }
 
         </e-series-collection>
 
         <e-chart-zoomsettings enableMouseWheelZooming="true"
                               enablePinchZooming="true"
+                              enableScrollbar="true"
                               enableSelectionZooming="true"
-                              mode="X"
-                              enableScrollbar="true"></e-chart-zoomsettings>
+                              mode="X">
+        </e-chart-zoomsettings>
 
         <e-chart-margin bottom="10"
-                        top="10"
                         left="0"
-                        right="15"></e-chart-margin>
+                        right="15"
+                        top="10">
+        </e-chart-margin>
 
         <e-chart-tooltipsettings enable="true"
                                  enableAnimation="true"
-                                 header="проект: <b>${series.name} ${point.x}</b>"
-                                 format="<b>${point.x}</b>, ставка: <b>${point.y}</b>"></e-chart-tooltipsettings>
+                                 format="<b>${point.x}</b>, ставка: <b>${point.y}</b>"
+                                 header="проект: <b>${series.name} ${point.x}</b>">
+        </e-chart-tooltipsettings>
 
-        <e-chart-legendsettings toggleVisibility="true"
-                                position="Bottom"></e-chart-legendsettings>
+        <e-chart-legendsettings position="Bottom"
+                                toggleVisibility="true">
+        </e-chart-legendsettings>
 
         <e-chart-chartarea>
             <e-chartarea-border width="0.0001"></e-chartarea-border>
@@ -111,5 +115,3 @@
 
     </ejs-chart>
 </div>
-
-
