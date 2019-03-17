@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using SamAppDemo.Managers;
+using SamAppRepository.Models;
+using Syncfusion.EJ2.Base;
+using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using SamAppDemo.Managers;
-using SamAppRepository.Models;
-using Syncfusion.EJ2.Base;
 
 namespace SamAppDemo.Controllers
 {
@@ -95,7 +95,7 @@ namespace SamAppDemo.Controllers
                 beginDate = endDate;
             }
 
-            var app = 
+            var app =
                 (await _manager.GetApplicationsAsync())
                 .FirstOrDefault(a => a.Number == number);
 
@@ -104,7 +104,7 @@ namespace SamAppDemo.Controllers
                 app = await _manager.GetNewApplication();
                 app.BeginDate = beginDate;
                 app.EndDate = endDate;
-                app.Rate = new Rate {Type = rate};
+                app.Rate = new Rate { Type = rate };
             }
             else
             {
@@ -128,12 +128,12 @@ namespace SamAppDemo.Controllers
 
         public async Task<IActionResult> ProjectInfo(int projectId)
         {
-            var project = 
+            var project =
                 (await _manager.GetProjectsAsync())
                 .SingleOrDefault(p => p.Id == projectId) ?? new Project();
 
 
-            return await Task.FromResult(Json(project));
+            return Json(project);
         }
 
 
@@ -145,7 +145,7 @@ namespace SamAppDemo.Controllers
         //        .FirstOrDefault(a => a.Id == id) ?? await _manager.GetNewApplication();
         //    var columns = await _manager.GetColumnsDataAsync(app);
         //    var line = await _manager.GetLineDataAsync(app);
-        //    return await Task.FromResult(Json(new { columns, line }));
+        //    return Json(new { columns, line });
         //}
 
 
@@ -171,8 +171,8 @@ namespace SamAppDemo.Controllers
 
 
 
-        private async Task<IActionResult> GridDataSource<T>([FromBody] DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate) 
-            where T: IApplication
+        private async Task<IActionResult> GridDataSource<T>([FromBody] DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate)
+            where T : IApplication
         {
             var app =
                 (await _manager.GetApplicationsAsync())
@@ -258,14 +258,18 @@ namespace SamAppDemo.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return await Task.FromResult(View());
+            await Task.CompletedTask;
+
+            return View();
         }
 
 
 
         public async Task<IActionResult> Privacy()
         {
-            return await Task.FromResult(View());
+            await Task.CompletedTask;
+
+            return View();
         }
 
 
@@ -273,12 +277,12 @@ namespace SamAppDemo.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> Error()
         {
-            return await Task.Run(() =>
-            {
-                var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+            await Task.CompletedTask;
 
-                return View(errorViewModel);
-            });
+            var errorViewModel = new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier };
+
+            return View(errorViewModel);
+
         }
 
         #endregion
