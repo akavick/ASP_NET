@@ -14,16 +14,22 @@ namespace SamAppDemo.Controllers
     {
         private readonly IManager _manager;
 
+
+
         public HomeController(IManager manager)
         {
             _manager = manager;
         }
+
+
 
         private async Task SetChartData(RsApplication app)
         {
             ViewBag.ColumnsDataSource = await _manager.GetColumnsDataAsync(app);
             ViewBag.LineDataSource = await _manager.GetLineDataAsync(app);
         }
+
+
 
         private async Task SetFormData()
         {
@@ -32,6 +38,8 @@ namespace SamAppDemo.Controllers
             ViewBag.ProjectsDataSource = await _manager.GetProjectsAsync();
             ViewBag.CandidatesDataSource = await _manager.GetPeopleAsync();
         }
+
+
 
         [HttpGet]
         public async Task<IActionResult> Form(string number)
@@ -56,6 +64,8 @@ namespace SamAppDemo.Controllers
 
             return View(app);
         }
+
+
 
         [HttpPost]
         public async Task<IActionResult> Form(string number, DateTime beginDate, DateTime endDate, RateValueType rate)
@@ -107,10 +117,14 @@ namespace SamAppDemo.Controllers
             return View(app);
         }
 
+
+
         //public async Task<IActionResult> ChartDataSource([FromBody]DataManagerRequest dm, int id)
         //{
         //    return await GridDataSource(dm, id, new RsApplication());
         //}
+
+
 
         public async Task<IActionResult> ProjectInfo(int projectId)
         {
@@ -122,6 +136,8 @@ namespace SamAppDemo.Controllers
             return await Task.FromResult(Json(project));
         }
 
+
+
         //public async Task<IActionResult> ChartDataAjax(int id)
         //{
         //    var app =
@@ -132,20 +148,28 @@ namespace SamAppDemo.Controllers
         //    return await Task.FromResult(Json(new { columns, line }));
         //}
 
+
+
         public async Task<IActionResult> CrossingGridDataSource([FromBody]DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate)
         {
             return await GridDataSource<RsApplication>(dm, id, beginDate, endDate, rate);
         }
+
+
 
         public async Task<IActionResult> AmRateGridDataSource([FromBody]DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate)
         {
             return await GridDataSource<AmRateApplication>(dm, id, beginDate, endDate, rate);
         }
 
+
+
         public async Task<IActionResult> AmOzsGridDataSource([FromBody]DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate)
         {
             return await GridDataSource<AmOzsApplication>(dm, id, beginDate, endDate, rate);
         }
+
+
 
         private async Task<IActionResult> GridDataSource<T>([FromBody] DataManagerRequest dm, int id, DateTime beginDate, DateTime endDate, RateValueType rate) 
             where T: IApplication
@@ -228,10 +252,7 @@ namespace SamAppDemo.Controllers
                 : Json(dataSource);
         }
 
-        public async Task<IActionResult> ChartWrapper(RsApplication app)
-        {
-            return await Task.FromResult(View(app));
-        }
+
 
         #region essential
 
@@ -240,10 +261,14 @@ namespace SamAppDemo.Controllers
             return await Task.FromResult(View());
         }
 
+
+
         public async Task<IActionResult> Privacy()
         {
             return await Task.FromResult(View());
         }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> Error()

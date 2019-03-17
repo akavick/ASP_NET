@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using SamAppDemo.Models;
 using SamAppRepository.Models;
-using SamProject.Models;
 
 namespace SamAppDemo.Managers
 {
